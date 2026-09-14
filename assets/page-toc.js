@@ -207,7 +207,8 @@
   }
 
   function skipPageToc(vm) {
-    return routePath(vm) === "/search";
+    var path = routePath(vm);
+    return path === "/search" || path === "/types/search";
   }
 
   function refreshPageToc(vm) {

@@ -1,0 +1,18 @@
+# Sandustry Modding Docs
+
+> Agent discovery for the Sandustry modding docs site.
+> Load the Open Knowledge Format bundle before deep reads.
+> Do not invent Sandkit APIs.
+
+## OKF bundle (start here)
+
+- [OKF agent rules](/okf/AGENTS.md): game-only scope for OKF content
+- [OKF index](/okf/index.md): Open Knowledge Format v0.2 root and domain listings
+- [Consume playbook](/okf/consume.md): how to load knowledge in order
+- [Live session](/okf/live/index.md): MCP attach, evaluate, triage, void-world batches
+
+## Site context
+
+- [Human home](/README.md): Docsify landing page for contributors and readers
+- [AGENTS.md](/AGENTS.md): repo rules for agents editing this site
+- [Official Sandkit API](https://sandustry.com/sandkit.html): signature truth for runtime API shapes

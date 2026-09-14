@@ -21,7 +21,7 @@ After the first successful upload, the publisher writes `workshop/workshop.json`
 | `publishedFileId` | Steam Workshop item id. Managed by the publisher — do not hand-edit. |
 
 Types: [configs: WorkshopJson](../api/configs.md?id=workshopjson).
-JSON Schema: [schemas/workshop.json](../schemas.md).
+JSON Schema: [schemas/workshop.json](../types/schemas.md).
 
 ## First publish
 

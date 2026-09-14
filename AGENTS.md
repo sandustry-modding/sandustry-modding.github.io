@@ -3,6 +3,21 @@
 This repository is the Docsify site for https://sandustry-modding.github.io/.
 The mod template clones it into `docs/` during `npm run setup`.
 
+## OKF vs kit vs template
+
+| Tree | Scope |
+| --- | --- |
+| `okf/` | Vanilla game and Sandkit facts only — see [okf/AGENTS.md](/okf/AGENTS.md) |
+| `modkit/` | Mod template kit (manifest helpers, React wrappers, patches) |
+| Root `README.md` on [SandustryModTemplate](https://github.com/sandustry-modding/SandustryModTemplate) | Install, folder layout, commands, troubleshooting |
+
+Agents retrieving **game** knowledge MUST load [llms.txt](/llms.txt), then [/okf/consume.md](/okf/consume.md), then **one** OKF domain index.
+Follow [/okf/AGENTS.md](/okf/AGENTS.md) when editing OKF.
+
+Agents working on the **mod template** use the template README and `modkit/` — not OKF.
+
+[SandustryTypes](https://github.com/sandustry-modding/SandustryTypes) uses the same game-only rule for types and generated API pages.
+
 ## Sandkit API reference
 
 Generated pages live under `api/` and `full.md`.
@@ -12,10 +27,10 @@ Do not hand-edit `api/` pages.
 
 ## Site pages
 
-The install guide, folder layout, commands, and troubleshooting live in the [mod template README](https://github.com/IrishBruse/SandustryModTemplate).
+The install guide, folder layout, commands, and troubleshooting live in the [mod template README](https://github.com/sandustry-modding/SandustryModTemplate).
 Do not duplicate those pages here.
 
-Keep kit and reference Markdown in this repo so Docsify can serve it.
+Keep kit pages in `modkit/` so Docsify can serve them.
 Do not put a symlink inside this tree that points outside it.
 
 In the template repo, `modkit/docs` is a symlink into `docs/modkit/`.

@@ -32,7 +32,7 @@ Sandkit domains:
 - [Hooks, storage, and assets](guides/runtime.md) — events, i18n, sound, sprites
 - [Engine vs public API](guides/engine.md) — `sandkit.api`, `engine`, `state`, `enums`
 
-[All guides →](guides/README.md)
+[All guides →](guides/)
 
 ## Template kit
 
@@ -40,13 +40,13 @@ Sandkit domains:
 - [modinfo.ts](modinfo.md) — typed manifest helpers
 - [configSchema](config-schema.md) — in-game Options for mods
 - [patches.ts](patches.md) — `definePatches` and debug patches
-- [Modkit](modkit/README.md) — shared helpers
+- [Modkit](modkit/) — shared helpers
 - [React](modkit/react.md) — JSX via `sandkit.react`
-- [UI kit](ui/README.md) — reusable HUD widgets
+- [UI kit](ui/) — reusable HUD widgets
 
 ## Browse the API
 
-Open generated Sandkit pages from [Search](search.md).
+Open generated Sandkit pages from [Search](types/search.md).
 Empty search lists namespaces.
 Typed search finds methods and types by live `sandkit` path.
 
@@ -58,30 +58,13 @@ Direct pages:
 - Mod files — not runtime `sandkit` objects
   - [modinfo.json](modinfo.json.md) — manifest fields, limits, and capabilities
   - [patches.json](patches.json.md) — bundle find-and-replace patches
-  - [TypeScript types](api/configs.md) — `modinfo.json`, `patches.json`, and `workshop.json`
-  - [JSON Schema](schemas.md) — raw schema URLs for editors
+- [Types](types/) — install `@sandustry-modding/types`, Search, JSON Schema
 - [Full API reference](full.md) — every namespace on one page
 
-## Install types
+## Types
 
-```bash
-npm install @sandustry-modding/types
-```
-
-### Ambient types (preferred)
-
-Load the host `sandkit` ambient with a triple-slash reference.
-Put it at the top of `main.js` / `worker.js`, or in a small ambient `.d.ts` that your `tsconfig` / `jsconfig` includes:
-
-```ts
-/// <reference types="@sandustry-modding/types" />
-```
-
-Works in `.ts` and `.js` (including checked JS).
-Do **not** put `@sandustry-modding/types` under `compilerOptions.types` — that list only loads packages from `node_modules/@types`.
-
-Use the ambient `sandkit` free name in `main.js`.
-In `worker.js`, type the API as `WorkerSandkitApi` — worker and main surfaces overlap but are not the same.
+Install and browse `@sandustry-modding/types` on the [Types](types/) pages.
+Use [Search](types/search.md) for namespaces and members.
 
 ## Related links
 

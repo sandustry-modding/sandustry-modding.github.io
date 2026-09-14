@@ -113,4 +113,4 @@ import { Button, Panel } from "@modkit/ui";
 </Panel>;
 ```
 
-See [../ui/README.md](../ui/README.md) for shared UI components.
+See [../ui/](../ui/) for shared UI components.

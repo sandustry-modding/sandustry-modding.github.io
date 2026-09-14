@@ -52,7 +52,7 @@ Workers have `hooks`, `events`, `grid`, `elements`, and other sim namespaces.
 Some APIs pass `SharedArrayBuffer` data between main and workers.
 Read member docs before you cache buffer views across frames.
 
-Search: [Search](../search.md) → `sandkit.api.worker`.
+Search: [Search](../types/search.md) → `sandkit.api.worker`.
 
 ## Patches on worker bundles
 

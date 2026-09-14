@@ -3,7 +3,7 @@
 `patches.json` applies exact (or regex) rewrites to Sandustry JavaScript bundles at mod load.
 
 Types: [configs: BundlePatch](api/configs.md?id=bundlepatch).
-JSON Schema: [schemas/patches.json](schemas.md).
+JSON Schema: [schemas/patches.json](types/schemas.md).
 
 ## When to patch
 

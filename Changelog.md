@@ -78,7 +78,7 @@ https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.5.0
   - `resource:collection:prepare` feedback value `"reduced"`
 - `ElementDefinition.metaColor` (discovery and lexicon label color as `0xRRGGBB`)
 - `ElementDefinition.isGrabbable` and `ElementDefinition.isTransportable` (grabber and conveyor)
-- JSON Schema files for `modinfo.json` and `patches.json` under `docs/schemas/` (GitHub Pages URLs; see [JSON Schema](schemas.md))
+- JSON Schema files for `modinfo.json` and `patches.json` under `docs/schemas/` (GitHub Pages URLs; see [JSON Schema](types/schemas.md))
 - `npm run docs:schemas` generates those schemas from `src/configs/` via `ts-json-schema-generator`; `validate` checks they are not stale
 - `ConfigSchemaChoice.description` / `descriptionKey` (same help fields as number and boolean)
 - Optional `ModInfo.$schema` for editor schema association (ignored by the game)

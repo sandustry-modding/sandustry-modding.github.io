@@ -66,7 +66,7 @@ import type { ModInfo, BundlePatch } from "@sandustry-modding/types/configs";
 - **Worker mod (`worker.js`):** type `sandkit.api` as `WorkerSandkitApi`. Worker and main APIs overlap but are not interchangeable.
 - **Shared folder:** not a runtime namespace. It holds domain shapes and API bases that main and worker modules extend.
 - **Configs folder:** `modinfo.json` and `patches.json` TypeScript types (`@sandustry-modding/types/configs`). Not part of the live `sandkit` object. JSON Schema: https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json and https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json
-- **Electron folder:** renderer preload bridge (`@sandustry-modding/types/electron`). Ambient `electron` on `@sandustry-modding/types`. Docs: [Electron bridge](https://sandustry-modding.github.io/SandustryTypes/#/electron-bridge).
+- **Electron folder:** renderer preload bridge (`@sandustry-modding/types/electron`). Ambient `electron` on `@sandustry-modding/types`. Docs: [Electron bridge](electron-bridge.md).
 
 ## Maintaining types
 
@@ -95,7 +95,7 @@ npm run docs:archive-sandkit      # Fetch official sandkit.html into docs/offici
 Output lands in `docs/api/` and `docs/schemas/`.
 `npm run generate` overwrites those API pages in place.
 It does not delete `docs/api/`.
-Browse namespaces from Search on the docs site.
+Browse namespaces from [Search](search.md) on the docs site.
 `npm run generate` writes `docs/_sidebar.md` for direct pages.
 On an API namespace page the sidebar also lists that namespace and its children.
 The combined page is `docs/full.md`.

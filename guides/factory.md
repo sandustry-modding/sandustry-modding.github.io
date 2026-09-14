@@ -154,5 +154,5 @@ See [Worker mods](guides/worker-mods.md) for typing and bundle workflow.
 - [sandkit.api.structures](../api/sandkit.api.structures.md) — definitions, placement, build/remove, recipes
 - [Worker mods](guides/worker-mods.md) — simulation worker entry and shared buffers
 - [Player guide](guides/player.md) — hotbar, placement session, and input
-- [Search](../search.md) — browse all Sandkit namespaces
+- [Search](../types/search.md) — browse all Sandkit namespaces
 - [Official Sandkit API](https://sandustry.com/sandkit.html) — host API from the game

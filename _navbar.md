@@ -1,0 +1,9 @@
+- [Home](/)
+- [Guides](guides/)
+- [Types](types/)
+- [Template](builds.md)
+- [UI](ui/)
+- Links
+  - [Official wiki](https://wiki.hoodedhorse.com/Sandustry/Sandustry_Official_Wiki ':target=_blank')
+  - [Official Sandkit API](https://sandustry.com/sandkit.html ':target=_blank')
+  - [Mod template](https://github.com/IrishBruse/SandustryModTemplate ':target=_blank')

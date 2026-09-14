@@ -8405,13 +8405,13 @@ window.SMT_SEARCH_INDEX = [
   {
     "title": "Sandkit API types",
     "body": "TypeScript declarations and community docs for the live Sandustry sandkit modding API. Package name: @sandustry-modding/types. Originally a fork of flamableassassin/sandustry-modding-types. The docs site ships API reference pages, modding guides, and JSON Schema for modinfo.json / patches.json. Folder layout mirrors runtime shape so you can jump from code to the matching .d.ts path. Path Runtime object ------------------------------- ----------------------------------------------------------------------- src/sandkit/api/ sandkit.api (main thread) src/sandkit/engine/api/ sandkit.engine.api src/sandkit/engine/state.d.ts sandkit.engine.state / sandkit.state src/sandkit/enums/ sandkit.enums src/sandkit/react.d.ts sandkit.react src/sandkit/index.d.ts Composed Sandkit root type src/global.d.ts Ambient sandkit free variable and type aliases src/worker/ Worker-thread sandkit.api (see WorkerSandkitApi) src/shared/ Internal base shapes reused by main and worker declarations src/configs/ modinfo.json / patches.json TypeScript types (not a runtime object) src/electron/ Renderer preload bridge (window.electron; not a runtime sandkit object) At runtime, every API bag is a plain object with function properties — not a TypeScript namespace. MCP checks on a live game session show: - sandkit.api, sandkit.api.ui, sandkit.api.ui.overlays, and sandkit.engine.api.game are all typeof \"object\" with Object.prototype - Nested keys hold functions or further plain objects Declaration files use export namespace because it is the usual .d.ts pattern for nested object APIs. It matches how you call the API (sandkit.api.ui.update) and supports export import when main and worker share base shapes under shared/. interface or type object literals would also work for runtime shape, but they do not support the export import re-export style used across main, worker, and shared modules.",
-    "path": "/api/types",
+    "path": "/types/",
     "id": ""
   },
   {
     "title": "Sandkit API types.Ambient types (preferred)",
     "body": "Pull the host sandkit ambient into your project with a triple-slash reference. Put it at the top of main.js / worker.js, or in a small ambient .d.ts that your tsconfig / jsconfig includes: That works in .ts and .js (including checked JS with checkJs). Do not list @sandustry-modding/types under compilerOptions.types. That list only loads packages from node modules/@types (for example \"react\" or \"node\"). Deep declaration modules are also available, for example: - Main mod (main.js): use the ambient free name sandkit. Type aliases such as SandkitApi are global; do not import a value binding. - Worker mod (worker.js): type sandkit.api as WorkerSandkitApi. Worker and main APIs overlap but are not interchangeable. - Shared folder: not a runtime namespace. It holds domain shapes and API bases that main and worker modules extend. - Configs folder: modinfo.json and patches.json TypeScript types (@sandustry-modding/types/configs). Not part of the live sandkit object. JSON Schema: https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json and https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json - Electron folder: renderer preload bridge (@sandustry-modding/types/electron). Ambient electron on @sandustry-modding/types. Docs: Electron bridge. Edit .d.ts files under src/. Regenerate the Docsify API reference and JSON Schema after JSDoc or config-type changes. npm run generate merges scripts/api-gen/overrides.json, the official Sandkit API HTML, and src/sandkit/api/ declarations. It writes scripts/api-gen/generated/api-catalog.json, refreshes scripts/api-gen/generated/namespace-summaries.json, and reports gaps in docs/generated/api-gaps.md. Edit namespace descriptions and alias mappings in scripts/api-gen/overrides.json. npm run scrape walks the live sandkit object in a running Sandustry renderer (CDP :9222) and writes scripts/api-gen/generated/runtime-api.json. Start the game with the debug port open (F5 or npm run sandustry from the mod template), load a save, then run scrape from this repo. Guides live under docs/guides/ (setup, Workshop, and Sandkit domain pages). Regenerate the Docsify API reference and JSON Schema from these declarations: Output lands in docs/api/ and docs/schemas/. npm run generate overwrites those API pages in place. It does not delete docs/api/. Browse namespaces from Search on the docs site. npm run generate writes docs/ sidebar.md for direct pages. On an API namespace page the sidebar also lists that namespace and its children. The combined page is docs/full.md. npm run docs runs that step, then serves the docs site. npm run docs:links fails when a markdown link does not resolve to a Docsify page or heading id. npm run validate fails when committed schemas do not match src/configs/. npm run docs:archive-sandkit asks for a base file name, then writes docs/official-api/ .md from https://sandustry.com/sandkit.html.",
-    "path": "/api/types",
+    "path": "/types/",
     "id": ""
   },
   {
@@ -8616,25 +8616,25 @@ window.SMT_SEARCH_INDEX = [
   {
     "title": "JSON Schema files",
     "body": "Generated from @sandustry-modding/types/configs (ModInfo, BundlePatchesFile, and WorkshopJson in src/configs/). Prefer the official Sandkit docs when a schema and the game disagree. After GitHub Pages publishes docs/, use these raw schema URLs: File Schema URL ---- ---------- modinfo.json https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json patches.json https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json workshop.json https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json Point $schema at the URL for the file you edit.",
-    "path": "/schemas",
+    "path": "/types/schemas",
     "id": ""
   },
   {
     "title": "`modinfo.json`",
     "body": "",
-    "path": "/schemas",
+    "path": "/types/schemas",
     "id": ""
   },
   {
     "title": "`patches.json`",
     "body": "The game loads a bare array . For inline $schema, wrap the list (editors only — unwrap to a bare array before shipping, or map the schema by path): A bare [ ... ] array also validates. You can instead bind the schema by path (for example VS Code json.schemas) and keep the game array form in the file.",
-    "path": "/schemas",
+    "path": "/types/schemas",
     "id": ""
   },
   {
     "title": "`workshop.json`",
     "body": "Created by the in-game publisher or npm run publish after the first Steam Workshop upload. Do not hand-edit publishedFileId. Import the same shapes from the npm package: See configs for the full type reference. From the package repo root: npm run validate fails when committed schemas do not match the TypeScript defs.",
-    "path": "/schemas",
+    "path": "/types/schemas",
     "id": ""
   }
 ];

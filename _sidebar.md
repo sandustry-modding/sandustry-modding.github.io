@@ -1,10 +1,7 @@
 - [Home](/)
-- [Search](search.md)
-- [Official Sandkit API](https://sandustry.com/sandkit.html)
-- [Mod template](https://github.com/IrishBruse/SandustryModTemplate)
 
 - Guides
-  - [All guides](guides/README.md)
+  - [All guides](guides/)
   - [Getting started](guides/getting-started.md)
   - [Mod lifecycle](guides/mod-lifecycle.md)
   - [Worker mods](guides/worker-mods.md)
@@ -19,27 +16,69 @@
   - [Hooks, storage, and assets](guides/runtime.md)
   - [Engine vs public API](guides/engine.md)
 
-- Modkit
-  - [Overview](modkit/README.md)
-  - [React](modkit/react.md)
-  - [UI kit](ui/README.md)
-  - [Utils](modkit/utils.md)
-  - [Live config](modkit/live-config.md)
-  - [Integration tests](modkit/test.md)
+- Types
+  - [Search](types/search.md)
+  - [Install](types/)
+  - [Full API reference](full.md)
+  - [Config types](api/configs.md)
+  - [JSON Schema](types/schemas.md)
+  - [Changelog](Changelog.md)
+  - Electron
+    - [Overview](electron-bridge.md)
+    - [API](api/electron.md)
+  - Mod files
+    - [modinfo.json](modinfo.json.md)
+    - [patches.json](patches.json.md)
 
 - Template
   - [Builds](builds.md)
   - [modinfo.ts](modinfo.md)
   - [configSchema](config-schema.md)
   - [patches.ts](patches.md)
+  - Modkit
+    - [Overview](modkit/)
+    - [React](modkit/react.md)
+    - [Utils](modkit/utils.md)
+    - [Live config](modkit/live-config.md)
+    - [Integration tests](modkit/test.md)
 
-- [Full API reference](full.md)
-- [Changelog](Changelog.md)
-- Electron
-  - [Overview](electron-bridge.md)
-  - [API](api/electron.md)
-- Mod files
-  - [modinfo.json](modinfo.json.md)
-  - [patches.json](patches.json.md)
-  - [TypeScript types](api/configs.md)
-  - [JSON Schema](schemas.md)
+- UI
+  - [Gallery](ui/)
+  - [Overview](ui/overview.md)
+  - Host
+    - [Button](ui/button.md)
+    - [Panel](ui/panel.md)
+    - [ActionSlot](ui/action-slot.md)
+  - Layout
+    - [OverlayRoot](ui/overlay-root.md)
+    - [FixedAnchor](ui/fixed-anchor.md)
+    - [Interactive](ui/interactive.md)
+  - HUD
+    - [HotkeyBadge](ui/hotkey-badge.md)
+    - [UiBox](ui/ui-box.md)
+    - [InfoBanner](ui/info-banner.md)
+    - [PanelCard](ui/panel-card.md)
+    - [MenuButton](ui/menu-button.md)
+    - [Management menu](ui/management-menu-button.md)
+    - [ResourceRow](ui/resource-row.md)
+    - [SectionHeading](ui/section-heading.md)
+    - [ObjectiveCard](ui/objective-card.md)
+    - [SecondaryObjectiveRow](ui/secondary-objective-row.md)
+    - [ObjectiveHighlight](ui/objective-highlight.md)
+    - [ShortcutChip](ui/shortcut-chip.md)
+    - [ShortcutBar](ui/shortcut-bar.md)
+    - [ShortcutBarItem](ui/shortcut-bar-item.md)
+    - [ShortcutBarDivider](ui/shortcut-bar-divider.md)
+    - [CompoundHotkeys](ui/compound-hotkeys.md)
+    - [HotbarSlot](ui/hotbar-slot.md)
+    - [HotbarIcon](ui/hotbar-icon.md)
+  - Options
+    - [OptionsPanel](ui/options-panel.md)
+    - [OptionsSection](ui/options-section.md)
+    - [OptionsRow](ui/options-row.md)
+    - [OptionsSelect](ui/options-select.md)
+    - [OptionsSlider](ui/options-slider.md)
+    - [OptionsSliderRow](ui/options-slider-row.md)
+    - [OptionsSwitch](ui/options-switch.md)
+    - [OptionsNumberInput](ui/options-number-input.md)
+    - [OptionsButton](ui/options-button.md)

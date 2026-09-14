@@ -28,7 +28,7 @@ Sibling mods (for example `sandustry-doom-mod`) can use a symlink to this folder
 | Integration tests  | [test.md](test.md)                                                      |
 | Mod `configSchema` | [config-schema.md](../config-schema.md)                                 |
 | Manifest fields    | [../modinfo.md](../modinfo.md)                                          |
-| UI components      | [../ui/README.md](../ui/README.md)                                      |
+| UI components      | [../ui/](../ui/)                                                        |
 | Bundle patches     | [../patches.md](../patches.md)                                          |
 
 ## TODO

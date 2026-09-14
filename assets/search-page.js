@@ -3,7 +3,7 @@
  */
 (function () {
   var MAX_RESULTS = 80;
-  var SEARCH_HASH = "#/search";
+  var SEARCH_HASH = "#/types/search";
   var hotkeysBound = false;
 
   function queryApi() {
@@ -22,7 +22,11 @@
     var hash = window.location.hash || "";
     var cut = hash.split("?");
     var path = cut[0].replace(/^#/, "") || "/";
-    if (path !== "/search") return null;
+    if (path === "/search") {
+      window.location.hash = "#/types/search" + (cut[1] ? "?" + cut[1] : "");
+      path = "/types/search";
+    }
+    if (path !== "/types/search") return null;
     var params = new URLSearchParams(cut[1] || "");
     return {
       q: params.get("q") || "",
@@ -117,13 +121,17 @@
     root.removeAttribute("data-smt-search");
     var route = parseRoute() || { q: "", scope: "all" };
     root.innerHTML =
-      '<form class="smt-search-form" action="#/search" role="search">' +
+      '<form class="smt-search-form" action="#/types/search" role="search">' +
       '<label class="smt-search-label" for="smt-search-input">Search the live API</label>' +
       '<div class="smt-search-field">' +
       '<input id="smt-search-input" type="search" name="q" autocomplete="off" spellcheck="false" placeholder="sandkit.api.player, unlockById, grid …" />' +
       "</div>" +
       '<p class="smt-search-hint">Match the runtime path. Press <kbd>/</kbd> from any page. <kbd>Ctrl</kbd>+<kbd>K</kbd> also opens search.</p>' +
       '<div class="smt-search-scopes" role="group" aria-label="Filter by area"></div>' +
+      '<label class="smt-search-settings-row">' +
+      '<input id="smt-hide-deprecated" type="checkbox" />' +
+      "<span>Hide deprecated APIs</span>" +
+      "</label>" +
       "</form>" +
       '<p class="smt-search-status" aria-live="polite"></p>' +
       '<div class="smt-search-browse" hidden></div>' +
@@ -135,6 +143,7 @@
     var browse = root.querySelector(".smt-search-browse");
     var scopes = root.querySelector(".smt-search-scopes");
     var form = root.querySelector(".smt-search-form");
+    var hideBox = root.querySelector("#smt-hide-deprecated");
     var selected = -1;
     var timer = null;
 
@@ -367,6 +376,13 @@
       input.focus();
     });
 
+    if (hideBox && window.smtDocsSettings) {
+      hideBox.checked = window.smtDocsSettings.hideDeprecated();
+      hideBox.addEventListener("change", function () {
+        window.smtDocsSettings.setHideDeprecated(hideBox.checked);
+      });
+    }
+
     scopeButtons(route.scope);
     input.value = route.q;
     window.smtRefreshSearch = scheduleRender;
@@ -389,14 +405,14 @@
       var typing = /input|textarea|select/i.test(tag) || (e.target && e.target.isContentEditable);
       if (e.key === "/" && !typing) {
         e.preventDefault();
-        if (!parseRoute()) window.location.hash = "/search";
+        if (!parseRoute()) window.location.hash = "/types/search";
         else {
           var field = document.getElementById("smt-search-input");
           if (field) field.focus();
         }
       } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        if (!parseRoute()) window.location.hash = "/search";
+        if (!parseRoute()) window.location.hash = "/types/search";
         else {
           var fieldK = document.getElementById("smt-search-input");
           if (fieldK) fieldK.focus();

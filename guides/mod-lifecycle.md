@@ -56,7 +56,7 @@ Prefer public Sandkit APIs over bundle patches.
 - `sandkit.api.hooks.register(event, handler)` — subscribe to named game events
 - `sandkit.api.events` — worker-thread event surface (see [Worker mods](guides/worker-mods.md))
 
-Search the API for event names: [Search](../search.md).
+Search the API for event names: [Search](../types/search.md).
 
 On **0.5.5+**, use hooks, `configOverrides`, and `register` APIs before you rewrite game bundles.
 

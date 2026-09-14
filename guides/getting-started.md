@@ -65,5 +65,5 @@ Then press **F5** in VS Code (or run `npm run sandustry`) to launch the game wit
 - [The mod lifecycle](guides/mod-lifecycle.md) — how mods load and when your code runs
 - [World and grid](guides/world.md) — cells, elements, and `grid.mutate`
 - [UI](guides/ui.md) — toasts, overlays, and HUD
-- [Search](../search.md) — browse the generated Sandkit API
+- [Search](../types/search.md) — browse the generated Sandkit API
 - [Official Sandkit API](https://sandustry.com/sandkit.html#api-access-heading) — host API from the game

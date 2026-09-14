@@ -1,6 +1,6 @@
 # Sandkit API (full) <!-- {docsify-ignore-all} -->
 
-Every generated API page on one document. Use [Search](search.md) when you only need one namespace.
+Every generated API page on one document. Use [Search](types/search.md) when you only need one namespace.
 
 ## sandkit
 

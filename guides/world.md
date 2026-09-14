@@ -137,4 +137,4 @@ Worker mutations: [sandkit.api.elements (worker)](../api/sandkit.api.elements.wo
 - [Worker mods](guides/worker-mods.md) — `workerEntry` and `WorkerSandkitApi`
 - [The mod lifecycle](guides/mod-lifecycle.md) — when main and worker scripts run
 - [sandkit.api.grid](../api/sandkit.api.grid.md) — grid reads, `mutate`, fog, and iteration
-- [Search](../search.md) — browse all Sandkit namespaces
+- [Search](../types/search.md) — browse all Sandkit namespaces

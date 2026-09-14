@@ -30,8 +30,7 @@
     <script src="assets/heading-anchor.js"></script>
     <script src="assets/page-toc.js"></script>
     <script src="assets/sidebar-headers.js"></script>
-    <script src="assets/api-sidebar-tree.js"></script>
-    <script src="assets/sidebar-current-api.js"></script>
+    <script src="assets/sidebar-groups.js"></script>
     <script src="assets/search-query.js"></script>
     <script src="assets/search-page.js"></script>
     <script src="assets/docs-settings.js"></script>
@@ -48,21 +47,47 @@
           hash === "#/api/modules" ||
           hash.indexOf("#/api/modules?") === 0
         ) {
-          location.hash = "#/search";
+          location.hash = "#/types/search";
         } else if (hash === "#/api/full" || hash.indexOf("#/api/full?") === 0) {
           location.hash = "#/full";
+        } else if (hash === "#/search" || hash.indexOf("#/search?") === 0) {
+          location.hash = "#/types/search" + hash.slice("#/search".length);
+        } else if (hash === "#/schemas" || hash.indexOf("#/schemas?") === 0) {
+          location.hash = "#/types/schemas" + hash.slice("#/schemas".length);
+        } else if (hash === "#/api/types" || hash.indexOf("#/api/types?") === 0) {
+          location.hash = "#/types/" + hash.slice("#/api/types".length).replace(/^\?/, "?");
+        } else if (/#\/(?:[^/?#]+\/)*README(?:\?|$)/.test(hash)) {
+          location.hash = hash.replace(/\/README(?=\?|$)/, "/");
         }
       })();
       window.$docsify = {
         name: "Sandustry Modding",
+        nameLink: "#/",
         loadSidebar: true,
+        loadNavbar: true,
+        mergeNavbar: true,
         subMaxLevel: 0,
         auto2top: true,
         noEmoji: true,
         alias: {
           "/docs/(.*)": "/$1",
           "/modkit/": "/modkit/README.md",
-          "/api/.*/_sidebar.md": "/api/_sidebar.md",
+          "/guides/": "/guides/README.md",
+          "/types/": "/types/README.md",
+          "/ui/": "/ui/README.md",
+          "/README": "/",
+          "/guides/README": "/guides/",
+          "/types/README": "/types/",
+          "/ui/README": "/ui/",
+          "/modkit/README": "/modkit/",
+          "/.*/_sidebar.md": "/_sidebar.md",
+          "/.*/_navbar.md": "/_navbar.md",
+          "/search": "/types/search",
+          "search.md": "types/search.md",
+          "/schemas": "/types/schemas",
+          "schemas.md": "types/schemas.md",
+          "/api/types": "/types/",
+          "api/types.md": "types/README.md",
           "/ui/gallery": "/ui/",
           "ui/gallery.md": "ui/README.md",
           "/guides/modinfo": "/modinfo.json",
@@ -75,11 +100,15 @@
             hook.beforeEach(function (content) {
               var path = (window.location.hash || "").replace(/^#/, "").split("?")[0];
               if (path === "/modules" || path === "/api/modules") {
-                window.location.hash = "#/search";
+                window.location.hash = "#/types/search";
                 return content;
               }
               if (path === "/api/full") {
                 window.location.hash = "#/full";
+                return content;
+              }
+              if (/^\/(?:[^/?#]+\/)*README$/.test(path)) {
+                window.location.hash = "#" + path.replace(/\/README$/, "/") + (window.location.hash.split("?")[1] ? "?" + window.location.hash.split("?")[1] : "");
                 return content;
               }
               return content;
@@ -88,7 +117,7 @@
           window.smtDocsifyHeadingCopyPlugin,
           window.smtDocsifyPageTocPlugin,
           window.smtDocsifySidebarHeadersPlugin,
-          window.smtDocsifyCurrentApiSidebarPlugin,
+          window.smtDocsifySidebarGroupsPlugin,
           window.smtDocsifySearchPlugin,
           window.smtDocsifyDocsSettingsPlugin,
           window.smtDocsifyUiCanvasPlugin,

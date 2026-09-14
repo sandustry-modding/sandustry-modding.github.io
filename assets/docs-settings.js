@@ -50,39 +50,14 @@
     if (card) card.classList.add("smt-member-reveal");
   }
 
-  function ensurePanel() {
-    var sidebar = document.querySelector(".sidebar");
-    if (!sidebar) return;
-    var existing = document.getElementById("smt-docs-settings");
-    if (existing) {
-      var box = existing.querySelector("#smt-hide-deprecated");
-      if (box) box.checked = hideDeprecated();
-      return;
-    }
-    var wrap = document.createElement("div");
-    wrap.id = "smt-docs-settings";
-    wrap.className = "smt-docs-settings";
-    wrap.innerHTML =
-      '<p class="group-title">Settings</p>' +
-      '<label class="smt-docs-settings-row">' +
-      '<input id="smt-hide-deprecated" type="checkbox" />' +
-      "<span>Hide deprecated APIs</span>" +
-      "</label>";
-    sidebar.appendChild(wrap);
-    var input = wrap.querySelector("#smt-hide-deprecated");
-    input.checked = hideDeprecated();
-    input.addEventListener("change", function () {
-      setHideDeprecated(input.checked);
-    });
-  }
-
   applyClass(hideDeprecated());
 
+  global.smtDocsSettings = {
+    hideDeprecated: hideDeprecated,
+    setHideDeprecated: setHideDeprecated,
+  };
+
   global.smtDocsifyDocsSettingsPlugin = function (hook) {
-    hook.ready(ensurePanel);
-    hook.doneEach(function () {
-      ensurePanel();
-      revealTargetCard();
-    });
+    hook.doneEach(revealTargetCard);
   };
 })(window);

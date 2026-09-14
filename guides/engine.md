@@ -124,4 +124,4 @@ const api = sandkit.api as unknown as WorkerSandkitApi;
 - [The mod lifecycle](guides/mod-lifecycle.md) — when scripts run
 - [sandkit.api](../api/sandkit.api.md) — public namespace reference
 - [sandkit.engine](../api/sandkit.engine.md) — internal engine reference
-- [Search](../search.md) — browse members by live path
+- [Search](../types/search.md) — browse members by live path

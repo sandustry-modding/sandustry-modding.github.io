@@ -8,7 +8,7 @@ import { OverlayRoot, FixedAnchor, Interactive, Panel, Button } from "@modkit/ui
 ```
 
 Each page has a live preview (Storybook-style iframe) plus props and a usage snippet.
-Browse all previews on the [gallery](README.md).
+Browse all previews on the [gallery](/ui/).
 
 ## Components
 

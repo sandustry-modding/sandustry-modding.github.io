@@ -155,4 +155,4 @@ Load order and timing: [The mod lifecycle](guides/mod-lifecycle.md).
 - [The mod lifecycle](guides/mod-lifecycle.md) — load order and when code runs
 - [Worker mods](guides/worker-mods.md) — worker hooks and events
 - [sandkit.api.hooks](../api/sandkit.api.hooks.md) — intercept and modify reference
-- [Search](../search.md) — browse all Sandkit namespaces
+- [Search](../types/search.md) — browse all Sandkit namespaces

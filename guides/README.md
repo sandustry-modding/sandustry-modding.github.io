@@ -29,9 +29,9 @@ For project setup, watch builds, and Workshop upload commands, use the [mod temp
 
 ## API reference
 
-- [Search](../search.md) — find namespaces and members by live `sandkit` path
+- [Search](../types/search.md) — find namespaces and members by live `sandkit` path
 - [Full API reference](../full.md) — every namespace on one page
 - [modinfo.json](../modinfo.json.md) — manifest fields, limits, and capabilities
 - [patches.json](../patches.json.md) — bundle find-and-replace patches
 - [TypeScript types](../api/configs.md) — `modinfo.json`, `patches.json`, and `workshop.json`
-- [JSON Schema](../schemas.md) — raw schema URLs for editors
+- [JSON Schema](../types/schemas.md) — raw schema URLs for editors
