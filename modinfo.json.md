@@ -3,8 +3,8 @@
 `modinfo.json` is the manifest for one mod folder.
 It tells the loader which scripts to run and which optional assets to apply.
 
-TypeScript types: [configs: ModInfo](../api/configs.md?id=modinfo).
-JSON Schema: [schemas/modinfo.json](../schemas.md).
+TypeScript types: [configs: ModInfo](api/configs.md?id=modinfo).
+JSON Schema: [schemas/modinfo.json](schemas.md).
 
 ## JSON vs TypeScript
 
@@ -59,7 +59,7 @@ See [Worker mods](guides/worker-mods.md) for `workerEntry`.
 | `loadOrder` | `number` | Sort key (lower loads earlier). |
 | `configSchema` | `object` | Options UI fields for player settings. |
 
-Full field list: [configs: ModInfo](../api/configs.md?id=modinfo).
+Full field list: [configs: ModInfo](api/configs.md?id=modinfo).
 
 ## Game version
 
@@ -77,7 +77,7 @@ Mods can ship data without executable entry points:
 - `provides` — register content ids for other mods
 - `map` — custom world map definition
 
-See [configs](../api/configs.md) for each shape.
+See [configs](api/configs.md) for each shape.
 
 ## Template helpers
 
@@ -86,5 +86,5 @@ The [mod template](modinfo.md) documents `defineModInfo`, `modinfo.ts` patch exp
 ## Related
 
 - [Getting started](guides/getting-started.md)
-- [Patching with patches.json](guides/patches.md)
-- [JSON Schema for modinfo.json](../schemas.md)
+- [Patching with patches.json](patches.json.md)
+- [JSON Schema for modinfo.json](schemas.md)

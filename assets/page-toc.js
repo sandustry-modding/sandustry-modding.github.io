@@ -1,6 +1,5 @@
 (function () {
   var scrollHandler = null;
-  var refreshGeneration = 0;
 
   function headingLevel(tagName) {
     var m = /^H([1-6])$/i.exec(tagName);
@@ -199,6 +198,18 @@
     scrollHandler();
   }
 
+  function routePath(vm) {
+    if (vm && vm.route && typeof vm.route.path === "string") {
+      return vm.route.path.split("?")[0] || "/";
+    }
+    var hash = typeof location !== "undefined" ? location.hash : "";
+    return hash.replace(/^#/, "").split("?")[0] || "/";
+  }
+
+  function skipPageToc(vm) {
+    return routePath(vm) === "/search";
+  }
+
   function refreshPageToc(vm) {
     if (scrollHandler) {
       window.removeEventListener("scroll", scrollHandler);
@@ -207,6 +218,9 @@
     var oldAside = document.getElementById("smt-page-toc");
     if (oldAside) {
       oldAside.remove();
+    }
+    if (skipPageToc(vm)) {
+      return;
     }
     var content = document.querySelector("main > .content");
     var article =
@@ -219,7 +233,7 @@
       return;
     }
     ensureHeadingIds(article);
-    var headings = article.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    var headings = article.querySelectorAll("h2, h3, h4, h5, h6");
     var tree = buildTree(headings);
     if (tree.length === 0) {
       return;
@@ -230,32 +244,24 @@
     }
     var aside = document.createElement("aside");
     aside.id = "smt-page-toc";
-    aside.setAttribute("aria-label", "On this page");
+    aside.setAttribute("aria-label", "Table of contents");
     var title = document.createElement("p");
     title.className = "smt-page-toc-title";
-    title.textContent = "On this page";
+    title.textContent = "Table of contents";
     aside.appendChild(title);
     aside.appendChild(list);
-    content.appendChild(aside);
-    bindScrollSpy(aside, article);
-  }
-
-  function scheduleRefresh(vm) {
-    refreshGeneration += 1;
-    var ticket = refreshGeneration;
-    function runIfCurrent() {
-      if (ticket !== refreshGeneration) {
-        return;
-      }
-      refreshPageToc(vm);
+    var h1 = article.querySelector("h1");
+    if (h1) {
+      h1.insertAdjacentElement("afterend", aside);
+    } else {
+      article.insertBefore(aside, article.firstChild);
     }
-    requestAnimationFrame(runIfCurrent);
-    setTimeout(runIfCurrent, 120);
+    bindScrollSpy(aside, article);
   }
 
   window.smtDocsifyPageTocPlugin = function (hook, vm) {
     hook.doneEach(function () {
-      scheduleRefresh(vm);
+      refreshPageToc(vm);
     });
   };
 })();

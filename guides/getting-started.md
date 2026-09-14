@@ -41,7 +41,7 @@ sandkit.api.hooks.register("game:started", () => {
 });
 ```
 
-Field details: [modinfo.json reference](guides/modinfo.md).
+Field details: [modinfo.json reference](modinfo.json.md).
 Type shapes: [configs](../api/configs.md).
 
 ## TypeScript workflow

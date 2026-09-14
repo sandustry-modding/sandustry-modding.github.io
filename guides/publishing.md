@@ -63,11 +63,11 @@ Full SteamCMD setup, credentials, and flags: [Builds guide](builds.md).
 
 ## gameVersion and Workshop
 
-Declare compatible game versions in [modinfo.json](guides/modinfo.md).
+Declare compatible game versions in [modinfo.json](modinfo.json.md).
 Steam Workshop **Link to Game Version** should match your `gameVersion` caps for patch-heavy mods.
 
 ## Related
 
-- [modinfo.json reference](guides/modinfo.md)
+- [modinfo.json reference](modinfo.json.md)
 - [Getting started](guides/getting-started.md)
 - [Steam Workshop for Sandustry](https://steamcommunity.com/app/2764460/workshop/)

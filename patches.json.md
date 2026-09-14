@@ -2,8 +2,8 @@
 
 `patches.json` applies exact (or regex) rewrites to Sandustry JavaScript bundles at mod load.
 
-Types: [configs: BundlePatch](../api/configs.md?id=bundlepatch).
-JSON Schema: [schemas/patches.json](../schemas.md).
+Types: [configs: BundlePatch](api/configs.md?id=bundlepatch).
+JSON Schema: [schemas/patches.json](schemas.md).
 
 ## When to patch
 
@@ -80,7 +80,7 @@ Put shared runtime helpers on `globalThis` when patch code must call them.
 
 ## Game version in modinfo
 
-Declare compatibility in [modinfo.json](guides/modinfo.md):
+Declare compatibility in [modinfo.json](modinfo.json.md):
 
 - Patch-only mods: cap `gameVersion.maximum` at the last tested release.
 - API mods: set `gameVersion.minimum` to `"0.5.5"` or higher.
@@ -94,5 +94,5 @@ When both `patches.json` and `patches.ts` exist, **`patches.ts` wins**.
 ## Related
 
 - [The mod lifecycle](guides/mod-lifecycle.md)
-- [configs: patches](../api/configs.md)
+- [configs: patches](api/configs.md)
 - [Example patches.json](https://github.com/sandustry-modding/SandustryExamples/blob/main/content/collector-element/patches.json)

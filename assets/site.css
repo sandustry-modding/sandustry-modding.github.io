@@ -227,6 +227,48 @@ body:has(.sidebar.show) .sidebar-toggle .smt-sidebar-toggle-icon {
   }
 }
 
+/* In-page table of contents: after the page h1, not nested under that title. */
+#smt-page-toc {
+  margin: 0 0 1.5rem;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+#smt-page-toc .smt-page-toc-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--heading-color, #f0f0f0);
+}
+#smt-page-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#smt-page-toc li {
+  margin: 0.12rem 0;
+  padding: 0;
+  line-height: 1.4;
+}
+#smt-page-toc ul ul {
+  margin: 0.1rem 0 0.15rem;
+  padding-left: 0.85rem;
+}
+#smt-page-toc a.smt-page-toc-link {
+  color: var(--link-color, var(--theme-color));
+  text-decoration: none;
+}
+@media screen and (any-hover) {
+  #smt-page-toc a.smt-page-toc-link:hover {
+    color: var(--theme-color);
+    text-decoration: none;
+  }
+}
+#smt-page-toc a.smt-page-toc-active {
+  font-weight: 600;
+  color: var(--heading-color, #f0f0f0);
+}
+
 /* Heading permalink: icon sits next to title (not full-width space-between). */
 .markdown-section :is(h1, h2, h3, h4, h5, h6).smt-heading-with-anchor {
   display: flex;

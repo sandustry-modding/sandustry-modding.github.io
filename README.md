@@ -17,8 +17,6 @@ Start with the step-by-step guides:
 
 - [Getting started](guides/getting-started.md) — what a mod is, required files, and a minimal example
 - [The mod lifecycle](guides/mod-lifecycle.md) — compilation, load order, events, and hooks
-- [modinfo.json reference](guides/modinfo.md) — manifest fields, limits, and capabilities
-- [Patching with patches.json](guides/patches.md) — bundle find-and-replace patches
 - [Worker mods](guides/worker-mods.md) — simulation-worker entry and shared buffers
 - [Publishing to Steam Workshop](guides/publishing.md) — packaging and `workshop.json`
 
@@ -58,6 +56,8 @@ Direct pages:
   - [Overview](electron-bridge.md) — when to use the bridge and IPC patterns
   - [API](api/electron.md) — generated `electron` reference
 - Mod files — not runtime `sandkit` objects
+  - [modinfo.json](modinfo.json.md) — manifest fields, limits, and capabilities
+  - [patches.json](patches.json.md) — bundle find-and-replace patches
   - [TypeScript types](api/configs.md) — `modinfo.json`, `patches.json`, and `workshop.json`
   - [JSON Schema](schemas.md) — raw schema URLs for editors
 - [Full API reference](full.md) — every namespace on one page

@@ -7,8 +7,6 @@
   - [All guides](guides/README.md)
   - [Getting started](guides/getting-started.md)
   - [Mod lifecycle](guides/mod-lifecycle.md)
-  - [modinfo.json](guides/modinfo.md)
-  - [patches.json](guides/patches.md)
   - [Worker mods](guides/worker-mods.md)
   - [Publishing](guides/publishing.md)
   - [World and grid](guides/world.md)
@@ -41,5 +39,7 @@
   - [Overview](electron-bridge.md)
   - [API](api/electron.md)
 - Mod files
+  - [modinfo.json](modinfo.json.md)
+  - [patches.json](patches.json.md)
   - [TypeScript types](api/configs.md)
   - [JSON Schema](schemas.md)

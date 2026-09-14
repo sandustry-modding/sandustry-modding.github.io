@@ -21,7 +21,7 @@ If the mod folder has `worker.ts`, the mod template build sets `"worker.js"` whe
 A mod still needs at least one capability (`entry`, `workerEntry`, overrides, `provides`, or `map`).
 Worker-only mods are valid when `workerEntry` and worker hooks are enough.
 
-See [modinfo.json reference](guides/modinfo.md).
+See [modinfo.json reference](modinfo.json.md).
 
 ## Typing worker code
 
@@ -59,7 +59,7 @@ Search: [Search](../search.md) → `sandkit.api.worker`.
 Worker patches target `js/simulation-worker.js` (and other worker bundles).
 Use the same `atomicGroup` on paired main and worker patches when both must apply together.
 
-See [Patching with patches.json](guides/patches.md).
+See [Patching with patches.json](patches.json.md).
 
 ## Development
 

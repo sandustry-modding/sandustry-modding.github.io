@@ -15,7 +15,7 @@ Patches apply once per game process.
 Renderer hot reload does **not** re-apply patches.
 Restart the game after patch changes.
 
-Details: [Patching with patches.json](guides/patches.md).
+Details: [Patching with patches.json](patches.json.md).
 
 ## Manifest capabilities
 
@@ -25,7 +25,7 @@ A mod must declare at least one capability in `modinfo.json`:
 - `workerEntry` — simulation-worker script (`worker.js`)
 - `configOverrides`, `shaderOverrides`, `textureOverrides`, `provides`, or `map` — data-only mods
 
-See [modinfo.json reference](guides/modinfo.md) and [configs: ModInfo](../api/configs.md?id=modinfo).
+See [modinfo.json reference](modinfo.json.md) and [configs: ModInfo](../api/configs.md?id=modinfo).
 
 ## Load order
 
