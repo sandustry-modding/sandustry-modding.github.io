@@ -1,0 +1,549 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json",
+  "title": "Sandkit modinfo.json",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional JSON Schema URL for editors (for example VS Code). Not read by the game loader."
+    },
+    "manifestVersion": {
+      "type": "number",
+      "const": 1,
+      "description": "Manifest format version. Must be `1` for Sandkit `apiVersion` 1."
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique mod id. Prefer `author.mod-name` (matches folder / Workshop identity)."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name shown in the mod list and Workshop UI."
+    },
+    "version": {
+      "type": "string",
+      "description": "Semver-style mod version string."
+    },
+    "apiVersion": {
+      "type": "number",
+      "const": 1,
+      "description": "Sandkit host API version this mod targets. Must be `1`."
+    },
+    "entry": {
+      "type": "string",
+      "description": "Main-thread script path relative to the mod root (for example `\"main.js\"`). Omit for texture-only, map-only, or config-only mods that declare another capability instead."
+    },
+    "workerEntry": {
+      "type": "string",
+      "description": "Simulation-worker script path relative to the mod root. Required when the mod registers worker hooks or uses worker-only APIs."
+    },
+    "patches": {
+      "type": "string",
+      "description": "Path to the patches file relative to the mod root (usually `\"patches.json\"`). When omitted, a present `patches.json` may still auto-load per official docs."
+    },
+    "description": {
+      "type": "string",
+      "description": "Long description shown in the mod list / Workshop."
+    },
+    "author": {
+      "type": "string",
+      "description": "Author display name."
+    },
+    "gameVersion": {
+      "$ref": "#/definitions/ModGameVersion",
+      "description": "Inclusive game version range this mod claims to support."
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Other mod ids that should load with this mod."
+    },
+    "loadOrder": {
+      "type": "number",
+      "description": "Relative load priority. Lower values load earlier; higher values load later."
+    },
+    "configSchema": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/ConfigSchemaEntry"
+      },
+      "description": "Player-facing settings schema. Keys are setting ids; values define type and UI. Read at runtime with `api.settings.get`."
+    },
+    "configOverrides": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Paths to JSON config overrides keyed by vanilla config id (for example `\"drill\"`)."
+    },
+    "shaderOverrides": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Paths to GLSL shader replacements keyed by shader id (for example `\"sky\"`)."
+    },
+    "textureOverrides": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/TextureOverride"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "description": "Texture replacements keyed by vanilla texture id. A string value is a path; an object adds spritesheet frame metadata."
+    },
+    "provides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ModProvide"
+      },
+      "description": "Optional content this mod publishes for others to consume."
+    },
+    "map": {
+      "$ref": "#/definitions/ModMapDefinition",
+      "description": "Embedded custom map pack definition for this mod."
+    }
+  },
+  "required": [
+    "manifestVersion",
+    "id",
+    "name",
+    "version",
+    "apiVersion"
+  ],
+  "additionalProperties": false,
+  "description": "Sandkit mod manifest (`modinfo.json`).\n\nRequired for every mod folder. Minimal script mods need manifestVersion , id , name , version , apiVersion , and entry .\n\nAt least one capability is required: entry , workerEntry , configOverrides , textureOverrides , provides , or map . `configSchema` alone does not count.",
+  "definitions": {
+    "ModGameVersion": {
+      "type": "object",
+      "properties": {
+        "minimum": {
+          "type": "string",
+          "description": "Lowest supported game version string."
+        },
+        "maximum": {
+          "type": "string",
+          "description": "Highest supported game version string."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Compatible game version range for the mod."
+    },
+    "ConfigSchemaEntry": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ConfigSchemaNumber"
+        },
+        {
+          "$ref": "#/definitions/ConfigSchemaBoolean"
+        },
+        {
+          "$ref": "#/definitions/ConfigSchemaChoice"
+        }
+      ],
+      "description": "One entry under `modinfo.json` `configSchema`.\n\nKeys of `configSchema` are setting ids read via `api.settings.get`."
+    },
+    "ConfigSchemaNumber": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "number",
+          "description": "Discriminator. Must be `\"number\"`."
+        },
+        "default": {
+          "type": "number",
+          "description": "Value used when the player has not changed the setting."
+        },
+        "min": {
+          "type": "number",
+          "description": "Inclusive lower bound for the setting."
+        },
+        "max": {
+          "type": "number",
+          "description": "Inclusive upper bound for the setting."
+        },
+        "step": {
+          "type": "number",
+          "description": "UI step size for the number control."
+        },
+        "label": {
+          "type": "string",
+          "description": "Plain-text label shown in the settings UI."
+        },
+        "labelKey": {
+          "type": "string",
+          "description": "i18n key for the settings label (preferred over label when both exist)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Plain-text help text for the setting."
+        },
+        "descriptionKey": {
+          "type": "string",
+          "description": "i18n key for the setting help text."
+        }
+      },
+      "required": [
+        "type",
+        "default"
+      ],
+      "additionalProperties": false,
+      "description": "Number setting in `modinfo.json` `configSchema`."
+    },
+    "ConfigSchemaBoolean": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "boolean",
+          "description": "Discriminator. Must be `\"boolean\"`."
+        },
+        "default": {
+          "type": "boolean",
+          "description": "Value used when the player has not changed the setting."
+        },
+        "label": {
+          "type": "string",
+          "description": "Plain-text label shown in the settings UI."
+        },
+        "labelKey": {
+          "type": "string",
+          "description": "i18n key for the settings label."
+        },
+        "description": {
+          "type": "string",
+          "description": "Plain-text help text for the setting."
+        },
+        "descriptionKey": {
+          "type": "string",
+          "description": "i18n key for the setting help text."
+        }
+      },
+      "required": [
+        "type",
+        "default"
+      ],
+      "additionalProperties": false,
+      "description": "Boolean setting in `modinfo.json` `configSchema`."
+    },
+    "ConfigSchemaChoice": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "choice",
+          "description": "Discriminator. Must be `\"choice\"`."
+        },
+        "default": {
+          "type": "string",
+          "description": "Default option ConfigSchemaChoiceOption.value ."
+        },
+        "label": {
+          "type": "string",
+          "description": "Plain-text label shown in the settings UI."
+        },
+        "labelKey": {
+          "type": "string",
+          "description": "i18n key for the settings label."
+        },
+        "description": {
+          "type": "string",
+          "description": "Plain-text help text for the setting."
+        },
+        "descriptionKey": {
+          "type": "string",
+          "description": "i18n key for the setting help text."
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfigSchemaChoiceOption"
+          },
+          "description": "Allowed choices for this setting."
+        }
+      },
+      "required": [
+        "type",
+        "default",
+        "options"
+      ],
+      "additionalProperties": false,
+      "description": "Choice setting in `modinfo.json` `configSchema`."
+    },
+    "ConfigSchemaChoiceOption": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Stored value written when the player picks this option."
+        },
+        "label": {
+          "type": "string",
+          "description": "Plain-text label for the option."
+        },
+        "labelKey": {
+          "type": "string",
+          "description": "i18n key for the option label."
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false,
+      "description": "One option inside a ConfigSchemaChoice ."
+    },
+    "TextureOverride": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the replacement image, relative to the mod root."
+        },
+        "frameWidth": {
+          "type": "number",
+          "description": "Width in pixels of one animation frame."
+        },
+        "frames": {
+          "type": "number",
+          "description": "Number of frames in the spritesheet."
+        },
+        "intervalMs": {
+          "type": "number",
+          "description": "Milliseconds between animation frames."
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false,
+      "description": "Animated (or static) texture replacement for a vanilla asset id."
+    },
+    "ModProvide": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Kind of provided content (for example `\"structureTextures\"`)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Id of this provide entry within its kind."
+        },
+        "textureOverrides": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Texture paths keyed by the vanilla or structure texture id they replace."
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false,
+      "description": "Optional content pack exposed by this mod for other mods or the game to consume."
+    },
+    "ModMapDefinition": {
+      "type": "object",
+      "properties": {
+        "blueprints": {
+          "$ref": "#/definitions/ModMapBlueprints",
+          "description": "Paths to blueprint images and map config under the mod root."
+        },
+        "width": {
+          "type": "number",
+          "description": "Map width in cells."
+        },
+        "height": {
+          "type": "number",
+          "description": "Map height in cells."
+        },
+        "spawn": {
+          "$ref": "#/definitions/ModMapPoint",
+          "description": "Player spawn position in world pixels."
+        },
+        "unstuck": {
+          "$ref": "#/definitions/ModMapPoint",
+          "description": "Unstuck / rescue position in world pixels."
+        },
+        "deployment": {
+          "type": "string",
+          "description": "Deployment mode for the map (for example `\"skip\"`)."
+        },
+        "topBounds": {
+          "$ref": "#/definitions/ModMapTopBounds",
+          "description": "Vertical travel bounds at the top of the world."
+        },
+        "depthLight": {
+          "$ref": "#/definitions/ModMapDepthLight",
+          "description": "Depth-based light size curve."
+        },
+        "parallax": {
+          "$ref": "#/definitions/ModMapParallax",
+          "description": "Parallax background tuning."
+        },
+        "colorMappings": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ModMapColorMapping"
+          },
+          "description": "Maps blueprint RGB keys (`\"r, g, b\"`) to terrain ids or layered terrain."
+        }
+      },
+      "required": [
+        "blueprints",
+        "width",
+        "height"
+      ],
+      "additionalProperties": false,
+      "description": "Custom map pack block in `modinfo.json`."
+    },
+    "ModMapBlueprints": {
+      "type": "object",
+      "properties": {
+        "terrain": {
+          "type": "string",
+          "description": "Terrain color map image."
+        },
+        "lights": {
+          "type": "string",
+          "description": "Lights layout image."
+        },
+        "sensors": {
+          "type": "string",
+          "description": "Sensors layout image."
+        },
+        "authorization": {
+          "type": "string",
+          "description": "Authorization zones image."
+        },
+        "wall": {
+          "type": "string",
+          "description": "Wall layout image."
+        },
+        "lightsMeta": {
+          "type": "string",
+          "description": "Lights metadata image."
+        },
+        "decor": {
+          "type": "string",
+          "description": "Decor layout image."
+        },
+        "config": {
+          "type": "string",
+          "description": "Map config JSON path."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Blueprint image paths for a custom map pack.\n\nPaths are relative to the mod root."
+    },
+    "ModMapPoint": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "World X in pixels."
+        },
+        "y": {
+          "type": "number",
+          "description": "World Y in pixels."
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false,
+      "description": "World-pixel spawn or unstuck point."
+    },
+    "ModMapTopBounds": {
+      "type": "object",
+      "properties": {
+        "hard": {
+          "type": "number",
+          "description": "Hard top bound in world pixels."
+        },
+        "soft": {
+          "type": "number",
+          "description": "Soft top bound in world pixels."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Vertical camera / travel bounds for the custom map."
+    },
+    "ModMapDepthLight": {
+      "type": "object",
+      "properties": {
+        "startY": {
+          "type": "number",
+          "description": "World Y where depth light scaling starts."
+        },
+        "endY": {
+          "type": "number",
+          "description": "World Y where depth light scaling ends."
+        },
+        "maxSize": {
+          "type": "number",
+          "description": "Maximum light size at the shallow end of the range."
+        },
+        "minSize": {
+          "type": "number",
+          "description": "Minimum light size at the deep end of the range."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Depth-based light sizing for the custom map."
+    },
+    "ModMapParallax": {
+      "type": "object",
+      "properties": {
+        "widthScale": {
+          "type": "number",
+          "description": "Horizontal scale of the parallax layer."
+        },
+        "offsetY": {
+          "type": "number",
+          "description": "Vertical offset of the parallax layer in pixels."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Parallax background tuning for the custom map."
+    },
+    "ModMapColorMapping": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/ModMapColorMappingLayers"
+        }
+      ],
+      "description": "One `map.colorMappings` value: a single terrain id, or layered background/foreground ids."
+    },
+    "ModMapColorMappingLayers": {
+      "type": "object",
+      "properties": {
+        "background": {
+          "type": "string",
+          "description": "Background terrain id for this blueprint RGB."
+        },
+        "foreground": {
+          "type": "string",
+          "description": "Foreground terrain id for this blueprint RGB."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Color-map cell that paints both background and foreground terrain."
+    }
+  }
+}

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Sandustry Modding</title>
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="Unofficial community docs for Sandustry modding: Sandkit API, guides, and the mod template kit. Not affiliated with Lantto Games or Hooded Horse."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/docsify@5.0.0/dist/themes/core.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/docsify@5.0.0/dist/themes/addons/core-dark.min.css"
+    />
+    <link rel="stylesheet" href="assets/theme.css" />
+    <link rel="stylesheet" href="assets/site.css" />
+    <link rel="stylesheet" href="assets/api-cards.css" />
+    <link rel="stylesheet" href="ui/ui-docs.css" />
+    <script src="assets/heading-anchor.js"></script>
+    <script src="assets/page-toc.js"></script>
+    <script src="assets/sidebar-headers.js"></script>
+    <script src="assets/api-sidebar-tree.js"></script>
+    <script src="assets/sidebar-current-api.js"></script>
+    <script src="assets/search-query.js"></script>
+    <script src="assets/search-page.js"></script>
+    <script src="assets/docs-settings.js"></script>
+    <script src="ui/ui-canvas.js"></script>
+  </head>
+  <body class="loading">
+    <div id="app"></div>
+    <script>
+      (function () {
+        var hash = location.hash || "";
+        if (
+          hash === "#/modules" ||
+          hash.indexOf("#/modules?") === 0 ||
+          hash === "#/api/modules" ||
+          hash.indexOf("#/api/modules?") === 0
+        ) {
+          location.hash = "#/search";
+        } else if (hash === "#/api/full" || hash.indexOf("#/api/full?") === 0) {
+          location.hash = "#/full";
+        }
+      })();
+      window.$docsify = {
+        name: "Sandustry Modding",
+        loadSidebar: true,
+        subMaxLevel: 0,
+        auto2top: true,
+        noEmoji: true,
+        alias: {
+          "/docs/(.*)": "/$1",
+          "/modkit/": "/modkit/README.md",
+          "/api/.*/_sidebar.md": "/api/_sidebar.md",
+          "/ui/gallery": "/ui/",
+          "ui/gallery.md": "ui/README.md",
+        },
+        plugins: [
+          function (hook) {
+            hook.beforeEach(function (content) {
+              var path = (window.location.hash || "").replace(/^#/, "").split("?")[0];
+              if (path === "/modules" || path === "/api/modules") {
+                window.location.hash = "#/search";
+                return content;
+              }
+              if (path === "/api/full") {
+                window.location.hash = "#/full";
+                return content;
+              }
+              return content;
+            });
+          },
+          window.smtDocsifyHeadingCopyPlugin,
+          window.smtDocsifyPageTocPlugin,
+          window.smtDocsifySidebarHeadersPlugin,
+          window.smtDocsifyCurrentApiSidebarPlugin,
+          window.smtDocsifySearchPlugin,
+          window.smtDocsifyDocsSettingsPlugin,
+          window.smtDocsifyUiCanvasPlugin,
+        ].filter(function (p) {
+          return typeof p === "function";
+        }),
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5.0.0/dist/docsify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-typescript.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,257 @@
+/* Generated API member cards (Wayland-style request layout, site colours). */
+
+.markdown-section .smt-member-card {
+  position: relative;
+  margin: 2rem 0 2.4rem;
+  padding: 0 0 0.25rem;
+}
+
+.markdown-section .smt-member-card > h3:first-of-type {
+  margin: 0 7.5rem 0.85rem 0;
+  padding: 0;
+  border: 0;
+  color: var(--link-color);
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.markdown-section .smt-member-card > h3:first-of-type .smt-heading-text {
+  color: var(--link-color);
+}
+
+.markdown-section .smt-member-card > h3.smt-heading-active,
+.markdown-section .smt-member-card > h3.smt-heading-active .smt-heading-text {
+  color: var(--theme-color);
+}
+
+.markdown-section .smt-member-badge {
+  position: absolute;
+  top: 0.15rem;
+  right: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.markdown-section .smt-member-badge a {
+  display: inline-block;
+  padding: 0.18rem 0.7rem;
+  border-radius: 999px;
+  background: #1e1e1e;
+  color: var(--color-text, #dddddd);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.markdown-section .smt-member-badge a:hover {
+  background: #1e1e1e;
+  color: var(--link-color);
+}
+
+.markdown-section .smt-member-sig {
+  margin: 0 0 1.1rem;
+}
+
+.markdown-section .smt-member-sig > pre {
+  margin: 0;
+}
+
+.markdown-section .smt-member-card table {
+  margin: 0 0 1.15rem;
+  width: 100%;
+}
+
+.markdown-section .smt-member-card thead th {
+  color: var(--smt-muted-text, #9a9a9a);
+  font-weight: 600;
+  background: transparent;
+}
+
+.markdown-section .smt-member-card tbody td:first-child {
+  color: var(--heading-color, #f0f0f0);
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  white-space: nowrap;
+}
+
+.markdown-section .smt-member-card tbody td:nth-child(2) {
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+}
+
+.markdown-section .smt-member-card > ul {
+  margin: 0 0 1.15rem;
+}
+
+.markdown-section .smt-member-card > h4.smt-hook-heading {
+  margin: 1.35rem 0 0.5rem;
+  padding: 0;
+  border: 0;
+  color: var(--link-color);
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.markdown-section .smt-member-card > h4.smt-hook-heading:first-of-type {
+  margin-top: 0.25rem;
+}
+
+.markdown-section .smt-member-card > h4.smt-hook-heading code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+
+.markdown-section .smt-hook-heading + .smt-member-deprecated {
+  margin: 0.45rem 0 0.7rem;
+}
+
+.markdown-section .smt-member-card > :is(h4, h5):not(.smt-hook-heading) {
+  margin: 1rem 0 0.45rem;
+  padding: 0;
+  border: 0;
+  color: var(--theme-color);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.markdown-section .smt-member-deprecated {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 0 0 1.15rem;
+  padding: 0.75rem 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--theme-color) 28%, var(--smt-card-border, #2a2a2a));
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--theme-color) 7%, var(--smt-card-bg, #1e1e1e));
+}
+
+.markdown-section .smt-member-deprecated-label {
+  flex: 0 0 auto;
+  margin-top: 0.05rem;
+  padding: 0.14rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-color) 18%, #1a1a1a);
+  color: var(--theme-color);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.markdown-section .smt-member-deprecated-note {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--color-text, #dddddd);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.markdown-section .smt-member-deprecated-note p {
+  margin: 0;
+}
+
+.markdown-section .smt-member-deprecated-note a {
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-weight: 600;
+}
+
+.markdown-section h2#see,
+.markdown-section h2#see .smt-heading-text {
+  color: var(--theme-color);
+}
+
+.markdown-section .smt-member-anchors {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.markdown-section .smt-member-anchors :is(h4, h5, h6) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1px;
+}
+
+.sidebar-nav .smt-api-local {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--sidebar-border-color, #2a2a2a);
+}
+
+.sidebar-nav .smt-api-local > .group-title {
+  margin: 0 0 0.35rem;
+  color: var(--theme-color);
+  font-weight: 700;
+}
+
+.sidebar-nav .smt-api-local ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav .smt-api-local ul ul {
+  padding-left: 1.15rem;
+}
+
+.sidebar-nav .smt-api-local ul ul li.active > a {
+  margin-left: 0;
+}
+
+html.smt-hide-deprecated .smt-member-card[data-deprecated="true"],
+html.smt-hide-deprecated .smt-member-card:has(.smt-member-deprecated),
+html.smt-hide-deprecated .smt-member-card:has(h3 del),
+html.smt-hide-deprecated .smt-member-card:has(h3 s) {
+  display: none;
+}
+
+html.smt-hide-deprecated .smt-member-card.smt-member-reveal {
+  display: revert;
+}
+
+.smt-docs-settings {
+  margin-top: 1.25rem;
+  padding: 0.85rem var(--_sidebar-inset, 20px) 1.35rem;
+  border-top: 1px solid var(--sidebar-border-color, #2a2a2a);
+}
+
+.smt-docs-settings > .group-title {
+  margin: 0 0 0.55rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--theme-color);
+}
+
+.smt-docs-settings-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0;
+  color: var(--sidebar-link-color, var(--color-text));
+  font-size: 0.9rem;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.smt-docs-settings-row input {
+  flex: 0 0 auto;
+  margin: 0.15rem 0 0;
+  accent-color: var(--theme-color);
+}

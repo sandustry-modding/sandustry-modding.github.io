@@ -1,0 +1,45 @@
+- [Home](/)
+- [Search](search.md)
+- [Official Sandkit API](https://sandustry.com/sandkit.html)
+- [Mod template](https://github.com/IrishBruse/SandustryModTemplate)
+
+- Guides
+  - [All guides](guides/README.md)
+  - [Getting started](guides/getting-started.md)
+  - [Mod lifecycle](guides/mod-lifecycle.md)
+  - [modinfo.json](guides/modinfo.md)
+  - [patches.json](guides/patches.md)
+  - [Worker mods](guides/worker-mods.md)
+  - [Publishing](guides/publishing.md)
+  - [World and grid](guides/world.md)
+  - [Structures and factory](guides/factory.md)
+  - [Energy and signals](guides/energy.md)
+  - [Player and items](guides/player.md)
+  - [UI](guides/ui.md)
+  - [Tech and progression](guides/progression.md)
+  - [Entities and drones](guides/entities.md)
+  - [Hooks, storage, and assets](guides/runtime.md)
+  - [Engine vs public API](guides/engine.md)
+
+- Modkit
+  - [Overview](modkit/README.md)
+  - [React](modkit/react.md)
+  - [UI kit](ui/README.md)
+  - [Utils](modkit/utils.md)
+  - [Live config](modkit/live-config.md)
+  - [Integration tests](modkit/test.md)
+
+- Template
+  - [Builds](builds.md)
+  - [modinfo.ts](modinfo.md)
+  - [configSchema](config-schema.md)
+  - [patches.ts](patches.md)
+
+- [Full API reference](full.md)
+- [Changelog](Changelog.md)
+- Electron
+  - [Overview](electron-bridge.md)
+  - [API](api/electron.md)
+- Mod files
+  - [TypeScript types](api/configs.md)
+  - [JSON Schema](schemas.md)

@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json",
+  "title": "Sandkit patches.json",
+  "anyOf": [
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BundlePatch"
+      }
+    },
+    {
+      "$ref": "#/definitions/BundlePatchesDocument"
+    }
+  ],
+  "description": "Root shape of `patches.json`: a bare BundlePatch array (game format), or a BundlePatchesDocument object when the file includes `$schema`.",
+  "definitions": {
+    "BundlePatch": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "$ref": "#/definitions/PatchTargetFile",
+          "description": "Compiled bundle to modify."
+        },
+        "find": {
+          "type": "string",
+          "description": "Exact source substring to locate in the bundle. Mutually exclusive with regex in typical patches."
+        },
+        "code": {
+          "type": "string",
+          "description": "Replacement or inserted source text. Official examples use `code`; some loaders also accept replace ."
+        },
+        "replace": {
+          "type": "string",
+          "description": "Alias of code used by some patch loaders and workshop mods."
+        },
+        "operation": {
+          "$ref": "#/definitions/PatchOperation",
+          "description": "How to apply the match. Defaults to replace-style behaviour when omitted in common workshop patches."
+        },
+        "expectedMatches": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": "any"
+            }
+          ],
+          "description": "How many times `find` / `regex` must match. Use a number (often `1`) so the load fails on miss or over-match. Some loaders accept `\"any\"`."
+        },
+        "regex": {
+          "$ref": "#/definitions/BundlePatchRegex",
+          "description": "Regex-based locator instead of a literal find string."
+        },
+        "before": {
+          "type": "string",
+          "description": "Text inserted before the match when operation is `\"wrap\"`."
+        },
+        "after": {
+          "type": "string",
+          "description": "Text inserted after the match when operation is `\"wrap\"`."
+        },
+        "id": {
+          "type": "string",
+          "description": "Optional stable id for logging and tooling."
+        },
+        "atomicGroup": {
+          "type": "string",
+          "description": "Group id shared by patches that must all succeed or all fail together. Use the same string on paired main (`js/bundle.js`) and worker (`js/simulation-worker.js`) patches."
+        },
+        "occurrence": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": "all"
+            }
+          ],
+          "description": "Which match to rewrite when `find` / `regex` hits more than once. `\"all\"` (default when omitted in the loader) or a 1-based index. Must not exceed expectedMatches when both are numbers."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable note for maintainers. Not required by the official schema."
+        }
+      },
+      "required": [
+        "file"
+      ],
+      "additionalProperties": false,
+      "description": "One entry in `patches.json`.\n\nThe file is an array of these objects. Prefer `expectedMatches` so a missed or duplicated match fails loudly. When several patches must succeed together (for example main + worker), set the same atomicGroup on each."
+    },
+    "PatchTargetFile": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "js/bundle.js",
+            "js/simulation-worker.js",
+            "js/manager-worker.js",
+            "js/utility-worker.js"
+          ]
+        }
+      ],
+      "description": "Known compiled bundle paths the loader can patch.\n\n| Value | Role | | --- | --- | | `js/bundle.js` | Main renderer | | `js/manager-worker.js` | Manager worker | | `js/simulation-worker.js` | Simulation workers | | `js/utility-worker.js` | Utility worker |"
+    },
+    "PatchOperation": {
+      "type": "string",
+      "enum": [
+        "replace",
+        "remove",
+        "insertBefore",
+        "insertAfter",
+        "wrap"
+      ],
+      "description": "Supported patch operations.\n\n| Value | Behaviour | | --- | --- | | `replace` | Replace the matched text with BundlePatch.code / BundlePatch.replace | | `remove` | Delete the matched text | | `insertBefore` | Insert BundlePatch.code before the match | | `insertAfter` | Insert BundlePatch.code after the match | | `wrap` | Surround the match with BundlePatch.before and BundlePatch.after |"
+    },
+    "BundlePatchRegex": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "JavaScript regex pattern source (without surrounding `/` delimiters). Capture groups may be referenced from BundlePatch.code as `$1`, `$2`, …"
+        },
+        "flags": {
+          "type": "string",
+          "description": "Optional regex flags (for example `\"g\"` or `\"m\"`)."
+        }
+      },
+      "required": [
+        "pattern"
+      ],
+      "additionalProperties": false,
+      "description": "Regex finder when the target is not a plain BundlePatch.find string."
+    },
+    "BundlePatchesDocument": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "description": "Optional JSON Schema URL for editors (for example VS Code). Not read by the game loader."
+        },
+        "patches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BundlePatch"
+          },
+          "description": "Ordered patch list (same as the bare-array game format)."
+        }
+      },
+      "required": [
+        "patches"
+      ],
+      "additionalProperties": false,
+      "description": "Editor-friendly `patches.json` wrapper with an optional `$schema` URL.\n\nThe game loader expects a bare BundlePatch array. Prefer that array in shipped mods. Use this object shape only when your editor needs inline `$schema`."
+    }
+  }
+}

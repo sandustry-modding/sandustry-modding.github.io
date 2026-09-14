@@ -1,0 +1,910 @@
+/* Feature styles on top of assets/theme.css.
+ * Keep theme.css + site.css identical across SandustryModTemplate and SandustryTypes. */
+:root {
+  --sidebar-toggle-height: 40px;
+  --sidebar-toggle-margin-block: 0;
+  --sidebar-toggle-width: 36px;
+  --sidebar-toggle-alignment: flex-start;
+}
+
+/* Hide Docsify GitHub corner if a repo option is re-added later. */
+.github-corner {
+  display: none !important;
+}
+
+/* Active page: keep link text readable; gold left border marks the page.
+ * Do not use theme yellow here — that colour is reserved for non-clickable headers. */
+.sidebar-nav li.active > a.page-link,
+.sidebar-nav li.active > p > a.page-link {
+  color: var(--sidebar-name-color, var(--heading-color, #f0f0f0));
+  font-weight: 600;
+}
+.sidebar-nav li.active ul a.page-link {
+  color: var(--sidebar-link-color, var(--color-text));
+  font-weight: inherit;
+}
+.sidebar-nav li.active ul li.active > a.page-link,
+.sidebar-nav li.active ul li.active > p > a.page-link {
+  color: var(--sidebar-name-color, var(--heading-color, #f0f0f0));
+  font-weight: 600;
+}
+.sidebar-toggle,
+.sidebar-toggle:hover,
+.sidebar-toggle:focus,
+.sidebar-toggle:focus-visible,
+.sidebar-toggle:active {
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+.sidebar-toggle {
+  padding: max(0.65rem, env(safe-area-inset-top, 0px)) 0 0 0;
+  box-sizing: border-box;
+}
+.sidebar-toggle .sidebar-toggle-button {
+  color: var(--sidebar-toggle-color, var(--sidebar-link-color, var(--color-text)));
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: var(--sidebar-bg, var(--color-bg));
+}
+.sidebar-toggle .sidebar-toggle-button .smt-sidebar-toggle-icon {
+  display: block;
+  transform: rotate(0deg);
+  transform-origin: center;
+  transition: transform var(--duration-medium, 250ms) ease;
+}
+body:has(.sidebar.show) .sidebar-toggle .smt-sidebar-toggle-icon {
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-toggle .sidebar-toggle-button .smt-sidebar-toggle-icon {
+    transition: none;
+  }
+}
+.sidebar-toggle .sidebar-toggle-button:focus-visible {
+  outline: 2px solid var(--border-color, rgba(0, 0, 0, 0.22));
+  outline-offset: 2px;
+  box-shadow: none;
+}
+.sidebar-toggle .sidebar-toggle-button:focus:not(:focus-visible) {
+  outline: none;
+}
+@media screen and (any-hover) {
+  body:where(:has(.sidebar-toggle:hover)) .sidebar-toggle-button:not(:hover) {
+    color: var(--sidebar-toggle-color, var(--sidebar-link-color, var(--color-text)));
+    background: var(--sidebar-bg, var(--color-bg));
+  }
+  .sidebar-toggle .sidebar-toggle-button:hover {
+    color: var(--sidebar-link-color, var(--color-text));
+    background: color-mix(in srgb, var(--color-text, #333) 8%, var(--sidebar-bg, var(--color-bg)));
+    outline: none;
+    box-shadow: none;
+  }
+  .sidebar-toggle .sidebar-toggle-button:active {
+    background: color-mix(in srgb, var(--color-text, #333) 14%, var(--sidebar-bg, var(--color-bg)));
+    outline: none;
+  }
+}
+#smt-drawer-scrim {
+  display: none;
+}
+@media screen and (max-width: 640px) {
+  #smt-drawer-scrim {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: var(--sidebar-width);
+    z-index: 45;
+    background: transparent;
+    cursor: pointer;
+  }
+  body.smt-drawer-open .sidebar {
+    padding-top: calc(
+      max(0.65rem, env(safe-area-inset-top, 0px)) + var(--sidebar-toggle-height, 40px) + 0.4rem
+    );
+  }
+  body.smt-drawer-open .sidebar-toggle {
+    position: fixed;
+    left: max(0px, env(safe-area-inset-left, 0px));
+    top: calc(max(0.65rem, env(safe-area-inset-top, 0px)));
+    right: auto;
+    bottom: auto;
+    width: auto !important;
+    height: auto;
+    padding: 0;
+    translate: none !important;
+    z-index: 61;
+    align-items: flex-start;
+    animation: smt-drawer-close-btn-in var(--duration-medium, 250ms) ease forwards;
+  }
+}
+@keyframes smt-drawer-close-btn-in {
+  from {
+    transform: translateX(calc(0px - var(--sidebar-width)));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.smt-drawer-open .sidebar-toggle {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+@media (min-width: 1100px) {
+  .markdown-section :is(h1, h2, h3, h4, h5, h6) {
+    scroll-margin-top: calc(var(--navbar-height, 4em) + 0.75rem);
+  }
+}
+
+/* Sidebar body: keep nested links at the same size (Docsify can shrink them). */
+.sidebar-nav ul ul {
+  font-size: inherit;
+}
+.sidebar-nav a {
+  font-size: inherit;
+}
+.sidebar-nav a[href^="http"]::after,
+.markdown-section a[target="_blank"]::after {
+  content: " ↗";
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+/* Non-clickable sidebar labels only (no <a>). Theme yellow = headers, not links.
+ * Includes list folder titles and section banners (`---` + `# Main thread`). */
+.sidebar-nav > h1,
+.sidebar-nav > p,
+.sidebar-nav li > p:not(:has(a)),
+.sidebar-nav li.group > p.group-title {
+  margin: 0.85em 0 0.3em;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--theme-color);
+  cursor: default;
+  line-height: 1.3;
+}
+
+/* Section h1 banners: not navigable (Docsify wraps them in .anchor links). */
+.sidebar-nav > h1 {
+  margin: 0.85em var(--_sidebar-inset, 20px) 0.35em;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.sidebar-nav > h1 a.anchor,
+.sidebar-nav > h1 a.anchor:hover,
+.sidebar-nav > h1 a.anchor:focus {
+  color: inherit;
+  text-decoration: none;
+  pointer-events: none;
+  cursor: default;
+}
+.sidebar-nav > h1 a.anchor span {
+  color: inherit;
+}
+
+/* Divider above each section banner. */
+.sidebar-nav > hr {
+  margin: 1.25rem var(--_sidebar-inset, 20px) 0.35rem;
+  border: 0;
+  border-top: 1px solid
+    color-mix(in srgb, var(--theme-color) 35%, var(--sidebar-border-color, #2a2a2a));
+  background: transparent;
+  height: 0;
+}
+
+/* Top-level folder titles get a bit more space. */
+.sidebar-nav > ul > li > p:not(:has(a)),
+.sidebar-nav > ul > li.group > p.group-title {
+  margin: 1.1em 0 0.35em;
+}
+
+/* Space when a folder title follows flat top links inside one list. */
+.sidebar-nav > ul > li:has(> a) + li:has(> p:not(:has(a))),
+.sidebar-nav > ul > li:has(> p > a) + li:has(> p:not(:has(a))) {
+  margin-top: 1.25rem;
+  padding-top: 0.35rem;
+}
+
+/* Prose links: no underline (matches SandustryTypes). */
+.markdown-section :not(pre) a:not(.button):not(.anchor) {
+  color: var(--link-color, var(--theme-color));
+  text-decoration: none;
+}
+@media screen and (any-hover) {
+  .markdown-section :not(pre) a:not(.button):not(.anchor):hover {
+    color: var(--theme-color);
+    text-decoration: none;
+  }
+}
+
+/* Heading permalink: icon sits next to title (not full-width space-between). */
+.markdown-section :is(h1, h2, h3, h4, h5, h6).smt-heading-with-anchor {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.35em;
+  overflow: visible;
+}
+
+.markdown-section :is(h1, h2, h3).smt-heading-active,
+.markdown-section :is(h1, h2, h3).smt-heading-active .smt-heading-text {
+  color: var(--theme-color);
+}
+.markdown-section .smt-heading-text {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.markdown-section .smt-member-path {
+  margin: -0.15rem 0 0.85rem;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+  font-size: 0.85em;
+  overflow-wrap: anywhere;
+}
+.markdown-section .smt-member-path code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+.markdown-section .smt-heading-copy {
+  position: relative;
+  overflow: visible;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.2rem;
+  border: 0;
+  border-radius: var(--border-radius, 3px);
+  background: transparent;
+  color: color-mix(in srgb, var(--heading-color, var(--strong-color)) 55%, var(--theme-color) 45%);
+  cursor: pointer;
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-fast, 150ms) ease,
+    color var(--duration-fast, 150ms) ease,
+    background var(--duration-fast, 150ms) ease;
+}
+@media (hover: none) {
+  .markdown-section .smt-heading-copy {
+    opacity: 0.55;
+    pointer-events: auto;
+  }
+}
+.markdown-section .smt-heading-copy.smt-heading-copy-feedback {
+  opacity: 1;
+  pointer-events: auto;
+}
+.markdown-section .smt-heading-copy,
+.markdown-section .smt-heading-copy * {
+  cursor: pointer;
+}
+.markdown-section .smt-heading-copy-icon {
+  display: block;
+  flex-shrink: 0;
+  shape-rendering: geometricPrecision;
+}
+.markdown-section :is(h1, h2, h3, h4, h5, h6).smt-heading-with-anchor:hover .smt-heading-copy,
+.markdown-section
+  :is(h1, h2, h3, h4, h5, h6).smt-heading-with-anchor:focus-within
+  .smt-heading-copy {
+  opacity: 0.55;
+  pointer-events: auto;
+}
+.markdown-section :is(h1, h2, h3, h4, h5, h6).smt-heading-with-anchor:hover .smt-heading-copy:hover,
+.markdown-section
+  :is(h1, h2, h3, h4, h5, h6).smt-heading-with-anchor:focus-within
+  .smt-heading-copy:hover {
+  opacity: 1;
+  color: var(--theme-color);
+  background: color-mix(in srgb, var(--theme-color) 14%, var(--color-bg, #fff));
+}
+.markdown-section .smt-heading-copy:active {
+  background: color-mix(in srgb, var(--theme-color) 22%, var(--color-bg, #fff));
+  opacity: 1;
+}
+.markdown-section .smt-heading-copy:focus-visible {
+  outline: 2px solid var(--border-color, rgba(0, 0, 0, 0.22));
+  outline-offset: 2px;
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .markdown-section .smt-heading-copy {
+    transition: none;
+  }
+}
+
+/* "Copied" tooltip: absolutely positioned above the copy button (child of button). */
+.smt-heading-copy-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  z-index: 20;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.35em 0.65em;
+  font-family: var(--font-family, system-ui, sans-serif);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-bg, #fff);
+  background: color-mix(in srgb, var(--color-text, #222) 88%, var(--color-bg, #fff) 12%);
+  border-radius: var(--border-radius, 4px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: smt-heading-copy-tooltip 2.1s ease forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .smt-heading-copy-tooltip {
+    animation: smt-heading-copy-tooltip-rm 1.6s ease forwards;
+  }
+}
+@keyframes smt-heading-copy-tooltip {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+}
+/* TypeDoc API signatures (blockquote → ```ts fences in docs:api output). */
+.markdown-section :is(h3, h4, h5, h6) + pre:has(> code.language-ts) {
+  margin-top: 0.35rem;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--blockquote-bg, var(--code-inline-bg));
+  border-left: 3px solid var(--theme-color);
+  border-radius: 0 4px 4px 0;
+  overflow-x: auto;
+}
+
+.markdown-section :is(h3, h4, h5, h6) + pre:has(> code.language-ts) code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@keyframes smt-heading-copy-tooltip-rm {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  12% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+  78% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+}
+
+/* Tables: Docsify stripes tr:nth-child(2n); with thead/tbody the header and first body row are both odd and look identical. */
+.markdown-section thead th {
+  background: var(--table-header-bg);
+  border-bottom-width: 2px;
+}
+.markdown-section thead tr:nth-child(2n) {
+  background: var(--table-header-bg);
+}
+.markdown-section tbody tr:nth-child(odd) {
+  background: transparent;
+}
+.markdown-section tbody tr:nth-child(2n) {
+  background: var(--table-row-alt-bg);
+}
+
+/* Doc screenshots and figures */
+.markdown-section img {
+  display: block;
+  max-width: min(100%, 42rem);
+  height: auto;
+  margin-block: 1rem;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.18));
+  border-radius: 6px;
+}
+
+.smt-search-page {
+  margin: 0 0 2rem;
+}
+
+.smt-search-page .smt-search-label {
+  display: block;
+  margin: 0 0 0.45rem;
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--smt-muted-text, #9a9a9a);
+}
+
+.smt-search-page .smt-search-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--smt-card-border, var(--border-color));
+  border-radius: 6px;
+  background: var(--smt-card-bg, #1e1e1e);
+  color: var(--heading-color, #f0f0f0);
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 1rem;
+}
+
+.smt-search-page .smt-search-field input:focus {
+  outline: 2px solid var(--link-color, #ff9900);
+  outline-offset: 2px;
+}
+
+.smt-search-page .smt-search-field input::-webkit-search-decoration,
+.smt-search-page .smt-search-field input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.smt-search-page .smt-search-hint {
+  margin: 0.55rem 0 0.85rem;
+  color: var(--smt-muted-text, #9a9a9a);
+  font-size: 0.82rem;
+}
+
+.smt-search-page kbd {
+  padding: 0.05rem 0.35rem;
+  border: 1px solid var(--smt-card-border, #2a2a2a);
+  border-radius: 3px;
+  background: var(--code-bg, #202020);
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 0.78em;
+}
+
+.smt-search-page .smt-search-scopes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+}
+
+.smt-search-page .smt-search-scope {
+  margin: 0;
+  padding: 0.28rem 0.65rem;
+  border: 1px solid var(--smt-card-border, #2a2a2a);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text, #ddd);
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.smt-search-page .smt-search-scope[aria-pressed="true"] {
+  border-color: var(--link-color, #ff9900);
+  background: color-mix(in srgb, var(--link-color, #ff9900) 16%, transparent);
+  color: var(--heading-color, #f0f0f0);
+}
+
+.smt-search-page .smt-search-status {
+  margin: 0 0 0.75rem;
+  color: var(--smt-muted-text, #9a9a9a);
+  font-size: 0.85rem;
+}
+
+.smt-search-page .smt-search-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.smt-search-page .smt-search-hit {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.smt-search-page .smt-search-hit-link {
+  display: block;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--smt-card-border, var(--border-color));
+  border-radius: 6px;
+  background: var(--smt-card-bg, #1e1e1e);
+  color: inherit;
+  text-decoration: none;
+}
+
+.smt-search-page .smt-search-hit-link:hover,
+.smt-search-page .smt-search-hit-link.is-active,
+.smt-search-page .smt-search-hit-link:focus-visible {
+  border-color: var(--smt-card-hover-border, var(--link-color));
+  text-decoration: none;
+}
+
+.markdown-section .smt-search-page .smt-search-hit-link,
+.markdown-section .smt-search-page .smt-search-hit-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.smt-search-page .smt-search-hit-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.smt-search-page .smt-search-hit-title {
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--heading-color, #f0f0f0);
+  overflow-wrap: anywhere;
+}
+
+.smt-search-page .smt-search-hit-meta {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--smt-muted-text, #9a9a9a);
+}
+
+.smt-search-page .smt-search-hit-desc {
+  margin: 0.4rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+
+.smt-search-page mark {
+  background: color-mix(in srgb, var(--theme-color) 35%, transparent);
+  color: inherit;
+  padding: 0 0.1em;
+}
+
+.smt-search-page .smt-api-badge {
+  display: inline-block;
+  margin-top: 0.55rem;
+  padding: 0.14rem 0.45rem;
+  border-radius: 3px;
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.smt-search-page .smt-api-badge-worker {
+  border: 1px solid color-mix(in srgb, var(--smt-worker-blue, #4a9eff) 55%, transparent);
+  background: color-mix(in srgb, var(--smt-worker-blue, #4a9eff) 14%, transparent);
+  color: var(--smt-worker-blue-soft, #7ec8ff);
+}
+
+.smt-search-browse {
+  margin: 0 0 2rem;
+}
+
+.smt-search-browse h3 {
+  margin: 1.15rem 0 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--heading-color, #f0f0f0);
+}
+
+.smt-search-browse ul.smt-api-group.smt-api-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0 0 0.35rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.smt-search-browse ul.smt-api-group > li.smt-api-card {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  list-style: none;
+}
+
+.smt-search-browse .smt-api-card-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--smt-card-border, var(--border-color));
+  border-radius: 8px;
+  background: var(--smt-card-bg, #1e1e1e);
+}
+
+.smt-search-browse .smt-api-card-link {
+  align-self: flex-start;
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-weight: 700;
+  color: var(--heading-color, #f0f0f0);
+  text-decoration: none;
+}
+
+.markdown-section .smt-search-browse .smt-api-card-link,
+.markdown-section .smt-search-browse .smt-api-card-link:hover {
+  color: var(--heading-color, #f0f0f0);
+  text-decoration: none;
+}
+
+@media screen and (any-hover) {
+  .smt-search-browse .smt-api-card-panel:hover {
+    border-color: var(--smt-card-hover-border, var(--link-color));
+    background: color-mix(in srgb, var(--theme-color) 8%, var(--smt-card-bg, #1e1e1e));
+  }
+
+  .smt-search-browse .smt-api-card-link:hover {
+    color: var(--theme-color);
+  }
+}
+
+.smt-search-browse .smt-api-card-desc {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  font-weight: 400;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+.smt-search-browse .smt-api-card-children {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.smt-search-browse .smt-api-card-children li {
+  margin: 0;
+  padding: 0;
+}
+
+.smt-search-browse .smt-api-card-child {
+  display: inline;
+  font-family: var(--smt-font-mono, ui-monospace, monospace);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* Sandkit API module index: grouped namespace chips. */
+.smt-api-landing {
+  line-height: 1.6;
+}
+
+.smt-api-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.14));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--theme-color) 6%, var(--color-bg, #fff));
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+
+.smt-api-stats strong {
+  color: var(--heading-color, var(--color-text));
+  font-weight: 700;
+}
+
+.smt-api-landing h1 {
+  margin-block: 0 0.55em;
+}
+
+.smt-api-landing h2 {
+  margin-block: 1.5em 0.55em;
+}
+
+.smt-api-landing h3 {
+  margin-block: 1.1em 0.4em;
+  font-weight: 600;
+  color: var(--heading-color, var(--color-text));
+}
+
+.smt-api-landing > p {
+  margin-block: 0 1em;
+}
+
+.smt-api-landing > ul {
+  line-height: 1.75;
+  margin-block: 0.35em 1.1em;
+}
+
+.smt-api-landing > ul > li {
+  margin-block: 0.28em;
+}
+
+.smt-api-landing ul.smt-api-group.smt-api-cards {
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.smt-api-landing ul.smt-api-group > li.smt-api-card {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.smt-api-landing .smt-api-card-link {
+  display: block;
+  height: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.14));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-text, #333) 4%, var(--color-bg, #fff));
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color var(--duration-fast, 150ms) ease,
+    background var(--duration-fast, 150ms) ease;
+}
+
+@media screen and (any-hover) {
+  .smt-api-landing .smt-api-card-link:hover {
+    border-color: color-mix(in srgb, var(--theme-color) 55%, var(--border-color, #ccc));
+    background: color-mix(in srgb, var(--theme-color) 8%, var(--color-bg, #fff));
+    text-decoration: none;
+  }
+}
+
+.smt-api-landing .smt-api-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.smt-api-landing .smt-api-card-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 700;
+  color: var(--heading-color, var(--color-text));
+}
+
+.smt-api-landing .smt-api-card-meta {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--color-text) 58%, transparent);
+}
+
+.smt-api-landing .smt-api-card-desc {
+  margin: 0.45rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  font-weight: 400;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+
+.smt-api-landing .smt-api-badge {
+  display: inline-block;
+  margin-top: 0.55rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.smt-api-landing .smt-api-badge-worker {
+  border: 1px solid color-mix(in srgb, #38bdf8 35%, transparent);
+  background: color-mix(in srgb, #38bdf8 12%, transparent);
+  color: #7dd3fc;
+}
+
+.smt-api-landing ul.smt-api-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+  align-items: start;
+  gap: 0.35rem 1.25rem;
+  list-style: none;
+  margin: 0 0 1.15em;
+  padding: 0.7rem 0.95rem;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.14));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-text, #333) 4%, var(--color-bg, #fff));
+  line-height: 1.5;
+}
+
+.smt-api-landing ul.smt-api-group > li {
+  margin: 0;
+  padding: 0.18rem 0;
+}
+
+.smt-api-landing ul.smt-api-group > li > a {
+  font-weight: 600;
+}
+
+.smt-api-landing ul.smt-api-tree {
+  list-style: none;
+  margin: 0.05rem 0 0.15rem;
+  padding: 0 0 0 0.15rem;
+}
+
+.smt-api-landing ul.smt-api-tree li {
+  position: relative;
+  margin: 0;
+  padding: 0.02rem 0 0.02rem 0.95rem;
+}
+
+.smt-api-landing ul.smt-api-tree li::before,
+.smt-api-landing ul.smt-api-tree li::after {
+  content: "";
+  position: absolute;
+  background: color-mix(in srgb, var(--color-text, #ddd) 38%, transparent);
+  pointer-events: none;
+}
+
+/* Vertical stem */
+.smt-api-landing ul.smt-api-tree li::after {
+  left: 0.28rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+/* Horizontal elbow */
+.smt-api-landing ul.smt-api-tree li::before {
+  left: 0.28rem;
+  top: 0.78em;
+  width: 0.55rem;
+  height: 1px;
+}
+
+/* Last child: stem stops at the elbow */
+.smt-api-landing ul.smt-api-tree li:last-child::after {
+  bottom: auto;
+  height: 0.78em;
+}
+
+.smt-api-landing ul.smt-api-tree a {
+  font-weight: 500;
+}

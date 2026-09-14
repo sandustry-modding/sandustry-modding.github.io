@@ -1,0 +1,39 @@
+# sandkit.engine.api.misc
+
+**`Internal`**
+
+`sandkit.engine.api.misc` — miscellaneous structure behavior registration.
+
+**Internal API.** Prefer [sandkit.api](api/sandkit.api.md) when a public method exists.
+Methods use loose stubs; signatures may take game state as the first argument.
+Engine methods pass game state as the first argument (args[0]); remaining entries are method-specific.
+
+## Functions <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.engine.api.misc.register :id=register
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/engine/api/misc.d.ts#L15" target="_blank" rel="noopener">misc.d.ts:15</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.engine.api.misc.register(...args: unknown[]): unknown">
+
+```ts
+register(...args: unknown[]): unknown
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...`unknown`[]</code> | Game state first, then method-specific arguments. |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Register a miscellaneous structure behavior.
+
+</div>

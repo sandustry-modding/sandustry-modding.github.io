@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json",
+  "title": "Sandkit workshop.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1,
+      "description": "File format version. Must be `1`."
+    },
+    "publishedFileId": {
+      "type": "string",
+      "description": "Steam Workshop published file id. Managed by the publisher."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "publishedFileId"
+  ],
+  "additionalProperties": false,
+  "description": "Links a local mod folder to its Steam Workshop item.",
+  "definitions": {}
+}
