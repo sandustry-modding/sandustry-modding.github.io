@@ -1157,3 +1157,215 @@ body:has(.sidebar.show) .sidebar-toggle .smt-sidebar-toggle-icon {
 .smt-api-landing ul.smt-api-tree a {
   font-weight: 500;
 }
+
+body.smt-okf-viewer-page .content {
+  max-width: none;
+  padding-top: var(--navbar-height, 3.25rem);
+  padding-right: 0;
+  padding-bottom: 0;
+}
+body.smt-okf-viewer-page .markdown-section {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+  height: calc(100vh - var(--navbar-height, 3.25rem));
+}
+body.smt-okf-viewer-page .markdown-section > h1,
+body.smt-okf-viewer-page .markdown-section > p,
+body.smt-okf-viewer-page #smt-page-toc {
+  display: none;
+}
+
+.smt-okf-viewer {
+  height: 100%;
+}
+.smt-okf-status {
+  margin: 1.5rem;
+  color: var(--smt-muted-text, #9a9a9a);
+}
+.smt-okf-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-bg, #121212);
+}
+.smt-okf-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.85rem;
+  align-items: end;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--border-color, #2a2a2a);
+  background: var(--sidebar-bg, #1c1c1c);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+.smt-okf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--smt-muted-text, #9a9a9a);
+}
+.smt-okf-field input,
+.smt-okf-field select,
+.smt-okf-toolbar button {
+  font: inherit;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--heading-color, #f0f0f0);
+  background: var(--form-element-bg, #202020);
+  border: 1px solid var(--form-element-border-color, #2a2a2a);
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+  min-height: 2rem;
+}
+.smt-okf-field input {
+  width: 12rem;
+}
+.smt-okf-toolbar button {
+  cursor: pointer;
+}
+.smt-okf-toolbar button:hover {
+  border-color: var(--smt-wiki-link, #ff9900);
+}
+.smt-okf-inline {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--smt-wiki-link, #ff9900);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.smt-okf-inline:hover {
+  text-decoration: underline;
+}
+.smt-okf-count {
+  margin: 0 0 0.15rem auto;
+  font-size: 0.8rem;
+  color: var(--smt-muted-text, #9a9a9a);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+.smt-okf-main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.smt-okf-graph {
+  flex: 1 1 58%;
+  min-width: 0;
+  position: relative;
+  z-index: 0;
+  background: #161616;
+}
+.smt-okf-detail {
+  flex: 0 0 42%;
+  min-width: 18rem;
+  overflow: auto;
+  padding: 1rem 1.15rem 2rem;
+  border-left: 1px solid var(--border-color, #2a2a2a);
+  background: var(--color-bg, #121212);
+}
+.smt-okf-empty {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--smt-muted-text, #9a9a9a);
+}
+.smt-okf-detail-head h1 {
+  margin: 0.35rem 0 0.2rem;
+  font-size: 1.25rem;
+  border: 0;
+  padding: 0;
+}
+.smt-okf-chip {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #121212;
+}
+.smt-okf-chip-type {
+  background: #2a2a2a;
+  color: #f0f0f0;
+}
+.smt-okf-muted {
+  color: var(--smt-muted-text, #9a9a9a);
+  font-size: 0.85rem;
+}
+.smt-okf-open {
+  font-weight: 600;
+}
+.smt-okf-meta {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.35rem 0.75rem;
+  margin: 0.85rem 0 1.1rem;
+  font-size: 0.9rem;
+}
+.smt-okf-meta dt {
+  color: var(--smt-muted-text, #9a9a9a);
+  font-weight: 600;
+}
+.smt-okf-meta dd {
+  margin: 0;
+}
+.smt-okf-meta ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.smt-okf-tag {
+  display: inline-block;
+  margin: 0 0.25rem 0.25rem 0;
+  padding: 0.05rem 0.4rem;
+  border-radius: 4px;
+  background: #202020;
+  font-size: 0.75rem;
+}
+.smt-okf-body {
+  font-size: 0.92rem;
+}
+.smt-okf-body > h1:first-child {
+  display: none;
+}
+.smt-okf-backlinks {
+  margin-top: 1.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color, #2a2a2a);
+}
+.smt-okf-backlinks h2 {
+  font-size: 0.95rem;
+  margin: 0 0 0.4rem;
+}
+@media (max-width: 900px) {
+  body.smt-okf-viewer-page .markdown-section {
+    height: auto;
+  }
+  .smt-okf-main {
+    flex-direction: column;
+  }
+  .smt-okf-graph {
+    min-height: 22rem;
+  }
+  .smt-okf-detail {
+    flex: none;
+    border-left: 0;
+    border-top: 1px solid var(--border-color, #2a2a2a);
+  }
+  .smt-okf-count {
+    margin-left: 0;
+  }
+}

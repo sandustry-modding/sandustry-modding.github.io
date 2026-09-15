@@ -49,6 +49,22 @@ Blueprint save (`engine.api.blueprints.save`) copies `getSignalLinks()` into sto
 Do not paste full link arrays into chat.
 Report counts and one sample entry only.
 
+## Live persisted sample (0.5.6)
+
+`store.mods.signals.links` on a save with six sender buckets:
+
+| Sender key | Receiver entries |
+| --- | --- |
+| `"712,2432"` | `[{ x: 720, y: 2432, on: false }]` |
+| `"720,2432"` | `[{ x: 724, y: 2432, on: true }]` |
+| `"724,2432"` | two receivers, both `on: true` |
+| `"728,2428"` | `[{ x: 732, y: 2428, on: false }]` |
+| `"732,2428"` | `[{ x: 720, y: 2432, on: false }]` |
+| `"728,2416"` | `[]` (sender with no outgoing links) |
+
+`hideWires` was `false`.
+Session `mods.signals.links` shares the same object reference as the store copy.
+
 ## Related
 
 - [Engine signals runtime](/okf/energy/engine-signals.md) — session `links` map layout.

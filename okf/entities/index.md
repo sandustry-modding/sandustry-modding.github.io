@@ -7,6 +7,7 @@ Drones, projectiles, pickups, portals, and swarm systems.
 - [Drones and projectiles](/okf/entities/drones-and-projectiles.md)
 - [Store](/okf/entities/store.md)
 - [Live entities and capture](/okf/entities/entities.md)
+- [Creature instance fields](/okf/entities/creature-fields.md)
 - [Drones](/okf/entities/drones.md)
 - [Projectiles](/okf/entities/projectiles.md)
 - [World items](/okf/entities/world-items.md)

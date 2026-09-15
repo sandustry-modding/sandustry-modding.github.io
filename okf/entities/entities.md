@@ -77,9 +77,8 @@ Map ids: public `remove`/`collect`/`launch` take `entityId`; engine often takes 
 | `voidgrazer`  | 5         | Large flying critter.                        |
 
 Debug F3 lists "Redweaver" and "Voltblub" as creature buttons.
-Live `typeId` keys use the table above.
-`resinWeaver` may match the old "Redweaver" label.
-No live `voltblub` typeId found.
+Those are i18n display names for `resinWeaver` and `eyes` — see [Creature instance fields](/okf/entities/creature-fields.md).
+No live `voltblub` or `redweaver` typeId exists.
 
 ## Instance fields (common)
 
@@ -93,7 +92,8 @@ No live `voltblub` typeId found.
 | `captureProgress` | number  | 0-1 during capture.      |
 | `lightIndex`      | number? | Attached point light.    |
 
-Per-type fields include `targetX`/`targetY`, `phase`, `grazeFlash`, `playerReleased`, etc.
+Per-type fields include `targetX`/`targetY`, `phase`, `orbitRadius`, `direction`, `grounded`, `mode`, etc.
+Full tables: [Creature instance fields](/okf/entities/creature-fields.md).
 
 ## `store.creatures` vs live entities
 
@@ -110,8 +110,25 @@ Per-type fields include `targetX`/`targetY`, `phase`, `grazeFlash`, `playerRelea
 
 ## Spawners
 
-`registerSpawner` and prefab `entitySpawns` place prop entities at map load.
+`registerSpawner(config)` — **not** a callback.
+Takes one config object; engine stores it keyed by `typeId`.
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| `typeId` | yes | Must match a prior `registerType` id. |
+| `fogType` | yes | Terrain fog cell type candidates must pass before spawn. |
+| `chance` | yes | Per-cell spawn probability when fog clears. |
+| `yStartOffsetFromMid` | yes | Minimum Y row (world mid + offset). |
+| `cluster` | optional | `{ radius, extraMin, extraMax }` — cluster extra spawns near hits. |
+| `storageKey` | optional | Defaults to `typeId`; persists chosen spawn cells under `storage.ensure(state, key).spawnPositions`. |
+
+Runtime spawner state: internal map entry `{ config, spawnKeys: Set<cellIndex> }`.
+Fog-reveal pass fills `spawnKeys`, then instantiates via registered type `spawn`.
+
+Prefab `entitySpawns` also place prop entities at map load.
 Prop list cached in `storage.ensure(state, "entities")`.
+
+Debug display names: [Creature instance fields](/okf/entities/creature-fields.md).
 
 ## Related concepts
 

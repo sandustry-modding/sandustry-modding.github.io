@@ -45,7 +45,20 @@ Management overlay: `z-[10004]`.
 Pause dimmer: `z-[10010]`.
 
 `sandkit.enums.Scene`: MainMenu 1, Intro 2, Deploy 3, Game 4.
-This capture is **Game** after hot-reload auto-load.
+Live probe: `store.scene.active` **4** (Game).
+
+## Session path (live 0.5.6)
+
+Runtime session lives at `__debug.state.session` (not `store.session`).
+Use this path in CDP `evaluate_script` when `sandkit` is undefined.
+
+## `session.windows` keys (live 0.5.6)
+
+All probed with `open: false` during play:
+
+`building`, `inventory`, `techTree`, `upgrades`, `menu`, `loader`, `options`, `lexicon`, `blueprints`, `modsScreen`, `customMapsScreen`, `conservatory`, `feedback`.
+
+`session.ui` keys: `visible`, `listeners`, `tooltip`, `introScreen`, `dialogs`, `discoveryPopups`, `hudHidden`.
 
 ## Related concepts
 

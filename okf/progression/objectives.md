@@ -1,7 +1,7 @@
 ---
 type: Reference
 title: Objectives
-description: HUD objective cards, store.objectives, story progression engine API, and registered objective ids for Early Access 0.5.5.
+description: HUD objective cards, store.objectives, completion rules, and story progression engine API from the 0.5.6 extract.
 tags:
   - sandustry
   - okf
@@ -10,18 +10,18 @@ tags:
 status: stable
 generated:
   by: human:ethan
-  at: 2026-09-14T20:00:00Z
+  at: 2026-09-15T20:00:00Z
 sources:
+  - id: extract
+    resource: sandustry/source/dist/js/bundle.js
   - id: progression-guide
     resource: /guides/progression.md
-  - id: extract
-    resource: sandustry/source/
 ---
 
 # Objectives
 
 Optional HUD story cards (**Objectives** in top right).
-No public `sandkit.api` for secondary cards.
+No public `sandkit.api` namespace for secondary cards.
 Primary **story** objectives use `store.mods.storyProgression` plus `sandkit.engine.api.progression`.
 
 ## Store
@@ -43,7 +43,19 @@ store.mods.storyProgression: {
 }
 ```
 
-## Engine API (live 0.5.5)
+## Public completion API
+
+`sandkit.api.progression.complete({ domain, id? })`:
+
+| Call                                      | Behavior                                      |
+| ----------------------------------------- | --------------------------------------------- |
+| `{ domain: "objective", id: "<cardId>" }` | Force-complete one registered secondary card |
+| `{ domain: "objective", id: "all" }`      | Complete every active incomplete card          |
+| `{ domain: "tutorial", ... }`             | Skip tutorial (separate flow)                |
+
+Only ids in the built-in registry (`qs` in extract) succeed for single-id calls.
+
+## Engine API (story line)
 
 `sandkit.engine.api.progression`:
 
@@ -55,62 +67,82 @@ store.mods.storyProgression: {
 | `complete(state, stepId)`        | Finish step when checks pass (returns `false` if blocked)                    |
 | `triggerCurrentWaypoint(state)`  | Advance waypoint step                                                        |
 
-Factory-tier HUD labels (**Reach Factory Tier {level}**) come from story steps with `objective.type === "factoryLevel"` (e.g. tier 4 = `establish_burnt_residue_processing`).
+Factory-tier HUD labels (**Reach Factory Tier {level}**) come from story steps with `objective.type === "factoryLevel"`.
 
-**Force-complete all story steps** (paused, then save):
+## Secondary card registry (extract)
 
-```javascript
-() => {
-  const st = sandkit.state;
-  st.session.paused = true;
-  const eng = sandkit.engine.api;
-  const sp = eng.storage.ensure(st, "storyProgression");
-  sp.completedSteps = eng.progression.getSteps(st).map((s) => s.id);
-  sp.currentStep = null;
-  if (st.store.factoryLevelCap != null) {
-    eng.factory.flushDeferredLevelUps(st, st.store.factoryLevelCap);
-    st.store.factoryLevelCap = null;
-  }
-  eng.ui.update(st, sandkit.enums.ComponentId.Objectives);
-  const saveId = eng.game.save(st, "Void", "YOUR_SAVE_ID");
-  st.session.paused = false;
-  return { saveId, completed: sp.completedSteps.length };
-};
+Built-in defs live in extract module `92659` (`qs` export).
+Each entry has `titleKey`, `descriptionKey`, optional `check(state)`, optional `nextObjectives`, optional `getDescription`.
+
+### Initial active set
+
+New-game init (`lF`) seeds **four** cards:
+
+1. `research_hover`
+2. `build_conveyor_under_water`
+3. `find_fluxite`
+4. `upgrade_grabber`
+
+Mid-game saves may drop completed starters (for example `research_hover` after Hover is researched).
+End-game probes often keep incomplete side branches only.
+
+### Chain graph
+
+```
+research_hover → research_flamethrower → burn_residue
+                                      → melt_ice
+                                      → vaporize_water
+                                      → let_it_rain
+                                      → research_kinetic_press
+find_fluxite → upgrade_grabber → find_artifact
 ```
 
-Default chain after init (`research_hover` removed in live mid-game saves):
+Completing a card pushes any `nextObjectives` not already in `active`.
+Researching **Hover** tech also calls `addObjective("hover")` from the tech unlock path.
 
-1. `build_conveyor_under_water`
-2. `find_fluxite`
-3. `upgrade_grabber`
-4. `find_artifact`
-5. Plus side goals from research branches (`burn_residue`, `melt_ice`, ...)
+### Auto-check cards
 
-Live end-game save (2025-08 probe): only **`active`** secondary cards remain - `build_conveyor_under_water`, `find_fluxite`, `burn_residue`, `melt_ice` (all `completed: false`).
-Primary story line ("Investigate Anomaly") is driven outside this array (HUD title **SIGNAL DETECTED**).
+| Id                       | `check(state)` rule                                              |
+| ------------------------ | ---------------------------------------------------------------- |
+| `research_hover`         | `player.tech[Hover] === true`                                    |
+| `research_flamethrower`  | `player.tech[Flamethrower] === true`                             |
+| `research_kinetic_press` | `player.tech[KineticPress] === true`                             |
+| `find_fluxite`           | `resources.fluxite > 0`                                          |
+| `upgrade_grabber`        | any `store.upgrades.grabber[*].availableLevel > 0`               |
+| `find_artifact`          | `resources.artifacts.found >= 1`                                 |
 
-## Registered ids (core)
+`checkObjectives` (`bS`) runs these checks after tech unlock and on other engine hooks.
+There is no fixed global tick interval in extract; polling is event-driven.
 
-| Id                                                          | Auto-check                                 | Notes                    |
-| ----------------------------------------------------------- | ------------------------------------------ | ------------------------ |
-| `research_hover`                                            | `player.tech[Hover]`                       | Starts chain             |
-| `research_flamethrower`                                     | `player.tech[Flamethrower]`                | Fans out side goals      |
-| `research_kinetic_press`                                    | `player.tech[KineticPress]`                |                          |
-| `build_conveyor_under_water`                                | event `building:placed`                    | conveyor under water     |
-| `find_fluxite`                                              | `resources.fluxite > 0`                    |                          |
-| `upgrade_grabber`                                           | any `grabber` upgrade `availableLevel > 0` |                          |
-| `find_artifact`                                             | `resources.artifacts.found >= 1`           |                          |
-| `burn_residue`, `melt_ice`, `vaporize_water`, `let_it_rain` | world events                               |                          |
-| `hover`                                                     | manual                                     | description uses keybind |
+### Event-driven cards
 
-`nextObjectives` in the registry pushes follow-up ids when one completes.
+| Id                 | Completion trigger (main thread)                                                                 |
+| ------------------ | ------------------------------------------------------------------------------------------------ |
+| `build_conveyor_under_water` | `building:placed` — conveyor-like structure (`ConveyorLeft/Right`, mk2, burner belt, or type string containing `"conveyor"`) on a **Water** element tile |
+| `burn_residue`     | Flamethrower fire ignites **Residue** → **Flame** (first time per session flag)                  |
+| `melt_ice`         | **Ice** terrain destroyed by flamethrower spread (main) or worker posts `ForceCompleteObjective` |
+| `vaporize_water`   | Fire ignites **Water** or **FreezingIce** element → **Steam** (main-thread flag)                 |
+| `let_it_rain`      | Worker cloud `element:duration` intercept — first cloud expiry posts `ForceCompleteObjective`    |
+| `hover`            | Added when Hover tech unlocks; manual / keybind card (`getDescription` injects bind label)       |
 
-Internal helpers: `completeObjective`, `addObjective`, `removeObjective`, periodic `checkObjectives` on tick.
+Worker → main IPC: message id **ForceCompleteObjective** (`ManagerMessageType` 45) calls the same `completeObjective` helper as main-thread `EM(state, id)`.
 
-HUD layout: [HUD and overlays](/okf/ui/hud-and-overlays.md).
+### UI auto-remove
+
+Completed cards carry `completedAt`.
+The Objectives React panel schedules removal after **5000 ms** (`Ku` constant in extract).
+That is cosmetic; completion state persists until removed from `active`.
+
+Game boot registers the `building:placed` listener via init hook `n4(state)`.
+
+## Story vs secondary
+
+Primary story ("Investigate Anomaly", **SIGNAL DETECTED**) is driven by `store.mods.storyProgression`, not `store.objectives.active`.
+Both can show on the HUD at once.
 
 ## Related concepts
 
 - [Progression flags](/okf/progression/progression.md) — `progression.complete({ domain: "objective" })`
 - [Viability](/okf/progression/viability.md) — factory-tier story steps
-- [Gaps](/okf/progression/gaps.md) — objective event completion rules
+- [Tech](/okf/progression/tech.md) — research unlocks that feed auto-check objectives
+- [HUD and overlays](/okf/ui/hud-and-overlays.md) — Objectives panel layout

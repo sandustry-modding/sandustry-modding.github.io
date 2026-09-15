@@ -26,7 +26,8 @@ sources:
 
 ## Config
 
-`__debug.config.useMultithreading` — **true** (live).
+`__debug.config.useMultithreading` — **true** (live 0.5.6, CDP `:9222`).
+Game version on probe save: **0.5.6**.
 
 ## `environment.multithreading.simulation` (live)
 
@@ -47,7 +48,27 @@ Each `threads[i].meta`:
 | `managerPort`   | Manager port         |
 
 Thread `meta.startingIndex` is the worker id **0..13**, not a Y-band start.
-Row/chunk ownership formula is still unknown — see [Open gaps](/okf/world/gaps.md).
+
+## Per-thread column ownership (0.5.6 extract)
+
+Simulation partitions work by **chunk column index on X**, not by cell Y band.
+Helpers live in the main bundle (`isChunkIndexInThread`, `isCellXInThread`, `getThreadIndexFromCellX`).
+`chunkSize` is **40** (`__debug.config.chunkSize`).
+
+| Helper | Formula (symbols) |
+| --- | --- |
+| `getThreadColumnSize()` | `2 * chunkSize` → **80** cells per thread column |
+| `getNumberOfThreadColumns(state)` | `floor(world.width / getThreadColumnSize())` |
+| `getThreadIndexFromCellX(cellX, threadCount)` | `floor(cellX / (2*chunkSize)) % threadCount` → `floor(cellX / 80) % threadCount` on live config |
+| `isChunkIndexInThread(chunkIndex, threadIndex, threadCount)` | `2 * floor(chunkIndex / 2) % (2 * threadCount) == 2 * threadIndex` |
+| `isCellXInThread(cellX, threadIndex, threadCount)` | `isChunkIndexInThread(floor(cellX/chunkSize), threadIndex, threadCount)` |
+| `isCellXAtThreadSeam(cellX)` | `cellX === floor(cellX/(2*chunkSize))*(2*chunkSize)` or `cellX === that + (2*chunkSize - 1)` |
+
+On a **1024**-wide dev save with **14** threads: `floor(1024/80) = 12` thread columns; index wraps with `% 14`.
+Workers also receive per-column `MessagePort` meshes at boot (`threads[i].meta.ports`).
+
+Worker-thread `sandkit.api` omits `grid.mutate` and `energy.*` — see [Worker entry API](/okf/internals/worker-api.md).
+Internal `sandkit.engine.api.energy` still runs inside simulation workers for storage ticks and `shared.energyChange` — see [Engine energy](/okf/energy/engine-energy.md).
 
 ## Shared scheduling fields
 
@@ -65,7 +86,10 @@ Do not call `__debug.setSchedulingMode` without user ask.
 
 ## Chunk sim flags
 
-`shared.sim.chunkShouldUpdate` and `chunkShouldUpdateNext` — `Uint8Array`, len **9216** (= 96 chunks).
+`shared.sim.chunkShouldUpdate` and `chunkShouldUpdateNext` — `Uint8Array`, len **`chunkWidth * chunkHeight`**.
+
+3840-grid save: len **9216** (= 96 × 96 chunks).
+1024-grid dev save: len **676** (= 26 × 26 chunks).
 
 Value **1** = chunk marked for update (live sample at map center chunk).
 

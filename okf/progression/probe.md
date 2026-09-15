@@ -46,7 +46,7 @@ Return JSON-serializable data only.
 
 Do not click Research nodes, **MAX EVERYTHING**, buy tech, spend tickets, or call mutators during probes.
 
-## Sample script
+## Sample script (mod scope — `sandkit` ambient)
 
 ```js
 () => {
@@ -55,6 +55,7 @@ Do not click Research nodes, **MAX EVERYTHING**, buy tech, spend tickets, or cal
   return {
     version: st.version,
     techApi: Object.keys(s.api.tech),
+    hasGetStatusById: Boolean(s.api.tech.getStatusById),
     isResearchedShaker: s.api.tech.isResearchedById(s.enums.Tech.Shaker),
     locked: st.lockedTechs,
     researchedCount: Object.values(st.player.tech).filter(Boolean).length,
@@ -69,12 +70,37 @@ Do not click Research nodes, **MAX EVERYTHING**, buy tech, spend tickets, or cal
     objectives: st.objectives?.active,
     techEnumKeys: Object.keys(s.enums.Tech).length,
     lexicon: {
-      compiled: s.state.session.lexicon?.compiled,
       entries: s.state.session.lexicon?.entries?.length,
+      tech: s.state.session.lexicon?.entries?.filter((e) => e.kind === "tech").length,
     },
   };
 };
 ```
+
+## CDP script (`__debug.state`, no ambient `sandkit`)
+
+```js
+() => {
+  const st = globalThis.__debug.state;
+  const upgradePairs = Object.entries(st.store.upgrades).flatMap(([itemId, defs]) =>
+    Object.keys(defs).map((upgradeId) => `${itemId}:${upgradeId}`)
+  );
+  let grid = null;
+  self.webpackChunksand_v1.push([["okf_probe"], {}, (__webpack_require__) => {
+    const mod = __webpack_require__(77135);
+    grid = { rows: mod.getTechGrid().length, connections: mod.getTechConnections().length };
+  }]);
+  return {
+    hasGetStatusById: false,
+    upgradePairs,
+    sharedHasUpgrades: Boolean(st.shared?.upgrades),
+    grid,
+  };
+};
+```
+
+`getStatusById` is absent on the public API (confirmed live).
+`shared.upgrades` is absent; workers read main-thread `store.upgrades` via engine sync, not a separate mirror bag.
 
 ## Related concepts
 

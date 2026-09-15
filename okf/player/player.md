@@ -75,6 +75,20 @@ Aliases confirmed live (0.5.5): `getPositionAtWorld` === `getWorldPosition`; `in
 `sandkit.engine.api.player` mirrors the API with **state first**: `getPosition(state)`, `setPosition(state, x, y)`, `isPositionClear(state, x, y)`, etc.
 Prefer `sandkit.api` in probes unless you already hold `state`.
 
+## Worker `sandkit.api.player` (read-only)
+
+External mod worker runtime (`external-mod-worker-runtime.js`) exposes a **subset** on worker `sandkit.api.player`.
+All calls bind worker `state` internally.
+
+| Method | Engine twin | Notes |
+| --- | --- | --- |
+| `getPositionAtWorld()` | `FH.player.getPosition(state)` | Alias `getWorldPosition` (same function ref). |
+| `isCollidingWithCell(x, y)` | `FH.player.isCollidingWithCell(state, x, y)` | Cell coordinates. |
+| `isWithinRadiusOfCell(x, y, r)` | `FH.player.isWithinRadius(state, x, y, r)` | Radius in cells. |
+
+**Not on workers:** `setPosition`, `setVelocity`, `setMovementMode`, `isOnGround`, `teleportToGround`, `isPositionClearAtWorld`, `inventory`, `buildings`.
+See [Worker entry API](/okf/internals/worker-api.md).
+
 ## `sandkit.api.cooldown`
 
 | Method                                   | Arity | Notes                                                     |

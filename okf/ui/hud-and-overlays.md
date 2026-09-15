@@ -56,6 +56,8 @@ Open one concept file when you need live Early Access 0.5.5 layout facts.
 | Debug F3 tabs (spawn, cheats, sim)                                   | [Debug overlay](/okf/ui/debug.md)                    |
 | Default keybindings                                                  | [Keybindings](/okf/ui/bindings.md)                   |
 | `inject`, `regions`, `overrides`, `hotbar`, `select`, ComponentId    | [Overlay API](/okf/ui/overlay-api.md)                |
+| Main menu, exit, workshop Mods, custom Maps                        | [Screens](/okf/ui/screens.md)                      |
+| Radial, world map, Lexicon codex                                   | [Overlays](/okf/ui/overlays.md)                      |
 | Screens not walked yet                                               | [Screen gaps](/okf/ui/gaps.md)                       |
 
 ## Pointers

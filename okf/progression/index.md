@@ -6,6 +6,8 @@ Tech trees, upgrades, discoveries, conservatory, tutorial, objectives, and facto
 
 - [Tech and upgrades](/okf/progression/tech-and-upgrades.md) — kit guide index for Research, upgrades, and story steps
 - [Tech](/okf/progression/tech.md) — `sandkit.api.tech`, researched state, locks, definitions
+- [Tech tree structure](/okf/progression/tech-tree.md) — built-in grid, edges, branch colors
+- [TechStatus](/okf/progression/tech-status.md) — Research UI status derivation (engine)
 - [Upgrades](/okf/progression/upgrades.md) — `sandkit.api.upgrades`, store shape, item ids
 - [Discoveries](/okf/progression/discoveries.md) — discovery log elements and terrains
 - [Progression flags](/okf/progression/progression.md) — `sandkit.api.progression`, dungeons, upgrade unlock

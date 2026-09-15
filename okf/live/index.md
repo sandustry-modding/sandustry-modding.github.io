@@ -9,6 +9,8 @@ After attach, open the matching OKF domain for vanilla facts.
 
 - [Attach](/okf/live/attach.md)
 - [Evaluate](/okf/live/evaluate.md)
+- [Worker attach](/okf/live/worker-attach.md)
+- [Feature save setup](/okf/live/feature-save-setup.md)
 
 ## References
 

@@ -10,7 +10,7 @@ tags:
 status: stable
 generated:
   by: human:ethan
-  at: 2026-09-14T20:00:00Z
+  at: 2026-09-15T20:40:00Z
 sources:
   - id: types-state
     resource: node_modules/@sandustry-modding/types/src/sandkit/engine/state.d.ts
@@ -20,6 +20,9 @@ sources:
 
 `sandkit.state` keys: `environment`, `sandkit`, `session`, `shared`, `store`.
 Stubs in `node_modules/@sandustry-modding/types/src/sandkit/engine/state.d.ts` are thinner than live.
+
+Large typed arrays under `shared.sim`, `shared.mapData`, and related bags are documented by **header only** — [Shared buffer headers](/okf/internals/shared-buffers.md).
+Do not dump full buffers in probes.
 
 ## `session` (live)
 

@@ -7,6 +7,7 @@ Inventory, items, tools, camera, input, and placement.
 - [Inventory and items](/okf/player/inventory-and-items.md)
 - [Player state and API](/okf/player/player.md)
 - [Items and hotbar](/okf/player/items.md)
+- [Item abilities](/okf/player/abilities.md)
 - [Tools and grabber](/okf/player/tools.md)
 - [Building mode](/okf/player/building.md)
 - [Input](/okf/player/input.md)

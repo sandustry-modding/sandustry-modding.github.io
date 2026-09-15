@@ -27,8 +27,8 @@ Standard DOM APIs omitted.
 | --------------------- | ----------------------------------------- |
 | `electron`            | Preload `contextBridge` — [Electron bridge](/okf/internals/electron.md) |
 | `__debug`             | Dev helpers — [`__debug`](/okf/internals/debug.md) |
-| `Noise`               | Function (procgen noise)                  |
-| `webpackChunksand_v1` | Webpack chunk array (length 1 after load) |
+| `Noise`               | Procgen simplex/perlin class — [Procgen Noise](/okf/internals/noise.md) |
+| `webpackChunksand_v1` | Webpack chunk array (length 1 after load) — [Webpack module ids](/okf/internals/webpack-modules.md) |
 | `__reflow`            | Number (layout tick, changes over time)   |
 
 `sandkit` top-level keys (live 0.5.5): `api`, `apiVersion`, `engine`, `enums`, `react`, `state`.

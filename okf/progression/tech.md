@@ -74,7 +74,8 @@ Missing key falls back to definition `locked`.
 - `isElectricity`, `electricityNodeStyle`, `isAlien`, `threshold`, `radiusUnlockPx`
 
 Full enum list: [Enums](/okf/progression/enums.md).
-Grid layout is internal (not on public API).
+Grid layout and branch colors: [Tech tree structure](/okf/progression/tech-tree.md).
+Runtime UI status (not on public API): [TechStatus](/okf/progression/tech-status.md).
 
 ## Tutorial gate
 
@@ -85,5 +86,7 @@ Engine checks `isTechAllowedDuringTutorial` (Shaker always; Conveyors after step
 
 - [Conservatory](/okf/progression/conservatory.md) — ticket rewards and `appendUnlock`
 - [Tutorial](/okf/progression/tutorial.md) — step gates for tech purchases
+- [Tech tree structure](/okf/progression/tech-tree.md) — grid, connections, branches
+- [TechStatus](/okf/progression/tech-status.md) — Research UI status derivation
 - [Enums](/okf/progression/enums.md) — `Tech` and `TechStatus` values
 - [Store cluster](/okf/progression/store.md) — `player.tech` and `lockedTechs`

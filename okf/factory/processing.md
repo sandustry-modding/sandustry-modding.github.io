@@ -71,6 +71,57 @@ Live scrape sources (game `js/bundle.js`):
 
 Flower harvest after Seedling is entity-side (Gold + Amethelis), not a grower recipe row.
 
+Vanilla builtin refinery tables (slot id vs structure id, chances, fuel rules): [Vanilla refinery recipes](/okf/factory/refinery-recipes.md).
+
+## Thermal machine tick internals (0.5.6 bundle)
+
+Worker-side structure ticks (not visible via renderer `sandkit.api` on CDP `:9222`).
+Facts from `bundle.js` / `simulation-worker.js` extract.
+
+### Condenser (`thermofroster`, recipe slot `condenser`)
+
+- Scans element cells adjacent to the 4×4 footprint (top and bottom edges, order shuffled each tick).
+- Requires `getWeightedRecipe(state, "condenser", inputType)` match.
+- Heat gate `Th(state, originX, originY)`:
+  - Adjacent `thermalRelay` heat via shared helper `bh.dv` (4×4 probe, offset **-2**), **or**
+  - `freezingIce` on the row above: **10%** RNG to remove one ice cell and pass.
+- On success: remove input, `selectWeightedOutput` (or single 1.0 output), create output element, particle burst.
+- Florin input path also calls `factory.recordProcess(state, CondenseFlorin)` (process index **3**).
+
+Builtin condenser rows (also in `mods.recipes.condensers` when mods register): florin → florinol/gold; steam → water.
+
+### Smelter (`smelter`, recipe slot `smelter`)
+
+- Reads element on row **above** footprint (`y - 1`), x order shuffled each tick.
+- `getWeightedRecipe(state, "smelter", inputType)` — builtin table: gold → liquidGold (**0.5**), copper → liquidCopper (**1.0**).
+- **25%** RNG early exit per tick (`Math.random() < 0.25` → no smelt).
+- Heat gate (same helper family as condenser, offset **+10** for relay probe):
+  - Adjacent `thermalRelay`, **or**
+  - `lava` on row below relay column: **10%** RNG to remove lava cell.
+- On success: `heatWave` effect, remove input, create liquid output from weighted recipe.
+
+### Snowmaker / steam dryer / synthesizer
+
+Use the same `getWeightedRecipe` slot lookup pattern (`snowmakers`, `steamDryers`, `synthesizers`) with structure-specific tick hooks in the worker bundle.
+Snowmaker copy: consumes water above and energy (see structure i18n `structures|snowmaker|description`).
+
+## Mod refinery rows (`state.sandkit.mods.recipes`)
+
+Live 0.5.6 probe via `__debug.state` (dev-tools autosave).
+Slots are arrays; vanilla builtin shaker/grower/press paths stay engine-hardcoded.
+
+| Slot          | Rows | Input (`elementType`) | Outputs (`elementType`, `chance`) |
+| ------------- | ---- | --------------------- | --------------------------------- |
+| `condensers`  | 2    | 22 (`florin`)         | 7 / Gold (0.5), 23 / `florinol` (0.5) |
+| `condensers`  |      | 10 / Steam            | 3 / Water (1.0)                       |
+| `steamDryers` | 1    | 18 / Petalium         | 24 / `dryPetalium` (1.0)              |
+| `synthesizers`| 1    | 23 / `florinol`       | 26 / `aurixite` (1.0)                 |
+| `snowmakers`  | 1    | 3 / Water             | 12 / FreezingIce (1.0)                |
+| `smelters`    | 2    | 7 / Gold              | 25 / `liquidGold` (0.5)           |
+| `smelters`    |      | 36 / `copper`         | 37 / `liquidCopper` (1.0)         |
+
+Empty on this save: `contacts`, `shakers`, `kineticPresses`, `growers` (all len **0**).
+
 ## Custom structure processing
 
 `sandkit.api.structures.processing`:

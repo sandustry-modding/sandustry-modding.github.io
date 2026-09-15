@@ -15,6 +15,10 @@ generated:
 sources:
   - id: vanilla-055-probe
     resource: sandustry 0.5.5 live session
+  - id: live-056
+    resource: CDP :9222 0.5.6 session
+  - id: bundle-056
+    resource: sandustry 0.5.6 simulation-worker.js extract
   - id: official-sandkit
     resource: https://sandustry.com/sandkit.html
 ---
@@ -52,12 +56,37 @@ engine.api.conveyors.registerType(state, id, {
 
 `__debug.config.conveyorDefaultSpeed`: `0.05` on this build.
 
+## Worker registration payload (0.5.6 extract)
+
+Renderer `engine.api.conveyors.registerType(state, structureId, options)` posts IPC message **`RegisterConveyorType` (59)** to all simulation workers:
+
+```
+postAll(state, [RegisterConveyorType, structureId, options])
+```
+
+Worker handler `registerConveyorType(state, structureId, options)`:
+
+| Field | Default / role |
+| --- | --- |
+| `transportOffset` | `{ x: 0, y: -1 }` |
+| `velocity` | optional belt speed vector |
+| `maxTransportDistance` | optional cap |
+| `transportHeight` | **1** |
+| `runWith` | `"left"` or `"right"` — adds type id to worker run list for that direction |
+| `skipQueued` | optional — skip queued structures on belt |
+
+Worker stores options in per-type map `L[structureId]` (`getModConveyorOptions`).
+Also ensures `session.lookup.conveyorBeltsGroupedByX[*][structureId]` arrays exist and bumps conveyor version.
+
+**CDP blocker:** worker threads are not attachable on `:9222` ([Worker attach](/okf/live/worker-attach.md)).
+Payload shape is confirmed from extract only; live worker `evaluate_script` not available.
+
 ## Launchers
 
 No public `sandkit.api.launchers`.
 Use `structureBehaviors.registerLauncherType` or `engine.api.launchers.registerType`.
 
-Live `state.sandkit.registeredLauncherTypes`:
+Live `state.sandkit.registeredLauncherTypes` (0.5.6 CDP probe):
 
 ```js
 [
@@ -65,8 +94,16 @@ Live `state.sandkit.registeredLauncherTypes`:
     upType: "launcherUpMk2",
     leftType: "launcherLeftMk2",
     rightType: "launcherRightMk2",
-    velocity: [88.8, 88.8],
-    softDropVelocity: 45,
+    velocity: {
+      up: { x: 0, y: -88.8 },
+      left: { x: -88.8, y: -88.8 },
+      right: { x: 88.8, y: -88.8 },
+    },
+    softDropVelocity: {
+      up: { x: 0, y: -45 },
+      left: { x: -45, y: -45 },
+      right: { x: 45, y: -45 },
+    },
     runTickSharedBufferKey: "launcherMk2RunTick",
   },
 ];

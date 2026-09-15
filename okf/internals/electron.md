@@ -62,6 +62,7 @@ Throw text `Save not found: "<id>"` is the same for a failed `electron.load` and
 - Quit / browser: `appQuit`, `openExternalBrowser`
 - Platform: `diagnostics`, `checkLicense`, `writeGameEvent`, `platformPrimeAchievements`, `platformShowReauthPrompt`
 - Nested: `localMods.*`, `customMaps.*`, `platform.*` (achievements, cloud, workshop, overlay)
+- Custom maps IPC detail: [Custom maps IPC](/okf/internals/custom-maps-ipc.md)
 - Log: `log(level, scope, message)` → `log:write` fire-and-forget
 - Xbox listeners: `onXboxUserSignedOut|SignedIn`, `onXboxLicenseLost` (Steam: never fire)
 - Sleep: `onAppSuspend`, `onAppResume`

@@ -42,7 +42,7 @@ Order after `?db_load=` / Continue:
 
 1. Load save (`electron.load` when the host check in [Electron bridge](/okf/internals/electron.md) is true; otherwise IndexedDB).
    Parse store, wall, matrix, shadow, authorization.
-2. Build Pixi/session, then allocate SharedArrayBuffers for `store.world.size` (vanilla **3840 × 3840**): `cellIds` ~56 MB, `mapData` ~56 MB, wall + shadow ~14 MB each, plus **1000000** element slots and **14** sim workers.
+2. Build Pixi/session, then allocate SharedArrayBuffers for `store.world.size` (vanilla **3840 × 3840**): `cellIds` ~56 MB, `mapData` ~56 MB, wall + shadow ~14 MB each, plus **1000000** element slots and simulation worker threads (count = `max(2, hardwareConcurrency - 2)`, cap **18** — see [Workers runtime](/okf/internals/workers-runtime.md)).
 3. `pj()` — key bindings + Pixi overlay containers (`ET.init`).
 4. Run external mods.
 5. `regenerateOutlineElementsShader`.

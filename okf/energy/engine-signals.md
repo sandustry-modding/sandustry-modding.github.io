@@ -34,7 +34,7 @@ Persisted slice: `store.mods.signals`.
 ## Session (state.session.mods.signals)
 
 Built at init.
-Live counts on this save (0.5.5): **17** sender types, **12** receiver types, **5** interactable handlers, **6** link buckets.
+Live counts on this save (0.5.6): **17** sender types, **12** receiver types, **5** interactable handlers, **6** link buckets.
 
 **Probe note:** `senderTypes` and `receiverTypes` are **`Set`** instances.
 Use `.size`, not `Object.keys()` (returns `[]` on Sets).
@@ -62,7 +62,14 @@ Use `.size`, not `Object.keys()` (returns `[]` on Sets).
 Event: `signals:userChanged` (undo history).
 Combinational loop toast when `dirtyReceivers` does not drain.
 
-Vanilla signal structure ids include `signalToggle`, `signalSwitch`, `signalRepeater`, `signalGate`, `signalBuffer`.
+## Vanilla sender, receiver, and interactable ids
+
+Full id lists with English display names: [Signal structure catalog](/okf/energy/structure-catalog.md).
+
+Live counts (0.5.6): **17** senders, **12** receivers, **5** interactables.
+Logic gates appear in both sender and receiver sets.
+Sensors, `signalSwitch`, and `signalButton` are send-only; `signalLamp` is send-only.
+
 Sprite and gate logic uses `getCombinedAt`.
 
 ## Related

@@ -12,7 +12,7 @@ tags:
 status: stable
 generated:
   by: human:ethan
-  at: 2026-09-14T20:00:00Z
+  at: 2026-09-15T20:40:00Z
 sources:
   - id: sandkit-api
     resource: https://sandustry.com/sandkit.html
@@ -71,13 +71,13 @@ Do not mutate; workers use `Atomics.load` / `compareExchange`.
 
 Coarse water-activity raster for ambience (flow sound pan/volume), not per-cell water sim.
 
-| Field                      | Live                       | Role                                                         |
-| -------------------------- | -------------------------- | ------------------------------------------------------------ |
-| `waterPresenceZones`       | `Uint8Array` len **14400** | `0` = dry zone, non-zero (usually `1`) = water seen recently |
-| `waterPresenceZonesWidth`  | **120**                    | Zone columns                                                 |
-| `waterPresenceZonesHeight` | **120**                    | Zone rows                                                    |
+| Field                      | Live (3840)                | Live (1024 dev save)       | Role                                                         |
+| -------------------------- | -------------------------- | -------------------------- | ------------------------------------------------------------ |
+| `waterPresenceZones`       | `Uint8Array` len **14400** | `Uint8Array` len **1024**  | `0` = dry zone, non-zero (usually `1`) = water seen recently |
+| `waterPresenceZonesWidth`  | **120**                    | **32**                     | Zone columns                                                 |
+| `waterPresenceZonesHeight` | **120**                    | **32**                     | Zone rows                                                    |
 
-Zone size in cells: `floor(worldWidth / zoneWidth)` → **32** cells/edge on 3840-wide maps.
+Zone size in cells: `floor(worldWidth / zoneWidth)` → **32** cells/edge when `zoneWidth = floor(width / 32)`.
 
 Zone index: `zoneY * waterPresenceZonesWidth + zoneX` where  
 `zoneX = floor(cellX / 32)`, `zoneY = floor(cellY / 32)`.

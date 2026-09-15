@@ -1,7 +1,7 @@
 ---
 type: Reference
 title: Enums
-description: sandkit.enums.Tech, TechStatus, and related progression enum ids for Early Access 0.5.5.
+description: sandkit.enums.Tech, TechStatus, and related progression enum ids from the 0.5.6 extract.
 tags:
   - sandustry
   - okf
@@ -10,12 +10,14 @@ tags:
 status: stable
 generated:
   by: human:ethan
-  at: 2026-09-14T20:00:00Z
+  at: 2026-09-15T20:00:00Z
 sources:
   - id: sandkit-api
     resource: https://sandustry.com/sandkit.html
   - id: types-package
     resource: node_modules/@sandustry-modding/types/src/sandkit/enums/index.d.ts
+  - id: extract
+    resource: sandustry/source/dist/js/bundle.js
 ---
 
 # Enums
@@ -33,10 +35,11 @@ Visibility and research state for **UI** (not the same as `player.tech`).
 | 0     | Available  | May be purchased now           |
 | 1     | Visible    | Shown but requirements not met |
 | 2     | Researched | Already bought                 |
-| 3     | Unknown    | Not yet revealed               |
-| 4     | Hidden     | Hidden from tree               |
+| 3     | Unknown    | Enum reserved; vanilla UI unused |
+| 4     | Hidden     | Enum reserved; vanilla UI unused |
 
-Derive per-node status in UI code from definitions, parents, `player.tech`, and `lockedTechs`.
+Vanilla assigns only **Available**, **Visible**, and **Researched** via engine `parseTechTree`.
+Full derivation rules: [TechStatus](/okf/progression/tech-status.md).
 
 ## Tech
 
@@ -62,6 +65,8 @@ Types package core enum is in `node_modules/@sandustry-modding/types/src/sandkit
 
 ## Related concepts
 
+- [TechStatus](/okf/progression/tech-status.md) — runtime status derivation
+- [Tech tree structure](/okf/progression/tech-tree.md) — grid branches and colors
 - [Tech](/okf/progression/tech.md) — `getDefinitionById` id format rules
 - [Discoveries](/okf/progression/discoveries.md) — `ElementType` discovery ids
 - [Progression flags](/okf/progression/progression.md) — `DungeonId` keys

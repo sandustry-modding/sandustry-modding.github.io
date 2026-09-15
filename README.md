@@ -5,7 +5,7 @@
 
 # Sandustry Modding
 
-Community docs for Sandustry mods: Sandkit API reference, domain guides, and the TypeScript mod template kit.
+Community docs for Sandustry mods: Sandkit API reference, domain guides, the TypeScript mod template kit, and an [OKF viewer](okf/) for the game knowledge bundle.
 
 Install types as [`@sandustry-modding/types`](https://www.npmjs.com/package/@sandustry-modding/types ":target=_blank").
 Project setup lives in the [mod template README](https://github.com/IrishBruse/SandustryModTemplate ":target=_blank").

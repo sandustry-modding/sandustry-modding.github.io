@@ -50,6 +50,7 @@ Rewrite via `electron.save` / `game.save` after fixes; `.save.backup` beside the
 Toolbox rows.
 Vanilla entries use numeric `id` (`ItemId`), `itemType`, `abilities[]`, i18n keys (`nameKey`, `descriptionKey`, `categoryKey`).
 Example shovel: `id: 1`, `itemType: 1`, ability `type: 1` (Dig).
+Full live matrix: [Item abilities](/okf/player/abilities.md).
 
 ## `sandkit.api.items`
 

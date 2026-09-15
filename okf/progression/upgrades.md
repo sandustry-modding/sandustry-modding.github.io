@@ -55,7 +55,61 @@ Each leaf:
 
 `grabber`, `jetpack`, `shovel`, `gun`, `rocketLauncher`, `hauler`, `digger`, `flamethrower`, `cryoblaster`, `drill`, `sweeper`, `implosionGun`, `thruster`, `vacuum`, `locator`, `laser`.
 
-Example `grabber` upgrades: `scanner`, `waterGrab`, `maxSize`.
+### Vanilla `itemId:upgradeId` pairs (38 leaves, CDP 0.5.6)
+
+| itemId | upgradeId |
+| --- | --- |
+| grabber | scanner, waterGrab, maxSize |
+| jetpack | speed, rideBoost |
+| shovel | speed, size, momentum |
+| gun | speed, damage, bullets, tracer, velocity |
+| rocketLauncher | reload, maxAmmo, napalm, damage |
+| hauler | maxDrones, speed |
+| digger | cooldown, hp, gravity, maxDrones |
+| flamethrower | range, vaporize |
+| cryoblaster | output |
+| drill | bore |
+| sweeper | maxDrones, selectionRadius, mouseLight |
+| implosionGun | tankCapacity |
+| thruster | pullStrength |
+| vacuum | capacity, tankCount |
+| locator | artifactGuidance |
+| laser | beamFocus, cycleRate, cryoAblation |
+
+`sandkit.mods.upgrading` holds **mod `register()` metadata only** — not vanilla core upgrade defs.
+Vanilla pairs (38 leaves) live only on `store.upgrades` and in bundled item scripts.
+They do **not** appear under `sandkit.mods.upgrading`.
+
+### Mod metadata shape (CDP `:9222`, dev-tools save, 0.5.6)
+
+Each registered item id maps to:
+
+```ts
+{
+  upgrades: Record<upgradeId, UpgradeDefinition>;
+  itemName?: string;
+  itemNameKey?: string;
+  categoryId?: string | null;
+}
+```
+
+Each `UpgradeDefinition` leaf includes `id`, `nameKey`, `descriptionKey`, `maxLevel`, `costs[]`, and optional `afterUpgradeId`, `oneOff`, `descriptionParams`.
+The same `itemId:upgradeId` keys also exist on `store.upgrades[itemId][upgradeId]` as `{ level, availableLevel }` after `register()`.
+
+Live dev-tools save: **7** item ids and **10** metadata pairs (workshop mod upgrades re-registered through Sandkit):
+
+| itemId | upgradeId |
+| --- | --- |
+| drill | bore |
+| grabber | maxSize |
+| implosionGun | tankCapacity |
+| locator | artifactGuidance |
+| sweeper | maxDrones, selectionRadius, mouseLight |
+| thruster | pullStrength |
+| vacuum | capacity, tankCount |
+
+The remaining **28** vanilla store leaves (gun, jetpack, shovel, …) have no `sandkit.mods.upgrading` entry on this save.
+Probe `Object.keys(state.sandkit.mods.upgrading[itemId].upgrades)` for mod-added pairs; use `store.upgrades` for runtime levels.
 
 ## Unlock flag
 

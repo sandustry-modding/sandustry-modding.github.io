@@ -65,6 +65,7 @@ Live 0.5.5 vanilla facts for player probes:
 - [Coloring](/okf/player/coloring.md) — engine-only color pickers
 - [Clipboard](/okf/player/clipboard.md) — blueprint buffer
 - [Session state](/okf/player/state.md) — player-related session keys
+- [Item abilities](/okf/player/abilities.md) — `abilities[]` types and projectile attributes
 - [Player enums](/okf/player/enums.md) — `ItemId`, `KeyBinding`, and related enums
 - [Player gaps](/okf/player/gaps.md) — not confirmed yet
 - [Player probe](/okf/player/probe.md) — safe read-only MCP rules

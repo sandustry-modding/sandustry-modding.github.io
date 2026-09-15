@@ -36,6 +36,32 @@ Building UI overlays live in [UI: HUD and overlays](/okf/ui/hud-and-overlays.md)
 | `lockedAngle`         | Locked rotation or `null`                        |
 | `ignoreAngleLock`     | Skip angle lock (mod binding may override **B**) |
 
+There is **no** `session.building.ghost` field in the 0.5.6 extract or live dev-tools save.
+Placement preview is computed each frame, not stored on `session.building`.
+
+## Placement preview geometry (extract)
+
+While `placing` is true, the engine builds a **tile list** for the drag shape.
+Each preview cell:
+
+| Field | Type | Role |
+| --- | --- | --- |
+| `x`, `y` | number | Snap-grid cell origin |
+| `structureType` | number or string | Resolved type for that cell (includes launcher left/right splits, `quantumPortal` / `quantumPortalExit` pairs) |
+| `clearance` | number or `null` | `sandkit.enums` clearance value, or `null` when `skipClearance` |
+
+### Clearance enum (`sandkit.enums` — extract)
+
+| Member | Value | Preview flash |
+| --- | --- | --- |
+| `Available` | 1 | `build_flash` |
+| `FullyBlocked` | 2 | `build_flash3` |
+| `PartiallyBlocked` | 3 | `build_flash2` |
+| `CanBeReplaced` | 4 | treated like partial in overlay |
+
+`linkedClearance: "allOrNothing"` downgrades the batch if any cell is `FullyBlocked`.
+Preview draws overlay flashes at `cell * cellSize` with fade timing during multi-tile drags.
+
 ## `session.construction`
 
 | Field              | Role                                    |

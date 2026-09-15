@@ -47,8 +47,20 @@ Optional `data.lightIndex` when spawned with a point light.
 
 | Key                            | Shape        | Notes                                                                                                                                                         |
 | ------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `store.stratacores`            | `string[]`   | Collected stratacore ids (e.g. `"terracortex"`). Separate from live `worldItems` pickups.                                                                     |
+| `store.stratacores`            | `string[]`   | Collected stratacore ids — see [Stratacore ids](#stratacore-ids) below. Separate from live `worldItems` pickups.                                            |
 | `store.gloom.emitterPositions` | `{ x, y }[]` | Gloom emitter world positions. Element sim detail lives in [World](/okf/world/grid-and-elements.md); listed here only because stratacore/gloom progression overlaps entity probes. |
+
+### Stratacore ids
+
+0.5.6 extract + live dev-tools save (`__debug.state`, game **0.5.6**):
+
+| Id | Role |
+| --- | --- |
+| `terracortex` | Only id pushed to `store.stratacores` on `stratacore:secured` |
+
+World pickup before secure uses `prefabSpecial: "terracortex"` or `"strataform"` on `PickupType.Stratacore` rows.
+`"strataform"` is the pre-neutralized label; secured progression stores **`terracortex`** only.
+No other stratacore ids appear in `bundle.js` or locale keys in this build.
 
 ## Public API
 
@@ -68,14 +80,24 @@ Reference: [sandkit.html — api.pickups](https://sandustry.com/sandkit.html).
 
 ## `session.prefabWorldItemCache`
 
-Grid map (`Fn`) populated at map load from prefab metadata:
+Grid map (`Fn`) populated at map load from prefab metadata.
 
-- `worldItemOffset` cells -> Artifact or GlyphKey with translated name and optional light preset.
-- `worldItems[]` and `artifact` blocks -> Artifact entries.
+Each cached cell stores:
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `type` | `PickupType` | Artifact or GlyphKey from prefab name (`Glyph Room` → GlyphKey). |
+| `name` | string | Translated display name (`ui|worldItem|artifact` or glyph key). |
+| `prefabSpecial` | string | From prefab `special` field (may be empty). |
+| `light` | object? | Optional point-light preset (`brightness`, `size`, …) from prefab light tables. |
+
+Population rules:
+- `worldItemOffset` cells → cache entry at offset from prefab origin.
+- `worldItems[]` and `artifact` blocks → Artifact entries.
 - Skips prefab name `"Void"`.
-  Glyph Room prefabs use GlyphKey type.
+- Glyph Room prefabs use GlyphKey type.
 
-When fog reveals a cell, cache entry spawns a real `store.worldItems` item and deletes the cache key.
+When fog reveals a cell, cache entry spawns a real `store.worldItems` item via `pickups.spawnAtWorld` and deletes the cache key.
 Probe: `session.prefabWorldItemCache` constructor name `Fn`; may have no numeric `size`.
 
 ## Sensors

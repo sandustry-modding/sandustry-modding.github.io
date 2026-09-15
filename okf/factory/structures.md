@@ -36,7 +36,8 @@ Pipes are separate — see [Pipes and fluids](/okf/factory/pipes.md).
 | `color`  | Hex tint (coloring tool), e.g. `"#00ffff"`                                          |
 | `frame`  | Boolean frame overlay on foundations                                                |
 
-Live save sample (0.5.5 probe): **19** structures, 0 `queued`, fields `color`, `data`, `filter`, `frame`, `queued`, `type`, `x`, `y`.
+Live save sample (0.5.5 campaign probe): **19** structures, 0 `queued`, fields `color`, `data`, `filter`, `frame`, `queued`, `type`, `x`, `y`.
+0.5.6 dev-tools autosave (CDP `:9222`): **0** placed structures (void map); defs still loaded in registry.
 Signal types on belt: `signalButton`, `signalToggle`, `signalGate`, etc.
 
 ## `sandkit.api.structures` (live keys, 0.5.5)
@@ -93,10 +94,36 @@ Optional **`draw(state, structure, render)`** callback replaces per-cell sprite 
 
 ## Mod registry
 
-`state.sandkit.mods.structures` — 65 defs on this save.
+`state.sandkit.mods.structures` — **65** defs on live 0.5.6 probe.
 Each has `id`, keys like `nameKey`, `categoryKey`, `buildModes`, `variants`, `render`, optional `shape`, `draw`.
 
+**25** defs include a `shape` matrix (sample: `smelter`, `thermofroster`, `burnerBeltLeft`).
+Sample `smelter` def keys: `id`, `nameKey`, `descriptionKey`, `categoryKey`, `order`, `buildModes`, `variants`, `render`, `shape`.
+
 Builtin defs via `getDefinitionByType(16)` expose `buildModes`, `variants`, `nameKey`, `descriptionKey`, `categoryKey`.
+
+## Placement clearance (engine-only)
+
+`getClearanceAtCell` is **not** on public `sandkit.api`.
+Preview clearance uses internal helper (bundle name minified) with `BuildingClearance` enum — see [Enums](/okf/factory/enums.md).
+
+Checks (in order):
+
+1. Out of world bounds → `FullyBlocked`
+2. `alwaysAvailableZone` / `alwaysAvailablePositions` overrides → `Available`
+3. `authorization.canBuild` at cell → `FullyBlocked` when false
+4. Player AABB overlap on solid shape → `FullyBlocked`
+5. Existing structure at cell: `CanBeReplaced` when override-replace key held and footprint is queued or empty shape; else `FullyBlocked`
+6. Partial terrain overlap on shaped defs → `PartiallyBlocked` (or `FullyBlocked` when `rejectWhenBlocked`)
+7. Else → `Available`
+
+Linked placement (`linkedClearance: "allOrNothing"`) promotes all cells in a batch to `FullyBlocked` if any cell is fully blocked.
+
+## Copier `copiedStructure` guard (0.5.6 bundle)
+
+When `structures.build` receives `copiedStructure` in its options bag, unlock checks are skipped.
+Defs with `disallowSelection: true` still reject the build and return **null** — live: `powerBrick` with a fake `copiedStructure` → null; normal build via `FH.structures.build` without that flag succeeds on probe saves.
+`disallowPick: true` blocks copier pick; pair with `disallowSelection` on energy storage that must come from mold fill — [Engine energy](/okf/energy/engine-energy.md#powerbrick-placement-and-unlock-056-live).
 
 ## Engine-only extras (`engine.api.structures`)
 
@@ -104,6 +131,7 @@ State-first twin.
 Live extras vs public: `build`, `removeAt`, `removeBetween`, `removeAtPositions`, `beginBatchWrite`, `endBatchWrite`, `getConfig`, `resolveTypeName`, `isBlockedByPlayer`, `isUnlocked`, `isTypeAt`.
 
 `engine.api.structures.recipes`: `getWeightedRecipe`, `register`, `selectWeightedOutput`.
+`getConfig(type)` returns `C.VI[type]` — see [Placement config](/okf/factory/placement-config.md#getconfig).
 
 ## Built-in type ids
 

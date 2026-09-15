@@ -11,6 +11,7 @@ Power networks, collector behavior, and signal targets.
 - [Shared state](/okf/energy/shared-state.md)
 - [Engine energy](/okf/energy/engine-energy.md)
 - [Engine signals runtime](/okf/energy/engine-signals.md)
+- [Signal structure catalog](/okf/energy/structure-catalog.md)
 - [Clipboard signal links](/okf/energy/clipboard.md)
 - [Gold, collector, and power](/okf/energy/gold-collector.md)
 - [Gaps](/okf/energy/gaps.md)

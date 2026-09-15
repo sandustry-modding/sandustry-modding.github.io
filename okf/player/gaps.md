@@ -20,19 +20,27 @@ sources:
 
 Still open:
 
-- Per-tool runtime bags (dig radius, Copier source, Digger recall, Teleporter targets, Hauler route)
-- Deck (`session.input.mode !== "kbm"`) cursor flow
-- Worker-thread `api.player` helpers
-- Full `abilities[].attributes` matrix per `ItemId`
-- Structure ghost and clearance preview geometry
-- `engine.api.tutorialBuild` constraints
-- Coloring `floodFillColor` limits
-- Clipboard `set` and `activate` structure-array schema
+- Live `sandkit.engine.api` coloring probes on Steam CDP (mod bags on `store.mods` documented from `__debug.state`)
+
+Resolved this pass (CDP `:9222`, 0.5.6 extract + live probes):
+
+- Worker-thread `api.player` read helpers — [Player state and API](/okf/player/player.md#worker-sandkitapiplayer-read-only)
+- `engine.api.tutorialBuild` constraints and `store.mods.tutorialBuild` distinction — [Tutorial](/okf/progression/tutorial.md#engine-build-helpers)
+- Teleporter `locations[]` — no entry schema in shipping 0.5.6; array unused — [Tools and grabber](/okf/player/tools.md#teleporter-item-data-factory-default)
+
+Resolved in this pass (see linked concepts):
+
+- Per-tool runtime bags — [Tools and grabber](/okf/player/tools.md) (`inventory.data`, `session.action.customData`, digger projectiles; not `store.mods.*` for core tools)
+- Deck cursor flow in pad mode — [Input](/okf/player/input.md)
+- Building preview geometry (no `session.building.ghost`) — [Building mode](/okf/player/building.md)
+- Clipboard / copier structure-array schema — [Clipboard](/okf/player/clipboard.md)
+- Coloring `floodFillColor` and `store.mods` picker bags — [Coloring](/okf/player/coloring.md)
 
 Documented elsewhere:
 
 - `inventory.hasById` string vs numeric — [Player state and API](/okf/player/player.md)
 - `getRegisteredIds()` mix — [Items and hotbar](/okf/player/items.md)
+- `abilities[]` matrix for toolbox items — [Item abilities](/okf/player/abilities.md)
 
 ## Related concepts
 

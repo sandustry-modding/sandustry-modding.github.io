@@ -13,6 +13,7 @@
 
 ## Site context
 
+- [OKF viewer](/okf/README.md): human graph viewer on the Docsify OKF tab
 - [Human home](/README.md): Docsify landing page for contributors and readers
 - [AGENTS.md](/AGENTS.md): repo rules for agents editing this site
 - [Official Sandkit API](https://sandustry.com/sandkit.html): signature truth for runtime API shapes

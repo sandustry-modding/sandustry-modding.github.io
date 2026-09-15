@@ -22,15 +22,11 @@ sources:
 
 # Gaps
 
-Still open after the 0.5.5 live pass:
+Still open:
 
-- Per-thread cell-row or chunk ownership (`startingIndex` is only the worker id 0..13)
-- Worker-thread `sandkit` in simulation vs manager vs utility (main renderer confirmed; official worker list in [Engine and workers](/okf/internals/engine-and-workers.md))
-- Full numeric ids for mod-registered terrains beyond built-in `CellType`
-- `grid.mutate` callback timing vs `chunkShouldUpdateNext`
-- `getArtifactLocations()` non-empty `{ cellX, cellY, name }` samples (this save returned `[]`)
+- Worker-thread `sandkit.api` parity spot-check via CDP worker attach (extract facade documented — [Worker entry API](/okf/internals/worker-api.md); no worker CDP target on 0.5.6)
 
-Moved to concepts: scheduling typed arrays ([Workers and scheduling](/okf/world/workers.md)), no shared heat SAB ([Wall, heat, shadows, foliage](/okf/world/wall-heat-foliage.md)), `getDataAtCell` `{ cellType, hitPoints, hp }` ([Terrains API](/okf/world/terrains.md)), Gloom / Stratacore ([Cells](/okf/world/cells.md)).
+Moved to concepts: scheduling typed arrays ([Workers and scheduling](/okf/world/workers.md)), per-thread column/chunk ownership formulas ([Workers and scheduling](/okf/world/workers.md)), `grid.mutate` flush vs `chunkShouldUpdateNext` promotion ([Grid and chunks](/okf/world/grid-chunks.md)), no shared heat SAB ([Wall, heat, shadows, foliage](/okf/world/wall-heat-foliage.md)), `getDataAtCell` `{ cellType, hitPoints, hp }` ([Terrains API](/okf/world/terrains.md)), Gloom / Stratacore ([Cells](/okf/world/cells.md)), mod terrain `cellType` table 31–55 ([Terrains API](/okf/world/terrains.md)), variable grid / chunk count formula ([Grid and chunks](/okf/world/grid-chunks.md)), artifact location merge and sensor name mapping ([Maps API](/okf/world/maps.md)), live `getArtifactLocations()` on campaign save `b93kqvog6zn-exitsave` ([Maps API](/okf/world/maps.md)).
 
 ## Related concepts
 

@@ -24,17 +24,48 @@ Sub-tabs **Tech Tree**, **Conservatory**.
 
 ## Tech Tree
 
-Graph.
-Unlocked checkmarks.
-Some **AUTHORIZED**.
-Costs as numbers.
-A11y snapshot does not name nodes — hover in game or Debug **Copy API Markdown**.
+Graph (SVG) inside the management overlay.
+Sub-tab button **Tech Tree** (sibling **Conservatory**).
+
+Live a11y on CDP `:9222` (0.5.6):
+
+- Dozens of clickable nodes labeled **✓** only (unlocked).
+- At least one node shows badge text **AUTHORIZED** (not clickable like checkmarks).
+- Visible cost label on graph: **Aura** **10,000** (repeated near nodes).
+- Node display names are **not** in the research graph a11y tree (only **✓**, **AUTHORIZED**, and cost labels).
+
+Map graph nodes to Lexicon `kind: "tech"` entries (`session.lexicon.entries`, **56** on dev autosave).
+Each entry has `id`, `name`, and optional `details.nameKey`.
+
+| Graph id (examples) | Lexicon name |
+| --- | --- |
+| 1 | Shaker |
+| 2 | Logistics |
+| 91 | Map |
+| 108 | Hover |
+| voidOrb | voidOrb |
+| swarmConsole | swarmConsole |
+| fluxEmanator | fluxEmanator |
+
+Full grid coordinates: [Tech tree structure](/okf/progression/tech-tree.md#live-grid-056).
+Numeric ids without Lexicon `name` strings (e.g. **71**, **106**) resolve via unlock-target i18n — see [Numeric grid ids](/okf/progression/tech-tree.md#numeric-grid-ids--lexicon-and-unlock-names-056).
 
 ## Conservatory
 
-**Creatures** (this save 5/5): Shinelet, Lumling, Redweaver, Voltblub, Voidgrazer — flavor + **Captured:**.
+Sub-tab button **Conservatory**.
+Headings **Creatures** and **Rewards** (h2).
 
-**Rewards** (this save 11/11), tickets: Coloring Tool, Glass Foundation, Critter Fence, Door, Grappling Hook, Precision Tools, Signal Devices, Signal Controls, Logic Gates, Wall Tool, Retro Console.
+**Creatures** (live 5/5 on dev autosave): each row is image + name + flavor + **Captured:** count.
+
+| Name       | Flavor (short)                                      |
+| ---------- | --------------------------------------------------- |
+| Shinelet   | Delicate light-bug in the dark                      |
+| Lumling    | Springborn cavern drifter, water bursts             |
+| Redweaver  | Threads strings of Redsand                          |
+| Voltblub   | Electric creature for solid energy blocks           |
+| Voidgrazer | Liquefies Voidhusk into Voidjuice                   |
+
+**Rewards** (live 11/11): clickable tickets with unlock blurbs — Coloring Tool, Glass Foundation, Critter Fence, Door, Grappling Hook, Precision Tools, Signal Devices, Signal Controls, Logic Gates, Wall Tool, Retro Console.
 
 ## Related concepts
 

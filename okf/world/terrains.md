@@ -61,7 +61,40 @@ Worker entry applies them immediately.
 
 ## Live registrations
 
-`__debug.state.sandkit.mods.terrains` — **25** keys in probe (sample: `solidite`, `sand2`, `crystal`, `gameOfLifeRandom`).
+`__debug.state.sandkit.mods.terrains` — **25** keys on live 0.5.6 (dev-tools autosave, CDP `:9222`).
+
+Each def exposes `cellType` (numeric terrain id), `id` (string), `nameKey`, `hp`, and optional `materialId`, `colorHSL`, `interactions`, `output`.
+
+| String id           | `cellType` |
+| ------------------- | ---------- |
+| `solidite`          | 31         |
+| `voidFlowerSoil`    | 32         |
+| `spreadingTerrain`  | 33         |
+| `sand2`             | 34         |
+| `earth`             | 35         |
+| `gameOfLifeRandom`  | 36         |
+| `golGrow`           | 37         |
+| `crystal`           | 38         |
+| `sandstone`         | 39         |
+| `dune`              | 40         |
+| `limestone`         | 41         |
+| `bedrock`           | 42         |
+| `gameOfLifeStrict`  | 43         |
+| `copper`            | 44         |
+| `glassTerrain`      | 45         |
+| `dissolvingTerrain` | 46         |
+| `puffMushroom`      | 47         |
+| `fogFreezingIce`    | 48         |
+| `blackrock`         | 49         |
+| `florinolSoil`      | 50         |
+| `auraliteCrystal`   | 51         |
+| `vine`              | 52         |
+| `caldera`           | 53         |
+| `shatterstone`      | 54         |
+| `deepstone`         | 55         |
+
+Built-in `CellType` ids **1–30** are unchanged.
+Mod registrations occupy **31–55** on this build (still within the 1–1000 terrain range).
 
 ## Shadows
 

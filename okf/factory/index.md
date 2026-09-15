@@ -8,6 +8,8 @@ Structures, pipes, recipes, and factory-level systems.
 - [Structures](/okf/factory/structures.md) — instances, definitions, shape matrix, registry
 - [Collector admission](/okf/factory/collector.md) — Gold and liquidGold tile rules
 - [Processing and recipes](/okf/factory/processing.md) — machine recipes and custom processing
+- [Vanilla refinery recipes](/okf/factory/refinery-recipes.md) — builtin thermal machine recipe tables
+- [Placement config](/okf/factory/placement-config.md) — hotbar fields and `getConfig` shape
 - [Pipes and fluids](/okf/factory/pipes.md) — pipe store, pumps, vents
 - [Factory viability](/okf/factory/factory.md) — tier, process counts, stratacores
 - [Blueprints](/okf/factory/blueprints.md) — serialize and localize structure layouts

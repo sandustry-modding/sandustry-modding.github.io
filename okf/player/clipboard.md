@@ -36,6 +36,29 @@ Binds to `KeyBinding.Copy` / `Paste` (live: `Control+KeyC` / `Control+KeyV`).
 | `selectFromHistory(id)`   | 1     | **mutate** — restore history entry                               |
 | `activate()`              | 0     | **mutate** — paste preview, may close building or blueprint windows |
 
+## Structure array schema
+
+`set(data, signalLinks?)` and `activate()` both use the same normalized structure rows.
+Normalizer `hf(state, rows)` deep-clones the array and strips `data` when the structure config has `copyData: false` or `skipCopyData: true`.
+
+### Per-structure row
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `type` | number or string | Structure type id |
+| `originalPos` | `{ x, y }` | Source cell before copy/move |
+| `x`, `y` | number | Position relative to selection anchor (snap-grid aligned) |
+| `filter` | object? | Cloned when present |
+| `data` | object? | Cloned when `copyData` allows; omitted for `Collector` and when config strips copy |
+| `color` | string? | Structure tint when set |
+
+Paste/move also accepts optional **`signalLinks`**: `{ from:{x,y}, to:{x,y}, on:boolean }[]` keyed by original cell positions.
+
+### `activate()` side effects
+
+Calls the copier paste path: sets `session.action.customData` with `mode: Copying`, `marqueeSelected: true`, `selectedStructures`, optional `signalLinks`, and `mouseOffset` from selection bounds.
+Closes blueprint window when open.
+
 ## Read-only probe
 
 ```js

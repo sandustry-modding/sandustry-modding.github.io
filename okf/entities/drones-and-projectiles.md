@@ -48,7 +48,8 @@ It directs sim-side grid logic to worker hooks instead of these namespaces.
 ## Domain concepts
 
 - [Entity store keys](/okf/entities/store.md) — `store.drones`, `store.projectiles`, `store.worldItems`, session caches.
-- [Live entities and capture](/okf/entities/entities.md) — public and engine entity APIs, creature typeIds.
+- [Live entities and capture](/okf/entities/entities.md) — public and engine entity APIs, creature typeIds, spawners.
+- [Creature instance fields](/okf/entities/creature-fields.md) — per-typeId spawn fields from extract.
 - [Drones](/okf/entities/drones.md) — hauler, digger, sweeper store model and internal spawn.
 - [Projectiles](/okf/entities/projectiles.md) — shot registration, blueprints, and store fields.
 - [World items](/okf/entities/world-items.md) — pickups, prefab cache, and `api.pickups`.

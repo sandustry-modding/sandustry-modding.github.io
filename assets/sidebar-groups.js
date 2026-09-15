@@ -7,6 +7,7 @@
   var NAV_LABELS = {
     Home: "Home",
     Guides: "Guides",
+    OKF: "OKF",
     Types: "Types",
     Template: "Template",
     UI: "UI",
@@ -14,6 +15,7 @@
   var SECTION_GROUPS = {
     Home: [],
     Guides: ["Guides"],
+    OKF: ["OKF"],
     Types: ["Types"],
     Template: ["Template"],
     UI: ["UI"],
@@ -65,6 +67,7 @@
 
   function currentSection(path) {
     if (path === "/" || path === "/README") return "Home";
+    if (path.indexOf("/okf") === 0) return "OKF";
     if (path.indexOf("/guides") === 0) return "Guides";
     if (path.indexOf("/ui") === 0) return "UI";
     if (path.indexOf("/modkit") === 0) return "Template";

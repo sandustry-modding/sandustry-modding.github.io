@@ -22,9 +22,16 @@ sources:
 Read-only inspection via `sandustry` MCP `evaluate_script`.
 Return JSON-serializable data only.
 
-`sandkit` is ambient in the evaluate scope.
-Check `typeof window.sandkit`.
-`__debug.state === sandkit.state`.
+On **0.5.6** Steam/CDP `:9222`, ambient `sandkit` is usually **undefined** in evaluate scope.
+`state.sandkit.engine.api` is also absent on probed sessions.
+Use `globalThis.__debug.state` for store, `shared`, and `state.sandkit.mods.*`.
+When `sandkit.api` is reachable (0.5.5 or mod scope), `__debug.state === sandkit.state`.
+
+When you need `authorization.*` or `pipes.*` reads on 0.5.6, bind `FH` from webpack module **46781** — [Evaluate](/okf/live/evaluate.md), [Webpack module ids](/okf/internals/webpack-modules.md).
+Example: `FH.authorization.canBuild(st, x, y)`, `FH.pipes.isAt(st, x, y)`.
+Store-only fallbacks (no API): `shared.authorization.data`, `session.cache.pipes` — [Pipes](/okf/factory/pipes.md), [Authorization](/okf/factory/authorization.md).
+
+Pipe / auth API reads that need engine twins: confirm via bundle extract or replicate cache lookups (`cell >> 2` for `snapGridCellSize` 4) — see [Pipes](/okf/factory/pipes.md).
 
 ## Safe reads
 

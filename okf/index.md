@@ -5,7 +5,7 @@ okf_version: "0.2"
 # Sandustry modding OKF
 
 Open Knowledge Format bundle for agents.
-Humans can keep using the Docsify site and sidebar.
+Humans can open the **OKF** tab for a graph viewer, or keep using the Docsify sidebar.
 
 ## Playbook
 

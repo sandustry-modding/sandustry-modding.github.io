@@ -20,7 +20,9 @@ sources:
 
 # Entity store keys
 
-`sandkit.state.store` holds live runtime arrays.
+`sandkit.state.store` holds live runtime arrays on the **main renderer state**.
+Simulation workers receive a worker `State` facade; `store.drones` and `store.projectiles` are referenced in worker bundles for shared sim paths but are **not** exposed on the public worker `sandkit.api` surface.
+Treat drones and projectiles as main-thread store arrays for mod reads/writes.
 Types: `node_modules/@sandustry-modding/types/src/sandkit/engine/state.d.ts` (thin stubs).
 
 ## Entity-related keys

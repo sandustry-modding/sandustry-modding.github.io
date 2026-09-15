@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- Docs **OKF** tab opens a live graph viewer for the Open Knowledge Format bundle.
+
 ### Changed
 
+- The OKF graph viewer starts on domain indexes, groups nodes by domain, and keeps cross-domain links out of the layout so the map is readable.
 - Generate writes API pages, schemas, and search assets into the sibling docs site clone (`../docs`).
 - This package no longer keeps a `docs/` tree.
 

@@ -38,11 +38,22 @@ Common fields (live 0.5.5):
 | `gravity`            | `{ enabled, factor }` | Gravity toggle.                                                    |
 | `rotateWithVelocity` | boolean               | Sprite rotation.                                                   |
 | `ignoreUpgrades`     | boolean               | Skip upgrade modifiers.                                            |
-| `attributes`         | object                | Per-type data (napalm, digger hp, trajectory origin, mod payload). |
+| `attributes`         | object                | Per-type data (see below). |
 | `mods`               | object?               | When `type === Mod`, keyed by mod projectile id.                   |
 
 Sprite key: `session.rendering.pixi.sprites.projectiles[id]`.
 Built-in texture map: Bullet -> `"bullet"`, Rocket -> `"rocket"`, Digger -> `"digger"`.
+
+## Built-in `attributes` (extract)
+
+| Type | Keys set at spawn / sim |
+| --- | --- |
+| **GrapplingHook** | `{}` at fire — state lives on `store.player.grapplingHook` (`fireTime`, `eyelet` world point). Projectile removed when hook ends. |
+| **Fire** | Nested under flamethrower blueprint: `cooldowns.emitFire: { time, last }`. Duration scaled by `upgrades.flamethrower.range`. Emits short-lived lights on cooldown tick. |
+| **Digger** | `hp` (= digger upgrade level + 1), `distanceOriginX/Y`, `trajectoryOriginX/Y`; sim adds `gravityBounce`, `bounced`, `despawning`, `despawnTimer` when travel exceeds max radius. |
+| **Rocket** | `napalm: true` when rocket warhead augment is owned. |
+
+Mod projectiles store custom keys on `attributes` and/or `mods[<id>]`.
 
 ## Public API
 

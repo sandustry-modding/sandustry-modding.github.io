@@ -20,13 +20,14 @@ sources:
 
 # HUD screen map
 
-Version chip **v0.5.5**.
-This save: **MAX LEVEL**, viability bar.
+Version chip **v0.5.6** (live CDP snapshot, Sep 2026).
+This save: **MAX LEVEL** viability, objective gate **Investigate Anomaly** (`store.mods.storyProgression.currentStep`: `investigate_anomaly`).
 ComponentIds: **HudTopLeft** (resources column), **HudTopRight** (menu, viability, objectives).
 
 ## Top left
 
 Resources: **Credits**, **Fluxite**, **Energy** (icon + count).
+Live probe: all three counters at **0** on this autosave.
 
 Collapse chevron, then rows:
 
@@ -57,7 +58,8 @@ Bank up / n / down.
 Slots 1-9 and 0.
 Two empty buttons after 0.
 
-This session: Grabber, Gun, Flamethrower, Signal Button, Conveyor, Launcher, Flare Gun, Filter, Light, Velocity.
+This session (bank 0): Shovel (1), Grabber (2), Grappling hook (4), Demolisher (4), Grabber (2), Vacuum (5), flareGun mod, Filter (18), Light (26), Velocity (20).
+`activeSlotIndex` was `null` on probe — set a slot before MCP mutations.
 
 Banks: [Options](/okf/ui/options.md) **Hotbars**.
 Keys: [Keybindings](/okf/ui/bindings.md) HOTBAR.

@@ -78,6 +78,8 @@ Use [/types/](/types/) for install and ambient reference setup.
 
 - [OKF index](/okf/index.md)
 - [Generated docs](/okf/api/generated-docs.md)
+- [Namespace routing](/okf/api/namespace-routing.md)
+- [API gaps](/okf/api/gaps.md)
 - [Official Sandkit reference](/okf/references/official-sandkit.md)
 - [Types package reference](/okf/references/types-package.md)
 

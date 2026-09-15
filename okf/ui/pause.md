@@ -38,7 +38,9 @@ Rows are `w-64 cursor-pointer` (not buttons), except **Dev Tools**.
 
 Underscores: **C**ontinue, **S**ave, **L**oad, **O**ptions, **E**xit.
 
-Footer: Discord `https://discord.gg/HJNk5eMnmt`, **Early Access 0.5.5 | seed:**, **Copy info for bug report**.
+Footer: Discord `https://discord.gg/HJNk5eMnmt`, **Early Access 0.5.6 | seed:** (live example `g5uk0hk7`), **Copy info for bug report**.
+
+**Exit** opens the [Exit game dialog](/okf/ui/screens.md#exit-game-dialog) (save checkbox, main menu / desktop / cancel).
 
 API: `sandkit.api.ui.openPauseMenu()`.
 

@@ -40,7 +40,9 @@ Full bag list: [Engine and workers](/okf/internals/engine-and-workers.md).
 | `zoomLevel`                              | Zoom factor                                                                          |
 | `reconMode`                              | Recon drone active (`false` when idle)                                               |
 | `sprintBoost`                            | `{ meter: 0-1, recharging: boolean }` — live idle: `{ meter: 1, recharging: false }` |
-| `windows.building`, `windows.blueprints` | Management overlays open                                                             |
+| `windows.*`                              | Overlay open flags — full key list in [DOM and scenes](/okf/ui/dom.md)               |
+| `mods.signals`                           | Session signal runtime (energy domain)                                               |
+| `mods` (top-level)                       | On this save only `signals` under `session.mods`                                     |
 
 ## `store` (player branch)
 

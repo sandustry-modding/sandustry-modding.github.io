@@ -42,7 +42,42 @@ A custom map can be smaller.
 | `getArtifactLocations()` | `{ cellX, cellY, name }[]` for map artifacts |
 
 Call `getArtifactLocations()` after `game:ready` when placing UI markers.
-Live 0.5.5 vanilla save: `[]`, `getActive()` `null`, `getAvailable()` `[]`.
+
+### Runtime merge (0.5.6 extract)
+
+`maps.getArtifactLocations(state)` builds one array from two sources:
+
+1. `prefabData.getArtifactLocations()` when present — each row `{ cellX: x, cellY: y, name }` from prefab metadata.
+2. `store.world.sensors` — artifact sensor placements with English names:
+   - `Artifact1` sensor type (live store: numeric **`type: 1`**) → **`Zorvix-22`**
+   - any other artifact sensor type → **`Q7-Arynth`**
+
+Live dev-tools save (`irishbruse.dev-tools-exitsave`, CDP `:9222`): `sensors.length === 0`, `getArtifactLocations()` → **`[]`**.
+
+### Live campaign sample (CDP `:9222`, 0.5.6)
+
+Save `b93kqvog6zn-exitsave` (Flintpit, **3840 × 3840**).
+`store.world.sensors`: one row `{ x: 1535, y: 2229, type: 1 }` (numeric sensor type **1** = first artifact sensor).
+`FH.maps.getArtifactLocations(state)` returned **10** rows:
+
+| `cellX` | `cellY` | `name` |
+| --- | --- | --- |
+| 836 | 1984 | Artifact |
+| 669 | 3071 | Artifact |
+| 1181 | 3486 | Artifact |
+| 1057 | 2498 | Artifact |
+| 690 | 2541 | Artifact |
+| 2014 | 2014 | Artifact |
+| 2310 | 2553 | Artifact |
+| 2599 | 2303 | Artifact |
+| 1252 | 3053 | Artifact |
+| 1535 | 2229 | **Zorvix-22** |
+
+Nine prefab rows use the generic label **`Artifact`**.
+The sensor-backed row at **(1535, 2229)** maps to **`Zorvix-22`** (matches extract rule: first artifact sensor type → Zorvix-22).
+`store.resources.artifacts`: `{ available: 10, found: 10 }`.
+
+Live 0.5.5 vanilla save: `getActive()` `null`, `getAvailable()` `[]`.
 
 `AvailableMapV1`: `{ id, name?, … }`.
 
@@ -62,7 +97,13 @@ Reserved RGB keys (terrain blueprint format, `workshop-mods.js`): `255, 255, 255
 Probe: `store.scene.active` **4** (in-game `Scene` enum).
 `shared.mapData` keys: `data`, `width`, `height` — procgen / map raster separate from `shared.sim`.
 
-Live shape: `data` is `Uint8Array`, len **58982400** (= 3840 x 3840 x 4 RGBA).
+`mapData.width` and `mapData.height` match `shared.sim.width` / `height` on the active save (not always 3840).
+
+| Save shape | `mapData` size | `data` length (= w × h × 4 RGBA) |
+| ---------- | -------------- | ---------------------------------- |
+| Campaign   | 3840 × 3840    | 58982400                           |
+| Dev 1024   | 1024 × 1024    | 4194304                            |
+
 Clear per row when wiping void-world batches.
 Background layer details: [Background layers](/okf/world/background-layers.md).
 

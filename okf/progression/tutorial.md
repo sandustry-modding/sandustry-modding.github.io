@@ -65,9 +65,51 @@ Completed tutorial: `active: false`, `currentStep` may remain at last value, `da
 
 ## Engine build helpers
 
-`sandkit.engine.api.tutorialBuild` exposes target cells and placement rules for constrained steps.
+`sandkit.engine.api.tutorialBuild` (`FH.tutorialBuild` via webpack **46781**) exposes target cells and placement rules for constrained steps.
 State-first internal API.
 Types: `@sandustry-modding/types` `src/sandkit/engine/api/tutorialBuild.d.ts`.
+
+Do not confuse with `store.mods.tutorialBuild`.
+That bag holds **storage flags** under key `"tutorialBuild"` (`sellGoldAutoBuilt`, `foundationBoxAutoBuilt`).
+It is empty on dev-tools saves and unrelated to the engine API object.
+
+### Methods (live 0.5.6)
+
+| Method | Role when `store.tutorial.active` |
+| --- | --- |
+| `isStepConstrained(stepKey)` | `true` when the step has prefab target cells in `MS[stepKey]`. |
+| `getTargets(stepKey)` | `{ x, y, type }[]` snap-grid cells for `buildShaker`, `buildConveyorAndLauncher`, `moveFoundationBox`, or `removeFoundationBox`. |
+| `areAllTargetsBuilt(stepKey)` | Every target cell has a matching built structure. |
+| `areFamilyTargetsBuilt(stepKey, family)` | Subset check for family `shaker`, `conveyor`, or `launcher`. |
+| `canPlaceAtActiveTarget(state, structureType, x, y)` | Returns `false` when placement would miss the active tutorial target. No-op when tutorial inactive. |
+| `shouldProtectActiveTargetAt(x, y)` | Returns `true` when demolish/move should not remove a tutorial target cell. |
+| `matchesFoundationMove({ moved })` | Validates copier move payload `{ from, to, type }[]` against `moveFoundationBox` targets. |
+| `matchesFoundationRemove({ removed })` | Validates foundation removal against `removeFoundationBox` targets. |
+| `getFoundationMoveSources()` / `getFoundationMoveDests()` | Source and destination cell lists for the foundation-box move step. |
+| `hasDefinition()` | `true` after prefab `data.tutorialBuild.origin` resolves (tutorial factory anchor `kS`). |
+
+`stepKey` values: `buildShaker`, `buildConveyorAndLauncher`, `moveFoundationBox`, `removeFoundationBox`.
+
+### Placement and demolish hooks
+
+- **Build placement** (`structures:place`): `canPlaceAtActiveTarget` rejects off-target placements during constrained steps (`currentStep >= BuildShaker`).
+- **Demolish** (`structures:remove` on main thread): `shouldProtectActiveTargetAt` skips protected cells unless `byMove` is set.
+- **Structure-built tutorial advance**: `isStepConstrained` gates which `StructureType` values count toward step completion (e.g. only shakers during `BuildShaker`).
+- **Copier move** during `MoveFoundationBox`: `matchesFoundationMove` must pass or the move is denied.
+
+When `store.tutorial.active` is **false** (live dev-tools / post-game saves): `hasDefinition` is `false`, `getTargets` returns `[]`, `canPlaceAtActiveTarget` always allows, and `shouldProtectActiveTargetAt` always returns `false`.
+
+### Prefab source (`data.tutorialBuild`)
+
+Loaded from prefab metadata on `prefabData:loaded`.
+Shape (extract):
+
+| Field | Role |
+| --- | --- |
+| `origin` | `{ x, y }` offset from prefab top-left; sets factory anchor `kS`. |
+| `auto.buildings` | Auto-build queue after `SellGold` (collector cells only). |
+| `foundationBox.buildings` | Foundation source cells (`BS`). |
+| Per-step keys (`buildShaker`, …) | `{ buildings: [{ type, x?, y?, start?, end? }] }` expanded to `MS[stepKey]` target cells. |
 
 ## Tech gate during tutorial
 

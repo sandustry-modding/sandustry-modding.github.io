@@ -21,6 +21,30 @@ sources:
 `window.__debug` is a renderer helper bag.
 `__debug.state` is the same object as `sandkit.state`.
 
+## `__debug.admin.run` command strings
+
+`admin.run(commandString)` forwards to the internal admin runner.
+Do not call in probes or mods.
+
+Verified `commandString` values (0.5.6 extract):
+
+| Command | Effect |
+| --- | --- |
+| `flamethrower` | Push flamethrower item into player inventory. |
+| `vacuum` | Push vacuum item. |
+| `gun` | Push gun item. |
+| `rocket` | Push rocket launcher item. |
+| `digger` | Push digger item. |
+| `shotgun` | Push shotgun item. |
+| `megashotgun` | Push mega shotgun item. |
+| `teleporter` | Push teleporter item. |
+| `thruster` | Push mod item `thruster`. |
+| `implosionGun` | Push mod item `implosionGun`. |
+| `toast` | Show admin tutorial-finished toast (persistent). |
+| `triggers` | Dump event trigger counts (non-verbose). |
+| `triggers verbose` | Dump trigger counts with detail. |
+| `triggers clear` | Zero counts on main and workers, then dump after 10 s. |
+
 ## Keys
 
 | Key                              | Live                                      |

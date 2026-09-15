@@ -65,21 +65,54 @@ There is no public `sandkit.api` twin.
 | ----------------- | ------------------------------------------------------------ |
 | `getColor(state)` | Wall light RGBA array, random and cycle modes use picker helpers |
 
+## `store.mods` color bags (live 0.5.6)
+
+Persistent mod storage (via `sandkit.engine` storage helpers), not on the coloring **item**:
+
+| `store.mods` key | Live shape (idle save) |
+| --- | --- |
+| `foundationColorPicker` | `{ hasLastBatch, lastColor }` — `lastColor` null until used |
+| `lightColorPicker` | `{}` — active RGBA read through `lightColorPicker.getColor(state)` |
+
+The coloring **tool** is a hotbar item (`coloringTool` sprite).
+Paint state is session/engine API only.
+
+## `floodFillColor` (extract)
+
+Signature: `floodFillColor(state, structure, color, matchColorMode?)`.
+
+| Behavior | Detail |
+| --- | --- |
+| Connectivity | 4-neighbor BFS on structures sharing the same `type`, stepping by `snapGridCellSize` |
+| `matchColorMode` true | Only fills neighbors whose existing `color` matches the seed (including both unset) |
+| `color` | Pass `null` / picker `NO_COLOR` to clear |
+| Return | Count of cells recolored |
+
+Limits are structural (same type, optional color match), not a fixed cell cap in extract.
+
 ## Probe snippet (read-only)
 
 ```js
 () => {
-  const s = window.sandkit.state;
-  const eng = window.sandkit.engine.api;
+  const s = globalThis.__debug?.state ?? window.sandkit?.state;
+  const eng = window.sandkit?.engine?.api;
+  if (!eng || !s) return { error: "need sandkit.engine.api or mod entry scope" };
   return {
     paintBucket: eng.coloringTool.isPaintBucketMode(s),
     matchColor: eng.coloringTool.isMatchColorMode(s),
     palette: eng.colorPicker.getActivePalette(),
     foundation: eng.foundationColorPicker.getColor(s),
     light: eng.lightColorPicker.getColor(s),
+    modBags: {
+      foundation: s.store?.mods?.foundationColorPicker,
+      light: s.store?.mods?.lightColorPicker,
+    },
   };
 };
 ```
+
+On Steam CDP `:9222`, `sandkit.engine.api` is often unreachable.
+Use extract signatures above; mod bags are readable from `__debug.state.store.mods`.
 
 ## Related concepts
 

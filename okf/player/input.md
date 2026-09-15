@@ -34,7 +34,7 @@ Full controls UI lives in [UI: HUD and overlays](/okf/ui/hud-and-overlays.md).
 | `bindingStates`                        | Per-binding hold state (often `{}`)                                                                               |
 | `action`                               | `{ move: { order: [] }, boost: bool }` — movement intent                                                          |
 | `mouse`                                | `pressed`, `clicked`, `released`, `position`, `worldPosition`, `cellPosition`, `lastCellPosition`, `lastBigMoveX` |
-| `deckLastManagementTab`, `deckCursor`  | Steam Deck UI                                                                                                     |
+| `deckLastManagementTab`, `deckCursor`  | Steam Deck UI — fields still exist when `mode` is `"kbm"` (see below)                                             |
 
 ## `sandkit.api.input`
 
@@ -86,6 +86,41 @@ Probe: `api.input.getBoundKeys(sandkit.enums.KeyBinding.<Name>)`.
 
 Mod and per-save rebinding can change these.
 Re-probe before simulating keys.
+
+## Deck fields on keyboard saves
+
+When `session.input.mode` is `"kbm"`, deck helpers remain on the object but stay idle until deck mode is active.
+
+Live probe (0.5.6, kbm):
+
+| Field | Live value | Role |
+| --- | --- | --- |
+| `deckCursor.x`, `deckCursor.y` | `0`, `0` | Virtual cursor cell position |
+| `deckCursor.initialized` | `false` | Deck cursor not active on this session |
+| `deckCursor.aimX`, `deckCursor.aimY` | `1`, `0` | Aim vector when deck aims |
+| `deckLastManagementTab` | `"inventory"` | Last management column tab for deck navigation |
+
+## Deck cursor flow (`mode === "pad"`) — 0.5.6 extract
+
+Gamepad activity sets `session.input.mode` to `"pad"` and clears `deckCursor.initialized`.
+When `mode !== "pad"`, the keyboard/mouse input path runs instead.
+
+During gameplay (not paused, menu closed):
+
+| Aim mode | When | Cursor behavior |
+| --- | --- | --- |
+| **Free** | Building active, grabber tool, or other free-aim tools | On first use, `deckCursor.{x,y}` seeds from current mouse position (canvas-normalized). Left stick moves `deckCursor` and writes `session.input.mouse.position`. Sets `mouse.available = true`. |
+| **Fixed** | Most weapons and tools | `mouse.position` = player center + `40 * deckCursor.aimX/Y` offset from camera. Right stick updates `aimX` / `aimY` (normalized). |
+
+Other pad routing (same handler):
+
+- **Start** (gamepad button 9): toggles pause menu.
+- **Select** (button 8): cycles management tabs using `deckLastManagementTab`.
+- **D-pad** while paused/menu: tab navigation helpers.
+- Left stick below threshold synthesizes `KeyBinding.Left` / `Right` key codes into `session.input.action.move`.
+- Triggers map to boost (`session.input.action.boost`).
+
+Return to `"kbm"` when Steam Input reports keyboard/mouse activity (`lt` loop checks `(0,ue.A0)()`).
 
 ## Related concepts
 
