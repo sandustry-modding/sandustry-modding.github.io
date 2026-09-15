@@ -22,7 +22,8 @@ Agents working on the **mod template** use the template README and `modkit/` —
 
 Generated pages live under `api/` and `full.md`.
 Edit declarations in [SandustryTypes](https://github.com/sandustry-modding/SandustryTypes), then run `npm run generate` there.
-When that clone sits next to this site (template `docs/`), generate writes into this tree.
+That package has no `docs/` tree.
+Generate writes into this site clone when it sits at `../docs` from SandustryTypes (template `docs/`).
 Do not hand-edit `api/` pages.
 
 ## Site pages

@@ -5,7 +5,7 @@ Package name: `@sandustry-modding/types`.
 
 Originally a fork of [flamableassassin/sandustry-modding-types](https://github.com/flamableassassin/sandustry-modding-types/).
 
-The [docs site](https://sandustry-modding.github.io/SandustryTypes/) ships API reference pages, modding guides, and JSON Schema for `modinfo.json` / `patches.json`.
+The [docs site](https://sandustry-modding.github.io/) ships API reference pages, modding guides, and JSON Schema for `modinfo.json` / `patches.json`.
 Folder layout mirrors runtime shape so you can jump from code to the matching `.d.ts` path.
 
 ## Runtime map
@@ -65,15 +65,15 @@ import type { ModInfo, BundlePatch } from "@sandustry-modding/types/configs";
 - **Main mod (`main.js`):** use the ambient free name `sandkit`. Type aliases such as `SandkitApi` are global; do not import a value binding.
 - **Worker mod (`worker.js`):** type `sandkit.api` as `WorkerSandkitApi`. Worker and main APIs overlap but are not interchangeable.
 - **Shared folder:** not a runtime namespace. It holds domain shapes and API bases that main and worker modules extend.
-- **Configs folder:** `modinfo.json` and `patches.json` TypeScript types (`@sandustry-modding/types/configs`). Not part of the live `sandkit` object. JSON Schema: https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json and https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json
-- **Electron folder:** renderer preload bridge (`@sandustry-modding/types/electron`). Ambient `electron` on `@sandustry-modding/types`. Docs: [Electron bridge](electron-bridge.md).
+- **Configs folder:** `modinfo.json` and `patches.json` TypeScript types (`@sandustry-modding/types/configs`). Not part of the live `sandkit` object. JSON Schema: https://sandustry-modding.github.io/schemas/modinfo.json and https://sandustry-modding.github.io/schemas/patches.json
+- **Electron folder:** renderer preload bridge (`@sandustry-modding/types/electron`). Ambient `electron` on `@sandustry-modding/types`. Docs: [Electron bridge](https://sandustry-modding.github.io/#/electron-bridge).
 
 ## Maintaining types
 
 Edit `.d.ts` files under `src/`. Regenerate the Docsify API reference and JSON Schema after JSDoc or config-type changes.
 
 `npm run generate` merges `scripts/api-gen/overrides.json`, the official [Sandkit API](https://sandustry.com/sandkit.html) HTML, and `src/sandkit/api/` declarations.
-It writes `scripts/api-gen/generated/api-catalog.json`, refreshes `scripts/api-gen/generated/namespace-summaries.json`, and reports gaps in `docs/generated/api-gaps.md`.
+It writes `scripts/api-gen/generated/api-catalog.json`, refreshes `scripts/api-gen/generated/namespace-summaries.json`, and reports gaps in `scripts/api-gen/generated/api-gaps.md`.
 Edit namespace descriptions and alias mappings in `scripts/api-gen/overrides.json`.
 
 `npm run scrape` walks the live `sandkit` object in a running Sandustry renderer (CDP `:9222`) and writes `scripts/api-gen/generated/runtime-api.json`.
@@ -81,26 +81,26 @@ Start the game with the debug port open (F5 or `npm run sandustry` from the mod 
 
 ## Docs site
 
-Guides live under `docs/guides/` (setup, Workshop, and Sandkit domain pages).
-Regenerate the Docsify API reference and JSON Schema from these declarations:
+Guides and the Docsify shell live in [sandustry-modding.github.io](https://github.com/sandustry-modding/sandustry-modding.github.io).
+Clone that repo as `../docs` (the mod template does this during `npm run setup`).
+Regenerate the API reference and JSON Schema from these declarations:
 
 ```bash
-npm run generate                  # catalog + API markdown + docs/schemas/*.json
+npm run generate                  # catalog + API markdown + schemas on the docs site
 npm run scrape                    # live sandkit inventory from running Sandustry (CDP :9222)
 npm run generate -- --catalog     # overrides + official HTML + declarations → catalog + gaps
 npm run generate -- --schemas     # JSON Schema only
-npm run docs:archive-sandkit      # Fetch official sandkit.html into docs/official-api/
+npm run docs:archive-sandkit      # Fetch official sandkit.html into official-api/ on the docs site
 ```
 
-Output lands in `docs/api/` and `docs/schemas/`.
+Output lands in `api/` and `schemas/` on that clone.
 `npm run generate` overwrites those API pages in place.
-It does not delete `docs/api/`.
-Browse namespaces from [Search](search.md) on the docs site.
-`npm run generate` writes `docs/_sidebar.md` for direct pages.
+It does not delete `api/`.
+Browse namespaces from [Search](search.md) on this site.
 On an API namespace page the sidebar also lists that namespace and its children.
-The combined page is `docs/full.md`.
+The combined page is `full.md`.
 `npm run docs` runs that step, then serves the docs site.
 `npm run docs:links` fails when a markdown link does not resolve to a Docsify page or heading id.
-`npm run validate` fails when committed schemas do not match `src/configs/`.
+`npm run validate` fails when committed schemas on the docs site do not match `src/configs/`.
 
-`npm run docs:archive-sandkit` asks for a base file name, then writes `docs/official-api/<name>.md` from https://sandustry.com/sandkit.html.
+`npm run docs:archive-sandkit` asks for a base file name, then writes `official-api/<name>.md` from https://sandustry.com/sandkit.html.
