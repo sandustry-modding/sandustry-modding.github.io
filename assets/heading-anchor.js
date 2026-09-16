@@ -179,64 +179,9 @@
     }
   }
 
-  function headingCandidates() {
-    var article =
-      document.querySelector("article.markdown-section") ||
-      document.querySelector(".markdown-section");
-    if (!article) return [];
-    return article.querySelectorAll(":is(h1, h2, h3)[id]:not(.smt-member-anchors *)");
-  }
-
-  function queryHeadingId() {
-    var hash = typeof location !== "undefined" ? location.hash : "";
-    var m = /[?&]id=([^&]+)/.exec(hash);
-    return m ? decodeURIComponent(m[1]) : "";
-  }
-
-  function markActiveHeading() {
-    var heads = headingCandidates();
-    var i;
-    var active = null;
-    var id = queryHeadingId();
-    if (id) {
-      for (i = 0; i < heads.length; i++) {
-        if (heads[i].id !== id) continue;
-        var top = heads[i].getBoundingClientRect().top;
-        if (top >= -8 && top <= 140) active = heads[i];
-        break;
-      }
-    }
-    if (!active) {
-      for (i = 0; i < heads.length; i++) {
-        if (heads[i].getBoundingClientRect().top <= 96) active = heads[i];
-      }
-    }
-    for (i = 0; i < heads.length; i++) {
-      heads[i].classList.toggle("smt-heading-active", heads[i] === active);
-    }
-  }
-
-  var scrollTick = 0;
-  function onScrollOrHash() {
-    if (scrollTick) return;
-    scrollTick = requestAnimationFrame(function () {
-      scrollTick = 0;
-      markActiveHeading();
-    });
-  }
-
   window.smtDocsifyHeadingCopyPlugin = function (hook, vm) {
-    hook.ready(function () {
-      window.addEventListener("scroll", onScrollOrHash, { passive: true });
-      window.addEventListener("hashchange", onScrollOrHash);
-      var content = document.querySelector("main") || document.querySelector(".content");
-      if (content) content.addEventListener("scroll", onScrollOrHash, { passive: true });
-    });
     hook.doneEach(function () {
       enhanceHeadings(vm);
-      requestAnimationFrame(function () {
-        markActiveHeading();
-      });
     });
   };
 })();

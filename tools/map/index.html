@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Save editor — Sandustry Tools</title>
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="Edit Sandustry .save header and store metadata in the browser. Terrain paint is optional."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="../../assets/theme.css" />
+    <link rel="stylesheet" href="../../assets/site.css" />
+    <link rel="stylesheet" href="../tools.css" />
+  </head>
+  <body class="smt-map-page">
+    <script src="../../assets/site-nav.js"></script>
+    <div class="smt-map-shell">
+      <aside class="smt-map-side">
+        <h2>File</h2>
+        <div class="smt-map-row">
+          <input id="smt-map-open" type="file" accept=".save,application/octet-stream" />
+          <button type="button" id="smt-map-download" disabled>Download</button>
+        </div>
+        <p class="smt-map-meta" id="smt-map-meta">No file loaded.</p>
+        <fieldset class="smt-map-fields" id="smt-map-fields" disabled>
+          <h2>Save header</h2>
+          <label class="smt-map-field">
+            Save id
+            <input id="smt-meta-id" type="text" autocomplete="off" />
+          </label>
+          <label class="smt-map-field">
+            Display name
+            <input id="smt-meta-name" type="text" autocomplete="off" />
+          </label>
+          <label class="smt-map-field">
+            Timestamp
+            <input id="smt-meta-timestamp" type="text" autocomplete="off" />
+          </label>
+          <div class="smt-map-row">
+            <button type="button" id="smt-meta-now">Set timestamp now</button>
+          </div>
+          <h2>World</h2>
+          <label class="smt-map-field">
+            World id
+            <input id="smt-meta-world-id" type="text" autocomplete="off" />
+          </label>
+          <label class="smt-map-field">
+            World name
+            <input id="smt-meta-world-name" type="text" autocomplete="off" />
+          </label>
+          <label class="smt-map-field">
+            Seed
+            <input id="smt-meta-seed" type="number" />
+          </label>
+          <label class="smt-map-field">
+            Play time (ms)
+            <input id="smt-meta-play-time" type="number" min="0" step="1" />
+          </label>
+          <p class="smt-map-help" id="smt-meta-play-human"></p>
+          <h2>Resources</h2>
+          <label class="smt-map-field">
+            Gold
+            <input id="smt-meta-gold" type="number" min="0" step="1" />
+          </label>
+          <label class="smt-map-field">
+            Fluxite
+            <input id="smt-meta-fluxite" type="number" min="0" step="1" />
+          </label>
+          <label class="smt-map-field">
+            Energy
+            <input id="smt-meta-energy" type="number" min="0" step="1" />
+          </label>
+          <label class="smt-map-field">
+            Artifacts available
+            <input id="smt-meta-art-avail" type="number" min="0" step="1" />
+          </label>
+          <label class="smt-map-field">
+            Artifacts found
+            <input id="smt-meta-art-found" type="number" min="0" step="1" />
+          </label>
+          <label class="smt-map-field">
+            Production points
+            <input id="smt-meta-pp" type="number" min="0" step="1" />
+          </label>
+          <h2>Player</h2>
+          <p class="smt-map-help">
+            Pixel position on <code>store.player</code>.
+            Cell fields write pixels as cell × 4.
+          </p>
+          <div class="smt-map-row smt-map-pair">
+            <label class="smt-map-field">
+              Pixel X
+              <input id="smt-meta-px" type="number" step="1" />
+            </label>
+            <label class="smt-map-field">
+              Pixel Y
+              <input id="smt-meta-py" type="number" step="1" />
+            </label>
+          </div>
+          <div class="smt-map-row smt-map-pair">
+            <label class="smt-map-field">
+              Cell X
+              <input id="smt-meta-cx" type="number" step="1" />
+            </label>
+            <label class="smt-map-field">
+              Cell Y
+              <input id="smt-meta-cy" type="number" step="1" />
+            </label>
+          </div>
+          <div class="smt-map-row">
+            <button type="button" id="smt-map-place" aria-pressed="false">Place player</button>
+          </div>
+          <h2>Read-only</h2>
+          <p class="smt-map-help" id="smt-meta-readonly"></p>
+        </fieldset>
+        <details class="smt-map-terrain">
+          <summary>Terrain paint (optional)</summary>
+          <p class="smt-map-help">Cell edits stay in the terrain layer only.</p>
+          <div class="smt-map-row">
+            <button type="button" id="smt-map-paint" aria-pressed="false">Paint</button>
+            <button type="button" id="smt-map-pick" aria-pressed="false">Pick</button>
+            <button type="button" id="smt-map-fill" aria-pressed="false">Fill</button>
+            <button type="button" id="smt-map-pan" aria-pressed="true">Pan</button>
+          </div>
+          <div class="smt-map-row">
+            <label>
+              Brush
+              <select id="smt-map-brush">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4" selected>4</option>
+                <option value="8">8</option>
+                <option value="16">16</option>
+              </select>
+            </label>
+            <button type="button" id="smt-map-undo" disabled>Undo</button>
+          </div>
+          <div class="smt-map-palette" id="smt-map-palette"></div>
+        </details>
+      </aside>
+      <div class="smt-map-stage pan" id="smt-map-stage">
+        <div class="smt-map-stage-bar">
+          <span>Map preview</span>
+          <button type="button" id="smt-map-fit" disabled>Fit</button>
+        </div>
+        <canvas id="smt-map-canvas"></canvas>
+        <p class="smt-map-empty" id="smt-map-empty">Drop a .save file here, or use Open.</p>
+        <div class="smt-map-status" id="smt-map-status"></div>
+      </div>
+    </div>
+    <script type="module" src="map-editor.js"></script>
+  </body>
+</html>

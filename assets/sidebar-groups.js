@@ -11,6 +11,7 @@
     Types: "Types",
     Template: "Template",
     UI: "UI",
+    Tools: "Tools",
   };
   var SECTION_GROUPS = {
     Home: [],

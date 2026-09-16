@@ -45,7 +45,7 @@ When this site and the official HTML disagree, follow the official HTML.
 
 After `npm run setup` in the [mod template repo](https://github.com/sandustry-modding/SandustryModTemplate), open `.tmp/Sandkit - Sandustry Modding API.html` at the template repo root.[^template-agents]
 That file is a local copy of the official page for offline search and agent context.
-It lives in the template repo, not in this Docsify site.
+It lives in the template repo, not on this docs site.
 This OKF bundle does not ship that HTML file.
 
 ## Generated pages on this site

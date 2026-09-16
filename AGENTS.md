@@ -31,8 +31,12 @@ Do not hand-edit `api/` pages.
 The install guide, folder layout, commands, and troubleshooting live in the [mod template README](https://github.com/sandustry-modding/SandustryModTemplate).
 Do not duplicate those pages here.
 
-The human OKF graph viewer is the **OKF** navbar tab (`/okf/`).
+The human OKF graph viewer is the **OKF** navbar tab (`/#/okf/`).
 It is site chrome in `assets/okf-viewer.js`, not an OKF concept file.
+
+Browser tools live under `/tools/` as standalone HTML.
+Do not add Docsify markdown routes for them.
+Do not use `/#/tools`.
 
 Keep kit pages in `modkit/` so Docsify can serve them.
 Do not put a symlink inside this tree that points outside it.

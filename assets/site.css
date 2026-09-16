@@ -10,10 +10,12 @@
   --navbar-link-color-active: var(--sidebar-name-color);
   --navbar-drop-link-spacing: 0.15rem;
   --scroll-padding-top: calc(var(--navbar-height) + 0.5rem);
+  --font-family: var(--smt-font-mono);
 }
 
 html {
   scroll-padding-top: var(--scroll-padding-top);
+  font-family: var(--smt-font-mono);
 }
 
 /* Hide Docsify GitHub corner if a repo option is re-added later. */
@@ -186,7 +188,14 @@ html {
 
 nav.app-nav {
   position: fixed;
+  z-index: 20;
   top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: var(--navbar-height);
   color: var(--color-text);
   background: color-mix(in srgb, var(--sidebar-bg) 92%, transparent);
   backdrop-filter: blur(10px);
@@ -194,18 +203,33 @@ nav.app-nav {
   box-sizing: border-box;
   padding-inline: 1rem;
   overflow: visible;
+  font-family: var(--smt-font-mono);
+  font-size: var(--navbar-font-size);
+}
+body:where(:has(.sidebar.show)) nav.app-nav {
+  left: var(--sidebar-width, 280px);
+}
+nav.app-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 nav.app-nav > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   gap: 0.15rem;
 }
 nav.app-nav > ul > li {
+  position: relative;
   display: inline-flex;
   align-items: center;
   color: var(--sidebar-link-color);
   font-size: var(--navbar-font-size);
   font-weight: 500;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 nav.app-nav > ul > li > a,
 nav.app-nav > ul > li > span,
@@ -234,7 +258,8 @@ nav.app-nav > ul > li:has(> ul)::after {
 }
 nav.app-nav > ul > li.active > a,
 nav.app-nav > ul > li.smt-nav-current > a,
-nav.app-nav > ul > li > a.active {
+nav.app-nav > ul > li > a.active,
+nav.app-nav > ul > li > a[aria-current="page"] {
   color: var(--sidebar-name-color);
   background: transparent;
   box-shadow: none;
@@ -254,12 +279,17 @@ nav.app-nav > ul > li > a:hover,
 nav.app-nav > ul > li:not(:has(> a)):hover {
   background: color-mix(in srgb, var(--color-text) 8%, transparent);
 }
-nav.app-nav a[target="_blank"]::after {
+nav.app-nav a[href^="http"]::after {
   content: " ↗";
   font-size: 0.85em;
   opacity: 0.7;
 }
 nav.app-nav li ul {
+  display: none;
+  position: absolute;
+  z-index: 20;
+  top: 100%;
+  right: 0;
   min-width: 15rem;
   padding: 0.4rem;
   border: 1px solid var(--smt-card-border);
@@ -267,7 +297,15 @@ nav.app-nav li ul {
   background: var(--smt-card-bg);
   box-shadow: 0 10px 28px rgb(0 0 0 / 45%);
 }
+nav.app-nav > ul > li:hover > ul,
+nav.app-nav > ul > li:focus-within > ul {
+  display: block;
+}
+nav.app-nav li ul li {
+  display: block;
+}
 nav.app-nav li ul a {
+  display: block;
   padding: 0.5rem 0.7rem;
   border-radius: 6px;
   text-decoration: none;
@@ -417,48 +455,6 @@ body:has(.sidebar.show) .sidebar-toggle .smt-sidebar-toggle-icon {
   }
 }
 
-/* In-page table of contents: after the page h1, not nested under that title. */
-#smt-page-toc {
-  margin: 0 0 1.5rem;
-  padding: 0;
-  background: none;
-  border: 0;
-}
-#smt-page-toc .smt-page-toc-title {
-  margin: 0 0 0.4rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--heading-color, #f0f0f0);
-}
-#smt-page-toc ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#smt-page-toc li {
-  margin: 0.12rem 0;
-  padding: 0;
-  line-height: 1.4;
-}
-#smt-page-toc ul ul {
-  margin: 0.1rem 0 0.15rem;
-  padding-left: 0.85rem;
-}
-#smt-page-toc a.smt-page-toc-link {
-  color: var(--link-color, var(--theme-color));
-  text-decoration: none;
-}
-@media screen and (any-hover) {
-  #smt-page-toc a.smt-page-toc-link:hover {
-    color: var(--theme-color);
-    text-decoration: none;
-  }
-}
-#smt-page-toc a.smt-page-toc-active {
-  font-weight: 600;
-  color: var(--heading-color, #f0f0f0);
-}
-
 /* Heading permalink: icon sits next to title (not full-width space-between). */
 .markdown-section :is(h1, h2, h3, h4, h5, h6).smt-heading-with-anchor {
   display: flex;
@@ -469,10 +465,6 @@ body:has(.sidebar.show) .sidebar-toggle .smt-sidebar-toggle-icon {
   overflow: visible;
 }
 
-.markdown-section :is(h1, h2, h3).smt-heading-active,
-.markdown-section :is(h1, h2, h3).smt-heading-active .smt-heading-text {
-  color: var(--theme-color);
-}
 .markdown-section .smt-heading-text {
   flex: 0 1 auto;
   min-width: 0;
@@ -1183,8 +1175,7 @@ body.smt-okf-viewer-page .markdown-section {
   overflow: hidden;
 }
 body.smt-okf-viewer-page .markdown-section > h1,
-body.smt-okf-viewer-page .markdown-section > p,
-body.smt-okf-viewer-page #smt-page-toc {
+body.smt-okf-viewer-page .markdown-section > p {
   display: none;
 }
 

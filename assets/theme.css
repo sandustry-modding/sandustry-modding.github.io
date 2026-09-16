@@ -5,6 +5,8 @@
   --smt-wiki-gold-bright: #ffb800;
   --smt-wiki-link: #ff9900;
   --smt-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-family: var(--smt-font-mono);
+  --font-family-mono: var(--smt-font-mono);
   --smt-card-bg: #1e1e1e;
   --smt-card-border: #2a2a2a;
   --smt-card-hover-border: color-mix(in srgb, var(--smt-wiki-link) 45%, var(--smt-card-border));
@@ -80,6 +82,7 @@
 html {
   scroll-padding-top: 1rem;
   scrollbar-gutter: stable;
+  font-family: var(--smt-font-mono);
 }
 
 .markdown-section .callout.warning {

@@ -7,6 +7,8 @@
 
 Community docs for Sandustry mods: Sandkit API reference, domain guides, the TypeScript mod template kit, and an [OKF viewer](okf/) for the game knowledge bundle.
 
+Browser tools live under [Tools](/tools/ ':ignore :target=_self'), including a [save editor](/tools/map/ ':ignore :target=_self') for `.save` metadata.
+
 Install types as [`@sandustry-modding/types`](https://www.npmjs.com/package/@sandustry-modding/types ":target=_blank").
 Project setup lives in the [mod template README](https://github.com/IrishBruse/SandustryModTemplate ":target=_blank").
 
@@ -68,6 +70,7 @@ Use [Search](types/search.md) for namespaces and members.
 
 ## Related links
 
+- [Tools](/tools/ ':ignore :target=_self') — standalone browser tools (save editor)
 - [Changelog](Changelog.md) — types package and docs history
 - [Official Sandkit API](https://sandustry.com/sandkit.html#api-access-heading ":target=_blank") — host API from the game
 - [npm package](https://www.npmjs.com/package/@sandustry-modding/types ":target=_blank")

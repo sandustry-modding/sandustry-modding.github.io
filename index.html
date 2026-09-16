@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="assets/api-cards.css" />
     <link rel="stylesheet" href="ui/ui-docs.css" />
     <script src="assets/heading-anchor.js"></script>
-    <script src="assets/page-toc.js"></script>
     <script src="assets/sidebar-headers.js"></script>
     <script src="assets/sidebar-groups.js"></script>
     <script src="assets/search-query.js"></script>
@@ -57,6 +56,10 @@
           location.hash = "#/types/schemas" + hash.slice("#/schemas".length);
         } else if (hash === "#/api/types" || hash.indexOf("#/api/types?") === 0) {
           location.hash = "#/types/" + hash.slice("#/api/types".length).replace(/^\?/, "?");
+        } else if (hash === "#/tools" || hash.indexOf("#/tools?") === 0 || hash === "#/tools/") {
+          location.replace("/tools/");
+        } else if (hash === "#/tools/map" || hash.indexOf("#/tools/map") === 0) {
+          location.replace("/tools/map/");
         } else if (/#\/(?:[^/?#]+\/)*README(?:\?|$)/.test(hash)) {
           location.hash = hash.replace(/\/README(?=\?|$)/, "/");
         }
@@ -111,6 +114,24 @@
         },
         plugins: [
           function (hook) {
+            hook.doneEach(function () {
+              document.querySelectorAll("a[href]").forEach(function (a) {
+                var href = a.getAttribute("href") || "";
+                if (href === "#/tools" || href === "#/tools/" || href.indexOf("#/tools?") === 0) {
+                  href = "/tools/";
+                  a.setAttribute("href", href);
+                }
+                if (href === "#/tools/map" || href.indexOf("#/tools/map") === 0) {
+                  href = "/tools/map/";
+                  a.setAttribute("href", href);
+                }
+                if (href === "/tools" || href === "/tools/" || href.indexOf("/tools/") === 0) {
+                  a.removeAttribute("target");
+                }
+              });
+            });
+          },
+          function (hook) {
             hook.beforeEach(function (content) {
               var path = (window.location.hash || "").replace(/^#/, "").split("?")[0];
               if (path === "/modules" || path === "/api/modules") {
@@ -129,7 +150,6 @@
             });
           },
           window.smtDocsifyHeadingCopyPlugin,
-          window.smtDocsifyPageTocPlugin,
           window.smtDocsifySidebarHeadersPlugin,
           window.smtDocsifySidebarGroupsPlugin,
           window.smtDocsifySearchPlugin,

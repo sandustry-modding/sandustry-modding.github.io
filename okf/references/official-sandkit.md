@@ -53,7 +53,7 @@ Do not invent members that are not documented there unless you verify them in a 
 
 Agents working inside the mod template can also read `.tmp/Sandkit - Sandustry Modding API.html` after template setup.
 That file mirrors the official page for offline use.
-It is not part of this Docsify repo.
+It is not part of this docs site.
 
 ## Archived snapshots on this site
 
@@ -67,7 +67,7 @@ Current archives on this site:
 | [/official-api/0.5.5.md](/official-api/0.5.5.md) | Snapshot archived from the official page[^archive-055] |
 | [/official-api/0.5.6.md](/official-api/0.5.6.md) | Snapshot archived from the official page[^archive-056] |
 
-Use archives to compare API changes across game versions or to read offline in Docsify.
+Use archives to compare API changes across game versions or to read the official page offline.
 Prefer the live [sandustry.com](https://sandustry.com/sandkit.html) page for the build you target today.
 See [/Changelog.md](/Changelog.md) for when coverage or archives landed in community docs.[^changelog]
 

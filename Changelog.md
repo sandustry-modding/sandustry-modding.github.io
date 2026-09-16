@@ -9,10 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Standalone `/tools/` pages, including a `.save` metadata editor at `/tools/map/`.
 - Docs **OKF** tab opens a live graph viewer for the Open Knowledge Format bundle.
 
 ### Changed
 
+- The `/tools/map/` save editor is metadata-first.
+  Terrain paint is optional and collapsed.
 - The OKF graph viewer starts on domain indexes, groups nodes by domain, and keeps cross-domain links out of the layout so the map is readable.
 - The OKF viewer fills the viewport on small screens.
   The detail panel resizes from the split edge.
@@ -23,20 +26,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Domain guides for world, factory, energy, player, UI, progression, entities, runtime services, and engine vs public API
 - `sandkit.api.ui.select` and related dialog, region, override, hotbar, and component APIs
-- `npm run docs:links` checks markdown links against Docsify routes and heading ids
+- `npm run docs:links` checks markdown links against docs pages and heading ids
 - Docs sidebar Settings toggle hides deprecated API members and search hits
-- Full API page heading ids use hyphens so Docsify does not print the id after the member name
+- Full API page heading ids use hyphens so the id is not printed after the member name
 
 ### Changed
 
 - Generated API members use a request-style card (signature, argument table, description) with the site gold and orange colours
-- Argument table union types use an HTML pipe so Docsify does not show a backslash
+- Argument table union types use an HTML pipe so the table does not show a backslash
 - Deprecated member callouts sit directly below the member heading.
 - Hook-id maps use a small heading and a TypeScript fence for the args type.
   Deprecated hook ids use the same Deprecated marker as other members.
 - `npm run generate` overwrites `docs/api/` pages in place and does not delete that folder
 - The current in-page heading uses the gold header colour
-- In-page TypeDoc hashes are rewritten to Docsify `?id=` heading links
+- In-page TypeDoc hashes are rewritten to `?id=` heading links
 - Docs sidebar lists direct pages.
   On an API namespace page it also lists that namespace and its child namespaces.
 - Search is the place to open generated Sandkit API pages.
@@ -113,7 +116,7 @@ https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.4.0
 - Stronger structure definition fields: `tooltipHover`, `spanTiles`, `linkedClearance`, spritesheet/ui render blocks
 - Stronger `TechDefinition` fields used by tech nodes (`cost`, `unlocks`, `currencyType`, `branch`)
 - JSDoc `@example` blocks on many Sandkit members (main, worker, and configs)
-- Prebuilt Docsify search index (`docs/assets/search-index.js`) so API search works without a runtime crawl
+- Prebuilt search index (`docs/assets/search-index.js`) so API search works without a runtime crawl
 - Nested namespace roots in the docs sidebar (`sandkit`, `sandkit.api`, worker, engine, react)
 
 ### Changed
@@ -144,7 +147,7 @@ https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.3.0
 ### Changed
 
 - Move declaration sources into `src/` (`src/sandkit`, `src/worker`, `src/shared`, `src/global.d.ts`). Package subpaths such as `@sandustry-modding/types/sandkit/engine` stay the same
-- Show local names for API member headings in the Docsify reference (full runtime path stays under each heading)
+- Show local names for API member headings in the API reference (full runtime path stays under each heading)
 
 ## 0.2.0 - 2026-08-27
 
@@ -178,4 +181,4 @@ https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.1.0
 - Worker-thread declarations under `worker/` (`WorkerSandkitApi`)
 - Shared base shapes under `shared/` for main and worker reuse
 - Ambient `sandkit` free variable and type aliases via `global.d.ts`
-- Docsify API reference generated from the declarations
+- API reference generated from the declarations

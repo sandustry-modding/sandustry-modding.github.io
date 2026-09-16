@@ -36918,7 +36918,7 @@ import type { ModInfo, BundlePatch } from "@sandustry-modding/types/configs";
 
 ### Maintaining types
 
-Edit `.d.ts` files under `src/`. Regenerate the Docsify API reference and JSON Schema after JSDoc or config-type changes.
+Edit `.d.ts` files under `src/`. Regenerate the API reference and JSON Schema after JSDoc or config-type changes.
 
 `npm run generate` merges `scripts/api-gen/overrides.json`, the official [Sandkit API](https://sandustry.com/sandkit.html) HTML, and `src/sandkit/api/` declarations.
 It writes `scripts/api-gen/generated/api-catalog.json`, refreshes `scripts/api-gen/generated/namespace-summaries.json`, and reports gaps in `docs/generated/api-gaps.md`.
@@ -36930,7 +36930,7 @@ Start the game with the debug port open (F5 or `npm run sandustry` from the mod 
 ### Docs site
 
 Guides live under `docs/guides/` (setup, Workshop, and Sandkit domain pages).
-Regenerate the Docsify API reference and JSON Schema from these declarations:
+Regenerate the API reference and JSON Schema from these declarations:
 
 ```bash
 npm run generate                  # catalog + API markdown + docs/schemas/*.json
@@ -36948,7 +36948,7 @@ Browse namespaces from Search on the docs site.
 On an API namespace page the sidebar also lists that namespace and its children.
 The combined page is `docs/full.md`.
 `npm run docs` runs that step, then serves the docs site.
-`npm run docs:links` fails when a markdown link does not resolve to a Docsify page or heading id.
+`npm run docs:links` fails when a markdown link does not resolve to a docs page or heading id.
 `npm run validate` fails when committed schemas do not match `src/configs/`.
 
 `npm run docs:archive-sandkit` asks for a base file name, then writes `docs/official-api/<name>.md` from https://sandustry.com/sandkit.html.

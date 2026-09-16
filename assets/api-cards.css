@@ -21,11 +21,6 @@
   color: var(--link-color);
 }
 
-.markdown-section .smt-member-card > h3.smt-heading-active,
-.markdown-section .smt-member-card > h3.smt-heading-active .smt-heading-text {
-  color: var(--theme-color);
-}
-
 .markdown-section .smt-member-badge {
   position: absolute;
   top: 0.15rem;

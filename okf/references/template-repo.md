@@ -32,7 +32,7 @@ sources:
 # Mod template repo
 
 Agents that build or debug a mod work in the mod template repository on disk.
-This OKF bundle indexes vanilla game and Sandkit facts on the Docsify site.
+This OKF bundle indexes vanilla game and Sandkit facts on this docs site.
 It does not replace the template install guide.
 Follow [/okf/consume.md](/okf/consume.md) for OKF load order.[^consume]
 
@@ -49,7 +49,7 @@ Mod authoring guides live under [/guides/](/guides/) and [/modkit/](/modkit/READ
 
 ## This site must not duplicate the template README
 
-The Docsify site serves API reference, guides, and kit pages for browsing.
+This site serves API reference, guides, and kit pages for browsing.
 Long install dumps belong in the template README only.[^docs-agents]
 OKF concept files link to the template repo instead of copying those sections.
 
@@ -78,7 +78,7 @@ Full tables and OS paths live in the template README folder layout section.[^tem
 | --- | --- |
 | `npm run setup` | Verify install, extract `app.asar` to `sandustry/source/`, link dist, logs, saves, workshop[^template-readme] |
 | `npm run dev` | Watch-build mods into `dist/`[^template-readme] |
-| `npm run docs` | Clone this docs site into `docs/` if needed, then serve Docsify locally[^template-readme] |
+| `npm run docs` | Clone this docs site into `docs/` if needed, then serve it locally[^template-readme] |
 
 Mod authoring: [/guides/getting-started.md](/guides/getting-started.md).
 API discovery: [/okf/api/how-to-read-sandkit.md](/okf/api/how-to-read-sandkit.md).

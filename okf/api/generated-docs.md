@@ -28,7 +28,7 @@ sources:
 
 # Generated API docs on this site
 
-This page describes the generated Sandkit reference tree served by Docsify.
+This page describes the generated Sandkit reference tree on this site.
 It does not duplicate the 171 namespace pages under `/api/`.
 Follow [/okf/consume.md](/okf/consume.md) for OKF load order.[^consume]
 
