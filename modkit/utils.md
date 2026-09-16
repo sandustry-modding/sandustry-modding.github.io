@@ -27,7 +27,7 @@ const value = safe(() => api.settings.get("enabled"));
 
 ## `isEnabled`
 
-Reads a boolean from `api.settings.get("enabled")`.
+Reads a boolean from `sandkit.api.settings.get("enabled")`.
 When the setting is missing or not a boolean, it defaults to `true`.
 
 Define custom fields in `configSchema`.
@@ -40,10 +40,10 @@ It does wrap the main entry in `try` / `catch` and logs failures with `console.e
 ```ts
 import { isEnabled } from "@modkit/utils";
 
-if (!isEnabled(api)) return;
+if (!isEnabled()) return;
 
 // Or gate a sub-feature:
-if (isEnabled(api) && otherFlag) {
+if (isEnabled() && otherFlag) {
   // ...
 }
 ```
