@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The OKF graph viewer starts on domain indexes, groups nodes by domain, and keeps cross-domain links out of the layout so the map is readable.
+- The OKF viewer fills the viewport on small screens.
+  The detail panel resizes from the split edge.
 - Generate writes API pages, schemas, and search assets into the sibling docs site clone (`../docs`).
 - This package no longer keeps a `docs/` tree.
 

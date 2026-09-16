@@ -2,7 +2,6 @@
  * Live OKF bundle viewer: crawl okf/*.md, graph concepts, render a detail panel.
  */
 (function (global) {
-  var VIEWER_PATHS = { "/okf": true, "/okf/": true, "/okf/README": true };
   var CYTOSCAPE_SRC = "https://cdn.jsdelivr.net/npm/cytoscape@3.30.4/dist/cytoscape.min.js";
   var MARKED_SRC = "https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js";
   var DOMAIN_COLORS = {
@@ -23,7 +22,8 @@
   var loadPromise = null;
 
   function isViewerPath(path) {
-    return Boolean(VIEWER_PATHS[path]);
+    var p = String(path || "").split("?")[0].replace(/\.md$/, "").replace(/\/+$/, "");
+    return p === "/okf" || p === "/okf/README";
   }
 
   function routePath() {
@@ -460,9 +460,7 @@
             generated: meta.generated || {},
             sources: asList(meta.sources),
             color: DOMAIN_COLORS[domain] || DOMAIN_COLORS.root,
-            size: isConceptHub({ id: id, type: type })
-              ? Math.max(18, Math.min(28, 16 + links.length))
-              : Math.max(8, Math.min(16, 8 + Math.min(links.length, 8))),
+            size: isConceptHub({ id: id, type: type }) ? 16 : 12,
           },
         });
         for (j = 0; j < links.length; j++) {
@@ -620,8 +618,9 @@
       '<button type="button" id="smt-okf-reset">Reset view</button>' +
       '<p class="smt-okf-count" id="smt-okf-count"></p>' +
       "</header>" +
-      '<div class="smt-okf-main">' +
+      '<div class="smt-okf-main" id="smt-okf-main">' +
       '<div id="smt-okf-graph" class="smt-okf-graph" role="img" aria-label="OKF concept graph"></div>' +
+      '<div class="smt-okf-split" id="smt-okf-split" role="separator" aria-orientation="vertical" aria-label="Resize detail panel" tabindex="0"></div>' +
       '<aside class="smt-okf-detail" id="smt-okf-detail">' +
       '<p class="smt-okf-empty" id="smt-okf-empty">Pick a domain box to expand it, or pick a node to read the concept.</p>' +
       '<div id="smt-okf-content" hidden></div>' +
@@ -638,6 +637,8 @@
     var empty = document.getElementById("smt-okf-empty");
     var content = document.getElementById("smt-okf-content");
     var graphEl = document.getElementById("smt-okf-graph");
+    var mainEl = document.getElementById("smt-okf-main");
+    var splitEl = document.getElementById("smt-okf-split");
 
     fillSelect(domainSelect, bundle.domains, route.domain, "All domains");
     fillSelect(typeSelect, bundle.types, route.type, "All types");
@@ -675,12 +676,12 @@
             "background-color": "data(color)",
             label: "data(label)",
             color: "#f0f0f0",
-            "font-size": 11,
+            "font-size": 10,
             "text-valign": "bottom",
-            "text-margin-y": 6,
+            "text-margin-y": 4,
             "text-wrap": "wrap",
-            "text-max-width": 110,
-            "text-opacity": 0,
+            "text-max-width": 112,
+            "text-opacity": 1,
             "text-outline-width": 3,
             "text-outline-color": "#121212",
             width: "data(size)",
@@ -692,21 +693,23 @@
         {
           selector: "node[kind = 'domain']",
           style: {
-            "background-opacity": 0.08,
+            "background-opacity": 0.12,
             "background-color": "data(color)",
-            "border-width": 1,
+            "border-width": 2,
             "border-color": "data(color)",
-            "border-opacity": 0.45,
+            "border-opacity": 0.85,
             shape: "round-rectangle",
-            padding: 28,
+            padding: 52,
             label: "data(label)",
-            "font-size": 13,
+            "font-size": 15,
             "font-weight": 700,
             "text-valign": "top",
             "text-halign": "center",
-            "text-margin-y": -6,
+            "text-margin-y": -8,
             "text-opacity": 1,
-            color: "data(color)",
+            "text-outline-width": 3,
+            "text-outline-color": "#121212",
+            color: "#f0f0f0",
           },
         },
         {
@@ -818,23 +821,140 @@
       expandBtn.textContent = expand.all ? "Collapse extras" : "Expand all";
     }
 
+    function layoutDomainChildren() {
+      var parents = cy.nodes().filter(function (node) {
+        return node.data("kind") === "domain" && node.style("display") !== "none";
+      });
+      parents.forEach(function (parent) {
+        var kids = parent
+          .children()
+          .filter(function (node) {
+            return node.style("display") !== "none";
+          })
+          .sort(function (a, b) {
+            var ah = isConceptHub(a.data()) ? 0 : 1;
+            var bh = isConceptHub(b.data()) ? 0 : 1;
+            if (ah !== bh) return ah - bh;
+            return String(a.data("label")).localeCompare(String(b.data("label")));
+          });
+        var n = kids.length;
+        if (!n) return;
+        var cols = n <= 2 ? n : Math.max(2, Math.ceil(Math.sqrt(n)));
+        var rows = Math.ceil(n / cols);
+        var cellW = 136;
+        var cellH = 90;
+        kids
+          .layout({
+            name: "grid",
+            cols: cols,
+            avoidOverlap: true,
+            condense: false,
+            spacingFactor: 1,
+            padding: 8,
+            animate: false,
+            boundingBox: {
+              x1: 0,
+              y1: 0,
+              w: cols * cellW,
+              h: rows * cellH,
+            },
+          })
+          .run();
+      });
+    }
+
+    function packDomainGroups() {
+      var parents = cy.nodes().filter(function (node) {
+        return node.data("kind") === "domain" && node.style("display") !== "none";
+      });
+      if (parents.length < 2) return;
+      var boxes = [];
+      parents.forEach(function (parent) {
+        var group = parent.union(
+          parent.children().filter(function (node) {
+            return node.style("display") !== "none";
+          })
+        );
+        var bb = group.boundingBox();
+        boxes.push({
+          group: group,
+          bb: bb,
+          w: Math.max(140, bb.w),
+          h: Math.max(110, bb.h),
+        });
+      });
+      boxes.sort(function (a, b) {
+        return b.w * b.h - a.w * a.h;
+      });
+      var cols = Math.max(2, Math.ceil(Math.sqrt(boxes.length)));
+      var colWidths = [];
+      var rowHeights = [];
+      var i;
+      for (i = 0; i < boxes.length; i++) {
+        var col = i % cols;
+        var row = Math.floor(i / cols);
+        colWidths[col] = Math.max(colWidths[col] || 0, boxes[i].w);
+        rowHeights[row] = Math.max(rowHeights[row] || 0, boxes[i].h);
+      }
+      var gap = 72;
+      var xAt = [];
+      var yAt = [];
+      xAt[0] = 24;
+      yAt[0] = 24;
+      for (i = 1; i < colWidths.length; i++) xAt[i] = xAt[i - 1] + colWidths[i - 1] + gap;
+      for (i = 1; i < rowHeights.length; i++) yAt[i] = yAt[i - 1] + rowHeights[i - 1] + gap;
+      for (i = 0; i < boxes.length; i++) {
+        var box = boxes[i];
+        var c = i % cols;
+        var r = Math.floor(i / cols);
+        box.group.shift({
+          x: xAt[c] - box.bb.x1,
+          y: yAt[r] - box.bb.y1,
+        });
+      }
+    }
+
     function runLayout(fit) {
-      var hiddenCross = cy.edges("[cross = '1']");
-      hiddenCross.style("display", "none");
+      var layoutName = state.layout || "cose";
+      var shown = cy.nodes().filter(function (node) {
+        return node.data("kind") !== "domain" && node.style("display") !== "none";
+      }).length;
+      var hiddenCross = cy.collection();
+      if (shown > 36) {
+        hiddenCross = cy.edges("[cross = '1']");
+        hiddenCross.style("display", "none");
+      }
+      function afterLayout() {
+        hiddenCross.forEach(function (edge) {
+          if (edge.source().style("display") !== "none" && edge.target().style("display") !== "none") {
+            edge.style("display", "element");
+          }
+        });
+        var visible = cy.nodes().filter(function (node) {
+          return node.style("display") !== "none";
+        });
+        if (fit && !visible.empty()) {
+          cy.fit(visible, 28);
+          if (cy.zoom() < 0.7) {
+            cy.zoom(0.7);
+            cy.center();
+          }
+        }
+        updateGraphLabels(cy.$("node:selected"));
+      }
+      if (layoutName === "cose") {
+        layoutDomainChildren();
+        packDomainGroups();
+        afterLayout();
+        return;
+      }
       var collection = cy.elements().filter(function (el) {
         return el.style("display") !== "none";
       });
       if (collection.empty()) return;
       collection
-        .layout(layoutOptions(state.layout || "cose"))
-        .one("layoutstop", function () {
-          hiddenCross.forEach(function (edge) {
-            if (edge.source().style("display") !== "none" && edge.target().style("display") !== "none") {
-              edge.style("display", "element");
-            }
-          });
-          if (fit) cy.fit(collection.nodes(), 56);
-        })
+        .layout(layoutOptions(layoutName))
+        .one("layoutstop", afterLayout)
         .run();
     }
 
@@ -995,10 +1115,9 @@
 
     function updateGraphLabels(selected) {
       cy.nodes().removeClass("smt-okf-label");
-      if (cy.zoom() >= 1.35) {
-        cy.nodes().addClass("smt-okf-label");
-        return;
-      }
+      cy.nodes('[kind = "concept"]').forEach(function (node) {
+        if (node.style("display") !== "none") node.addClass("smt-okf-label");
+      });
       if (selected && selected.length) selected.addClass("smt-okf-label");
     }
 
@@ -1034,9 +1153,8 @@
       if (evt.target.data("kind") !== "domain") setEdgeFocus(evt.target);
     });
     cy.on("mouseout", "node", function (evt) {
-      if (!(evt.target.selected() || cy.zoom() >= 1.35 || evt.target.hasClass("smt-okf-hub"))) {
-        evt.target.removeClass("smt-okf-label");
-      }
+      if (evt.target.data("kind") === "domain") return;
+      if (!evt.target.hasClass("smt-okf-hub")) evt.target.addClass("smt-okf-label");
       var selected = cy.$("node:selected");
       setEdgeFocus(selected && selected.length ? selected : null);
     });
@@ -1076,6 +1194,95 @@
 
     refreshGraph(true);
     if (state.id && nodeIndex[state.id]) showDetail(state.id, false);
+
+    function stackedSplit() {
+      return global.matchMedia("(max-width: 900px)").matches;
+    }
+
+    function readDetailPct() {
+      var raw = mainEl.style.getPropertyValue("--smt-okf-detail-size");
+      var n = parseFloat(raw);
+      return isFinite(n) ? n : 42;
+    }
+
+    function applyDetailPct(pct) {
+      var next = Math.round(Math.max(22, Math.min(72, pct)) * 10) / 10;
+      mainEl.style.setProperty("--smt-okf-detail-size", next + "%");
+      if (root._cy) root._cy.resize();
+      return next;
+    }
+
+    function persistDetailPct() {
+      try {
+        global.localStorage.setItem("smt-okf-detail-size", readDetailPct() + "%");
+      } catch (err) {}
+    }
+
+    try {
+      var savedSize = global.localStorage.getItem("smt-okf-detail-size");
+      if (savedSize && /^\d+(\.\d+)?%$/.test(savedSize)) {
+        applyDetailPct(parseFloat(savedSize));
+      }
+    } catch (err) {}
+
+    (function bindSplit() {
+      var dragging = false;
+      function syncSplitOrientation() {
+        splitEl.setAttribute("aria-orientation", stackedSplit() ? "horizontal" : "vertical");
+      }
+      syncSplitOrientation();
+      if (global.matchMedia) {
+        global.matchMedia("(max-width: 900px)").addEventListener("change", function () {
+          syncSplitOrientation();
+          if (root._cy) root._cy.resize();
+        });
+      }
+      splitEl.addEventListener("pointerdown", function (ev) {
+        if (ev.button && ev.button !== 0) return;
+        ev.preventDefault();
+        dragging = true;
+        splitEl.classList.add("smt-okf-split-active");
+        document.body.classList.add("smt-okf-resizing");
+        document.body.classList.toggle("smt-okf-resizing-row", stackedSplit());
+        splitEl.setPointerCapture(ev.pointerId);
+      });
+      splitEl.addEventListener("pointermove", function (ev) {
+        if (!dragging) return;
+        var rect = mainEl.getBoundingClientRect();
+        var pct = stackedSplit()
+          ? ((rect.bottom - ev.clientY) / rect.height) * 100
+          : ((rect.right - ev.clientX) / rect.width) * 100;
+        applyDetailPct(pct);
+      });
+      function endDrag(ev) {
+        if (!dragging) return;
+        dragging = false;
+        splitEl.classList.remove("smt-okf-split-active");
+        document.body.classList.remove("smt-okf-resizing", "smt-okf-resizing-row");
+        if (ev && splitEl.hasPointerCapture && splitEl.hasPointerCapture(ev.pointerId)) {
+          splitEl.releasePointerCapture(ev.pointerId);
+        }
+        persistDetailPct();
+        if (root._cy) root._cy.resize();
+      }
+      splitEl.addEventListener("pointerup", endDrag);
+      splitEl.addEventListener("pointercancel", endDrag);
+      splitEl.addEventListener("dblclick", function () {
+        applyDetailPct(42);
+        persistDetailPct();
+      });
+      splitEl.addEventListener("keydown", function (ev) {
+        var step = ev.shiftKey ? 8 : 3;
+        var cur = readDetailPct();
+        if (ev.key === "ArrowLeft" || ev.key === "ArrowUp") cur += step;
+        else if (ev.key === "ArrowRight" || ev.key === "ArrowDown") cur -= step;
+        else if (ev.key === "Home") cur = 42;
+        else return;
+        ev.preventDefault();
+        applyDetailPct(cur);
+        persistDetailPct();
+      });
+    })();
 
     global.addEventListener("resize", function () {
       if (root._cy) root._cy.resize();
@@ -1118,12 +1325,17 @@
   }
 
   global.smtDocsifyOkfViewerPlugin = function (hook) {
-    hook.doneEach(function () {
+    function tryMount() {
       var on = Boolean(parseRoute());
       setPageClass(on);
-      if (!on) return;
       var root = document.getElementById("smt-okf-viewer");
-      if (root) mount(root);
+      if (!on) return;
+      if (root && !root.querySelector(".smt-okf-shell")) mount(root);
+    }
+    hook.doneEach(function () {
+      tryMount();
+      setTimeout(tryMount, 0);
+      requestAnimationFrame(tryMount);
     });
   };
 })(window);
