@@ -115,13 +115,19 @@ Use `describe(..., { concurrency: false }, () => { ... })`.
 | Call                                 | Role                                                                                          |
 | ------------------------------------ | --------------------------------------------------------------------------------------------- |
 | `game.evaluate(fn, ...args)`         | Run `fn` in the renderer. Arguments must be JSON values. Closures do not capture Node locals. |
-| `game.waitFor(read, match, options)` | Poll `read` in the page until `match` is true in Node.                                        |
+| `game.waitFor(read, match, options)` | Poll `read` in the page until `match` is true in Node. Steps the clock when one is installed. |
+| `game.ticks(count)`                  | Step `count` renderer frames, each followed by one simulation tick.                           |
+| `game.simTicks(count)`               | Step the simulation only.                                                                     |
+| `game.renderFrames(count)`           | Step the renderer only. It hands queued world writes on; a tick applies them.                 |
+| `game.seed(value)`                   | Seed `Math.random` in the renderer and every game worker, so a scenario repeats.              |
+| `game.clockStatus()`                 | Frames pumped, ticks run, and whether the clock owns the game.                                |
+| `game.clock`                         | The clock itself: `install`, `uninstall`, `simTick`, `withRealTime`.                          |
 | `game.buildStructures(placements)`   | Build several structures in one renderer turn and wait for every anchor.                      |
 | `game.buildLayout(layout)`           | Expand a visual fixture diagram into phased structure placements.                             |
 | `game.setSimulationPaused(paused)`   | Pause or resume the simulation without opening the in-game pause menu.                        |
 | `game.pauseSimulation()`             | Pause the simulation.                                                                         |
 | `game.resumeSimulation()`            | Resume the simulation.                                                                        |
-| `game.runSimulation(durationMs)`     | Run live simulation for a wall-clock duration, then restore the prior pause state.            |
+| `game.runSimulation(durationMs)`     | Run for a wall-clock duration. Prefer `ticks()`; see Simulation control.                      |
 | `game.orderedModIds()`               | Return live `manifest.id` values from the ordered mod list.                                   |
 | `game.screenshot(options)`           | Capture a PNG of the compositor (WebGL plus DOM). Returns a `Buffer`.                         |
 | `game.withModMain(id, fn)`           | Edit the test-host `main.js`, then restore the original bytes.                                |
@@ -186,20 +192,86 @@ Use either top-level `cells` and `legend`, or `phases`, but not both.
 
 ### Simulation control
 
-The integration host starts with the simulation paused.
-Use
-`runSimulation()` for a bounded behavior check; it resumes the simulation for
-the requested wall-clock duration and restores the state afterward:
+Sandustry runs on two `requestAnimationFrame` loops.
+The renderer's own loop draws frames and drains queued world writes, and the
+manager worker's fixed-timestep loop drives every simulation tick at 1/60 s.
+A test that sleeps and hopes races both of them, so the same assertion can pass
+on a workstation and fail on a loaded CI runner.
+
+Step the game instead:
 
 ```ts
-await game.runSimulation(1000);
+await game.ticks(60); // 60 renderer frames, each with one simulation tick
 ```
 
-For longer workflows, use `resumeSimulation()` and `pauseSimulation()`
-explicitly. `setSimulationPaused(value)` is useful when a test needs to
-restore or assert a specific state.
-These helpers change the engine session
-state directly and do not open the game’s pause menu.
+`ticks()` installs the clock the first time it is called.
+From then on the game advances only when a test says so: wall-clock time changes
+nothing.
+Each step is one renderer frame and then one simulation tick, so renderer work
+and simulation work interleave the way they do in a running game.
+
+| Call                          | What it advances                             |
+| ----------------------------- | -------------------------------------------- |
+| `game.ticks(n)`               | `n` frames, each with one simulation tick    |
+| `game.simTicks(n)`            | `n` simulation ticks, renderer held still    |
+| `game.renderFrames(n)`        | `n` renderer frames, simulation held still   |
+| `game.clock.withRealTime(ms)` | `ms` worth of ticks, paced to the wall clock |
+| `game.clock.simTick()`        | nothing: reports the engine's tick counter   |
+
+Element writes such as `createAtCell` are queued: a renderer frame hands one to
+the simulation, and the next tick applies it.
+A fixture therefore needs at least one full step — `ticks(1)` — before it
+exists; neither `renderFrames()` nor `simTicks()` alone will do it.
+`game.waitFor()` steps the clock rather than sleeping while one is installed,
+which is why `buildStructures()` and friends keep working under it.
+Pass `ticksPerPoll` to step more per poll.
+
+#### Repeatable scenarios
+
+Stepping fixes *when* the game advances.
+It does not fix the choices the engine makes while advancing: the manager picks
+a random scan offset each tick and passes it into every worker's update, and the
+workers draw their own random numbers.
+Seed those too, before each run you want to compare:
+
+```ts
+for (let run = 0; run < 5; run += 1) {
+  await clearArea();
+  await game.seed(12345);
+  await dropSand();
+  await game.ticks(150);
+  // every run ends with the grain in the same cell
+}
+```
+
+`game.seed()` replaces `Math.random` in the renderer and in every game worker,
+then resets it to the given value.
+
+#### Real time
+
+`game.clock.uninstall()` hands both loops back to the browser.
+Stepping runs the game's clock ahead of the wall clock, because a pumped frame
+costs far less than the 1/60 s it stands for, so a game handed back this way
+idles until wall time catches up with the time already stepped.
+That is fine for teardown, and a later `install()` steps out of the debt on its
+own.
+
+`runSimulation(durationMs)` still works and still takes that long.
+With a clock installed it steps at wall-clock pace instead of racing it, which
+keeps the tick count exact.
+
+`pauseSimulation()` and `resumeSimulation()` set the renderer's pause flag *and*
+tell the manager worker, because the renderer flag alone leaves sand falling.
+Both are no-ops while the clock is installed: the game is already frozen between
+steps.
+
+#### If the game updates
+
+The clock talks to the manager worker over the engine's own worker protocol,
+whose message ids are not part of the sandkit surface.
+They live in one table in `modkit/test/clock.ts`, and `install()` proves them
+against a live tick, so a game update that moves them fails loudly with that
+file named rather than silently stepping nothing.
 
 ## Screenshots
 
