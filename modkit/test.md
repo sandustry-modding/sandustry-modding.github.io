@@ -151,7 +151,7 @@ grid; `.` leaves a cell empty:
 
 ```ts
 await game.buildLayout({
-  origin: { x: 2400, y: 1612 },
+  origin: { x: 600, y: 500 },
   cells: ["fff", "fsf", "fff"],
   legend: {
     f: { type: "foundation" },
@@ -166,7 +166,7 @@ before the next phase begins:
 
 ```ts
 await game.buildLayout({
-  origin: { x: 2400, y: 1612 },
+  origin: { x: 600, y: 500 },
   phases: [
     {
       cells: ["fff", "f.f", "fff"],
