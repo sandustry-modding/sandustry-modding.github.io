@@ -11,6 +11,8 @@
     root.SMT_API_TREE = api;
   }
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
+  var host = typeof globalThis !== "undefined" ? globalThis : window;
+
   function escapeHtml(text) {
     return String(text || "")
       .replace(/&/g, "&amp;")
@@ -301,7 +303,7 @@
    */
   function render(el, opts) {
     opts = opts || {};
-    var roots = opts.roots || root.SMT_API_SIDEBAR_ROOTS;
+    var roots = opts.roots || host.SMT_API_SIDEBAR_ROOTS;
     if (!Array.isArray(roots) || !roots.length) {
       el.innerHTML = '<p class="smt-api-tree-empty">Loading API tree…</p>';
       return;
@@ -317,24 +319,24 @@
   }
 
   function loadSidebar(done) {
-    if (Array.isArray(root.SMT_API_SIDEBAR_ROOTS)) {
+    if (Array.isArray(host.SMT_API_SIDEBAR_ROOTS)) {
       done();
       return;
     }
-    if (root.SMT_API_SIDEBAR_LOADING) {
-      root.SMT_API_SIDEBAR_LOADING.push(done);
+    if (host.SMT_API_SIDEBAR_LOADING) {
+      host.SMT_API_SIDEBAR_LOADING.push(done);
       return;
     }
-    root.SMT_API_SIDEBAR_LOADING = [done];
+    host.SMT_API_SIDEBAR_LOADING = [done];
     var script = document.createElement("script");
     script.src = "assets/api-sidebar-tree.js";
     script.onload = function () {
-      var cbs = root.SMT_API_SIDEBAR_LOADING || [];
-      root.SMT_API_SIDEBAR_LOADING = null;
+      var cbs = host.SMT_API_SIDEBAR_LOADING || [];
+      host.SMT_API_SIDEBAR_LOADING = null;
       for (var i = 0; i < cbs.length; i++) cbs[i]();
     };
     script.onerror = function () {
-      root.SMT_API_SIDEBAR_LOADING = null;
+      host.SMT_API_SIDEBAR_LOADING = null;
       done();
     };
     document.head.appendChild(script);

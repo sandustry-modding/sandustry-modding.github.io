@@ -8,14 +8,16 @@
     Home: "Home",
     Guides: "Guides",
     Types: "Types",
+    Config: "Config",
     Template: "Template",
     UI: "UI",
     Tools: "Tools",
   };
   var SECTION_GROUPS = {
-    Home: [],
+    Home: ["Links"],
     Guides: ["Guides"],
     Types: ["Types"],
+    Config: ["Config"],
     Template: ["Template"],
     UI: ["UI"],
   };
@@ -70,23 +72,23 @@
     if (path.indexOf("/guides") === 0) return "Guides";
     if (path.indexOf("/ui") === 0) return "UI";
     if (path.indexOf("/modkit") === 0) return "Template";
-    if (
-      path === "/builds" ||
-      path === "/modinfo" ||
-      path === "/config-schema" ||
-      path === "/patches"
-    ) {
+    if (path === "/builds" || path === "/modinfo" || path === "/config-schema" || path === "/patches") {
       return "Template";
+    }
+    if (
+      path === "/api/configs" ||
+      path === "/types/schemas" ||
+      path === "/modinfo.json" ||
+      path === "/patches.json"
+    ) {
+      return "Config";
     }
     if (
       path.indexOf("/types") === 0 ||
       path === "/full" ||
-      path === "/Changelog" ||
       path === "/api" ||
       path.indexOf("/api/") === 0 ||
-      path === "/electron-bridge" ||
-      path === "/modinfo.json" ||
-      path === "/patches.json"
+      path === "/electron-bridge"
     ) {
       return "Types";
     }
@@ -180,11 +182,27 @@
     }
   }
 
+  function markApiSplit() {
+    var groups = document.querySelectorAll(
+      ".sidebar-nav > ul > li.group.smt-sidebar-section-current > ul > li.group",
+    );
+    var marked = false;
+    for (var i = 0; i < groups.length; i++) {
+      var li = groups[i];
+      var title = groupTitle(li);
+      var api = title.indexOf("sandkit.") === 0 || title === "shared";
+      var split = api && !marked;
+      if (split) marked = true;
+      li.classList.toggle("smt-sidebar-api-split", split);
+    }
+  }
+
   function render() {
     bindScroll();
     var section = currentSection(routePath());
     filterSidebar(section);
     markSidebarPage(routePath());
+    markApiSplit();
     markNavbar(section);
     restoreScroll();
   }

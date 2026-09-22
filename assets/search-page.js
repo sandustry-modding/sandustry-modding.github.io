@@ -28,9 +28,11 @@
     }
     if (path !== "/types/search") return null;
     var params = new URLSearchParams(cut[1] || "");
+    var scope = params.get("scope") || "all";
+    if (["all", "main", "worker", "engine", "enum"].indexOf(scope) < 0) scope = "all";
     return {
       q: params.get("q") || "",
-      scope: params.get("scope") || "all",
+      scope: scope,
     };
   }
 
@@ -134,35 +136,106 @@
       "</label>" +
       "</form>" +
       '<p class="smt-search-status" aria-live="polite"></p>' +
-      '<div class="smt-api-tree-panel" id="smt-api-tree-search" hidden></div>' +
+      '<div class="smt-search-browse" hidden></div>' +
       '<ul class="smt-search-results"></ul>';
 
     var input = root.querySelector("#smt-search-input");
     var status = root.querySelector(".smt-search-status");
     var list = root.querySelector(".smt-search-results");
-    var treePanel = root.querySelector("#smt-api-tree-search");
+    var browse = root.querySelector(".smt-search-browse");
     var scopes = root.querySelector(".smt-search-scopes");
     var form = root.querySelector(".smt-search-form");
     var hideBox = root.querySelector("#smt-hide-deprecated");
     var selected = -1;
     var timer = null;
-    var lastHits = [];
 
-    function mountTree() {
-      if (!treePanel || !window.SMT_API_TREE) return;
-      window.SMT_API_TREE.mount(treePanel, {
-        getQuery: function () {
-          return input.value.trim();
-        },
-        getHits: function () {
-          return lastHits;
-        },
-      });
+    function cardChildrenHtml(parentName, children) {
+      if (!children || !children.length) return "";
+      var items = "";
+      for (var i = 0; i < children.length; i++) {
+        var child = children[i];
+        items +=
+          "<li>" +
+          '<a class="smt-api-card-child" href="' +
+          escapeHtml(child.href) +
+          '">' +
+          escapeHtml(parentName + "." + child.name) +
+          "</a></li>";
+      }
+      return '<ul class="smt-api-card-children">' + items + "</ul>";
     }
 
-    function refreshTree() {
-      if (!treePanel || !window.SMT_API_TREE) return;
-      if (typeof treePanel._smtApiTreeRefresh === "function") treePanel._smtApiTreeRefresh();
+    function cardHtml(card) {
+      var desc = card.description
+        ? '<p class="smt-api-card-desc">' + escapeHtml(card.description) + "</p>"
+        : "";
+      return (
+        '<li class="smt-api-card">' +
+        '<div class="smt-api-card-panel">' +
+        '<a class="smt-api-card-link" href="' +
+        escapeHtml(card.href) +
+        '">' +
+        escapeHtml(card.name) +
+        "</a>" +
+        desc +
+        cardChildrenHtml(card.name, card.children) +
+        "</div></li>"
+      );
+    }
+
+    function browseSections(scopeId) {
+      var data = window.SMT_NAMESPACE_CARDS;
+      if (!data) return [];
+      if (scopeId === "worker") return data.worker || [];
+      if (scopeId === "engine") return data.engine || [];
+      if (scopeId === "enum") return [];
+      return data.main || [];
+    }
+
+    function renderBrowse(scopeId) {
+      var sections = browseSections(scopeId);
+      if (!sections.length) {
+        browse.hidden = true;
+        browse.innerHTML = "";
+        return false;
+      }
+      var html = "";
+      for (var i = 0; i < sections.length; i++) {
+        var section = sections[i];
+        html += "<h3>" + escapeHtml(section.title) + "</h3>";
+        html += '<ul class="smt-api-group smt-api-cards">';
+        for (var j = 0; j < section.cards.length; j++) {
+          html += cardHtml(section.cards[j]);
+        }
+        html += "</ul>";
+      }
+      browse.innerHTML = html;
+      browse.hidden = false;
+      return true;
+    }
+
+    function loadCards(done) {
+      if (window.SMT_NAMESPACE_CARDS) {
+        done();
+        return;
+      }
+      if (window.SMT_NAMESPACE_CARDS_LOADING) {
+        window.SMT_NAMESPACE_CARDS_LOADING.push(done);
+        return;
+      }
+      window.SMT_NAMESPACE_CARDS_LOADING = [done];
+      var script = document.createElement("script");
+      script.src = "assets/namespace-cards.js";
+      script.onload = function () {
+        var cbs = window.SMT_NAMESPACE_CARDS_LOADING || [];
+        window.SMT_NAMESPACE_CARDS_LOADING = null;
+        for (var i = 0; i < cbs.length; i++) cbs[i]();
+      };
+      script.onerror = function () {
+        window.SMT_NAMESPACE_CARDS_LOADING = null;
+        done();
+      };
+      document.head.appendChild(script);
     }
 
     function scopeButtons(active) {
@@ -172,8 +245,6 @@
         ["worker", "Worker"],
         ["engine", "Engine"],
         ["enum", "Enums"],
-        ["guide", "Guides"],
-        ["other", "Other"],
       ];
       var html = "";
       for (var i = 0; i < items.length; i++) {
@@ -202,14 +273,15 @@
       if (!q) {
         list.innerHTML = "";
         list.hidden = true;
-        lastHits = [];
-        if (treePanel) treePanel.hidden = false;
-        refreshTree();
-        status.textContent = "Expand a namespace in the tree, or type a method or type name.";
+        var shown = renderBrowse(scopeId);
+        status.textContent = shown
+          ? "Open a namespace, or type a method or type name."
+          : "Type a namespace, method, or type name.";
         return;
       }
 
-      if (treePanel) treePanel.hidden = false;
+      browse.hidden = true;
+      browse.innerHTML = "";
       list.hidden = false;
 
       if (!api || !Array.isArray(window.SMT_SEARCH_INDEX)) {
@@ -227,8 +299,6 @@
         MAX_RESULTS,
         hideDeprecated,
       );
-      lastHits = found.hits;
-      refreshTree();
 
       if (!found.total) {
         list.innerHTML = "";
@@ -329,10 +399,11 @@
     scopeButtons(route.scope);
     input.value = route.q;
     window.smtRefreshSearch = scheduleRender;
-    loadIndex(function () {
-      mountTree();
-      render();
-      input.focus();
+    loadCards(function () {
+      loadIndex(function () {
+        render();
+        input.focus();
+      });
     });
   }
 
@@ -363,24 +434,10 @@
     });
   }
 
-  function typesInstallPath() {
-    var path = (window.location.hash || "").replace(/^#/, "").split("?")[0] || "/";
-    if (path.length > 1 && path.charAt(path.length - 1) === "/") path = path.slice(0, -1);
-    if (path === "/types/README") path = "/types";
-    return path === "/types";
-  }
-
-  function mountTypesLandingTree() {
-    if (!typesInstallPath() || !window.SMT_API_TREE) return;
-    var el = document.getElementById("smt-api-tree-root");
-    if (el) window.SMT_API_TREE.mount(el, {});
-  }
-
   window.smtDocsifySearchPlugin = function (hook) {
     bindHotkeys();
     hook.doneEach(function () {
       bindHotkeys();
-      mountTypesLandingTree();
       if (!parseRoute()) return;
       var root = document.getElementById("smt-search-root");
       if (root) mount(root);

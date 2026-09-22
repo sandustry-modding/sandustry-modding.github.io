@@ -81,7 +81,7 @@ See [configs](api/configs.md) for each shape.
 
 ## Template helpers
 
-The [mod template](modinfo.md) documents `defineModInfo`, `modinfo.ts` patch exports, and config schema UI.
+`defineModInfo` and `modinfo.ts`: [modinfo.ts](modinfo.md).
 
 ## Related
 

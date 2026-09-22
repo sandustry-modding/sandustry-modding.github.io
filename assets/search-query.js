@@ -30,7 +30,7 @@
     Variables: true,
   };
 
-  var SCOPES = ["all", "main", "worker", "engine", "enum", "guide", "other"];
+  var SCOPES = ["all", "main", "worker", "engine", "enum"];
 
   function normalize(text) {
     return String(text || "")
@@ -44,6 +44,19 @@
       .trim();
   }
 
+  function isApiEntry(entry) {
+    var path = String((entry && entry.path) || "");
+    if (path.indexOf("/api/sandkit") === 0) return true;
+    if (path.indexOf("/api/shared") === 0) return true;
+    if (path.indexOf("/api/electron") === 0) return true;
+    if (path === "/full") return true;
+    var title = String((entry && entry.title) || "");
+    if (title === "sandkit" || title.indexOf("sandkit.") === 0) return true;
+    if (title.indexOf("shared.") === 0) return true;
+    if (title === "electron" || title.indexOf("electron.") === 0) return true;
+    return false;
+  }
+
   function classifyEntry(entry) {
     var title = String((entry && entry.title) || "");
     var path = String((entry && entry.path) || "");
@@ -55,10 +68,18 @@
       scope = "engine";
     } else if (path.indexOf("/api/sandkit.enums") === 0 || title.indexOf("sandkit.enums") === 0) {
       scope = "enum";
-    } else if (path.indexOf("/api/sandkit") === 0 || title.indexOf("sandkit.") === 0 || title === "sandkit") {
+    } else if (
+      path.indexOf("/api/sandkit") === 0 ||
+      path.indexOf("/api/shared") === 0 ||
+      path.indexOf("/api/electron") === 0 ||
+      path === "/full" ||
+      title.indexOf("sandkit.") === 0 ||
+      title === "sandkit" ||
+      title.indexOf("shared.") === 0 ||
+      title === "electron" ||
+      title.indexOf("electron.") === 0
+    ) {
       scope = "main";
-    } else if (path.indexOf("/guides") === 0) {
-      scope = "guide";
     }
     return { kind: kind, scope: scope };
   }
@@ -123,6 +144,7 @@
     var ranked = [];
     for (var i = 0; i < index.length; i++) {
       var entry = index[i];
+      if (!isApiEntry(entry)) continue;
       if (hideDeprecated && entry && entry.deprecated) continue;
       if (scope && scope !== "all") {
         var cls = classifyEntry(entry);
@@ -143,6 +165,7 @@
     IGNORE_TITLE: IGNORE_TITLE,
     SCOPES: SCOPES,
     normalize: normalize,
+    isApiEntry: isApiEntry,
     classifyEntry: classifyEntry,
     scoreEntry: scoreEntry,
     searchIndex: searchIndex,

@@ -1,7 +1,7 @@
 # Search
 
-Find namespaces, methods, and types by their live `sandkit` path.
-With an empty query, the page shows the full collapsible API tree.
-Matching branches open when you type a query.
+Find Sandkit API namespaces, methods, and types by their live `sandkit` path.
+Search covers generated `/api/` pages only.
+With an empty query, the page shows namespace cards.
 
 <div id="smt-search-root" class="smt-search-page"></div>

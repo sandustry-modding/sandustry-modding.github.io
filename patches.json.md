@@ -87,9 +87,7 @@ Declare compatibility in [modinfo.json](modinfo.json.md):
 
 ## Template workflow
 
-The [mod template](patches.md) documents `patches.ts`, `definePatches`, and `debugPatches`.
-
-When both `patches.json` and `patches.ts` exist, **`patches.ts` wins**.
+`patches.ts`, `definePatches`, and `debugPatches`: [patches.ts](patches.md).
 
 ## Related
 
