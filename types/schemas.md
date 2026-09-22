@@ -8,9 +8,9 @@ Prefer the [official Sandkit docs](https://sandustry.com/sandkit.html#mod-files-
 
 | File | Schema URL |
 | --- | --- |
-| `modinfo.json` | https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json |
-| `patches.json` | https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json |
-| `workshop.json` | https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json |
+| `modinfo.json` | https://sandustry-modding.github.io/schemas/modinfo.json |
+| `patches.json` | https://sandustry-modding.github.io/schemas/patches.json |
+| `workshop.json` | https://sandustry-modding.github.io/schemas/workshop.json |
 
 Point `$schema` at the URL for the file you edit.
 Field lists and examples: [modinfo.json](modinfo.json.md) and [patches.json](patches.json.md).

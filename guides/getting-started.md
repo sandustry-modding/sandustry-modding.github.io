@@ -21,7 +21,7 @@ Example `modinfo.json`:
 
 ```json
 {
-  "$schema": "https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json",
+  "$schema": "https://sandustry-modding.github.io/schemas/modinfo.json",
   "manifestVersion": 1,
   "id": "author.my-mod",
   "name": "My Mod",

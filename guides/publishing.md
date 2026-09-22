@@ -9,7 +9,7 @@ After the first successful upload, the publisher writes `workshop/workshop.json`
 
 ```json
 {
-  "$schema": "https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json",
+  "$schema": "https://sandustry-modding.github.io/schemas/workshop.json",
   "schemaVersion": 1,
   "publishedFileId": "1234567890"
 }

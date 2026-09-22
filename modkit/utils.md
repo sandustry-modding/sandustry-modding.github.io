@@ -4,7 +4,7 @@ Small helpers under `modkit/utils/`.
 Import from `@modkit/utils`.
 
 ```ts
-import { safe, isEnabled, inGame, registerRetroGame } from "@modkit/utils";
+import { safe, isEnabled, inGame } from "@modkit/utils";
 ```
 
 ## `safe`
@@ -65,41 +65,6 @@ import { inGame } from "@modkit/utils";
 if (!inGame()) return null;
 ```
 
-## `registerRetroGame`
-
-```ts
-registerRetroGame<TState>(game: RetroConsoleGame<TState>): boolean
-```
-
-Registers a game on the in-world Retro Console via `sandkit.engine.api.retroConsole.registerGame`.
-
-Returns `false` when `retroConsole.registerGame` is not available (logs a warning).
-Returns `true` after a successful registration.
-
-Types re-exported from `@modkit/utils`:
-
-| Type                      | Role                                 |
-| ------------------------- | ------------------------------------ |
-| `RetroConsoleGame`        | Game definition passed to the engine |
-| `RetroConsoleGameOptions` | Options on the game object           |
-| `RetroConsoleApi`         | Engine retro console API shape       |
-| `RetroConsoleDisplay`     | Display interface                    |
-| `RetroConsoleInput`       | Input interface                      |
-| `RetroConsolePixel`       | Pixel type                           |
-
-Full shapes live in `@sandustry-modding/types` (`sandkit/engine`) and the [Sandkit API reference](https://sandustry-modding.github.io/SandustryTypes/#/).
-
-```ts
-import { registerRetroGame } from "@modkit/utils";
-import type { RetroConsoleGame } from "@modkit/utils";
-
-const game: RetroConsoleGame<MyState> = {
-  // ...
-};
-
-registerRetroGame(game);
-```
-
 ## Live config
 
 Tunable debug numbers on a `globalThis` key, with an F3 live-config panel.
@@ -121,11 +86,10 @@ export const config = live.config;
 
 ## Module layout
 
-| File               | Exports                                     |
-| ------------------ | ------------------------------------------- |
-| `index.ts`         | Re-exports all public API                   |
-| `safe.ts`          | `safe`                                      |
-| `settings.ts`      | `isEnabled`                                 |
-| `scene.ts`         | `inGame`                                    |
-| `retro-console.ts` | `registerRetroGame` and retro console types |
-| `live-config.ts`   | `createLiveConfig` and live-config registry |
+| File             | Exports                                     |
+| ---------------- | ------------------------------------------- |
+| `index.ts`       | Re-exports all public API                   |
+| `safe.ts`        | `safe`                                      |
+| `settings.ts`    | `isEnabled`                                 |
+| `scene.ts`       | `inGame`                                    |
+| `live-config.ts` | `createLiveConfig` and live-config registry |

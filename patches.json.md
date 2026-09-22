@@ -46,7 +46,7 @@ Wrapped document form (editors only):
 
 ```json
 {
-  "$schema": "https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json",
+  "$schema": "https://sandustry-modding.github.io/schemas/patches.json",
   "patches": [ ... ]
 }
 ```

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json",
+  "$id": "https://sandustry-modding.github.io/schemas/modinfo.json",
   "title": "Sandkit modinfo.json",
   "type": "object",
   "properties": {

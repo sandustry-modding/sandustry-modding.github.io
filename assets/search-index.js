@@ -127,7 +127,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "configs",
-    "body": "Sandkit mod file schemas: modinfo.json, patches.json, and workshop.json. These are not runtime sandkit properties. Import from @sandustry-modding/types/configs when typing mod folder config files. JSON Schema (GitHub Pages): https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json JSON Schema docs",
+    "body": "Sandkit mod file schemas: modinfo.json, patches.json, and workshop.json. These are not runtime sandkit properties. Import from @sandustry-modding/types/configs when typing mod folder config files. JSON Schema (GitHub Pages): https://sandustry-modding.github.io/schemas/modinfo.json https://sandustry-modding.github.io/schemas/patches.json https://sandustry-modding.github.io/schemas/workshop.json JSON Schema docs",
     "path": "/api/configs",
     "id": ""
   },
@@ -10634,7 +10634,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "JSON Schema",
-    "body": "Generated from @sandustry-modding/types/configs (ModInfo, BundlePatchesFile, and WorkshopJson). Prefer the official Sandkit docs when a schema and the game disagree. File Schema URL --- --- modinfo.json https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json patches.json https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json workshop.json https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json Point $schema at the URL for the file you edit. Field lists and examples: modinfo.json and patches.json. patches.json ships as a bare array. Bind the schema by path in the editor when you need to keep that array form. workshop.json is written by the in-game publisher or npm run publish. Do not hand-edit publishedFileId. Member reference: Config types. From the types package: npm run validate fails when committed schemas do not match the TypeScript defs.",
+    "body": "Generated from @sandustry-modding/types/configs (ModInfo, BundlePatchesFile, and WorkshopJson). Prefer the official Sandkit docs when a schema and the game disagree. File Schema URL --- --- modinfo.json https://sandustry-modding.github.io/schemas/modinfo.json patches.json https://sandustry-modding.github.io/schemas/patches.json workshop.json https://sandustry-modding.github.io/schemas/workshop.json Point $schema at the URL for the file you edit. Field lists and examples: modinfo.json and patches.json. patches.json ships as a bare array. Bind the schema by path in the editor when you need to keep that array form. workshop.json is written by the in-game publisher or npm run publish. Do not hand-edit publishedFileId. Member reference: Config types. From the types package: npm run validate fails when committed schemas do not match the TypeScript defs.",
     "path": "/types/schemas",
     "id": ""
   },

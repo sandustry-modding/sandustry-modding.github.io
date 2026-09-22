@@ -15,7 +15,7 @@ When both exist in the same folder, **`modinfo.ts` wins** in the mod template bu
 
 ```json
 {
-  "$schema": "https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json",
+  "$schema": "https://sandustry-modding.github.io/schemas/modinfo.json",
   "manifestVersion": 1,
   "id": "author.example-mod",
   "name": "Example Mod",
