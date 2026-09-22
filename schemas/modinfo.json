@@ -449,22 +449,22 @@
     },
     "ModMapPoint": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "x": {
           "type": "number",
-          "description": "World X in pixels."
+          "description": "Horizontal component."
         },
         "y": {
           "type": "number",
-          "description": "World Y in pixels."
+          "description": "Vertical component."
         }
       },
       "required": [
         "x",
         "y"
       ],
-      "additionalProperties": false,
-      "description": "World-pixel spawn or unstuck point."
+      "description": "World-pixel spawn or unstuck point.\n\nSame shape as Vector2 ."
     },
     "ModMapTopBounds": {
       "type": "object",
