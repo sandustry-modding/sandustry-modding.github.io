@@ -6,25 +6,29 @@
 
 ### sandkit.api.maps.ArtifactLocation :id=artifactlocation
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L41" target="_blank" rel="noopener">maps.d.ts:41</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L42" target="_blank" rel="noopener">maps.d.ts:42</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
-| cellX | <code>number</code> |  |
-| cellY | <code>number</code> |  |
 | name | <code>string</code> |  |
+| cellX | <code>number</code> | Cell column. |
+| cellY | <code>number</code> | Cell row. |
 
 <div class="smt-member-anchors">
+
+##### name <!-- {docsify-ignore} -->
 
 ##### cellX <!-- {docsify-ignore} -->
 
 ##### cellY <!-- {docsify-ignore} -->
 
-##### name <!-- {docsify-ignore} -->
-
 </div>
 
 Artifact location entry from [getArtifactLocations](?id=getartifactlocations).
+
+#### Extends
+
+- [`CellXY`](api/shared.player.md?id=cellxy)
 
 #### Indexable
 
@@ -38,7 +42,7 @@ Artifact location entry from [getArtifactLocations](?id=getartifactlocations).
 
 ### sandkit.api.maps.AvailableMapV1 :id=availablemapv1
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L49" target="_blank" rel="noopener">maps.d.ts:49</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L48" target="_blank" rel="noopener">maps.d.ts:48</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -69,7 +73,7 @@ Available map entry shape.
 
 ### sandkit.api.maps.getAvailable :id=getavailable
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L18" target="_blank" rel="noopener">maps.d.ts:18</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L19" target="_blank" rel="noopener">maps.d.ts:19</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.maps.getAvailable(): readonly Readonly&lt;AvailableMapV1&gt;[]">
 
@@ -89,7 +93,7 @@ readonly `Readonly`&lt;[`AvailableMapV1`](?id=availablemapv1)&gt;[]
 
 ### sandkit.api.maps.start :id=start
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L23" target="_blank" rel="noopener">maps.d.ts:23</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L24" target="_blank" rel="noopener">maps.d.ts:24</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.maps.start(mapId: string): boolean">
 
@@ -117,7 +121,7 @@ Start a map by id. Return true when start succeeds.
 
 ### sandkit.api.maps.getArtifactLocations :id=getartifactlocations
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L38" target="_blank" rel="noopener">maps.d.ts:38</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L39" target="_blank" rel="noopener">maps.d.ts:39</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.maps.getArtifactLocations(): readonly ArtifactLocation[]">
 

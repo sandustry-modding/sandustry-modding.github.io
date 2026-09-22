@@ -58,6 +58,7 @@ Deep declaration modules are also available, for example:
 ```ts
 import type { RetroConsoleGame } from "@sandustry-modding/types/sandkit/engine";
 import type { ModInfo, BundlePatch } from "@sandustry-modding/types/configs";
+import type { Vector2, CellCoordinates, CellXY, Size2 } from "@sandustry-modding/types/shared";
 ```
 
 ## Usage

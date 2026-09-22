@@ -12,12 +12,12 @@ Worker-thread `sandkit.api.events` — subscribe to and emit worker-scoped event
 
 ### sandkit.api.events.EventGuard :id=eventguard
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L66" target="_blank" rel="noopener">events.d.ts:66</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L68" target="_blank" rel="noopener">events.d.ts:68</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
 | elementType? | <code>ElementType</code> | Required when subscribing to `element:moved`. Optional on emit. |
-| terrainType? | <code>number</code> | Required when subscribing to `terrain:updated`. Optional on emit. |
+| terrainType? | <code>TerrainType</code> | Required when subscribing to `terrain:updated`. Optional on emit. |
 
 <div class="smt-member-anchors">
 
@@ -35,7 +35,7 @@ Guard filter for worker events.
 
 ### sandkit.api.events.EventEmitOptions :id=eventemitoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L81" target="_blank" rel="noopener">events.d.ts:81</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L83" target="_blank" rel="noopener">events.d.ts:83</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -55,18 +55,30 @@ Options for [emit](?id=emit).
 
 ### sandkit.api.events.EventPayloadMap :id=eventpayloadmap
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L86" target="_blank" rel="noopener">events.d.ts:86</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L88" target="_blank" rel="noopener">events.d.ts:88</a></p>
 
 <h4 class="smt-hook-heading" id="element-moved"><code>element:moved</code></h4>
 
 ```ts
-Record<string, unknown>
+{
+  cellId: CellId;
+  elementIndex: number;
+  elementType: ElementType;
+  source: Vector2;
+  destination: Vector2;
+}
 ```
 
 <h4 class="smt-hook-heading" id="terrain-updated"><code>terrain:updated</code></h4>
 
 ```ts
-Record<string, unknown>
+{
+  cellId: CellId;
+  x: number;
+  y: number;
+  dt: number;
+  runOrder: number;
+}
 ```
 
 <h4 class="smt-hook-heading" id="terrain-update"><code>terrain:update</code></h4>
@@ -81,13 +93,19 @@ Deprecated alias.
 </div>
 
 ```ts
-Record<string, unknown>
+{
+  cellId: CellId;
+  x: number;
+  y: number;
+  dt: number;
+  runOrder: number;
+}
 ```
 
 <h4 class="smt-hook-heading" id="worker-update-post"><code>worker:update:post</code></h4>
 
 ```ts
-Record<string, unknown>
+{ dt: number }
 ```
 
 <h4 class="smt-hook-heading" id="update-post"><code>update:post</code></h4>
@@ -102,7 +120,7 @@ Deprecated alias.
 </div>
 
 ```ts
-Record<string, unknown>
+{ dt: number }
 ```
 
 Known worker event payloads. Unlisted ids still use `unknown`.
@@ -115,7 +133,7 @@ Known worker event payloads. Unlisted ids still use `unknown`.
 
 ### sandkit.api.events.EventOnOptions :id=eventonoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L74" target="_blank" rel="noopener">events.d.ts:74</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L76" target="_blank" rel="noopener">events.d.ts:76</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.EventOnOptions&lt;K *extends* EventId&gt; = K *extends* &quot;element:moved&quot; ? object : K *extends* &quot;terrain:updated&quot; | &quot;terrain:update&quot; ? object : object">
 
@@ -135,7 +153,7 @@ Options for [on](?id=on).
 
 ### sandkit.api.events.EventId :id=eventid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L97" target="_blank" rel="noopener">events.d.ts:97</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L99" target="_blank" rel="noopener">events.d.ts:99</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.EventId = LooseString&lt;keyof EventPayloadMap&gt;">
 
@@ -153,7 +171,7 @@ Known worker event names plus any custom string id.
 
 ### sandkit.api.events.EventPayload :id=eventpayload
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L100" target="_blank" rel="noopener">events.d.ts:100</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L102" target="_blank" rel="noopener">events.d.ts:102</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.EventPayload&lt;K&gt; = K *extends* keyof EventPayloadMap ? EventPayloadMap[K] : unknown">
 
@@ -173,7 +191,7 @@ Event payload type for a given event id.
 
 ### sandkit.api.events.on :id=on
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L45" target="_blank" rel="noopener">events.d.ts:45</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L47" target="_blank" rel="noopener">events.d.ts:47</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.on&lt;K *extends* EventId&gt;(eventId: K, callback: (payload: EventPayload&lt;K&gt;) =&gt; void, options?: EventOnOptions&lt;K&gt;): () =&gt; void">
 
@@ -243,7 +261,7 @@ api.events.on("worker:update:post", (payload) => {
 
 ### sandkit.api.events.emit :id=emit
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L59" target="_blank" rel="noopener">events.d.ts:59</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L61" target="_blank" rel="noopener">events.d.ts:61</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.emit&lt;K *extends* EventId&gt;(eventId: K, payload: EventPayload&lt;K&gt;, options?: EventEmitOptions): void">
 

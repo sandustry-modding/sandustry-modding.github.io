@@ -106,17 +106,17 @@ const { cellSize, snapGridCellSize } = api.rendering.getGridMetrics();
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/rendering.d.ts#L43" target="_blank" rel="noopener">rendering.d.ts:43</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.rendering.getOverlayViewportSize(): object">
+<div class="smt-member-sig" data-sig="sandkit.api.rendering.getOverlayViewportSize(): Size2">
 
 ```ts
-getOverlayViewportSize(): object
+getOverlayViewportSize(): Size2
 ```
 
 </div>
 
 Return overlay viewport width and height in pixels.
 
-width: number height: number
+[`Size2`](api/shared.player.md?id=size2)
 
 </div>
 

@@ -143,7 +143,7 @@ One interpolated field in a [StructureTooltipHover](?id=structuretooltiphover) m
 
 | Property | Type | Description |
 | --- | --- | --- |
-| frameSize | <code>{ width: number; height: number }</code> |  |
+| frameSize | <code>Size2</code> |  |
 | frames | <code>number</code> |  |
 | intervalMs | <code>number</code> |  |
 | rowDataField? | <code>string</code> | When set, frame row follows this structure `data` field. |
@@ -173,8 +173,8 @@ Spritesheet animation on a structure render block.
 | Property | Type | Description |
 | --- | --- | --- |
 | imageName? | <code>string</code> |  |
-| size? | <code>{ width: number; height: number }</code> |  |
-| offset? | <code>{ x: number; y: number }</code> |  |
+| size? | <code>Size2</code> |  |
+| offset? | <code>Vector2</code> |  |
 | outline? | <code>boolean</code> |  |
 | width? | <code>string</code> |  |
 | height? | <code>string</code> |  |
@@ -211,8 +211,8 @@ Hotbar / build-menu UI sprite settings.
 | Property | Type | Description |
 | --- | --- | --- |
 | imageName? | <code>string</code> |  |
-| size? | <code>{ width: number; height: number }</code> |  |
-| offset? | <code>{ x: number; y: number }</code> |  |
+| size? | <code>Size2</code> |  |
+| offset? | <code>Vector2</code> |  |
 | z? | <code>number</code> |  |
 | ambienceGroup? | <code>string</code> |  |
 | ui? | <code>StructureRenderUi</code> |  |

@@ -6,7 +6,7 @@
 
 ### sandkit.api.sound.SoundHandle :id=soundhandle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L77" target="_blank" rel="noopener">sound.d.ts:77</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L79" target="_blank" rel="noopener">sound.d.ts:79</a></p>
 
 | Method | Signature | Description |
 | --- | --- | --- |
@@ -26,7 +26,7 @@ Handle returned from a play call.
 
 ### sandkit.api.sound.SoundLayer :id=soundlayer
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L83" target="_blank" rel="noopener">sound.d.ts:83</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L85" target="_blank" rel="noopener">sound.d.ts:85</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -61,13 +61,13 @@ One layer in a layered sound.
 
 ### sandkit.api.sound.SoundOptions :id=soundoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L96" target="_blank" rel="noopener">sound.d.ts:96</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L98" target="_blank" rel="noopener">sound.d.ts:98</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
 | volume? | <code>number</code> | Volume multiplier (0–1 typical). |
 | playbackRate? | <code>number</code> | Playback rate multiplier. |
-| position? | <code>{ x: number; y: number }</code> | World position for distance attenuation. |
+| position? | <code>Vector2</code> | World position for distance attenuation. |
 | loop? | <code>boolean</code> | When true, loop until stopped. |
 | rateLimitKey? | <code>string</code> | Key used with rateLimitMs to dedupe rapid replays. |
 | rateLimitMs? | <code>number</code> | Minimum ms between plays with the same rateLimitKey. |
@@ -102,11 +102,11 @@ Options passed to sound play helpers.
 
 ### sandkit.api.sound.SoundLayersOptions :id=soundlayersoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L113" target="_blank" rel="noopener">sound.d.ts:113</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L115" target="_blank" rel="noopener">sound.d.ts:115</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
-| position? | <code>{ x: number; y: number }</code> | World position applied to all layers. |
+| position? | <code>Vector2</code> | World position applied to all layers. |
 | volume? | <code>number</code> | Volume multiplier applied to all layers. |
 | rateLimitKey? | <code>string</code> | Key used with rateLimitMs to dedupe rapid replays. |
 | rateLimitMs? | <code>number</code> | Minimum ms between plays with the same rateLimitKey. |
@@ -133,7 +133,7 @@ Shared options for [playLayers](?id=playlayers).
 
 ### sandkit.api.sound.play :id=play
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L16" target="_blank" rel="noopener">sound.d.ts:16</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L18" target="_blank" rel="noopener">sound.d.ts:18</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sound.play(soundId: string, options?: SoundOptions): SoundHandle">
 
@@ -166,7 +166,7 @@ Play a sound by id with optional options.
 
 ### sandkit.api.sound.playActive :id=playactive
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L25" target="_blank" rel="noopener">sound.d.ts:25</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L27" target="_blank" rel="noopener">sound.d.ts:27</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sound.playActive(soundId: string, options?: SoundOptions): SoundHandle">
 
@@ -199,7 +199,7 @@ Play a sound on the active sound channel.
 
 ### sandkit.api.sound.playLayers :id=playlayers
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L34" target="_blank" rel="noopener">sound.d.ts:34</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L36" target="_blank" rel="noopener">sound.d.ts:36</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sound.playLayers(layers: SoundLayer[], options?: SoundLayersOptions): SoundHandle[]">
 
@@ -232,7 +232,7 @@ Play multiple sound layers with shared options.
 
 ### sandkit.api.sound.calculateDistanceOptionsAtWorld :id=calculatedistanceoptionsatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L44" target="_blank" rel="noopener">sound.d.ts:44</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L46" target="_blank" rel="noopener">sound.d.ts:46</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sound.calculateDistanceOptionsAtWorld(worldX: number, worldY: number, baseVolume?: number): SoundOptions">
 
@@ -268,7 +268,7 @@ Build distance-based volume options for a world position.
 
 ### sandkit.api.sound.stopBySoundId :id=stopbysoundid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L56" target="_blank" rel="noopener">sound.d.ts:56</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L58" target="_blank" rel="noopener">sound.d.ts:58</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sound.stopBySoundId(soundId: string): void">
 
@@ -296,7 +296,7 @@ Stop a sound by id.
 
 ### ~~sandkit.api.sound.stopById~~ :id=stopbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L62" target="_blank" rel="noopener">sound.d.ts:62</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L64" target="_blank" rel="noopener">sound.d.ts:64</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -331,7 +331,7 @@ stopById(soundId: string): void
 
 ### sandkit.api.sound.stopActive :id=stopactive
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L68" target="_blank" rel="noopener">sound.d.ts:68</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L70" target="_blank" rel="noopener">sound.d.ts:70</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sound.stopActive(): void">
 
@@ -349,7 +349,7 @@ Stop the active sound channel.
 
 ### sandkit.api.sound.stopAll :id=stopall
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L74" target="_blank" rel="noopener">sound.d.ts:74</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L76" target="_blank" rel="noopener">sound.d.ts:76</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sound.stopAll(): void">
 

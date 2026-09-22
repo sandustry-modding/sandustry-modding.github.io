@@ -1,19 +1,5575 @@
 window.SMT_SEARCH_INDEX = [
   {
+    "title": "Sandustry mod release",
+    "body": "Release one mod under src/ /. Each mod is its own git repo. Work in that folder for git commands. Run template commands from the repo root. Use AskQuestion at every gate below. Stop when the user picks Cancel or Skip . Do not commit, push, or publish without passing the gate for that step. Gate When Ask ---- ----------------------------- ---------------------------- 0 Mod is not obvious Which mod to release? A Mod and version are known Start this release? B Tests pass Apply version and CHANGELOG? C Working tree is release-ready Commit in the mod repo? D Commit exists locally Push to origin? E Push finished (or skipped) Upload to Steam Workshop?",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry mod release.Find candidate mods",
+    "body": "From the template root, list src/ / dirs that have modinfo.ts or modinfo.json. For each candidate, read: - modinfo.ts — id, name, version - CHANGELOG.md — Unreleased body (empty or not) - git status -sb and git diff --stat inside that mod repo Skip template unless the user names it.",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry mod release.Gate 0 — Pick mod",
+    "body": "Use AskQuestion when any of these is true: - The user did not name a mod folder or mod id. - More than one mod has unreleased CHANGELOG entries or dirty git state. - Named mod does not match any src/ /. Do not ask when the user clearly names one mod (folder, id, or common name like \"selection capture\" → irishbruse.selection-capture). AskQuestion: - prompt: Which mod should be released? - options: one per candidate mod. - id: folder name (e.g. irishbruse.selection-capture) - label: · v plus a short hint when useful: - (unreleased changelog) when Unreleased has bullets - (dirty) when the mod repo has uncommitted changes - (clean) when neither applies - Put the best candidate first and mark it (Recommended) when it is the only mod with unreleased changelog or the user’s wording points at it. - Always include Cancel . When only one mod has unreleased changelog and the user said \"release\" with no name, still ask Gate 0 with that single mod as Recommended plus Cancel. After Gate 0, set to the chosen option id.",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry mod release.Survey chosen mod",
+    "body": "Run in parallel: Also read: - src/ /modinfo.ts — current version - src/ /CHANGELOG.md — Unreleased body - src/ /workshop/workshop.json — existing publishedFileId, if any Propose the next semver from Unreleased: Unreleased content Bump ------------------------------ ----- Breaking change major New feature or behavior change minor Fixes only patch If Unreleased is empty, stop and tell the user.",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry mod release.Gate A — Start release",
+    "body": "AskQuestion: - prompt: Release src/ / as ? - options: - Proceed (Recommended) - Pick a different version - Cancel When the user picks Pick a different version , ask again with patch / minor / major choices or accept their text, then continue. From the template root: Fix failures in the mod before the next gate. Report pre-existing failures outside the mod, but do not block on them. Optional release build check: Preview Steam change notes: Show the user: - test results - proposed changelog bullets - Steam change-note preview - publish readiness (preview.gif or preview.png, workshop/workshop.md)",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry mod release.Gate B — Version and CHANGELOG",
+    "body": "AskQuestion: - prompt: Apply version and finalize CHANGELOG for src/ /? - options: - Yes (Recommended) - Edit docs first - Cancel When the user picks Edit docs first , update what they name, then ask Gate B again. In src/ /: 1. Set version in modinfo.ts (and modinfo.json when present). 2. Move Unreleased bullets into . Leave an empty Unreleased heading. 3. Update user-facing docs when behavior changed: - README.md - workshop/workshop.md 4. Do not edit workshop/workshop.json by hand. Match prior release commit style in that mod repo. Recent examples use the version alone: 0.9.0. Re-run tests when code changed after Step 1. Stage only release files in src/ /. Warn once if secrets or unrelated paths are dirty.",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry mod release.Gate C — Commit",
+    "body": "AskQuestion: - prompt: Commit in src/ /? - options: - Commit (Recommended) - Show diff again - Cancel Commit with a HEREDOC message. Use the version string when that matches recent git log in the mod repo: On hook failure: fix, then make a new commit. Never --amend unless user rules allow it.",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry mod release.Gate D — Push",
+    "body": "AskQuestion: - prompt: Push from src/ / to origin? - options: - Push (Recommended) - Skip push - Cancel When the user picks Push : When the user picks Skip push , continue only if they asked to publish from local commits. Requires cached SteamCMD login. See docs/guides/publishing.md and docs/builds.md.",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry mod release.Gate E — Publish",
+    "body": "AskQuestion: - prompt: Upload src/ / ( ) to Steam Workshop? - options: - Publish interactively (Recommended) - Publish with --yes - Skip publish From the template root: npm run publish runs a release build, then uploads. Change notes come from CHANGELOG.md . Do not pass --watch, --debug, or --game. Always end with: Item Value ---------- ----------------------------------------------- Mod src/ / Version Commit hash or \"not committed\" Push pushed / skipped Workshop uploaded / skipped / failed Steam item publishedFileId from workshop/workshop.json List anything still dirty. Note if the remote reports a moved repo URL. Minor release User: get ready to release the selection capture minor release 1. Survey src/irishbruse.selection-capture/, propose 0.9.0. 2. Gate A → Proceed. 3. Run tests and integration tests. 4. Gate B → Yes. 5. Edit modinfo.ts, CHANGELOG.md, README.md, workshop/workshop.md. 6. Gate C → Commit. 7. Gate D → user says push → Push. 8. Gate E → user choice. Patch-only Unreleased has fixes only → propose patch bump → same gates. Unnamed release User: release a mod 1. Scan src/ /, build Gate 0 options from changelog and git state. 2. Gate 0 → user picks irishbruse.selection-capture. 3. Continue from survey → Gate A.",
+    "path": "/.tmp/ci-repro/repo/.cursor/skills/release/SKILL",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template",
+    "body": "[!WARNING] Unofficial community docs. Not affiliated with Lantto Games, Hooded Horse, or the official Sandustry wiki. See the official Sandkit docs. TypeScript template for Sandustry mods (Steam [mods] beta). Browse mods on the Workshop. Kit and API pages: docs site. - Multi-mod — One repo, many mods. Each src/ / or cloned examples/ / with a modinfo.ts builds to its own game folder. - TypeScript — Sandkit API types from a local SandustryTypes clone (@sandustry-modding/types) - React HUD — JSX via sandkit.react, plus the UI kit gallery - Watch rebuild — npm run dev writes main.js to the game mods folder - Typed modinfo.ts — Manifest fields. Optional patches from the same folder Need Node 24 and Sandustry with the [mods] beta (Library → Properties → Betas). Then F5 in VS Code (or npm run sandustry). Sandustry shows a Quick Pick of one mod, then opens the newest save in that mod’s Steam test world (modinfo.id, 1024×1024). npm run dev watches that one folder. Other OS mods stay installed. Load Game lists that id on the left ( WORLDS ). In-game Save, quicksave, and autosave for that session appear on the right under that world. Continue for your campaign stays on last-played. F5 does not change last-played. npm run setup creates the Steam test world when it is missing and does not overwrite it. It does not put a .save in the mod folder. Sandustry (all mods) starts every selected mod and Continues. In game, look for Template loaded . Alt+E opens the overlay sample after npm run examples (examples/overlay-hotkey). Windows: the same commands work in PowerShell. If setup cannot find the game: If a mod has its own package.json, run npm install in that folder too. Root npm install does not do this. Keep npm run dev running. Save a file. The watch rebuilds main.js into the game mods folder. Restart the game for workers and patches.",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Your own mod",
+    "body": "1. Open src/template/. 2. Set id, name, and author in modinfo.json (field list). 3. Edit main.ts. Put extra source in feature folders, not next to main.ts. 4. Copy src/template/ to src/ / when you want a second mod. Do not import files from another mod folder. Shared code goes in modkit/.",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Setup and game",
+    "body": "- npm run setup — Check install, extract app.asar (except node modules/) to sandustry/source/, link dist/, sandustry/logs/, sandustry/saves/, and sandustry/workshop/ - npm run sandustry — Stop and launch the game (no build). Set SANDUSTRY MONITOR in .env to pick a display (left, right, primary, or 0, 1, …).",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Development",
+    "body": "- npm run dev — Watch the F5 / dev:pick set (plus any companions from .env DEV ALWAYS MODS). Mods stay in dist/ unless DEV CLEANUP=true (owned only) or DEV CLEANUP=all. F5 Sandustry writes that one folder and does not uninstall other OS mods. - npm run dev:release — Same watch as dev, without debugPatches or sourcemaps. Use to test mods before upload to workshop. - npm run dev:pick — Same as dev, with a TTY picker first - npm run examples — Clone SandustryExamples into examples/ if that folder is missing, then watch those mods (optional --mod )",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Release",
+    "body": "- npm run build — Release all src/ mods to build/ / (Workshop staging) - npm run publish — Runs npm run build, then SteamCMD upload",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Quality",
+    "body": "- npm run typecheck — TypeScript check - npm run test — Unit tests only ( .test.ts). No Chromium. - npm run test:integration — Build mods, boot extracted dist in headless Chromium (CDP :9224), run .integration.test.ts. Optional mod folder (nr test:integration template) or --examples (clones sample mods when examples/ is missing). Use npm run test:integration:view for a visible window (nr test:integration:view collector-element). - npm run lint — Typecheck, oxlint, and format check - npm run lint:fix — oxlint --fix and oxfmt",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Docs",
+    "body": "- npm run docs — Clone the org docs site into docs/ if needed, then serve it locally Build flags, Workshop upload, and Tailwind details: Builds. Each src/ /, mods/ /, or examples/ / folder with a modinfo.json is one game mod. Put shared code in modkit/. Do not import files from another mod folder. Path What it is --------------------- --------------------------------------------------------------------------------------------------------------------------------- src/ / Your mod (modinfo.json + main.ts) mods/ / Optional private mods (gitignored) examples/ / Sample mods (cloned, gitignored) docs/ Clone of sandustry-modding.github.io (gitignored) SandustryTypes/ Clone of SandustryTypes (gitignored). Linked as @sandustry-modding/types modkit/ Shared kit. Import as @modkit/ dist/ Link to the Sandustry mods folder on disk build/ / Workshop staging (copied on npm run build) sandustry/ Local game extract and OS folder links (gitignored; see below) mods/ is optional and gitignored, with the same modinfo rules as src/. npm run build, npm run dev, and npm run publish include it. examples/ is gitignored. npm run examples clones SandustryExamples into that folder when it is missing. docs/ is gitignored. npm run setup (and npm run docs) clones sandustry-modding.github.io into that folder when it is missing. SandustryTypes/ is gitignored. npm install clones SandustryTypes when it is missing. npm run setup fast-forwards that clone to origin/main. The template does not use the npm registry package for types. This repo also ignores src/irishbruse. /; those mods keep their own repos (README.md and CHANGELOG.md in that repo). The game folder and Workshop staging use the id field in modinfo.json, not the repo folder name or display name. dist/ points at the OS mods folder. Each built mod lives at dist/ /. Release staging is build/ /. You do not copy files into the game folder by hand. npm run dev and npm run build write them.",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.`sandustry/`",
+    "body": "npm run setup creates this folder. It is gitignored. Do not edit it by hand; run setup again after a game update. Path What it is --------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ sandustry/source/ Extract of app.asar (except node modules/). Refreshed on every setup. Read package.json for the game version. Use dist/js/bundle.js (or .formatted-source/bundle.js when present) for patch find strings. Integration tests boot source/dist. sandustry/logs/ Link to OS Sandustry logs (main.log, …) sandustry/saves/ Link to OS save files sandustry/workshop/ Link to Steam Workshop content for app 2764460 Older sandustry/ - / folders from prior template versions are removed on the next setup.",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Game folders on disk",
+    "body": "OS Mods Saves Logs ------- --------------------------------------- --------------------------- -------------------------- Linux /.config/sandustry/mods/ /.config/sandustry/saves /.config/sandustry/logs Windows %APPDATA%\\sandustry\\mods\\ %APPDATA%\\sandustry\\saves %APPDATA%\\sandustry\\logs dist/ links to the Mods column. sandustry/saves/, sandustry/logs/, and sandustry/workshop/ link to the matching OS (or Steam) paths above. Workshop items live under steamapps/workshop/content/2764460 in the Steam library that holds the game.",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Sample mods",
+    "body": "Start from src/template/. Sample mods live in SandustryExamples. Run npm run examples to clone them into examples/, then copy a folder into src/ /. Mods in src/ that ship with this template: Folder What it shows --------------------------- ----------------------------------------------------------------------------- template Starter mod. Toast on load. Change id / name / author in modinfo.json",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Files in a mod folder",
+    "body": "Every mod under src/ /, mods/ /, or examples/ / needs these files: File Role -------------- ------------------------------------------------------------------------------------------------------------------ modinfo.json JSON manifest with $schema for IDE validation. See Mod manifest modinfo.ts TypeScript manifest (defineModInfo or modinfoFromJson). Optional patch re-exports main.ts Mod entry The repo has one tsconfig.json. TypeScript checks modkit/, src/, examples/, and mods/ together (moduleDetection is force so script-style main.ts files do not clash). The build still blocks imports from another mod folder. Keep extra TypeScript out of the mod root. Only modinfo.json and/or modinfo.ts, main.ts, optional worker.ts, and optional patches.json / patches.ts may sit at the mod root. Put other source files in feature folders (ui/, health/, capture/, …). Add these when you need them: File Role ---------------------------- ---------------------------------------------------------------------------------------------------- worker.ts Worker entry at the mod root. The build writes worker.js patches.json Optional patch list (JSON array). See Patches. patches.ts Optional patch list (definePatches). See Patches. ui/ React overlays Feature folders Other source files (health/, capture/, …). Keep tests next to the file they test mod/ Static files copied into the output folder. package.json Optional. npm packages for this mod only. Run npm install in that folder yourself README.md / CHANGELOG.md Player docs and Steam notes. Publish reads CHANGELOG.md; builds do not copy these files workshop/ Workshop assets (workshop.json, previews, workshop.md, screenshots/)",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.What you import",
+    "body": "Import @modkit/ and files in your own folder only. Import From --------------------------------------------- ---------------------------------------------------------------------------------------- @modkit/modinfo defineModInfo @modkit/patches definePatches and patch types. Browser stub keeps payloads out of main.js @modkit/react / JSX Runtime React from sandkit.react @modkit/utils safe, isEnabled, inGame @modkit/test Extracted-game integration tests (CDP :9224). Import from .integration.test.ts only @modkit/ui Shared React UI components sandkit / SandkitApi / WorkerSandkitApi Ambient globals. Do not import with a types/ prefix Sandkit API types come from the local SandustryTypes/ clone, npm-linked as @sandustry-modding/types (file:SandustryTypes in root package.json). Browse the reference at Sandustry Modding docs. Ambient sandkit loads through modkit/sandkit.d.ts. Do not list this package under compilerOptions.types. Manifest and patch schemas: @sandustry-modding/types/configs. To pin types work to a branch or fork, check out that ref inside SandustryTypes/, then run npm install again. npm run setup fails — Fix each FAIL line, then run npm run setup again. Setup fails with missing node modules in a mod folder — That mod has its own package.json. Run npm install inside that folder. Root npm install does not do this. Mods do not load — Opt into the Steam beta: Library → Sandustry → Properties → Betas → select mods. Run npm run setup to confirm the asar has sandkit. !Steam Properties Betas tab with the mods branch selected Game binary not found — Point the launcher at your executable. Linux: Default probe includes /games/SteamLibrary/steamapps/common/Sandustry/sandustry and Steam library folders from libraryfolders.vdf. Windows (PowerShell): Windows (cmd): Default probe includes %ProgramFiles(x86)%\\Steam and %ProgramFiles%\\Steam, plus libraries from libraryfolders.vdf.",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "Sandustry Mod Template.Wrong monitor on launch",
+    "body": "Set SANDUSTRY MONITOR in .env (see .env.example). npm run sandustry and F5 use the same setting. Value Meaning --------- ------------------------------------------------ primary OS primary display (default) left Leftmost display right Rightmost display 0, 1… Index after sorting left-to-right, top-to-bottom OS Monitor placement How ------- ----------------- ---------------------------------------- Linux Yes xrandr list; wmctrl maximize (F5) Windows Yes PowerShell Screen; --start-maximized macOS No Falls back to 0,0 Duplicate mods in the console — After a rename, old folders can stay in the OS mods directory. The game loads every folder there, so you get two copies of each sample. The watch build removes leftover game folders this template used to own. Stopping npm run dev also removes those owned folders. Restart the game after a rename or after you stop the watch. VS Code breakpoints do not bind — Run npm run dev, then select Sandustry or Sandustry (all mods) and press F5. For Sandustry , pick a mod in the Quick Pick. That launches the game, waits for CDP :9222, loads that mod’s Void save, then attaches Renderer (mods). Set breakpoints in src/ / TypeScript files, not in dist/ or main.js. Do not press F12 while the IDE debugger is attached — Electron DevTools steals the CDP session. Keep Open DevTools on load off under F5. F5 attach fails or the game will not stop — Press F5 again (preLaunch runs stop first), or run the sandustry:stop task / node scripts/sandustry/sandustry-stop.js. Debugger Restart says \"No debugger available\" — Select Sandustry (the Node launch), not a renderer-only attach. Restart must kill and relaunch the game process. Code changes do not show in game — Keep npm run dev running so the watch rebuilds main.js. Restart the game (F5) after worker.js or patches.json changes. Save reload (?db load=) does not re-apply those on Steam. npm run publish hangs after a successful upload — SteamCMD used to keep the Steam prompt because it inherited the terminal. Publish now closes stdin and stops SteamCMD if it does not exit. See Workshop publish. npm run publish fails to download SteamCMD — Publish fetches the official Valve installer into the dedicated cache when that install is missing ( /.cache/sandustry-steamcmd/ on Linux / macOS, %LOCALAPPDATA%\\sandustry-steamcmd\\ on Windows). See Workshop publish. npm run publish fails with \"No cached credentials\" — SteamCMD login is separate from the Steam client. On a TTY, publish prompts for password / Steam Guard once, then uploads. Full SteamCMD output is in .tmp/steamcmd-publish.log. Types missing — Run npm install (creates SandustryTypes/ when needed). Then run npm run setup to sync types to the latest main on GitHub. Sandkit API declarations resolve to SandustryTypes/ through @sandustry-modding/types. See Sandustry Modding docs. Topic Page ------------------ -------------------------------------------------------------------- Builds and publish builds Mod manifest modinfo configSchema config-schema Bundle patches patches Modkit modkit UI kit UI kit Sandkit API Search Official Sandkit https://sandustry.com/sandkit.html",
+    "path": "/.tmp/ci-repro/repo/README",
+    "id": ""
+  },
+  {
+    "title": "TypeScript",
+    "body": "![CI](https://github.com/microsoft/TypeScript/actions/workflows/ci.yml) ![npm version](https://www.npmjs.com/package/typescript) ![Downloads](https://www.npmjs.com/package/typescript) ![OpenSSF Scorecard](https://securityscorecards.dev/viewer/?uri=github.com/microsoft/TypeScript) TypeScript is a language for application-scale JavaScript. TypeScript adds optional types to JavaScript that support tools for large-scale JavaScript applications for any browser, for any host, on any OS. TypeScript compiles to readable, standards-based JavaScript. Try it out at the playground, and stay up to date via our blog and Twitter account. Find others who are using TypeScript at our community page. For the latest stable version: For our nightly builds: There are many ways to contribute to TypeScript. Submit bugs and help us verify fixes as they are checked in. Review the source code changes. Engage with other TypeScript users and developers on StackOverflow. Help each other in the TypeScript Community Discord. Join the typescript discussion on Twitter. Contribute bug fixes. This project has adopted the Microsoft Open Source Code of Conduct. For more information see the Code of Conduct FAQ or contact opencode@microsoft.com with any additional questions or comments. TypeScript in 5 minutes Programming handbook Homepage For details on our planned features and future direction, please refer to our roadmap.",
+    "path": "/.tmp/ci-repro/repo/SandustryTypes/node_modules/typescript/README",
+    "id": ""
+  },
+  {
+    "title": "quick-lru [![Build Status](https://travis-ci.org/sindresorhus/quick-lru.svg?branch=master)](https://travis-ci.org/sindresorhus/quick-lru) [![Coverage Status](https://coveralls.io/repos/github/sindresorhus/quick-lru/badge.svg?branch=master)](https://coveralls.io/github/sindresorhus/quick-lru?branch=master)",
+    "body": "Simple “Least Recently Used” (LRU) cache Useful when you need to cache something and limit memory usage. Inspired by the hashlru algorithm, but instead uses Map to support keys of any type, not just strings, and values can be undefined.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@alloc/quick-lru/readme",
+    "id": ""
+  },
+  {
+    "title": "quick-lru [![Build Status](https://travis-ci.org/sindresorhus/quick-lru.svg?branch=master)](https://travis-ci.org/sindresorhus/quick-lru) [![Coverage Status](https://coveralls.io/repos/github/sindresorhus/quick-lru/badge.svg?branch=master)](https://coveralls.io/github/sindresorhus/quick-lru?branch=master).new QuickLRU(options?)",
+    "body": "Returns a new instance.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@alloc/quick-lru/readme",
+    "id": ""
+  },
+  {
+    "title": "quick-lru [![Build Status](https://travis-ci.org/sindresorhus/quick-lru.svg?branch=master)](https://travis-ci.org/sindresorhus/quick-lru) [![Coverage Status](https://coveralls.io/repos/github/sindresorhus/quick-lru/badge.svg?branch=master)](https://coveralls.io/github/sindresorhus/quick-lru?branch=master).options",
+    "body": "Type: object maxSize Required \\ Type: number The maximum number of items before evicting the least recently used items. maxAge Type: number\\ Default: Infinity The maximum number of milliseconds an item should remain in cache. By default maxAge will be Infinity, which means that items will never expire. Lazy expiration happens upon the next write or read call. Individual expiration of an item can be specified by the set(key, value, options) method. onEviction Optional \\ Type: (key, value) = void Called right before an item is evicted from the cache. Useful for side effects or for items like object URLs that need explicit cleanup (revokeObjectURL).",
+    "path": "/.tmp/ci-repro/repo/node_modules/@alloc/quick-lru/readme",
+    "id": ""
+  },
+  {
+    "title": "quick-lru [![Build Status](https://travis-ci.org/sindresorhus/quick-lru.svg?branch=master)](https://travis-ci.org/sindresorhus/quick-lru) [![Coverage Status](https://coveralls.io/repos/github/sindresorhus/quick-lru/badge.svg?branch=master)](https://coveralls.io/github/sindresorhus/quick-lru?branch=master).Instance",
+    "body": "The instance is iterable so you can use it directly in a for…of loop. Both key and value can be of any type. .set(key, value, options?) Set an item. Returns the instance. Individual expiration of an item can be specified with the maxAge option. If not specified, the global maxAge value will be used in case it is specified on the constructor, otherwise the item will never expire. .get(key) Get an item. .has(key) Check if an item exists. .peek(key) Get an item without marking it as recently used. .delete(key) Delete an item. Returns true if the item is removed or false if the item doesn't exist. .clear() Delete all items. .resize(maxSize) Update the maxSize, discarding items as necessary. Insertion order is mostly preserved, though this is not a strong guarantee. Useful for on-the-fly tuning of cache sizes in live systems. .keys() Iterable for all the keys. .values() Iterable for all the values. .entriesAscending() Iterable for all entries, starting with the oldest (ascending in recency). .entriesDescending() Iterable for all entries, starting with the newest (descending in recency). .size The stored item count. --- Get professional support for this package with a Tidelift subscription Tidelift helps make open source sustainable for maintainers while giving companies assurances about security, maintenance, and licensing for their dependencies.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@alloc/quick-lru/readme",
+    "id": ""
+  },
+  {
+    "title": "@electron/asar - Electron Archive",
+    "body": "![Test](https://github.com/electron/asar/actions/workflows/test.yml) ![npm version](https://npmjs.org/package/@electron/asar) ![API docs](https://packages.electronjs.org/asar) ASAR is a simple extensive archive format. It concatenates all files together without compression (like tar) while having random access support. Support random access Use JSON to store file information Very easy to write a parser Store the contents of duplicated files only once",
+    "path": "/.tmp/ci-repro/repo/node_modules/@electron/asar/README",
+    "id": ""
+  },
+  {
+    "title": "@electron/asar - Electron Archive.Install",
+    "body": "This module requires Node 22.12.0 or later.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@electron/asar/README",
+    "id": ""
+  },
+  {
+    "title": "@electron/asar - Electron Archive.Usage",
+    "body": "Excluding multiple resources from being packed Given: Exclude: a, b Exclude: a, b, d, f Exclude: a, b, d, f, h For full API usage, see the API documentation.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@electron/asar/README",
+    "id": ""
+  },
+  {
+    "title": "@electron/asar - Electron Archive.Example",
+    "body": "Please note that there is currently no error handling provided!",
+    "path": "/.tmp/ci-repro/repo/node_modules/@electron/asar/README",
+    "id": ""
+  },
+  {
+    "title": "@electron/asar - Electron Archive.Deduplication",
+    "body": "Files with identical contents are stored once and shared: the first copy is written into the archive and every other copy's header entry points at that same offset. Nothing changes for readers — each file still has its own entry, size, integrity hash, and executable bit — but archives with duplicated contents (a common shape for bundled node modules) get smaller and pack faster, since the redundant bytes are never written. Unpacked files (unpack / unpackDir) are always written out in full, because they live on disk outside the archive.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@electron/asar/README",
+    "id": ""
+  },
+  {
+    "title": "@electron/asar - Electron Archive.Transform",
+    "body": "You can pass in a transform option, that is a function, which either returns nothing, or a stream.Transform. The latter will be used on files that will be in the .asar file to transform them (e.g. compress). Asar uses [Pickle][pickle] to safely serialize binary value to file. The format of asar is very flat: The header size and header are serialized with [Pickle][pickle] class, and header size's [Pickle][pickle] object is 8 bytes. The header is a JSON string, and the header size is the size of header's Pickle object. Structure of header is something like this: offset and size records the information to read the file from archive, the offset starts from 0 so you have to manually add the size of header size and header to the offset to get the real offset of the file. Files with identical contents share a single copy in the archive, so more than one entry can point at the same offset. offset is a UINT64 number represented in string, because there is no way to precisely represent UINT64 in JavaScript Number. size is a JavaScript Number that is no larger than Number.MAX SAFE INTEGER, which has a value of 9007199254740991 and is about 8PB in size. We didn't store size in UINT64 because file size in Node.js is represented as Number and it is not safe to convert Number to UINT64. integrity is an object consisting of a few keys: A hashing algorithm, currently only SHA256 is supported. A hex encoded hash value representing the hash of the entire file. An array of hex encoded hashes for the blocks of the file (i.e. for a blockSize of 4KB, this array contains the hash of every block if you split the file into N 4KB blocks). A integer value blockSize representing the size in bytes of each block in the blocks hashes above. [pickle]: https://chromium.googlesource.com/chromium/src/+/main/base/pickle.h",
+    "path": "/.tmp/ci-repro/repo/node_modules/@electron/asar/README",
+    "id": ""
+  },
+  {
+    "title": "esbuild",
+    "body": "This is the Linux 64-bit binary for esbuild, a JavaScript bundler and minifier. See https://github.com/evanw/esbuild for details.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@esbuild/linux-x64/README",
+    "id": ""
+  },
+  {
+    "title": "@jridgewell/gen-mapping",
+    "body": "Generate source maps gen-mapping allows you to generate a source map during transpilation or minification. With a source map, you're able to trace the original location in the source file, either in Chrome's DevTools or using a library like [@jridgewell/trace-mapping][trace-mapping]. You may already be familiar with the [source-map][source-map] package's SourceMapGenerator. This provides the same addMapping and setSourceContent API.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@jridgewell/gen-mapping/README",
+    "id": ""
+  },
+  {
+    "title": "@jridgewell/gen-mapping.Smaller Sourcemaps",
+    "body": "Not everything needs to be added to a sourcemap, and needless markings can cause signficantly larger file sizes. gen-mapping exposes maybeAddSegment/maybeAddMapping APIs that will intelligently determine if this marking adds useful information. If not, the marking will be skipped. [source-map]: https://www.npmjs.com/package/source-map [trace-mapping]: https://github.com/jridgewell/sourcemaps/tree/main/packages/trace-mapping",
+    "path": "/.tmp/ci-repro/repo/node_modules/@jridgewell/gen-mapping/README",
+    "id": ""
+  },
+  {
+    "title": "@jridgewell/resolve-uri",
+    "body": "Resolve a URI relative to an optional base URI Resolve any combination of absolute URIs, protocol-realtive URIs, absolute paths, or relative paths. Input Base Resolution Explanation ----------------------- ------------------------- -------------------------------- -------------------------------------------------------------- https://example.com any https://example.com/ Input is normalized only //example.com https://base.com/ https://example.com/ Input inherits the base's protocol //example.com rest //example.com/ Input is normalized only /example https://base.com/ https://base.com/example Input inherits the base's origin /example //base.com/ //base.com/example Input inherits the base's host and remains protocol relative /example rest /example Input is normalized only example https://base.com/dir/ https://base.com/dir/example Input is joined with the base example https://base.com/file https://base.com/example Input is joined with the base without its file example //base.com/dir/ //base.com/dir/example Input is joined with the base's last directory example //base.com/file //base.com/example Input is joined with the base without its file example /base/dir/ /base/dir/example Input is joined with the base's last directory example /base/file /base/example Input is joined with the base without its file example base/dir/ base/dir/example Input is joined with the base's last directory example base/file base/example Input is joined with the base without its file",
+    "path": "/.tmp/ci-repro/repo/node_modules/@jridgewell/resolve-uri/README",
+    "id": ""
+  },
+  {
+    "title": "@jridgewell/sourcemap-codec",
+    "body": "Encode/decode the mappings property of a sourcemap. Sourcemaps are difficult to generate and manipulate, because the mappings property – the part that actually links the generated code back to the original source – is encoded using an obscure method called Variable-length quantity. On top of that, each segment in the mapping contains offsets rather than absolute indices, which means that you can't look at a segment in isolation – you have to understand the whole sourcemap. This package makes the process slightly easier.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@jridgewell/sourcemap-codec/README",
+    "id": ""
+  },
+  {
+    "title": "License",
+    "body": "MIT",
+    "path": "/.tmp/ci-repro/repo/node_modules/@jridgewell/sourcemap-codec/README",
+    "id": ""
+  },
+  {
+    "title": "@jridgewell/trace-mapping",
+    "body": "Trace the original position through a source map trace-mapping allows you to take the line and column of an output file and trace it to the original location in the source file through a source map. You may already be familiar with the [source-map][source-map] package's SourceMapConsumer. This provides the same originalPositionFor and generatedPositionFor API, without requiring WASM. We also provide a lower level API to get the actual segment that matches our line and column. Unlike originalPositionFor, traceSegment uses a 0-base for line:",
+    "path": "/.tmp/ci-repro/repo/node_modules/@jridgewell/trace-mapping/README",
+    "id": ""
+  },
+  {
+    "title": "@jridgewell/trace-mapping.SectionedSourceMaps",
+    "body": "The sourcemap spec defines a special sections field that's designed to handle concatenation of output code with associated sourcemaps. This type of sourcemap is rarely used (no major build tool produces it), but if you are hand coding a concatenation you may need it. We provide an AnyMap helper that can receive either a regular sourcemap or a SectionedSourceMap and returns a TraceMap instance: [source-map]: https://www.npmjs.com/package/source-map",
+    "path": "/.tmp/ci-repro/repo/node_modules/@jridgewell/trace-mapping/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.scandir",
+    "body": "List files and directories inside the specified directory. The package is aimed at obtaining information about entries in the directory. :moneybag: Returns useful information: name, path, dirent and stats (optional). :gear: On Node.js 10.10+ uses the mechanism without additional calls to determine the entry type. See old and modern mode. :link: Can safely work with broken symbolic links.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "fsScandir.scandir()",
+    "body": "Returns an array of plain objects (Entry) with information about entry for provided path with standard callback-style.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "const",
+    "body": "Returns an array of plain objects (Entry) with information about entry for provided path. path Required: true Type: string Buffer URL A path to a file. If a URL is provided, it must use the file: protocol. optionsOrSettings Required: false Type: Options Settings Default: An instance of Settings class An Options object or an instance of Settings class. :book: When you pass a plain object, an instance of the Settings class will be created automatically. If you plan to call the method frequently, use a pre-created instance of the Settings class.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "const",
+    "body": "A class of full settings of the package. name — The name of the entry (unknown.txt). path — The path of the entry relative to call directory (root/unknown.txt). dirent — An instance of fs.Dirent class. On Node.js below 10.10 will be emulated by DirentFromStats class. stats (optional) — An instance of fs.Stats class. For example, the scandir call for tools directory with one directory inside:",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.scandir.stats",
+    "body": "Type: boolean Default: false Adds an instance of fs.Stats class to the Entry. :book: Always use fs.readdir without the withFileTypes option. ??TODO??",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.scandir.followSymbolicLinks",
+    "body": "Type: boolean Default: false Follow symbolic links or not. Call fs.stat on symbolic link if true.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.scandir.`throwErrorOnBrokenSymbolicLink`",
+    "body": "Type: boolean Default: true Throw an error when symbolic link is broken if true or safely use lstat call if false.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.scandir.`pathSegmentSeparator`",
+    "body": "Type: string Default: path.sep By default, this package uses the correct path separator for your OS (\\ on Windows, / on Unix-like systems). But you can set this option to any separator character(s) that you want to use instead.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "interface",
+    "body": "Type: FileSystemAdapter Default: A default FS methods By default, the built-in Node.js module (fs) is used to work with the file system. You can replace any method with your own. This package has two modes that are used depending on the environment and parameters of use.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.scandir.old",
+    "body": "Node.js below 10.10 or when the stats option is enabled When working in the old mode, the directory is read first (fs.readdir), then the type of entries is determined (fs.lstat and/or fs.stat for symbolic links).",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.scandir.modern",
+    "body": "Node.js 10.10+ and the stats option is disabled In the modern mode, reading the directory (fs.readdir with the withFileTypes option) is combined with obtaining information about its entries. An additional call for symbolic links (fs.stat) is still present. This mode makes fewer calls to the file system. It's faster. See the Releases section of our GitHub project for changelog for each release version. This software is released under the terms of the MIT license.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.scandir/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.stat",
+    "body": "Get the status of a file with some features. Wrapper around standard method fs.lstat and fs.stat with some features. :beginner: Normally follows symbolic link. :gear: Can safely work with broken symbolic link.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.stat/README",
+    "id": ""
+  },
+  {
+    "title": "fsStat.stat()",
+    "body": "Returns an instance of fs.Stats class for provided path with standard callback-style.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.stat/README",
+    "id": ""
+  },
+  {
+    "title": "const",
+    "body": "Returns an instance of fs.Stats class for provided path. path Required: true Type: string Buffer URL A path to a file. If a URL is provided, it must use the file: protocol. optionsOrSettings Required: false Type: Options Settings Default: An instance of Settings class An Options object or an instance of Settings class. :book: When you pass a plain object, an instance of the Settings class will be created automatically. If you plan to call the method frequently, use a pre-created instance of the Settings class.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.stat/README",
+    "id": ""
+  },
+  {
+    "title": "const",
+    "body": "A class of full settings of the package.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.stat/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.stat.`followSymbolicLink`",
+    "body": "Type: boolean Default: true Follow symbolic link or not. Call fs.stat on symbolic link if true.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.stat/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.stat.`markSymbolicLink`",
+    "body": "Type: boolean Default: false Mark symbolic link by setting the return value of isSymbolicLink function to always true (even after fs.stat). :book: Can be used if you want to know what is hidden behind a symbolic link, but still continue to know that it is a symbolic link.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.stat/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.stat.`throwErrorOnBrokenSymbolicLink`",
+    "body": "Type: boolean Default: true Throw an error when symbolic link is broken if true or safely return lstat call if false.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.stat/README",
+    "id": ""
+  },
+  {
+    "title": "interface",
+    "body": "Type: FileSystemAdapter Default: A default FS methods By default, the built-in Node.js module (fs) is used to work with the file system. You can replace any method with your own. See the Releases section of our GitHub project for changelog for each release version. This software is released under the terms of the MIT license.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.stat/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk",
+    "body": "A library for efficiently walking a directory recursively. :moneybag: Returns useful information: name, path, dirent and stats (optional). :rocket: On Node.js 10.10+ uses the mechanism without additional calls to determine the entry type for performance reasons. See old and modern mode. :gear: Built-in directories/files and error filtering system. :link: Can safely work with broken symbolic links.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "fsWalk.walk()",
+    "body": "Reads the directory recursively and asynchronously. Requires a callback function. :book: If you want to use the Promise API, use util.promisify.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "const",
+    "body": "Reads the directory recursively and asynchronously. Readable Stream is used as a provider.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "const",
+    "body": "Reads the directory recursively and synchronously. Returns an array of entries. path Required: true Type: string Buffer URL A path to a file. If a URL is provided, it must use the file: protocol. optionsOrSettings Required: false Type: Options Settings Default: An instance of Settings class An Options object or an instance of Settings class. :book: When you pass a plain object, an instance of the Settings class will be created automatically. If you plan to call the method frequently, use a pre-created instance of the Settings class.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "const",
+    "body": "A class of full settings of the package. name — The name of the entry (unknown.txt). path — The path of the entry relative to call directory (root/unknown.txt). dirent — An instance of fs.Dirent class. [stats] — An instance of fs.Stats class.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "fsWalk.walkSync()",
+    "body": "Type: string Default: undefined By default, all paths are built relative to the root path. You can use this option to set custom root path. In the example below we read the files from the root directory, but in the results the root path will be custom.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk.concurrency",
+    "body": "Type: number Default: Infinity The maximum number of concurrent calls to fs.readdir. :book: The higher the number, the higher performance and the load on the File System. If you want to read in quiet mode, set the value to 4 os.cpus().length (4 is default size of thread pool work scheduling).",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk.deepFilter",
+    "body": "Type: DeepFilterFunction Default: undefined A function that indicates whether the directory will be read deep or not.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk.entryFilter",
+    "body": "Type: EntryFilterFunction Default: undefined A function that indicates whether the entry will be included to results or not.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk.errorFilter",
+    "body": "Type: ErrorFilterFunction Default: undefined A function that allows you to skip errors that occur when reading directories. For example, you can skip ENOENT errors if required:",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk.stats",
+    "body": "Type: boolean Default: false Adds an instance of fs.Stats class to the Entry. :book: Always use fs.readdir with additional fs.lstat/fs.stat calls to determine the entry type.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk.followSymbolicLinks",
+    "body": "Type: boolean Default: false Follow symbolic links or not. Call fs.stat on symbolic link if true.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk.`throwErrorOnBrokenSymbolicLink`",
+    "body": "Type: boolean Default: true Throw an error when symbolic link is broken if true or safely return lstat call if false.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "@nodelib/fs.walk.`pathSegmentSeparator`",
+    "body": "Type: string Default: path.sep By default, this package uses the correct path separator for your OS (\\ on Windows, / on Unix-like systems). But you can set this option to any separator character(s) that you want to use instead.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "interface",
+    "body": "Type: FileSystemAdapter Default: A default FS methods By default, the built-in Node.js module (fs) is used to work with the file system. You can replace any method with your own. See the Releases section of our GitHub project for changelog for each release version. This software is released under the terms of the MIT license.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@nodelib/fs.walk/README",
+    "id": ""
+  },
+  {
+    "title": "`@oxfmt/binding-linux-x64-gnu`",
+    "body": "This is the x86 64-unknown-linux-gnu binary for @oxfmt/binding",
+    "path": "/.tmp/ci-repro/repo/node_modules/@oxfmt/binding-linux-x64-gnu/README",
+    "id": ""
+  },
+  {
+    "title": "`@oxfmt/binding-linux-x64-musl`",
+    "body": "This is the x86 64-unknown-linux-musl binary for @oxfmt/binding",
+    "path": "/.tmp/ci-repro/repo/node_modules/@oxfmt/binding-linux-x64-musl/README",
+    "id": ""
+  },
+  {
+    "title": "`@oxlint/binding-linux-x64-gnu`",
+    "body": "This is the x86 64-unknown-linux-gnu binary for @oxlint/binding",
+    "path": "/.tmp/ci-repro/repo/node_modules/@oxlint/binding-linux-x64-gnu/README",
+    "id": ""
+  },
+  {
+    "title": "`@oxlint/binding-linux-x64-musl`",
+    "body": "This is the x86 64-unknown-linux-musl binary for @oxlint/binding",
+    "path": "/.tmp/ci-repro/repo/node_modules/@oxlint/binding-linux-x64-musl/README",
+    "id": ""
+  },
+  {
+    "title": "Installation",
+    "body": "npm install --save @types/node",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/node/README",
+    "id": ""
+  },
+  {
+    "title": "Summary",
+    "body": "This package contains type definitions for node (https://nodejs.org/).",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/node/README",
+    "id": ""
+  },
+  {
+    "title": "Details",
+    "body": "Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/node/README",
+    "id": ""
+  },
+  {
+    "title": "Details.Additional Details",
+    "body": "Last updated: Mon, 24 Aug 2026 19:40:21 GMT Dependencies: undici-types",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/node/README",
+    "id": ""
+  },
+  {
+    "title": "Credits",
+    "body": "These definitions were written by Microsoft TypeScript, Alberto Schiabel, Andrew Makarov, Benjamin Toueg, David Junger, Mohsen Azimi, Nikita Galkin, Sebastian Silbermann, Wilco Bakker, Marcin Kopacz, Trivikram Kamat, Junxiao Shi, Ilia Baryshnikov, ExE Boss, Piotr Błażejewicz, Anna Henningsen, Victor Perin, NodeJS Contributors, Linus Unnebäck, wafuwafu13, Matteo Collina, Dmitry Semigradsky, René, and Yagiz Nizipli.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/node/README",
+    "id": ""
+  },
+  {
+    "title": "Installation",
+    "body": "npm install --save @types/pngjs",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Summary",
+    "body": "This package contains type definitions for pngjs (https://github.com/lukeapage/pngjs).",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Details",
+    "body": "Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/pngjs.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Details.Additional Details",
+    "body": "Last updated: Thu, 02 May 2024 19:35:28 GMT Dependencies: @types/node",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Credits",
+    "body": "These definitions were written by Jason Cheatham, Florian Imdahl, and Piotr Błażejewicz.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Installation",
+    "body": "npm install --save @types/prop-types",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/prop-types/README",
+    "id": ""
+  },
+  {
+    "title": "Summary",
+    "body": "This package contains type definitions for prop-types (https://github.com/facebook/prop-types).",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/prop-types/README",
+    "id": ""
+  },
+  {
+    "title": "Details",
+    "body": "Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/prop-types.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/prop-types/README",
+    "id": ""
+  },
+  {
+    "title": "Details.Additional Details",
+    "body": "Last updated: Mon, 09 Jun 2025 20:02:33 GMT Dependencies: none",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/prop-types/README",
+    "id": ""
+  },
+  {
+    "title": "Credits",
+    "body": "These definitions were written by DovydasNavickas, Ferdy Budhidharma, and Sebastian Silbermann.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/prop-types/README",
+    "id": ""
+  },
+  {
+    "title": "Installation",
+    "body": "npm install --save @types/react",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/react/README",
+    "id": ""
+  },
+  {
+    "title": "Summary",
+    "body": "This package contains type definitions for react (https://react.dev/).",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/react/README",
+    "id": ""
+  },
+  {
+    "title": "Details",
+    "body": "Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react/v18.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/react/README",
+    "id": ""
+  },
+  {
+    "title": "Details.Additional Details",
+    "body": "Last updated: Fri, 05 Jun 2026 20:10:10 GMT Dependencies: @types/prop-types, csstype",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/react/README",
+    "id": ""
+  },
+  {
+    "title": "Credits",
+    "body": "These definitions were written by Asana, AssureSign, Microsoft, John Reilly, Benoit Benezech, Patricio Zavolinsky, Eric Anderson, Dovydas Navickas, Josh Rutherford, Guilherme Hübner, Ferdy Budhidharma, Johann Rakotoharisoa, Olivier Pascal, Martin Hochel, Frank Li, Jessica Franco, Saransh Kataria, Kanitkorn Sujautra, Sebastian Silbermann, Kyle Scully, Cong Zhang, Dimitri Mitropoulos, JongChan Choi, Victor Magalhães, Priyanshu Rav, Dmitry Semigradsky, and Matt Pocock.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@types/react/README",
+    "id": ""
+  },
+  {
+    "title": "`@typescript/typescript-linux-x64`",
+    "body": "This package provides linux-x64 support for typescript.",
+    "path": "/.tmp/ci-repro/repo/node_modules/@typescript/typescript-linux-x64/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/any-promise/README.Usage with global Promise:",
+    "body": "Assuming the global Promise is the desired implementation: ```bash",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Install any libraries depending on any-promise",
+    "body": "$ npm install mz js // in library var Promise = require('any-promise') // the global Promise function promiseReturningFunction(){ return new Promise(function(resolve, reject){...}) } ```",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Install any libraries depending on any-promise.Usage with registration:",
+    "body": "Assuming bluebird is the desired Promise implementation: ```bash",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Install preferred promise library",
+    "body": "$ npm install bluebird",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Install any-promise to allow registration",
+    "body": "$ npm install any-promise",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Install any libraries you would like to use depending on any-promise",
+    "body": "$ npm install mz javascript // top of application index.js or other entry point require('any-promise/register/bluebird') // -or- Equivalent to above, but allows customization of Promise library require('any-promise/register')('bluebird', {Promise: require('bluebird')}) javascript var fsp = require('mz/fs') // mz/fs will use registered bluebird promises var Promise = require('any-promise') // the registered bluebird promise `` It is safe to call register multiple times, but it must always be with the same implementation. Again, registration is optional . It should only be called by the application user if overriding the global Promise` implementation is desired.",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Install any libraries you would like to use depending on any-promise.Optional Application Registration",
+    "body": "As an application author, you can optionally register a preferred Promise implementation on application startup (before any call to require('any-promise'): You must register your preference before any call to require('any-promise') (by you or required packages), and only one implementation can be registered. Typically, this registration would occur at the top of the application entry point. Registration shortcuts If you are using a known Promise implementation, you can register your preference with a shortcut: Shortcut registration is the preferred registration method as it works in the browser and Node.js. It is also convenient for using with import and many test runners, that offer a --require flag: Current known implementations include bluebird, q, when, rsvp, es6-promise, promise, native-promise-only, pinkie, vow and lie. If you are not using a known implementation, you can use another registration method described below. Basic Registration As an alternative to registration shortcuts, you can call the register function with the preferred Promise implementation. The benefit of this approach is that a Promise library can be required by name without being a known implementation. This approach does NOT work in the browser. To use any-promise in the browser use either registration shortcuts or specify the Promise constructor using advanced registration (see below). This registration method will try to detect the Promise constructor from requiring the specified implementation. If you would like to specify your own constructor, see advanced registration. Advanced Registration To use the browser version, you should either install a polyfill or explicitly register the Promise constructor: This could also be used for registering a custom Promise implementation or subclass. Your preference will be registered globally, allowing a single registration even if multiple versions of any-promise are installed in the NPM dependency tree or are using multiple bundled JavaScript files in the browser. You can bypass this global registration in options:",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Install any libraries you would like to use depending on any-promise.Library Usage",
+    "body": "To use any Promise constructor, simply require it: Except noted below, libraries using any-promise should only use documented functions as there is no guarantee which implementation will be chosen by the application author. Libraries should never call register, only the application user should call if desired. Advanced Library Usage If your library needs to branch code based on the registered implementation, you can retrieve it using var impl = require('any-promise/implementation'), where impl will be the package name (\"bluebird\", \"when\", etc.) if registered, \"global.Promise\" if using the global version on Node.js, or \"window.Promise\" if using the browser version. You should always include a default case, as there is no guarantee what package may be registered.",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Support for old Node.js versions",
+    "body": "Node.js versions prior to v0.12 may have contained buggy versions of the global Promise. For this reason, the global Promise is not loaded automatically for these old versions. If using any-promise in Node.js versions versions <= v0.12, the user should register a desired implementation. If an implementation is not registered, any-promise will attempt to discover an installed Promise implementation. If no implementation can be found, an error will be thrown on require('any-promise'). While the auto-discovery usually avoids errors, it is non-deterministic. It is recommended that the user always register a preferred implementation for older Node.js versions. This auto-discovery is only available for Node.jS versions prior to v0.12. Any newer versions will always default to the global Promise implementation.",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Install any libraries you would like to use depending on any-promise.Related",
+    "body": "- any-observable - any-promise for Observables.",
+    "path": "/.tmp/ci-repro/repo/node_modules/any-promise/README",
+    "id": ""
+  },
+  {
+    "title": "Arg",
+    "body": "arg is an unopinionated, no-frills CLI argument parser. arg() takes either 1 or 2 arguments: 1. Command line specification object (see below) 2. Parse options ( Optional , defaults to {permissive: false, argv: process.argv.slice(2), stopAtPositional: false}) It returns an object with any values present on the command-line (missing options are thus missing from the resulting object). Arg performs no validation/requirement checking - we leave that up to the application. All parameters that aren't consumed by options (commonly referred to as \"extra\" parameters) are added to result. , which is always an array (even if no extra parameters are passed, in which case an empty array is returned). For example: The values for each key=&gt;value pair is either a type (function or [function]) or a string (indicating an alias). - In the case of a function, the string value of the argument's value is passed to it, and the return value is used as the ultimate value. - In the case of an array, the only element must be a type function. Array types indicate that the argument may be passed multiple times, and as such the resulting value in the returned object is an array with all of the values that were passed using the specified flag. - In the case of a string, an alias is established. If a flag is passed that matches the key , then the value is substituted in its place. Type functions are passed three arguments: 1. The parameter value (always a string) 2. The parameter name (e.g. --label) 3. The previous value for the destination (useful for reduce-like operations or for supporting -v multiple times, etc.) This means the built-in String, Number, and Boolean type constructors \"just work\" as type functions. Note that Boolean and [Boolean] have special treatment - an option argument is not consumed or passed, but instead true is returned. These options are called \"flags\". For custom handlers that wish to behave as flags, you may pass the function through arg.flag(): As well, arg supplies a helper argument handler called arg.COUNT, which equivalent to a [Boolean] argument's .length property - effectively counting the number of times the boolean flag, denoted by the key, is passed on the command line.. For example, this is how you could implement ssh's multiple levels of verbosity (-vvvv being the most verbose).",
+    "path": "/.tmp/ci-repro/repo/node_modules/arg/README",
+    "id": ""
+  },
+  {
+    "title": "Arg.Options",
+    "body": "If a second parameter is specified and is an object, it specifies parsing options to modify the behavior of arg(). argv If you have already sliced or generated a number of raw arguments to be parsed (as opposed to letting arg slice them from process.argv) you may specify them in the argv option. For example: results in: permissive When permissive set to true, arg will push any unknown arguments onto the \"extra\" argument array (result. ) instead of throwing an error about an unknown flag. For example: results in: stopAtPositional When stopAtPositional is set to true, arg will halt parsing at the first positional argument. For example: results in:",
+    "path": "/.tmp/ci-repro/repo/node_modules/arg/README",
+    "id": ""
+  },
+  {
+    "title": "Arg.Errors",
+    "body": "Some errors that arg throws provide a .code property in order to aid in recovering from user error, or to differentiate between user error and developer error (bug). ARG UNKNOWN OPTION If an unknown option (not defined in the spec object) is passed, an error with code ARG UNKNOWN OPTION will be thrown:",
+    "path": "/.tmp/ci-repro/repo/node_modules/arg/README",
+    "id": ""
+  },
+  {
+    "title": "FAQ",
+    "body": "A few questions and answers that have been asked before:",
+    "path": "/.tmp/ci-repro/repo/node_modules/arg/README",
+    "id": ""
+  },
+  {
+    "title": "FAQ.How do I require an argument with `arg`?",
+    "body": "Do the assertion yourself, such as:",
+    "path": "/.tmp/ci-repro/repo/node_modules/arg/README",
+    "id": ""
+  },
+  {
+    "title": "License",
+    "body": "Released under the MIT License.",
+    "path": "/.tmp/ci-repro/repo/node_modules/arg/README",
+    "id": ""
+  },
+  {
+    "title": "balanced-match",
+    "body": "Match balanced string pairs, like { and } or and . Supports regular expressions as well! Get the first matching pair of braces: The matches are:",
+    "path": "/.tmp/ci-repro/repo/node_modules/balanced-match/README",
+    "id": ""
+  },
+  {
+    "title": "balanced-match.const m = balanced(a, b, str)",
+    "body": "For the first non-nested matching pair of a and b in str, return an object with those keys: - start the index of the first match of a - end the index of the matching b - pre the preamble, a and b not included - body the match, a and b not included - post the postscript, a and b not included If there's no match, undefined will be returned. If the str contains more a than b / there are unmatched pairs, the first match that was closed will be used. For example, {{a} will match ['{', 'a', ''] and {a}} will match ['', 'a', '}'].",
+    "path": "/.tmp/ci-repro/repo/node_modules/balanced-match/README",
+    "id": ""
+  },
+  {
+    "title": "const r = balanced.range(a, b, str)",
+    "body": "For the first non-nested matching pair of a and b in str, return an array with indexes: [ , ]. If there's no match, undefined will be returned. If the str contains more a than b / there are unmatched pairs, the first match that was closed will be used. For example, {{a} will match [ 1, 3 ] and {a}} will match [0, 2].",
+    "path": "/.tmp/ci-repro/repo/node_modules/balanced-match/README",
+    "id": ""
+  },
+  {
+    "title": "binary-extensions",
+    "body": "List of binary file extensions The list is just a JSON file and can be used anywhere. - is-binary-path - Check if a filepath is a binary file - text-extensions - List of text file extensions",
+    "path": "/.tmp/ci-repro/repo/node_modules/binary-extensions/readme",
+    "id": ""
+  },
+  {
+    "title": "brace-expansion",
+    "body": "Brace expansion, as known from sh/bash, in JavaScript. ![CI](https://github.com/juliangruber/brace-expansion/actions/workflows/ci.yml) ![downloads](https://www.npmjs.org/package/brace-expansion)",
+    "path": "/.tmp/ci-repro/repo/node_modules/brace-expansion/README",
+    "id": ""
+  },
+  {
+    "title": "brace-expansion.const expanded = expand(str, [options])",
+    "body": "Return an array of all possible and valid expansions of str. If none are found, [str] is returned. The options object can provide a max value to cap the number of expansions allowed. This is limited to 100 000 by default, to prevent DoS attacks. The options object can also provide a maxLength value to cap the total number of characters across all expansions. This is limited to 4 000 000 by default, to prevent memory exhaustion from inputs whose result count stays under max while each result grows very long. Valid expansions are: A comma separated list of options, like {a,b} or {a,{b,c}} or {,a,}. A numeric sequence from x to y inclusive, with optional increment. If x or y start with a leading 0, all the numbers will be padded to have equal length. Negative numbers and backwards iteration work too. An alphabetic sequence from x to y inclusive, with optional increment. x and y must be exactly one character, and if given, incr must be a number. For compatibility reasons, the string ${ is not eligible for brace expansion.",
+    "path": "/.tmp/ci-repro/repo/node_modules/brace-expansion/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces)",
+    "body": "Bash-like brace expansion, implemented in JavaScript. Safer than other brace expansion libs, with complete support for the Bash 4.3 braces specification, without sacrificing speed. Please consider following this project's author, Jon Schlinkert, and consider starring the project to show your :heart: and support. Install with npm: See the changelog for details. Brace patterns make globs more powerful by adding the ability to match specific ranges and sequences of characters. - Accurate - complete support for the Bash 4.3 Brace Expansion specification (passes all of the Bash braces tests) - fast and performant - Starts fast, runs fast and scales well as patterns increase in complexity. - Organized code base - The parser and compiler are easy to maintain and update when edge cases crop up. - Well-tested - Thousands of test assertions, and passes all of the Bash, minimatch, and brace-expansion unit tests (as of the date this was written). - Safer - You shouldn't have to worry about users defining aggressive or malicious brace patterns that can break your application. Braces takes measures to prevent malicious regex that can be used for DDoS attacks (see catastrophic backtracking). - Supports lists - (aka \"sets\") a/{b,c}/d = ['a/b/d', 'a/c/d'] - Supports sequences - (aka \"ranges\") {01..03} = ['01', '02', '03'] - Supports steps - (aka \"increments\") {2..10..2} = ['2', '4', '6', '8', '10'] - Supports escaping - To prevent evaluation of special characters. The main export is a function that takes one or more brace patterns and options.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "Brace Expansion vs. Compilation",
+    "body": "By default, brace patterns are compiled into strings that are optimized for creating regular expressions and matching. Compiled Expanded Enable brace expansion by setting the expand option to true, or by using braces.expand() (returns an array similar to what you'd expect from Bash, or echo {1..5}, or minimatch):",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Lists",
+    "body": "Expand lists (like Bash \"sets\"):",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Sequences",
+    "body": "Expand ranges of characters (like Bash \"sequences\"): See fill-range for all available range-expansion options.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Steppped ranges",
+    "body": "Steps, or increments, may be used with ranges: When the .optimize method is used, or options.optimize is set to true, sequences are passed to to-regex-range for expansion.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Nesting",
+    "body": "Brace patterns may be nested. The results of each expanded string are not sorted, and left to right order is preserved. \"Expanded\" braces \"Optimized\" braces",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Escaping",
+    "body": "Escaping braces A brace pattern will not be expanded or evaluted if either the opening or closing brace is escaped : Escaping commas Commas inside braces may also be escaped: Single items Following bash conventions, a brace pattern is also not expanded when it contains a single character:",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "options.maxLength",
+    "body": "Type : Number Default : 10,000 Description : Limit the length of the input string. Useful when the input string is generated or your application allows users to pass a string, et cetera.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "options.expand",
+    "body": "Type : Boolean Default : undefined Description : Generate an \"expanded\" brace pattern (alternatively you can use the braces.expand() method, which does the same thing).",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "options.nodupes",
+    "body": "Type : Boolean Default : undefined Description : Remove duplicates from the returned array.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "options.rangeLimit",
+    "body": "Type : Number Default : 1000 Description : To prevent malicious patterns from being passed by users, an error is thrown when braces.expand() is used or options.expand is true and the generated range will exceed the rangeLimit. You can customize options.rangeLimit or set it to Inifinity to disable this altogether. Examples",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "options.transform",
+    "body": "Type : Function Default : undefined Description : Customize range expansion. Example: Transforming non-numeric values Example: Transforming numeric values",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "options.quantifiers",
+    "body": "Type : Boolean Default : undefined Description : In regular expressions, quanitifiers can be used to specify how many times a token can be repeated. For example, a{1,3} will match the letter a one to three times. Unfortunately, regex quantifiers happen to share the same syntax as Bash lists The quantifiers option tells braces to detect when regex quantifiers are defined in the given pattern, and not to try to expand them as lists. Examples",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "options.keepEscaping",
+    "body": "Type : Boolean Default : undefined Description : Do not strip backslashes that were used for escaping from the result. Brace expansion is a type of parameter expansion that was made popular by unix shells for generating lists of strings, as well as regex-like matching when used alongside wildcards (globs). In addition to \"expansion\", braces are also used for matching. In other words: - brace expansion is for generating new lists - brace matching is for filtering existing lists More about brace expansion (click to expand) There are two main types of brace expansion: 1. lists : which are defined using comma-separated values inside curly braces: {a,b,c} 2. sequences : which are defined using a starting value and an ending value, separated by two dots: a{1..3}b. Optionally, a third argument may be passed to define a \"step\" or increment to use: a{1..100..10}b. These are also sometimes referred to as \"ranges\". Here are some example brace patterns to illustrate how they work: Sets Sequences Combination Sets and sequences can be mixed together or used along with any other strings. The fact that braces can be \"expanded\" from relatively simple patterns makes them ideal for quickly generating test fixtures, file paths, and similar use cases. In addition to expansion , brace patterns are also useful for performing regular-expression-like matching. For example, the pattern foo/{1..3}/bar would match any of following strings: But not: Braces can also be combined with glob patterns to perform more advanced wildcard matching. For example, the pattern /{1..3}/ would match any of following strings: Although brace patterns offer a user-friendly way of matching ranges or sets of strings, there are also some major disadvantages and potential risks you should be aware of.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).tldr",
+    "body": "\"brace bombs\" - brace expansion can eat up a huge amount of processing resources - as brace patterns increase linearly in size , the system resources required to expand the pattern increase exponentially - users can accidentally (or intentially) exhaust your system's resources resulting in the equivalent of a DoS attack (bonus: no programming knowledge is required!) For a more detailed explanation with examples, see the geometric complexity section.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).The solution",
+    "body": "Jump to the performance section to see how Braces solves this problem in comparison to other libraries.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Geometric complexity",
+    "body": "At minimum, brace patterns with sets limited to two elements have quadradic or O(n^2) complexity. But the complexity of the algorithm increases exponentially as the number of sets, and elements per set , increases, which is O(n^c). For example, the following sets demonstrate quadratic (O(n^2)) complexity: But add an element to a set, and we get a n-fold Cartesian product with O(n^c) complexity: Now, imagine how this complexity grows given that each element is a n-tuple: Although these examples are clearly contrived, they demonstrate how brace patterns can quickly grow out of control. More information Interested in learning more about brace expansion? - linuxjournal/bash-brace-expansion - rosettacode/Brace expansion - cartesian product Braces is not only screaming fast, it's also more accurate the other brace expansion libraries.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Better algorithms",
+    "body": "Fortunately there is a solution to the \"brace bomb\" problem: don't expand brace patterns into an array when they're used for matching . Instead, convert the pattern into an optimized regular expression. This is easier said than done, and braces is the only library that does this currently. The proof is in the numbers Minimatch gets exponentially slower as patterns increase in complexity, braces does not. The following results were generated using braces() and minimatch.braceExpand(), respectively. Pattern braces [minimatch][] --------------------------- ------------------- ---------------------------- {1..9007199254740991}[^1] 298 B (5ms 459μs) N/A (freezes) {1..1000000000000000} 41 B (1ms 15μs) N/A (freezes) {1..100000000000000} 40 B (890μs) N/A (freezes) {1..10000000000000} 39 B (2ms 49μs) N/A (freezes) {1..1000000000000} 38 B (608μs) N/A (freezes) {1..100000000000} 37 B (397μs) N/A (freezes) {1..10000000000} 35 B (983μs) N/A (freezes) {1..1000000000} 34 B (798μs) N/A (freezes) {1..100000000} 33 B (733μs) N/A (freezes) {1..10000000} 32 B (5ms 632μs) 78.89 MB (16s 388ms 569μs) {1..1000000} 31 B (1ms 381μs) 6.89 MB (1s 496ms 887μs) {1..100000} 30 B (950μs) 588.89 kB (146ms 921μs) {1..10000} 29 B (1ms 114μs) 48.89 kB (14ms 187μs) {1..1000} 28 B (760μs) 3.89 kB (1ms 453μs) {1..100} 22 B (345μs) 291 B (196μs) {1..10} 10 B (533μs) 20 B (37μs) {1..3} 7 B (190μs) 5 B (27μs)",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Faster algorithms",
+    "body": "When you need expansion, braces is still much faster. (the following results were generated using braces.expand() and minimatch.braceExpand(), respectively) Pattern braces [minimatch][] --------------- --------------------------- ---------------------------- {1..10000000} 78.89 MB (2s 698ms 642μs) 78.89 MB (18s 601ms 974μs) {1..1000000} 6.89 MB (458ms 576μs) 6.89 MB (1s 491ms 621μs) {1..100000} 588.89 kB (20ms 728μs) 588.89 kB (156ms 919μs) {1..10000} 48.89 kB (2ms 202μs) 48.89 kB (13ms 641μs) {1..1000} 3.89 kB (1ms 796μs) 3.89 kB (1ms 958μs) {1..100} 291 B (424μs) 291 B (211μs) {1..10} 20 B (487μs) 20 B (72μs) {1..3} 5 B (166μs) 5 B (27μs) If you'd like to run these comparisons yourself, see test/support/generate.js.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Running benchmarks",
+    "body": "Install dev dependencies:",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Latest results",
+    "body": "Braces is more accurate, without sacrificing performance. Contributing Pull requests and stars are always welcome. For bugs and feature requests, please create an issue. Running Tests Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command: Building docs (This project's readme.md is generated by verb, please don't edit the readme directly. Any changes to the readme must be made in the .verb.md readme template.) To generate the readme, run the following command:",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Contributors",
+    "body": "Commits Contributor ----------- ------------------------------------------------------------- 197 jonschlinkert 4 doowb 1 es128 1 eush77 1 hemanth 1 wtgtybhertgeghgtwtg",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).Author",
+    "body": "Jon Schlinkert - GitHub Profile - Twitter Profile - LinkedIn Profile",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "braces [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/braces.svg?style=flat)](https://www.npmjs.com/package/braces) [![NPM monthly downloads](https://img.shields.io/npm/dm/braces.svg?style=flat)](https://npmjs.org/package/braces) [![NPM total downloads](https://img.shields.io/npm/dt/braces.svg?style=flat)](https://npmjs.org/package/braces) [![Linux Build Status](https://img.shields.io/travis/micromatch/braces.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/braces).License",
+    "body": "Copyright © 2019, Jon Schlinkert. Released under the MIT License. --- This file was generated by verb-generate-readme, v0.8.0, on April 08, 2019.",
+    "path": "/.tmp/ci-repro/repo/node_modules/braces/README",
+    "id": ""
+  },
+  {
+    "title": "camelcase-css [![NPM Version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]",
+    "body": "Convert a kebab-cased CSS property into a camelCased DOM property. Node.js = 6 is required. Type this at the command line: [npm-image]: https://img.shields.io/npm/v/camelcase-css.svg [npm-url]: https://npmjs.org/package/camelcase-css [travis-image]: https://img.shields.io/travis/stevenvachon/camelcase-css.svg [travis-url]: https://travis-ci.org/stevenvachon/camelcase-css",
+    "path": "/.tmp/ci-repro/repo/node_modules/camelcase-css/README",
+    "id": ""
+  },
+  {
+    "title": "Chokidar [![Weekly downloads](https://img.shields.io/npm/dw/chokidar.svg)](https://github.com/paulmillr/chokidar) [![Yearly downloads](https://img.shields.io/npm/dy/chokidar.svg)](https://github.com/paulmillr/chokidar)",
+    "body": "Minimal and efficient cross-platform file watching library ![NPM](https://www.npmjs.com/package/chokidar) Node.js fs.watch: Doesn't report filenames on MacOS. Doesn't report events at all when using editors like Sublime on MacOS. Often reports events twice. Emits most changes as rename. Does not provide an easy way to recursively watch file trees. Does not support recursive watching on Linux. Node.js fs.watchFile: Almost as bad at event handling. Also does not provide any recursive watching. Results in high CPU utilization. Chokidar resolves these problems. Initially made for Brunch (an ultra-swift web app build tool), it is now used in Microsoft's Visual Studio Code, gulp, karma, PM2, browserify, webpack, BrowserSync, and many others. It has proven itself in production environments. Version 3 is out! Check out our blog post about it: Chokidar 3: How to save 32TB of traffic every week Chokidar does still rely on the Node.js core fs module, but when using fs.watch and fs.watchFile for watching, it normalizes the events it receives, often checking for truth by getting file stats and/or dir contents. On MacOS, chokidar by default uses a native extension exposing the Darwin FSEvents API. This provides very efficient recursive watching compared with implementations like kqueue available on most \\ nix platforms. Chokidar still does have to do some work to normalize the events received that way as well. On most other platforms, the fs.watch-based implementation is the default, which avoids polling and keeps CPU usage down. Be advised that chokidar will initiate watchers recursively for everything within scope of the paths that have been specified, so be judicious about not wasting system resources by watching much more than needed. Install with npm: Then require and use it in your code: chokidar.watch(paths, [options]) paths (string or array of strings). Paths to files, dirs to be watched recursively, or glob patterns. - Note: globs must not contain windows separators (\\), because that's how they work by the standard — you'll need to replace them with forward slashes (/). - Note 2: for additional glob documentation, check out low-level library: picomatch. options (object) Options object as defined below: Persistence persistent (default: true). Indicates whether the process should continue to run as long as files are being watched. If set to false when using fsevents to watch, no more events will be emitted after ready, even if the process continues to run. Path filtering ignored (anymatch-compatible definition) Defines files/paths to be ignored. The whole relative or absolute path is tested, not just filename. If a function with two arguments is provided, it gets called twice per path - once with a single argument (the path), second time with two arguments (the path and the fs.Stats object of that path). ignoreInitial (default: false). If set to false then add/addDir events are also emitted for matching paths while instantiating the watching as chokidar discovers these file paths (before the ready event). followSymlinks (default: true). When false, only the symlinks themselves will be watched for changes instead of following the link references and bubbling events through the link's path. cwd (no default). The base directory from which watch paths are to be derived. Paths emitted with events will be relative to this. disableGlobbing (default: false). If set to true then the strings passed to .watch() and .add() are treated as literal path names, even if they look like globs. Performance usePolling (default: false). Whether to use fs.watchFile (backed by polling), or fs.watch. If polling leads to high CPU utilization, consider setting this to false. It is typically necessary to set this to true to successfully watch files over a network , and it may be necessary to successfully watch files in other non-standard situations. Setting to true explicitly on MacOS overrides the useFsEvents default. You may also set the CHOKIDAR USEPOLLING env variable to true (1) or false (0) in order to override this option. Polling-specific settings (effective when usePolling: true) interval (default: 100). Interval of file system polling, in milliseconds. You may also set the CHOKIDAR INTERVAL env variable to override this option. binaryInterval (default: 300). Interval of file system polling for binary files. (see list of binary extensions) useFsEvents (default: true on MacOS). Whether to use the fsevents watching interface if available. When set to true explicitly and fsevents is available this supercedes the usePolling setting. When set to false on MacOS, usePolling: true becomes the default. alwaysStat (default: false). If relying upon the fs.Stats object that may get passed with add, addDir, and change events, set this to true to ensure it is provided even in cases where it wasn't already available from the underlying watch events. depth (default: undefined). If set, limits how many levels of subdirectories will be traversed. awaitWriteFinish (default: false). By default, the add event will fire when a file first appears on disk, before the entire file has been written. Furthermore, in some cases some change events will be emitted while the file is being written. In some cases, especially when watching for large files there will be a need to wait for the write operation to finish before responding to a file creation or modification. Setting awaitWriteFinish to true (or a truthy value) will poll file size, holding its add and change events until the size does not change for a configurable amount of time. The appropriate duration setting is heavily dependent on the OS and hardware. For accurate detection this parameter should be relatively high, making file watching much less responsive. Use with caution. options.awaitWriteFinish can be set to an object in order to adjust timing params: awaitWriteFinish.stabilityThreshold (default: 2000). Amount of time in milliseconds for a file size to remain constant before emitting its event. awaitWriteFinish.pollInterval (default: 100). File size polling interval, in milliseconds. Errors ignorePermissionErrors (default: false). Indicates whether to watch files that don't have read permissions if possible. If watching fails due to EPERM or EACCES with this set to true, the errors will be suppressed silently. atomic (default: true if useFsEvents and usePolling are false). Automatically filters out artifacts that occur when using editors that use \"atomic writes\" instead of writing directly to the source file. If a file is re-added within 100 ms of being deleted, Chokidar emits a change event rather than unlink then add. If the default of 100 ms does not work well for you, you can override it by setting atomic to a custom value, in milliseconds.",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/README",
+    "id": ""
+  },
+  {
+    "title": "Chokidar [![Weekly downloads](https://img.shields.io/npm/dw/chokidar.svg)](https://github.com/paulmillr/chokidar) [![Yearly downloads](https://img.shields.io/npm/dy/chokidar.svg)](https://github.com/paulmillr/chokidar).Methods & Events",
+    "body": "chokidar.watch() produces an instance of FSWatcher. Methods of FSWatcher: .add(path / paths): Add files, directories, or glob patterns for tracking. Takes an array of strings or just one string. .on(event, callback): Listen for an FS event. Available events: add, addDir, change, unlink, unlinkDir, ready, raw, error. Additionally all is available which gets emitted with the underlying event name and path for every event other than ready, raw, and error. raw is internal, use it carefully. .unwatch(path / paths): Stop watching files, directories, or glob patterns. Takes an array of strings or just one string. .close(): async Removes all listeners from watched files. Asynchronous, returns Promise. Use with await to ensure bugs don't happen. .getWatched(): Returns an object representing all the paths on the file system being watched by this FSWatcher instance. The object's keys are all the directories (using absolute paths unless the cwd option was used), and the values are arrays of the names of the items contained in each directory. If you need a CLI interface for your file watching, check out chokidar-cli, allowing you to execute a command on each change, or get a stdio stream of change events. npm WARN optional dep failed, continuing fsevents@n.n.n This message is normal part of how npm handles optional dependencies and is not indicative of a problem. Even if accompanied by other related error messages, Chokidar should function properly. TypeError: fsevents is not a constructor Update chokidar by doing rm -rf node modules package-lock.json yarn.lock && npm install, or update your dependency that uses chokidar. Chokidar is producing ENOSP error on Linux, like this: bash: cannot set terminal process group (-1): Inappropriate ioctl for device bash: no job control in this shell Error: watch /home/ ENOSPC This means Chokidar ran out of file handles and you'll need to increase their count by executing the following command in Terminal: echo fs.inotify.max user watches=524288 sudo tee -a /etc/sysctl.conf && sudo sysctl -p For more detailed changelog, see full changelog.md. - v3.5 (Jan 6, 2021): Support for ARM Macs with Apple Silicon. Fixes for deleted symlinks. - v3.4 (Apr 26, 2020): Support for directory-based symlinks. Fixes for macos file replacement. - v3.3 (Nov 2, 2019): FSWatcher close() method became async. That fixes IO race conditions related to close method. - v3.2 (Oct 1, 2019): Improve Linux RAM usage by 50%. Race condition fixes. Windows glob fixes. Improve stability by using tight range of dependency versions. - v3.1 (Sep 16, 2019): dotfiles are no longer filtered out by default. Use ignored option if needed. Improve initial Linux scan time by 50%. - v3 (Apr 30, 2019): massive CPU & RAM consumption improvements; reduces deps / package size by a factor of 17x and bumps Node.js requirement to v8.16 and higher. - v2 (Dec 29, 2017): Globs are now posix-style-only; without windows support. Tons of bugfixes. - v1 (Apr 7, 2015): Glob support, symlink support, tons of bugfixes. Node 0.8+ is supported - v0.1 (Apr 20, 2012): Initial release, extracted from Brunch Why was chokidar named this way? What's the meaning behind it? Chowkidar is a transliteration of a Hindi word meaning 'watchman, gatekeeper', चौकीदार. This ultimately comes from Sanskrit चतुष्क (crossway, quadrangle, consisting-of-four). This word is also used in other languages like Urdu as (چوکیدار) which is widely used in Pakistan and India. MIT (c) Paul Miller ( ), see LICENSE file.",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/README",
+    "id": ""
+  },
+  {
+    "title": "[5.1.2](https://github.com/gulpjs/glob-parent/compare/v5.1.1...v5.1.2) (2021-03-06)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Bug Fixes",
+    "body": "eliminate ReDoS ( 36) (f923116)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "[5.1.1](https://github.com/gulpjs/glob-parent/compare/v5.1.0...v5.1.1) (2021-01-27)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Bug Fixes",
+    "body": "unescape exclamation mark ( 26) (a98874f)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "add flipBackslashes option to disable auto conversion of slashes (closes 24) ( 25) (eecf91d)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.⚠ BREAKING CHANGES",
+    "body": "Drop support for node <6 & bump dependencies",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Miscellaneous Chores",
+    "body": "Drop support for node <6 & bump dependencies (896c0c0)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.⚠ BREAKING CHANGES",
+    "body": "question marks are valid path characters on Windows so avoid flagging as a glob when alone Update is-glob dependency",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "hoist regexps and strings for performance gains (4a80667) question marks are valid path characters on Windows so avoid flagging as a glob when alone (2a551dd) Update is-glob dependency (e41fcd8)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "allow basic win32 backslash use (272afa5) handle extglobs (parentheses) containing separators (7db1bdb) new approach to braces/brackets handling (8269bd8) pre-process braces/brackets sections (9ef8a87) preserve escaped brace/bracket at end of string (8cfb0ba)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Bug Fixes",
+    "body": "trailing escaped square brackets (99ec9fe)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "[3.0.1](https://github.com/gulpjs/glob-parent/compare/v3.0.0...v3.0.1) (2021-01-27)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "use path-dirname ponyfill (cdbea5f)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Bug Fixes",
+    "body": "unescape glob-escaped dirnames on output (598c533)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.⚠ BREAKING CHANGES",
+    "body": "update is-glob dependency",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "update is-glob dependency (5c5f8ef)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "move up to dirname regardless of glob characters (f97fb83)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Reverts",
+    "body": "feat: make regex test strings smaller (dc80fa9)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "make regex test strings smaller (cd83220)",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "glob-parent",
+    "body": "[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Azure Pipelines Build Status][azure-pipelines-image]][azure-pipelines-url] [![Travis Build Status][travis-image]][travis-url] [![AppVeyor Build Status][appveyor-image]][appveyor-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url] Extract the non-magic parent path from a glob string.",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.`globParent(maybeGlobString, [options])`",
+    "body": "Takes a string and returns the part of the path before the glob begins. Be aware of Escaping rules and Limitations below. options The following characters have special significance in glob patterns and must be escaped if you want them to be treated as regular path characters: - ? (question mark) unless used as a path segment alone - (asterisk) - (pipe) - ( (opening parenthesis) - ) (closing parenthesis) - { (opening curly brace) - } (closing curly brace) - [ (opening bracket) - ] (closing bracket) Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.Braces & Brackets",
+    "body": "This library attempts a quick and imperfect method of determining which path parts have glob magic without fully parsing/lexing the pattern. There are some advanced use cases that can trip it up, such as nested braces where the outer pair is escaped and the inner one contains a path separator. If you find yourself in the unlikely circumstance of being affected by this or need to ensure higher-fidelity glob handling in your library, it is recommended that you pre-process your input with [expand-braces] and/or [expand-brackets].",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.Windows",
+    "body": "Backslashes are not valid path separators for globs. If a path with backslashes is provided anyway, for simple cases, glob-parent will replace the path separator for you and return the non-glob parent path (now with forward-slashes, which are still valid as Windows path separators). This cannot be used in conjunction with escape characters. If you are using escape characters for a pattern without path parts (i.e. relative to cwd), prefix with ./ to avoid confusing glob-parent. ISC [expand-braces]: https://github.com/jonschlinkert/expand-braces [expand-brackets]: https://github.com/jonschlinkert/expand-brackets [downloads-image]: https://img.shields.io/npm/dm/glob-parent.svg [npm-url]: https://www.npmjs.com/package/glob-parent [npm-image]: https://img.shields.io/npm/v/glob-parent.svg [azure-pipelines-url]: https://dev.azure.com/gulpjs/gulp/ build/latest?definitionId=2&branchName=master [azure-pipelines-image]: https://dev.azure.com/gulpjs/gulp/ apis/build/status/glob-parent?branchName=master [travis-url]: https://travis-ci.org/gulpjs/glob-parent [travis-image]: https://img.shields.io/travis/gulpjs/glob-parent.svg?label=travis-ci [appveyor-url]: https://ci.appveyor.com/project/gulpjs/glob-parent [appveyor-image]: https://img.shields.io/appveyor/ci/gulpjs/glob-parent.svg?label=appveyor [coveralls-url]: https://coveralls.io/r/gulpjs/glob-parent [coveralls-image]: https://img.shields.io/coveralls/gulpjs/glob-parent/master.svg [gitter-url]: https://gitter.im/gulpjs/gulp [gitter-image]: https://badges.gitter.im/gulpjs/gulp.svg",
+    "path": "/.tmp/ci-repro/repo/node_modules/chokidar/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
     "title": "Changelog",
-    "body": "All notable changes to this project are documented in this file. The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.",
+    "body": "All notable changes to this project will be documented in this file. The format is based on Keep a Changelog and this project adheres to Semantic Versioning. (Format adopted after v3.0.0.)",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Fixed",
+    "body": "TypeScript definition for .action() should include Promise for async ([ 1157])",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Added",
+    "body": "two routines to change how option values are handled, and eliminate name clashes with command properties ([ 933] [ 1102]) see storeOptionsAsProperties and passCommandToAction in README .parseAsync to use instead of .parse if supply async action handlers ([ 806] [ 1118])",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Fixed",
+    "body": "Remove trailing blanks from wrapped help text ([ 1096])",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Changed",
+    "body": "update dependencies extend security coverage for Commander 2.x to 2020-02-03 improvements to README improvements to TypeScript definition documentation move old versions out of main CHANGELOG removed explicit use of ts-node in tests",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Fixed",
+    "body": "display help when requested, even if there are missing required options ([ 1091])",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Added",
+    "body": "automatically wrap and indent help descriptions for options and commands ([ 1051]) .exitOverride() allows override of calls to process.exit for additional error handling and to keep program running ([ 1040]) support for declaring required options with .requiredOptions() ([ 1071]) GitHub Actions support ([ 1027]) translation links in README",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Changed",
+    "body": "dev: switch tests from Sinon+Should to Jest with major rewrite of tests ([ 1035]) call default subcommand even when there are unknown options ([ 1047]) Breaking Commander is only officially supported on Node 8 and above, and requires Node 6 ([ 1053])",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Fixed",
+    "body": "Breaking keep command object out of program.args when action handler called ([ 1048]) also, action handler now passed array of unknown arguments complain about unknown options when program argument supplied and action handler ([ 1049]) this changes parameters to command: event to include unknown arguments removed deprecated customFds option from call to child process.spawn ([ 1052]) rework TypeScript declarations to bring all types into imported namespace ([ 1081])",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Migration Tips",
+    "body": "Testing for no arguments If you were previously using code like: a partial replacement is: (Released in 4.0.0) (Released in 4.0.0)",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Fixed",
+    "body": "Improve tracking of executable subcommands.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Changed",
+    "body": "update development dependencies",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Fixed",
+    "body": "Improve tracking of executable subcommands.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Changed",
+    "body": "update development dependencies",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Added",
+    "body": ".name and .usage to README ([ 1010]) Table of Contents to README ([ 1010]) TypeScript definition for executableFile in CommandOptions ([ 1028])",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Changed",
+    "body": "consistently use const rather than var in README ([ 1026])",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Fixed",
+    "body": "help for sub commands with custom executableFile ([ 1018]) Add option to specify executable file name ([ 999]) e.g. .command('clone', 'clone description', { executableFile: 'myClone' }) Change docs for .command to contrast action handler vs git-style executable. ([ 938] [ 990]) Breaking Change TypeScript to use overloaded function for .command. ([ 938] [ 990]) Change to use straight quotes around strings in error messages (like 'this' instead of this') ([ 915]) Add TypeScript \"reference types\" for node ([ 974]) Add support for hyphen as an option argument in subcommands ([ 697]) Add support for a short option flag and its value to be concatenated for action handler subcommands ([ 599]) e.g. -p 80 can also be supplied as -p80 Add executable arguments to spawn in win32, for git-style executables ([ 611]) e.g. node --harmony myCommand.js clone Add parent command as prefix of subcommand in help ([ 980]) Add optional custom description to .version ([ 963]) e.g. program.version('0.0.1', '-v, --vers', 'output the current version') Add .helpOption(flags, description) routine to customise help flags and description ([ 963]) e.g. .helpOption('-e, --HELP', 'read more information') Fix behavior of --no- options ([ 795]) can now define both --foo and --no-foo Breaking custom event listeners: --no-foo on cli now emits option:no-foo (previously option:foo) Breaking default value: defining --no-foo after defining --foo leaves the default value unchanged (previously set it to false) allow boolean default value, such as from environment ([ 987]) Increment inspector port for spawned subcommands ([ 991]) e.g. node --inspect myCommand.js clone`",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Migration Tips",
+    "body": "The custom event for a negated option like --no-foo is option:no-foo (previously option:foo). When using TypeScript, adding a command does not allow an explicit undefined for an unwanted executable description (e.g for a command with an action handler). (Released as 3.0.0) fix: resolve symbolic links completely when hunting for subcommands ( 935) Update index.d.ts ( 930) Update Readme.md ( 924) Remove --save option as it isn't required anymore ( 918) Add link to the license file ( 900) Added example of receiving args from options ( 858) Added missing semicolon ( 882) Add extension to .eslintrc ( 876) Removed newline after Options and Commands headers ( 864) Bugfix - Error output ( 862) Fix to change default value to string ( 856) Standardize help output ( 853) chmod 644 travis.yml ( 851) add support for execute typescript subcommand via ts-node ( 849) Fix bug in command emit ( 844) fixed newline output after help information ( 833) Fix to emit the action even without command ( 778) npm update ( 823) Remove Makefile and test/run ( 821) Make 'npm test' run on Windows ( 820) Add badge to display install size ( 807) chore: cache node modules ( 814) chore: remove Node.js 4 (EOL), add Node.js 10 ( 813) fixed typo in readme ( 812) Fix types ( 804) Update eslint to resolve vulnerabilities in lodash ( 799) updated readme with custom event listeners. ( 791) fix tests ( 794) Update downloads badge to point to graph of downloads over time instead of duplicating link to npm Arguments description Fix typing of help function only register the option:version event once Fixes issue 727: Passing empty string for option on command is set to undefined enable eqeqeq rule resolves 754 add linter configuration to project resolves 560 respect custom name for version option document how to override the version flag document using options per command Do not print default for --no- remove trailing spaces in command help Update CI's Node.js to LTS and latest version typedefs: Command and Option types added to commander namespace fix: typings are not shipped Move @types/node to dev dependency add attributeName() method to Option objects Documentation updated for options with --no prefix typings: outputHelp takes a string as the first parameter typings: use overloads feat(typings): update to match js api Print default value in option help Fix translation error Fail when using same command and alias ( 491) feat(typings): add help callback fix bug when description is add after command with options ( 662) Format js code Rename History.md to CHANGELOG.md ( 668) feat(typings): add typings to support TypeScript ( 646) use current node Fix help section order and padding ( 652) feature: support for signals to subcommands ( 632) Fixed 37, --help should not display first ( 447) Fix translation errors. ( 570) Add package-lock.json Remove engines Upgrade package version Prefix events to prevent conflicts between commands and options ( 494) Removing dependency on graceful-readlink Support setting name in name function and make it chainable Add .vscode directory to .gitignore (Visual Studio Code metadata) Updated link to ruby commander in readme files Update .travis.yml. drop support for older node.js versions. Fix require arguments in README.md On SemVer you do not start from 0.0.1 Add missing semi colon in readme Add save param to npm install node v6 travis test Update Readme zh-CN.md Allow literal '--' to be passed-through as an argument Test subcommand alias help link build badge to master branch Support the alias of Git style sub-command added keyword commander for better search result on npm Fix Sub-Subcommands test node.js stable Fixes TypeError when a command has an option called --description Update README.md to make it beginner friendly and elaborate on the difference between angled and square brackets. Add chinese Readme file Add option isDefault to set default subcommand 415 @Qix- Add callback to allow filtering or post-processing of help text 434 @djulien Fix undefined text in help information close 414 416 @zhiyelee Back out support multiline description Close 396 397 Add process.execArg support, execution args like --harmony will be passed to sub-commands 387 @DigitalIO @zhiyelee Fix bug in Git-style sub-commands 372 @zhiyelee Allow commands to be hidden from help 383 @tonylukasavage When git-style sub-commands are in use, yet none are called, display help 382 @claylo Add ability to specify arguments syntax for top-level command 258 @rrthomas Support multiline descriptions 208 @zxqfox Revert 347 (fix collisions when option and first arg have same name) which causes a bug in 367. Fix git-style bug when installed globally. Close 335 349 @zhiyelee Fix collisions when option and first arg have same name. Close 346 347 @tonylukasavage Add support for camelCase on opts(). Close 353 @nkzawa Add node.js 0.12 and io.js to travis.yml Allow RegEx options. 337 @palanik Fixes exit code when sub-command failing. Close 260 332 @pirelenito git-style bin files in $PATH make sense. Close 196 327 @zhiyelee added Command allowUnknownOption method. Close 138 318 @doozr @zhiyelee Add application description to the help msg. Close 112 @dalssoft fixed two bugs incurred by variadic arguments. Close 291 @Quentin01 302 @zhiyelee add support for variadic arguments. Closes 277 @whitlockjc fixed a bug on executing the coercion function of subcommands option. Closes 270 added Command.prototype.name to retrieve command name. Closes 264 266 @tonylukasavage added Command.prototype.opts to retrieve all the options as a simple object of key-value pairs. Closes 262 @tonylukasavage fixed a bug on subcommand name. Closes 248 @jonathandelgado fixed function normalize doesn’t honor option terminator. Closes 216 @abbr add command alias'. Closes PR 210 fix: Typos. Closes 99 fix: Unused fs module. Closes 217 add passing of previous option value fix: support subcommands on windows. Closes 142 Now the defaultValue passed as the second argument of the coercion function. add: allow cflag style option params, unit test, fixes 174 remove input methods (.prompt, .confirm, etc) 1.x 0.x [ 599]: https://github.com/tj/commander.js/issues/599 [ 611]: https://github.com/tj/commander.js/issues/611 [ 697]: https://github.com/tj/commander.js/issues/697 [ 795]: https://github.com/tj/commander.js/issues/795 [ 806]: https://github.com/tj/commander.js/issues/806 [ 915]: https://github.com/tj/commander.js/issues/915 [ 938]: https://github.com/tj/commander.js/issues/938 [ 963]: https://github.com/tj/commander.js/issues/963 [ 974]: https://github.com/tj/commander.js/issues/974 [ 980]: https://github.com/tj/commander.js/issues/980 [ 987]: https://github.com/tj/commander.js/issues/987 [ 990]: https://github.com/tj/commander.js/issues/990 [ 991]: https://github.com/tj/commander.js/issues/991 [ 993]: https://github.com/tj/commander.js/issues/993 [ 999]: https://github.com/tj/commander.js/issues/999 [ 1010]: https://github.com/tj/commander.js/pull/1010 [ 1018]: https://github.com/tj/commander.js/pull/1018 [ 1026]: https://github.com/tj/commander.js/pull/1026 [ 1027]: https://github.com/tj/commander.js/pull/1027 [ 1028]: https://github.com/tj/commander.js/pull/1028 [ 1035]: https://github.com/tj/commander.js/pull/1035 [ 1040]: https://github.com/tj/commander.js/pull/1040 [ 1047]: https://github.com/tj/commander.js/pull/1047 [ 1048]: https://github.com/tj/commander.js/pull/1048 [ 1049]: https://github.com/tj/commander.js/pull/1049 [ 1051]: https://github.com/tj/commander.js/pull/1051 [ 1052]: https://github.com/tj/commander.js/pull/1052 [ 1053]: https://github.com/tj/commander.js/pull/1053 [ 1071]: https://github.com/tj/commander.js/pull/1071 [ 1081]: https://github.com/tj/commander.js/pull/1081 [ 1091]: https://github.com/tj/commander.js/pull/1091 [ 1096]: https://github.com/tj/commander.js/pull/1096 [ 1102]: https://github.com/tj/commander.js/pull/1102 [ 1118]: https://github.com/tj/commander.js/pull/1118 [ 1157]: https://github.com/tj/commander.js/pull/1157 [Unreleased]: https://github.com/tj/commander.js/compare/master...develop [4.1.1]: https://github.com/tj/commander.js/compare/v4.0.0..v4.1.1 [4.1.0]: https://github.com/tj/commander.js/compare/v4.0.1..v4.1.0 [4.0.1]: https://github.com/tj/commander.js/compare/v4.0.0..v4.0.1 [4.0.0]: https://github.com/tj/commander.js/compare/v3.0.2..v4.0.0 [4.0.0-1]: https://github.com/tj/commander.js/compare/v4.0.0-0..v4.0.0-1 [4.0.0-0]: https://github.com/tj/commander.js/compare/v3.0.2...v4.0.0-0 [3.0.2]: https://github.com/tj/commander.js/compare/v3.0.1...v3.0.2 [3.0.1]: https://github.com/tj/commander.js/compare/v3.0.0...v3.0.1 [3.0.0]: https://github.com/tj/commander.js/compare/v2.20.1...v3.0.0 [2.20.1]: https://github.com/tj/commander.js/compare/v2.20.0...v2.20.1",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Commander.js",
+    "body": "![Build Status](http://travis-ci.org/tj/commander.js) ![NPM Version](https://www.npmjs.org/package/commander) ![NPM Downloads](https://npmcharts.com/compare/commander?minimal=true) ![Install Size](https://packagephobia.now.sh/result?p=commander) The complete solution for node.js command-line interfaces, inspired by Ruby's commander. Read this in other languages: English 简体中文 - Commander.js - Installation - Declaring program variable - Options - Common option types, boolean and value - Default option value - Other option types, negatable boolean and flag value - Custom option processing - Required option - Version option - Commands - Specify the argument syntax - Action handler (sub)commands - Git-style executable (sub)commands - Automated --help - Custom help - .usage and .name - .outputHelp(cb) - .helpOption(flags, description) - .help(cb) - Custom event listeners - Bits and pieces - Avoiding option name clashes - TypeScript - Node options such as --harmony - Node debugging - Override exit handling - Examples - License - Support - Commander for enterprise Commander exports a global object which is convenient for quick programs. This is used in the examples in this README for brevity. For larger programs which may use commander in multiple ways, including unit testing, it is better to create a local Command object to use. Options are defined with the .option() method, also serving as documentation for the options. Each option can have a short flag (single character) and a long name, separated by a comma or space. The options can be accessed as properties on the Command object. Multi-word options such as \"--template-engine\" are camel-cased, becoming program.templateEngine etc. Multiple short flags may be combined as a single arg, for example -abc is equivalent to -a -b -c. See also optional new behaviour to avoid name clashes.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Common option types, boolean and value",
+    "body": "The two most used option types are a boolean flag, and an option which takes a value (declared using angle brackets). Both are undefined unless specified on command line. program.parse(arguments) processes the arguments, leaving any args not consumed by the options as the program.args array.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Default option value",
+    "body": "You can specify a default value for an option which takes a value.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Other option types, negatable boolean and flag|value",
+    "body": "You can specify a boolean option long name with a leading no- to set the option value to false when used. Defined alone this also makes the option true by default. If you define --foo first, adding --no-foo does not change the default value from what it would otherwise be. You can specify a default boolean value for a boolean flag and it can be overridden on command line. You can specify an option which functions as a flag but may also take a value (declared using square brackets).",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Custom option processing",
+    "body": "You may specify a function to do custom processing of option values. The callback function receives two parameters, the user specified value and the previous value for the option. It returns the new value for the option. This allows you to coerce the option value to the desired type, or accumulate values, or do entirely custom processing. You can optionally specify the default/starting value for the option after the function.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Required option",
+    "body": "You may specify a required (mandatory) option using .requiredOption. The option must be specified on the command line, or by having a default value. The method is otherwise the same as .option in format, taking flags and description, and optional default value or custom processing.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Version option",
+    "body": "The optional version method adds handling for displaying the command version. The default option flags are -V and --version, and when present the command prints the version number and exits. You may change the flags and description by passing additional parameters to the version method, using the same syntax for flags as the option method. The version flags can be named anything, but a long name is required. You can specify (sub)commands for your top-level command using .command. There are two ways these can be implemented: using an action handler attached to the command, or as a separate executable file (described in more detail later). In the first parameter to .command you specify the command name and any command arguments. The arguments may be or [optional], and the last argument may also be variadic.... For example:",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Specify the argument syntax",
+    "body": "You use .arguments to specify the arguments for the top-level command, and for subcommands they are included in the .command call. Angled brackets (e.g. ) indicate required input. Square brackets (e.g. [optional]) indicate optional input. The last argument of a command can be variadic, and only the last argument. To make an argument variadic you append ... to the argument name. For example: The variadic argument is passed to the action handler as an array. (And this also applies to program.args.)",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Action handler (sub)commands",
+    "body": "You can add options to a command that uses an action handler. The action handler gets passed a parameter for each argument you declared, and one additional argument which is the command object itself. This command argument has the values for the command-specific options added as properties. You may supply an async action handler, in which case you call .parseAsync rather than .parse. A command's options on the command line are validated when the command is used. Any unknown options will be reported as an error. However, if an action-based command does not define an action, then the options are not validated. Configuration options can be passed with the call to .command(). Specifying true for opts.noHelp will remove the command from the generated help output.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Git-style executable (sub)commands",
+    "body": "When .command() is invoked with a description argument, this tells commander that you're going to use separate executables for sub-commands, much like git(1) and other popular tools. Commander will search the executables in the directory of the entry script (like ./examples/pm) with the name program-subcommand, like pm-install, pm-search. You can specify a custom name with the executableFile configuration option. You handle the options for an executable (sub)command in the executable, and don't declare them at the top-level. Configuration options can be passed with the call to .command(). Specifying true for opts.noHelp will remove the command from the generated help output. Specifying true for opts.isDefault will run the subcommand if no other subcommand is specified. Specifying a name with executableFile will override the default constructed name. If the program is designed to be installed globally, make sure the executables have proper modes, like 755. The help information is auto-generated based on the information commander already knows about your program, so the following --help info is for free:",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Custom help",
+    "body": "You can display arbitrary -h, --help information by listening for \"--help\". Commander will automatically exit once you are done so that the remainder of your program does not execute causing undesired behaviors, for example in the following executable \"stuff\" will not output when --help is used. Yields the following help output when node script-name.js -h or node script-name.js --help are run:",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": ".usage and .name",
+    "body": "These allow you to customise the usage description in the first line of the help. The name is otherwise deduced from the (full) program arguments. Given: The help will start with:",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": ".outputHelp(cb)",
+    "body": "Output help information without exiting. Optional callback cb allows post-processing of help text before it is displayed. If you want to display help by default (e.g. if no command was provided), you can use something like:",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": ".helpOption(flags, description)",
+    "body": "Override the default help flags and description.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": ".help(cb)",
+    "body": "Output help information and exit immediately. Optional callback cb allows post-processing of help text before it is displayed. You can execute custom actions by listening to command and option events.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Avoiding option name clashes",
+    "body": "The original and default behaviour is that the option values are stored as properties on the program, and the action handler is passed a command object with the options values stored as properties. This is very convenient to code, but the downside is possible clashes with existing properties of Command. There are two new routines to change the behaviour, and the default behaviour may change in the future: - storeOptionsAsProperties: whether to store option values as properties on command object, or store separately (specify false) and access using .opts() - passCommandToAction: whether to pass command to action handler, or just the options (specify false)",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.TypeScript",
+    "body": "The Commander package includes its TypeScript Definition file, but also requires the node types which you need to install yourself. e.g. If you use ts-node and git-style sub-commands written as .ts files, you need to call your program through node to get the sub-commands called correctly. e.g.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Node options such as `--harmony`",
+    "body": "You can enable --harmony option in two ways: - Use ! /usr/bin/env node --harmony in the sub-commands scripts. (Note Windows does not support this pattern.) - Use the --harmony option when call the command, like node --harmony examples/pm publish. The --harmony option will be preserved when spawning sub-command process.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Node debugging",
+    "body": "If you are using the node inspector for debugging git-style executable (sub)commands using node --inspect et al, the inspector port is incremented by 1 for the spawned subcommand.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Override exit handling",
+    "body": "By default Commander calls process.exit when it detects errors, or after displaying the help or version. You can override this behaviour and optionally supply a callback. The default override throws a CommanderError. The override callback is passed a CommanderError with properties exitCode number, code string, and message. The default override behaviour is to throw the error, except for async handling of executable subcommand completion which carries on. The normal display of error messages or version or help is not affected by the override which is called after the display. More Demos can be found in the examples directory. MIT Commander 4.x is supported on Node 8 and above, and is likely to work with Node 6 but not tested. (For versions of Node below Node 6, use Commander 3.x or 2.x.) The main forum for free and community support is the project Issues on GitHub.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "Commander.js.Commander for enterprise",
+    "body": "Available as part of the Tidelift Subscription The maintainers of Commander and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. Learn more.",
+    "path": "/.tmp/ci-repro/repo/node_modules/commander/Readme",
+    "id": ""
+  },
+  {
+    "title": "cssesc [![Build status](https://travis-ci.org/mathiasbynens/cssesc.svg?branch=master)](https://travis-ci.org/mathiasbynens/cssesc) [![Code coverage status](https://img.shields.io/codecov/c/github/mathiasbynens/cssesc.svg)](https://codecov.io/gh/mathiasbynens/cssesc)",
+    "body": "A JavaScript library for escaping CSS strings and identifiers while generating the shortest possible ASCII-only output. This is a JavaScript library for escaping text for use in CSS strings or identifiers while generating the shortest possible valid ASCII-only output. Here’s an online demo. A polyfill for the CSSOM CSS.escape() method is available in a separate repository. (In comparison, cssesc is much more powerful.) Feel free to fork if you see possible improvements! Via npm: In a browser: In Node.js: In Ruby using the ruby-cssesc wrapper gem: In Sass using sassy-escape:",
+    "path": "/.tmp/ci-repro/repo/node_modules/cssesc/README",
+    "id": ""
+  },
+  {
+    "title": "cssesc [![Build status](https://travis-ci.org/mathiasbynens/cssesc.svg?branch=master)](https://travis-ci.org/mathiasbynens/cssesc) [![Code coverage status](https://img.shields.io/codecov/c/github/mathiasbynens/cssesc.svg)](https://codecov.io/gh/mathiasbynens/cssesc).`cssesc(value, options)`",
+    "body": "This function takes a value and returns an escaped version of the value where any characters that are not printable ASCII symbols are escaped using the shortest possible (but valid) escape sequences for use in CSS strings or identifiers. By default, cssesc returns a string that can be used as part of a CSS string. If the target is a CSS identifier rather than a CSS string, use the isIdentifier: true setting (see below). The optional options argument accepts an object with the following options: isIdentifier The default value for the isIdentifier option is false. This means that the input text will be escaped for use in a CSS string literal. If you want to use the result as a CSS identifier instead (in a selector, for example), set this option to true. quotes The default value for the quotes option is 'single'. This means that any occurences of ' in the input text will be escaped as \\', so that the output can be used in a CSS string literal wrapped in single quotes. If you want to use the output as part of a CSS string literal wrapped in double quotes, set the quotes option to 'double'. wrap The wrap option takes a boolean value (true or false), and defaults to false (disabled). When enabled, the output will be a valid CSS string literal wrapped in quotes. The type of quotes can be specified through the quotes setting. escapeEverything The escapeEverything option takes a boolean value (true or false), and defaults to false (disabled). When enabled, all the symbols in the output will be escaped, even printable ASCII symbols. Overriding the default options globally The global default settings can be overridden by modifying the css.options object. This saves you from passing in an options object for every call to encode if you want to use the non-default setting.",
+    "path": "/.tmp/ci-repro/repo/node_modules/cssesc/README",
+    "id": ""
+  },
+  {
+    "title": "`cssesc.version`",
+    "body": "A string representing the semantic version number.",
+    "path": "/.tmp/ci-repro/repo/node_modules/cssesc/README",
+    "id": ""
+  },
+  {
+    "title": "cssesc [![Build status](https://travis-ci.org/mathiasbynens/cssesc.svg?branch=master)](https://travis-ci.org/mathiasbynens/cssesc) [![Code coverage status](https://img.shields.io/codecov/c/github/mathiasbynens/cssesc.svg)](https://codecov.io/gh/mathiasbynens/cssesc).Using the `cssesc` binary",
+    "body": "To use the cssesc binary in your shell, simply install cssesc globally using npm: After that you will be able to escape text for use in CSS strings or identifiers from the command line: If the output needs to be a CSS identifier rather than part of a string literal, use the -i/--identifier option: See cssesc --help for the full list of options. This library supports the Node.js and browser versions mentioned in .babelrc. For a version that supports a wider variety of legacy browsers and environments out-of-the-box, see v0.1.0. ![twitter/mathias](https://twitter.com/mathias \"Follow @mathias on Twitter\") --- Mathias Bynens This library is available under the MIT license.",
+    "path": "/.tmp/ci-repro/repo/node_modules/cssesc/README",
+    "id": ""
+  },
+  {
+    "title": "CSSType",
+    "body": "![npm](https://www.npmjs.com/package/csstype) TypeScript and Flow definitions for CSS, generated by data from MDN. It provides autocompletion and type checking for CSS properties and values. TypeScript Flow Further examples below will be in TypeScript! - Style types - At-rule types - Pseudo types - Generics - Usage - What should I do when I get type errors? - Version 3.0 - Contributing Properties are categorized in different uses and in several technical variations to provide typings that suits as many as possible. Default Hyphen Fallback HyphenFallback -------------- -------------------- -------------------------- ---------------------------- ---------------------------------- All Properties PropertiesHyphen PropertiesFallback PropertiesHyphenFallback Standard StandardProperties StandardPropertiesHyphen StandardPropertiesFallback StandardPropertiesHyphenFallback Vendor VendorProperties VendorPropertiesHyphen VendorPropertiesFallback VendorPropertiesHyphenFallback Obsolete ObsoleteProperties ObsoletePropertiesHyphen ObsoletePropertiesFallback ObsoletePropertiesHyphenFallback Svg SvgProperties SvgPropertiesHyphen SvgPropertiesFallback SvgPropertiesHyphenFallback Categories: - All - Includes Standard, Vendor, Obsolete and Svg - Standard - Current properties and extends subcategories StandardLonghand and StandardShorthand (e.g. StandardShorthandProperties) - Vendor - Vendor prefixed properties and extends subcategories VendorLonghand and VendorShorthand (e.g. VendorShorthandProperties) - Obsolete - Removed or deprecated properties - Svg - SVG-specific properties Variations: - Default - JavaScript (camel) cased property names - Hyphen - CSS (kebab) cased property names - Fallback - Also accepts array of values e.g. string string[] At-rule interfaces with descriptors. TypeScript : These will be found in the AtRule namespace, e.g. AtRule.Viewport. Flow : These will be prefixed with AtRule$, e.g. AtRule$Viewport. Default Hyphen Fallback HyphenFallback -------------------- -------------- -------------------- ---------------------- ---------------------------- @counter-style CounterStyle CounterStyleHyphen CounterStyleFallback CounterStyleHyphenFallback @font-face FontFace FontFaceHyphen FontFaceFallback FontFaceHyphenFallback @viewport Viewport ViewportHyphen ViewportFallback ViewportHyphenFallback String literals of pseudo classes and pseudo elements - Pseudos Extends: - AdvancedPseudos Function-like pseudos e.g. :not(:first-child). The string literal contains the value excluding the parenthesis: :not. These are separated because they require an argument that results in infinite number of variations. - SimplePseudos Plain pseudos e.g. :hover that can only be one variation. All interfaces has two optional generic argument to define length and time: CSS.Properties - Length is the first generic parameter and defaults to string 0 because 0 is the only length where the unit identifier is optional. You can specify this, e.g. string number, for platforms and libraries that accepts any numeric value as length with a specific unit. - Time is the second generic argument and defaults to string. You can specify this, e.g. string number, for platforms and libraries that accepts any numeric value as length with a specific unit. In some cases, like for CSS-in-JS libraries, an array of values is a way to provide fallback values in CSS. Using CSS.PropertiesFallback instead of CSS.Properties will add the possibility to use any property value as an array of values. There's even string literals for pseudo selectors and elements. Hyphen cased (kebab cased) properties are provided in CSS.PropertiesHyphen and CSS.PropertiesHyphenFallback. It's not not added by default in CSS.Properties. To allow both of them, you can simply extend with CSS.PropertiesHyphen or/and CSS.PropertiesHyphenFallback. Adding type checked CSS properties to a HTMLElement. The goal is to have as perfect types as possible and we're trying to do our best. But with CSS Custom Properties, the CSS specification changing frequently and vendors implementing their own specifications with new releases sometimes causes type errors even if it should work. Here's some steps you could take to get it fixed: If you're using CSS Custom Properties you can step directly to step 3. 1. First of all, make sure you're doing it right. A type error could also indicate that you're not :wink: - Some CSS specs that some vendors has implemented could have been officially rejected or haven't yet received any official acceptance and are therefor not included - If you're using TypeScript, type widening could be the reason you get Type 'string' is not assignable to... errors 2. Have a look in issues to see if an issue already has been filed. If not, create a new one. To help us out, please refer to any information you have found. 3. Fix the issue locally with TypeScript (Flow further down): - The recommended way is to use module augmentation . Here's a few examples: - The alternative way is to use type assertion . Here's a few examples: Fix the issue locally with Flow : - Use type assertion . Here's a few examples: - No longer compatible with version 2 Conflicts may occur when both version ^3.2.0 and ^2.0.0 are installed. Potential fix for Npm would be to force resolution in package.json: - Data types are exposed TypeScript: DataType.Color Flow: DataType$Color - All property types are exposed with namespace TypeScript: Property.AlignContent (was AlignContentProperty before) Flow: Property$AlignContent - All at-rules are exposed with namespace TypeScript: AtRule.FontFace (was FontFace before) Flow: AtRule$FontFace - Data types are NOT exposed E.g. Color and Box. Because the generation of data types may suddenly be removed or renamed. - TypeScript hack for autocompletion Uses (string & {}) for literal string unions and (number & {}) for literal number unions (related issue). Utilize PropertyValue to unpack types from e.g. (string & {}) to string. - New generic for time Read more on the \"Generics\" section. - Flow types improvements Flow Strict enabled and exact types are used. Never modify index.d.ts and index.js.flow directly. They are generated automatically and committed so that we can easily follow any change it results in. Therefor it's important that you run $ git config merge.ours.driver true after you've forked and cloned. That setting prevents merge conflicts when doing rebase.",
+    "path": "/.tmp/ci-repro/repo/node_modules/csstype/README",
+    "id": ""
+  },
+  {
+    "title": "CSSType.Commands",
+    "body": "- npm run build Generates typings and type checks them - npm run watch Runs build on each save - npm run test Runs the tests - npm run lazy Type checks, lints and formats everything",
+    "path": "/.tmp/ci-repro/repo/node_modules/csstype/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/didyoumean/README.threshold",
+    "body": "By default, the method will only return strings whose edit distance is less than 40% (0.4x) of their length. For example, if a ten-letter string is five edits away from its nearest match, the method will return null. You can control this by setting the \"threshold\" value on the didYouMean function. For example, to set the edit distance threshold to 50% of the input string's length: To return the nearest match no matter the threshold, set this value to null.",
+    "path": "/.tmp/ci-repro/repo/node_modules/didyoumean/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/didyoumean/README.thresholdAbsolute",
+    "body": "This option behaves the same as threshold, but instead takes an integer number of edit steps. For example, if thresholdAbsolute is set to 20 (the default), then the method will only return strings whose edit distance is less than 20. Both options apply.",
+    "path": "/.tmp/ci-repro/repo/node_modules/didyoumean/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/didyoumean/README.caseSensitive",
+    "body": "By default, the method will perform case-insensitive comparisons. If you wish to force case sensitivity, set the \"caseSensitive\" value to true:",
+    "path": "/.tmp/ci-repro/repo/node_modules/didyoumean/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/didyoumean/README.nullResultValue",
+    "body": "By default, the method will return null if there is no sufficiently close match. You can change this value here.",
+    "path": "/.tmp/ci-repro/repo/node_modules/didyoumean/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/didyoumean/README.returnWinningObject",
+    "body": "By default, the method will return the winning string value (if any). If your list contains objects rather than strings, you may set returnWinningObject to true. This option has no effect on lists of strings.",
+    "path": "/.tmp/ci-repro/repo/node_modules/didyoumean/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/didyoumean/README.returnFirstMatch",
+    "body": "By default, the method will search all values and return the closest match. If you're simply looking for a \"good- enough\" match, you can set your thresholds appropriately and set returnFirstMatch to true to substantially speed things up. License ------- didYouMean copyright (c) 2013-2014 Dave Porter. Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License here. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+    "path": "/.tmp/ci-repro/repo/node_modules/didyoumean/README",
+    "id": ""
+  },
+  {
+    "title": "`dlv(obj, keypath)` [![NPM](https://img.shields.io/npm/v/dlv.svg)](https://npmjs.com/package/dlv) [![Build](https://travis-ci.org/developit/dlv.svg?branch=master)](https://travis-ci.org/developit/dlv)",
+    "body": "Safely get a dot-notated path within a nested object, with ability to return a default if the full key path does not exist or the value is undefined",
+    "path": "/.tmp/ci-repro/repo/node_modules/dlv/README",
+    "id": ""
+  },
+  {
+    "title": "`dlv(obj, keypath)` [![NPM](https://img.shields.io/npm/v/dlv.svg)](https://npmjs.com/package/dlv) [![Build](https://travis-ci.org/developit/dlv.svg?branch=master)](https://travis-ci.org/developit/dlv).Why?",
+    "body": "Smallest possible implementation: only 130 bytes. You could write this yourself, but then you'd have to write [tests]. Supports ES Modules, CommonJS and globals.",
+    "path": "/.tmp/ci-repro/repo/node_modules/dlv/README",
+    "id": ""
+  },
+  {
+    "title": "`dlv(obj, keypath)` [![NPM](https://img.shields.io/npm/v/dlv.svg)](https://npmjs.com/package/dlv) [![Build](https://travis-ci.org/developit/dlv.svg?branch=master)](https://travis-ci.org/developit/dlv).Installation",
+    "body": "npm install --save dlv",
+    "path": "/.tmp/ci-repro/repo/node_modules/dlv/README",
+    "id": ""
+  },
+  {
+    "title": "`dlv(obj, keypath)` [![NPM](https://img.shields.io/npm/v/dlv.svg)](https://npmjs.com/package/dlv) [![Build](https://travis-ci.org/developit/dlv.svg?branch=master)](https://travis-ci.org/developit/dlv).Usage",
+    "body": "delve(object, keypath, [default])",
+    "path": "/.tmp/ci-repro/repo/node_modules/dlv/README",
+    "id": ""
+  },
+  {
+    "title": "`dlv(obj, keypath)` [![NPM](https://img.shields.io/npm/v/dlv.svg)](https://npmjs.com/package/dlv) [![Build](https://travis-ci.org/developit/dlv.svg?branch=master)](https://travis-ci.org/developit/dlv).Setter Counterparts",
+    "body": "- dset by @lukeed is the spiritual \"set\" counterpart of dlv and very fast. - bury by @kalmbach does the opposite of dlv and is implemented in a very similar manner.",
+    "path": "/.tmp/ci-repro/repo/node_modules/dlv/README",
+    "id": ""
+  },
+  {
+    "title": "`dlv(obj, keypath)` [![NPM](https://img.shields.io/npm/v/dlv.svg)](https://npmjs.com/package/dlv) [![Build](https://travis-ci.org/developit/dlv.svg?branch=master)](https://travis-ci.org/developit/dlv).License",
+    "body": "MIT [preact]: https://github.com/developit/preact [tests]: https://github.com/developit/dlv/blob/master/test.js",
+    "path": "/.tmp/ci-repro/repo/node_modules/dlv/README",
+    "id": ""
+  },
+  {
+    "title": "Changelog",
+    "body": "All notable changes to this project will be documented in this file. The format is based on Keep a Changelog and this project adheres to Semantic Versioning.",
+    "path": "/.tmp/ci-repro/repo/node_modules/es-errors/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [New] add EvalError and URIError 1927627",
+    "path": "/.tmp/ci-repro/repo/node_modules/es-errors/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Fix] add missing exports entry 5bb5f28",
+    "path": "/.tmp/ci-repro/repo/node_modules/es-errors/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [New] add ReferenceError 6d8cf5b",
+    "path": "/.tmp/ci-repro/repo/node_modules/es-errors/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [New] add base Error 2983ab6",
+    "path": "/.tmp/ci-repro/repo/node_modules/es-errors/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- Initial implementation, tests, readme, type 8f47631 - Initial commit ea5d099 - npm init 6f5ebf9 - Only apps should have lockfiles e1a0aeb - [meta] add sideEffects flag a9c7d46",
+    "path": "/.tmp/ci-repro/repo/node_modules/es-errors/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "es-errors <sup>[![Version Badge][npm-version-svg]][package-url]</sup>",
+    "body": "[![github actions][actions-image]][actions-url] [![coverage][codecov-image]][codecov-url] [![License][license-image]][license-url] [![Downloads][downloads-image]][downloads-url] [![npm badge][npm-badge-png]][package-url] A simple cache for a few of the JS Error constructors. Simply clone the repo, npm install, and run npm test Please email @ljharb or see https://tidelift.com/security if you have a potential security vulnerability to report. [package-url]: https://npmjs.org/package/es-errors [npm-version-svg]: https://versionbadg.es/ljharb/es-errors.svg [deps-svg]: https://david-dm.org/ljharb/es-errors.svg [deps-url]: https://david-dm.org/ljharb/es-errors [dev-deps-svg]: https://david-dm.org/ljharb/es-errors/dev-status.svg [dev-deps-url]: https://david-dm.org/ljharb/es-errors info=devDependencies [npm-badge-png]: https://nodei.co/npm/es-errors.png?downloads=true&stars=true [license-image]: https://img.shields.io/npm/l/es-errors.svg [license-url]: LICENSE [downloads-image]: https://img.shields.io/npm/dm/es-errors.svg [downloads-url]: https://npm-stat.com/charts.html?package=es-errors [codecov-image]: https://codecov.io/gh/ljharb/es-errors/branch/main/graphs/badge.svg [codecov-url]: https://app.codecov.io/gh/ljharb/es-errors/ [actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/ljharb/es-errors [actions-url]: https://github.com/ljharb/es-errors/actions",
+    "path": "/.tmp/ci-repro/repo/node_modules/es-errors/README",
+    "id": ""
+  },
+  {
+    "title": "esbuild",
+    "body": "This is a JavaScript bundler and minifier. See https://github.com/evanw/esbuild and the JavaScript API documentation for details.",
+    "path": "/.tmp/ci-repro/repo/node_modules/esbuild/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob",
+    "body": "It's a very fast and efficient [glob][glob definition] library for [Node.js][node js]. This package provides methods for traversing the file system and returning pathnames that matched a defined set of a specified pattern according to the rules used by the Unix Bash shell with some simplifications, meanwhile results are returned in arbitrary order . Quick, simple, effective. Details Highlights Old and modern mode Pattern syntax Basic syntax Advanced syntax Installation API Asynchronous Synchronous Stream patterns [[options]]( options) Helpers generateTasks isDynamicPattern escapePath convertPathToPattern Options Common concurrency cwd deep followSymbolicLinks fs ignore suppressErrors throwErrorOnBrokenSymbolicLink Output control absolute markDirectories objectMode onlyDirectories onlyFiles stats unique Matching control braceExpansion caseSensitiveMatch dot extglob globstar baseNameMatch FAQ What is a static or dynamic pattern? How to write patterns on Windows? Why are parentheses match wrong? How to exclude directory from reading? How to use UNC path? Compatible with node-glob? Benchmarks Server Nettop Changelog License Fast. Probably the fastest. Supports multiple and negative patterns. Synchronous, Promise and Stream API. Object mode. Can return more than just strings. Error-tolerant. This package works in two modes, depending on the environment in which it is used. Old mode . Node.js below 10.10 or when the stats option is enabled . Modern mode . Node.js 10.10+ and the stats option is disabled . The modern mode is faster. Learn more about the [internal mechanism][nodelib fs scandir old and modern modern]. :warning: Always use forward-slashes in glob expressions (patterns and ignore option). Use backslashes for escaping characters. There is more than one form of syntax: basic and advanced. Below is a brief overview of the supported features. Also pay attention to our FAQ. :book: This package uses [micromatch][micromatch] as a library for pattern matching.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Basic syntax",
+    "body": "An asterisk ( ) — matches everything except slashes (path separators), hidden files (names starting with .). A double star or globstar ( ) — matches zero or more directories. Question mark (?) – matches any single character except slashes (path separators). Sequence ([seq]) — matches any character in sequence. :book: A few additional words about the [basic matching behavior][picomatch matching behavior]. Some examples: src/ / .js — matches all files in the src directory (any level of nesting) that have the .js extension. src/ .?? — matches all files in the src directory (only first level of nesting) that have a two-character extension. file-[01].js — matches files: file-0.js, file-1.js.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Advanced syntax",
+    "body": "[Escapes characters][micromatch backslashes] (\\\\) — matching special characters ($^ +?()[]) as literals. [POSIX character classes][picomatch posix brackets] ([[:digit:]]). [Extended globs][micromatch extglobs] (?(pattern-list)). [Bash style brace expansions][micromatch braces] ({}). [Regexp character classes][micromatch regex character classes] ([1-5]). [Regex groups][regular expressions brackets] ((a b)). :book: A few additional words about the [advanced matching behavior][micromatch extended globbing]. Some examples: src/ / .{css,scss} — matches all files in the src directory (any level of nesting) that have the .css or .scss extension. file-[[:digit:]].js — matches files: file-0.js, file-1.js, …, file-9.js. file-{1..3}.js — matches files: file-1.js, file-2.js, file-3.js. file-(1 2) — matches files: file-1.js, file-2.js.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Asynchronous",
+    "body": "Returns a Promise with an array of matching entries.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Synchronous",
+    "body": "Returns an array of matching entries.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Stream",
+    "body": "Returns a [ReadableStream][node js stream readable streams] when the data event will be emitted with matching entry. patterns Required: true Type: string string[] Any correct pattern(s). :1234: Pattern syntax :warning: This package does not respect the order of patterns. First, all the negative patterns are applied, and only then the positive patterns. If you want to get a certain order of records, use sorting or split calls. [options] Required: false Type: Options See Options section.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Helpers",
+    "body": "generateTasks(patterns, [options]) Returns the internal representation of patterns (Task is a combining patterns by base directory). patterns Required: true Type: string string[] Any correct pattern(s). [options] Required: false Type: Options See Options section. isDynamicPattern(pattern, [options]) Returns true if the passed pattern is a dynamic pattern. :1234: What is a static or dynamic pattern? pattern Required: true Type: string Any correct pattern. [options] Required: false Type: Options See Options section. escapePath(path) Returns the path with escaped special characters depending on the platform. Posix: ? (){}[]; ! at the beginning of line; @+! before the opening parenthesis; \\\\ before non-special characters; Windows: (){}[] ! at the beginning of line; @+! before the opening parenthesis; Characters like ? cannot be used in the path ([windows naming conventions][windows naming conventions]), so they will not be escaped; convertPathToPattern(path) Converts a path to a pattern depending on the platform, including special character escaping. Posix. Works similarly to the fg.posix.escapePath method. Windows. Works similarly to the fg.win32.escapePath method, additionally converting backslashes to forward slashes in cases where they are not escape characters (!()+@{}[]).",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Common options",
+    "body": "concurrency Type: number Default: os.cpus().length Specifies the maximum number of concurrent requests from a reader to read directories. :book: The higher the number, the higher the performance and load on the file system. If you want to read in quiet mode, set the value to a comfortable number or 1. More details In Node, there are [two types of threads][nodejs thread pool]: Event Loop (code) and a Thread Pool (fs, dns, …). The thread pool size controlled by the UV THREADPOOL SIZE environment variable. Its default size is 4 ([documentation][libuv thread pool]). The pool is one for all tasks within a single Node process. Any code can make 4 real concurrent accesses to the file system. The rest of the FS requests will wait in the queue. :book: Each new instance of FG in the same Node process will use the same Thread pool. But this package also has the concurrency option. This option allows you to control the number of concurrent accesses to the FS at the package level. By default, this package has a value equal to the number of cores available for the current Node process. This allows you to set a value smaller than the pool size (concurrency: 1) or, conversely, to prepare tasks for the pool queue more quickly (concurrency: Number.POSITIVE INFINITY). So, in fact, this package can only make 4 concurrent requests to the FS . You can increase this value by using an environment variable (UV THREADPOOL SIZE), but in practice this does not give a multiple advantage. cwd Type: string Default: process.cwd() The current working directory in which to search. deep Type: number Default: Infinity Specifies the maximum depth of a read directory relative to the start directory. For example, you have the following tree: :book: If you specify a pattern with some base directory, this directory will not participate in the calculation of the depth of the found directories. Think of it as a cwd option. followSymbolicLinks Type: boolean Default: true Indicates whether to traverse descendants of symbolic link directories when expanding patterns. :book: Note that this option does not affect the base directory of the pattern. For example, if ./a is a symlink to directory ./b and you specified ['./a ', './b/ '] patterns, then directory ./a will still be read. :book: If the stats option is specified, the information about the symbolic link (fs.lstat) will be replaced with information about the entry (fs.stat) behind it. fs Type: FileSystemAdapter Default: fs. Custom implementation of methods for working with the file system. Supports objects with enumerable properties only. ignore Type: string[] Default: [] An array of glob patterns to exclude matches. This is an alternative way to use negative patterns. suppressErrors Type: boolean Default: false By default this package suppress only ENOENT errors. Set to true to suppress any error. :book: Can be useful when the directory has entries with a special level of access. throwErrorOnBrokenSymbolicLink Type: boolean Default: false Throw an error when symbolic link is broken if true or safely return lstat call if false. :book: This option has no effect on errors when reading the symbolic link directory.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Output control",
+    "body": "absolute Type: boolean Default: false Return the absolute path for entries. :book: This option is required if you want to use negative patterns with absolute path, for example, !${ dirname}/ .js. markDirectories Type: boolean Default: false Mark the directory path with the final slash. objectMode Type: boolean Default: false Returns objects (instead of strings) describing entries. The object has the following fields: name (string) — the last part of the path (basename) path (string) — full path relative to the pattern base directory dirent ([fs.Dirent][node js fs class fs dirent]) — instance of fs.Dirent :book: An object is an internal representation of entry, so getting it does not affect performance. onlyDirectories Type: boolean Default: false Return only directories. :book: If true, the onlyFiles option is automatically false. onlyFiles Type: boolean Default: true Return only files. stats Type: boolean Default: false Enables an object mode with an additional field: stats ([fs.Stats][node js fs class fs stats]) — instance of fs.Stats :book: Returns fs.stat instead of fs.lstat for symbolic links when the followSymbolicLinks option is specified. :warning: Unlike object mode this mode requires additional calls to the file system. On average, this mode is slower at least twice. See old and modern mode for more details. unique Type: boolean Default: true Ensures that the returned entries are unique. If true and similar entries are found, the result is the first found.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "fast-glob.Matching control",
+    "body": "braceExpansion Type: boolean Default: true Enables Bash-like brace expansion. :1234: [Syntax description][bash hackers syntax expansion brace] or more [detailed description][micromatch braces]. caseSensitiveMatch Type: boolean Default: true Enables a [case-sensitive][wikipedia case sensitivity] mode for matching files. dot Type: boolean Default: false Allow patterns to match entries that begin with a period (.). :book: Note that an explicit dot in a portion of the pattern will always match dot files. extglob Type: boolean Default: true Enables Bash-like extglob functionality. :1234: [Syntax description][micromatch extglobs]. globstar Type: boolean Default: true Enables recursively repeats a pattern containing . If false, behaves exactly like . baseNameMatch Type: boolean Default: false If set to true, then patterns without slashes will be matched against the basename of the path if it contains slashes. All patterns can be divided into two types: static . A pattern is considered static if it can be used to get an entry on the file system without using matching mechanisms. For example, the file.js pattern is a static pattern because we can just verify that it exists on the file system. dynamic . A pattern is considered dynamic if it cannot be used directly to find occurrences without using a matching mechanisms. For example, the pattern is a dynamic pattern because we cannot use this pattern directly. A pattern is considered dynamic if it contains the following characters (… — any characters or their absence) or options: The caseSensitiveMatch option is disabled \\\\ (the escape character) , ?, ! (at the beginning of line) […] (… …) @(…), !(…), (…), ?(…), +(…) (respects the extglob option) {…,…}, {…..…} (respects the braceExpansion option) Always use forward-slashes in glob expressions (patterns and ignore option). Use backslashes for escaping characters. With the cwd option use a convenient format. Bad Good :book: Use the .convertPathToPattern package to convert Windows-style path to a Unix-style path. Read more about [matching with backslashes][micromatch backslashes]. Refers to Bash. You need to escape special characters: Read more about [matching special characters as literals][picomatch matching special characters as literals]. Or use the .escapePath. You can use a negative pattern like this: ! /node modules or ! /node modules/ . Also you can use ignore option. Just look at the example below. If you don't want to read the second directory, you must write the following pattern: ! /second or ! /second/ . :warning: When you write ! /second/ / it means that the directory will be read , but all the entries will not be included in the results. You have to understand that if you write the pattern to exclude directories, then the directory will not be read under any circumstances. You cannot use [Uniform Naming Convention (UNC)][unc path] paths as patterns (due to syntax) directly, but you can use them as cwd directory or use the fg.convertPathToPattern method. node-glob fast-glob :----------: :-------: cwd cwd root – dot dot nomount – mark markDirectories nosort – nounique unique nobrace braceExpansion noglobstar globstar noext extglob nocase caseSensitiveMatch matchBase baseNameMatch nodir onlyFiles ignore ignore follow followSymbolicLinks realpath – absolute absolute You can see results here for every commit into the main branch. Product benchmark – comparison with the main competitors. Regress benchmark – regression between the current version and the version from the npm registry. See the [Releases section of our GitHub project][github releases] for changelog for each release version. This software is released under the terms of the MIT license. [bash hackers syntax expansion brace]: https://wiki.bash-hackers.org/syntax/expansion/brace [github releases]: https://github.com/mrmlnc/fast-glob/releases [glob definition]: https://en.wikipedia.org/wiki/Glob (programming) [glob linux man]: http://man7.org/linux/man-pages/man3/glob.3.html [micromatch backslashes]: https://github.com/micromatch/micromatch backslashes [micromatch braces]: https://github.com/micromatch/braces [micromatch extended globbing]: https://github.com/micromatch/micromatch extended-globbing [micromatch extglobs]: https://github.com/micromatch/micromatch extglobs [micromatch regex character classes]: https://github.com/micromatch/micromatch regex-character-classes [micromatch]: https://github.com/micromatch/micromatch [node js fs class fs dirent]: https://nodejs.org/api/fs.html fs class fs dirent [node js fs class fs stats]: https://nodejs.org/api/fs.html fs class fs stats [node js stream readable streams]: https://nodejs.org/api/stream.html stream readable streams [node js]: https://nodejs.org/en [nodelib fs scandir old and modern modern]: https://github.com/nodelib/nodelib/blob/master/packages/fs/fs.scandir/README.md old-and-modern-mode [npm normalize path]: https://www.npmjs.com/package/normalize-path [npm unixify]: https://www.npmjs.com/package/unixify [picomatch matching behavior]: https://github.com/micromatch/picomatch matching-behavior-vs-bash [picomatch matching special characters as literals]: https://github.com/micromatch/picomatch matching-special-characters-as-literals [picomatch posix brackets]: https://github.com/micromatch/picomatch posix-brackets [regular expressions brackets]: https://www.regular-expressions.info/brackets.html [unc path]: https://learn.microsoft.com/openspecs/windows protocols/ms-dtyp/62e862f4-2a51-452e-8eeb-dc4ff5ee33cc [wikipedia case sensitivity]: https://en.wikipedia.org/wiki/Case sensitivity [nodejs thread pool]: https://nodejs.org/en/docs/guides/dont-block-the-event-loop [libuv thread pool]: http://docs.libuv.org/en/v1.x/threadpool.html [windows naming conventions]: https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file naming-conventions",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/README",
+    "id": ""
+  },
+  {
+    "title": "[5.1.2](https://github.com/gulpjs/glob-parent/compare/v5.1.1...v5.1.2) (2021-03-06)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Bug Fixes",
+    "body": "eliminate ReDoS ( 36) (f923116)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "[5.1.1](https://github.com/gulpjs/glob-parent/compare/v5.1.0...v5.1.1) (2021-01-27)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Bug Fixes",
+    "body": "unescape exclamation mark ( 26) (a98874f)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "add flipBackslashes option to disable auto conversion of slashes (closes 24) ( 25) (eecf91d)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.⚠ BREAKING CHANGES",
+    "body": "Drop support for node <6 & bump dependencies",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Miscellaneous Chores",
+    "body": "Drop support for node <6 & bump dependencies (896c0c0)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.⚠ BREAKING CHANGES",
+    "body": "question marks are valid path characters on Windows so avoid flagging as a glob when alone Update is-glob dependency",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "hoist regexps and strings for performance gains (4a80667) question marks are valid path characters on Windows so avoid flagging as a glob when alone (2a551dd) Update is-glob dependency (e41fcd8)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "allow basic win32 backslash use (272afa5) handle extglobs (parentheses) containing separators (7db1bdb) new approach to braces/brackets handling (8269bd8) pre-process braces/brackets sections (9ef8a87) preserve escaped brace/bracket at end of string (8cfb0ba)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Bug Fixes",
+    "body": "trailing escaped square brackets (99ec9fe)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "[3.0.1](https://github.com/gulpjs/glob-parent/compare/v3.0.0...v3.0.1) (2021-01-27)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "use path-dirname ponyfill (cdbea5f)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Bug Fixes",
+    "body": "unescape glob-escaped dirnames on output (598c533)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.⚠ BREAKING CHANGES",
+    "body": "update is-glob dependency",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "update is-glob dependency (5c5f8ef)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "move up to dirname regardless of glob characters (f97fb83)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Reverts",
+    "body": "feat: make regex test strings smaller (dc80fa9)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG.Features",
+    "body": "make regex test strings smaller (cd83220)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "glob-parent",
+    "body": "[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Azure Pipelines Build Status][azure-pipelines-image]][azure-pipelines-url] [![Travis Build Status][travis-image]][travis-url] [![AppVeyor Build Status][appveyor-image]][appveyor-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url] Extract the non-magic parent path from a glob string.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.`globParent(maybeGlobString, [options])`",
+    "body": "Takes a string and returns the part of the path before the glob begins. Be aware of Escaping rules and Limitations below. options The following characters have special significance in glob patterns and must be escaped if you want them to be treated as regular path characters: - ? (question mark) unless used as a path segment alone - (asterisk) - (pipe) - ( (opening parenthesis) - ) (closing parenthesis) - { (opening curly brace) - } (closing curly brace) - [ (opening bracket) - ] (closing bracket) Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.Braces & Brackets",
+    "body": "This library attempts a quick and imperfect method of determining which path parts have glob magic without fully parsing/lexing the pattern. There are some advanced use cases that can trip it up, such as nested braces where the outer pair is escaped and the inner one contains a path separator. If you find yourself in the unlikely circumstance of being affected by this or need to ensure higher-fidelity glob handling in your library, it is recommended that you pre-process your input with [expand-braces] and/or [expand-brackets].",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.Windows",
+    "body": "Backslashes are not valid path separators for globs. If a path with backslashes is provided anyway, for simple cases, glob-parent will replace the path separator for you and return the non-glob parent path (now with forward-slashes, which are still valid as Windows path separators). This cannot be used in conjunction with escape characters. If you are using escape characters for a pattern without path parts (i.e. relative to cwd), prefix with ./ to avoid confusing glob-parent. ISC [expand-braces]: https://github.com/jonschlinkert/expand-braces [expand-brackets]: https://github.com/jonschlinkert/expand-brackets [downloads-image]: https://img.shields.io/npm/dm/glob-parent.svg [npm-url]: https://www.npmjs.com/package/glob-parent [npm-image]: https://img.shields.io/npm/v/glob-parent.svg [azure-pipelines-url]: https://dev.azure.com/gulpjs/gulp/ build/latest?definitionId=2&branchName=master [azure-pipelines-image]: https://dev.azure.com/gulpjs/gulp/ apis/build/status/glob-parent?branchName=master [travis-url]: https://travis-ci.org/gulpjs/glob-parent [travis-image]: https://img.shields.io/travis/gulpjs/glob-parent.svg?label=travis-ci [appveyor-url]: https://ci.appveyor.com/project/gulpjs/glob-parent [appveyor-image]: https://img.shields.io/appveyor/ci/gulpjs/glob-parent.svg?label=appveyor [coveralls-url]: https://coveralls.io/r/gulpjs/glob-parent [coveralls-image]: https://img.shields.io/coveralls/gulpjs/glob-parent/master.svg [gitter-url]: https://gitter.im/gulpjs/gulp [gitter-image]: https://badges.gitter.im/gulpjs/gulp.svg",
+    "path": "/.tmp/ci-repro/repo/node_modules/fast-glob/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "fastq",
+    "body": "![ci][ci-url] [![npm version][npm-badge]][npm-url] Fast, in memory work queue. Benchmarks (1 million tasks): setImmediate: 812ms fastq: 854ms async.queue: 1298ms neoAsync.queue: 1249ms Obtained on node 12.16.1, on a dedicated server. If you need zero-overhead series function call, check out fastseries. For zero-overhead parallel function call, check out fastparallel. Installation Usage API Licence &amp; copyright npm i fastq --save",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "fastq.Setting \"this\"",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "fastq.Using with TypeScript (callback API)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "fastq.Using with TypeScript (promise API)",
+    "body": "fastqueue() queue push() queue unshift() queue pause() queue resume() queue idle() queue length() queue getQueue() queue kill() queue killAndDrain() queue error() queue concurrency queue drain queue empty queue saturated fastqueue.promise() -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "fastq.fastqueue([that], worker, concurrency)",
+    "body": "Creates a new queue. Arguments: that, optional context of the worker function. worker, worker function, it would be called with that as this, if that is specified. concurrency, number of concurrent tasks that could be executed in parallel. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.push(task, done)",
+    "body": "Add a task at the end of the queue. done(err, result) will be called when the task was processed. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.unshift(task, done)",
+    "body": "Add a task at the beginning of the queue. done(err, result) will be called when the task was processed. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.pause()",
+    "body": "Pause the processing of tasks. Currently worked tasks are not stopped. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.resume()",
+    "body": "Resume the processing of tasks. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.idle()",
+    "body": "Returns false if there are tasks being processed or waiting to be processed. true otherwise. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.length()",
+    "body": "Returns the number of tasks waiting to be processed (in the queue). -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.getQueue()",
+    "body": "Returns all the tasks be processed (in the queue). Returns empty array when there are no tasks -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.kill()",
+    "body": "Removes all tasks waiting to be processed, and reset drain to an empty function. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.killAndDrain()",
+    "body": "Same than kill but the drain function will be called before reset to empty. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.error(handler)",
+    "body": "Set a global error handler. handler(err, task) will be called each time a task is completed, err will be not null if the task has thrown an error. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.concurrency",
+    "body": "Property that returns the number of concurrent tasks that could be executed in parallel. It can be altered at runtime. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.paused",
+    "body": "Property (Read-Only) that returns true when the queue is in a paused state. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.drain",
+    "body": "Function that will be called when the last item from the queue has been processed by a worker. It can be altered at runtime. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.empty",
+    "body": "Function that will be called when the last item from the queue has been assigned to a worker. It can be altered at runtime. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "queue.saturated",
+    "body": "Function that will be called when the queue hits the concurrency limit. It can be altered at runtime. -------------------------------------------------------",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "fastqueue.promise([that], worker(arg), concurrency)",
+    "body": "Creates a new queue with Promise apis. It also offers all the methods and properties of the object returned by fastqueue with the modified push and unshift methods. Node v10+ is required to use the promisified version. Arguments: that, optional context of the worker function. worker, worker function, it would be called with that as this, if that is specified. It MUST return a Promise. concurrency, number of concurrent tasks that could be executed in parallel. queue.push(task) = Promise Add a task at the end of the queue. The returned Promise will be fulfilled (rejected) when the task is completed successfully (unsuccessfully). This promise could be ignored as it will not lead to a 'unhandledRejection'. queue.unshift(task) = Promise Add a task at the beginning of the queue. The returned Promise will be fulfilled (rejected) when the task is completed successfully (unsuccessfully). This promise could be ignored as it will not lead to a 'unhandledRejection'. queue.drained() = Promise Wait for the queue to be drained. The returned Promise will be resolved when all tasks in the queue have been processed by a worker. This promise could be ignored as it will not lead to a 'unhandledRejection'. ISC [ci-url]: https://github.com/mcollina/fastq/workflows/ci/badge.svg [npm-badge]: https://badge.fury.io/js/fastq.svg [npm-url]: https://badge.fury.io/js/fastq",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/README",
+    "id": ""
+  },
+  {
+    "title": "Security Policy",
+    "body": "Use this section to tell people about which versions of your project are currently being supported with security updates. Version Supported ------- ------------------ 1.x :white check mark: < 1.0 :x: Please report all vulnerabilities at https://github.com/mcollina/fastq/security.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fastq/SECURITY",
+    "id": ""
+  },
+  {
+    "title": "fill-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/fill-range.svg?style=flat)](https://www.npmjs.com/package/fill-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/fill-range.svg?style=flat)](https://npmjs.org/package/fill-range) [![NPM total downloads](https://img.shields.io/npm/dt/fill-range.svg?style=flat)](https://npmjs.org/package/fill-range) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/fill-range.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/fill-range)",
+    "body": "Fill in a range of numbers or letters, optionally passing an increment or step to use, or create a regex-compatible range with options.toRegex Please consider following this project's author, Jon Schlinkert, and consider starring the project to show your :heart: and support. Install with npm: Expands numbers and letters, optionally using a step as the last argument. (Numbers may be defined as JavaScript numbers or strings) . Params from: {String Number} the number or letter to start with to: {String Number} the number or letter to end with step: {String Number Object Function} Optionally pass a step to use. options: {Object Function} : See all available options By default, an array of values is returned. Alphabetical ranges Numerical ranges Numbers can be defined as actual numbers or strings. Negative ranges Numbers can be defined as actual numbers or strings. Steps (increments)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "options.step",
+    "body": "Type : number (formatted as a string or number) Default : undefined Description : The increment to use for the range. Can be used with letters or numbers. Example(s)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "options.strictRanges",
+    "body": "Type : boolean Default : false Description : By default, null is returned when an invalid range is passed. Enable this option to throw a RangeError on invalid ranges. Example(s) The following are all invalid:",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "options.stringify",
+    "body": "Type : boolean Default : undefined Description : Cast all returned values to strings. By default, integers are returned as numbers. Example(s)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "options.toRegex",
+    "body": "Type : boolean Default : undefined Description : Create a regex-compatible source string, instead of expanding values to an array. Example(s)",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "options.transform",
+    "body": "Type : function Default : undefined Description : Customize each value in the returned array (or string). (you can also pass this function as the last argument to fill()) . Example(s) Contributing Pull requests and stars are always welcome. For bugs and feature requests, please create an issue. Running Tests Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command: Building docs (This project's readme.md is generated by verb, please don't edit the readme directly. Any changes to the readme must be made in the .verb.md readme template.) To generate the readme, run the following command:",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "fill-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/fill-range.svg?style=flat)](https://www.npmjs.com/package/fill-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/fill-range.svg?style=flat)](https://npmjs.org/package/fill-range) [![NPM total downloads](https://img.shields.io/npm/dt/fill-range.svg?style=flat)](https://npmjs.org/package/fill-range) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/fill-range.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/fill-range).Contributors",
+    "body": "Commits Contributor --- --- 116 jonschlinkert 4 paulmillr 2 realityking 2 bluelovers 1 edorivai 1 wtgtybhertgeghgtwtg",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "fill-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/fill-range.svg?style=flat)](https://www.npmjs.com/package/fill-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/fill-range.svg?style=flat)](https://npmjs.org/package/fill-range) [![NPM total downloads](https://img.shields.io/npm/dt/fill-range.svg?style=flat)](https://npmjs.org/package/fill-range) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/fill-range.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/fill-range).Author",
+    "body": "Jon Schlinkert GitHub Profile Twitter Profile LinkedIn Profile Please consider supporting me on Patreon, or start your own Patreon page!",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "fill-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/fill-range.svg?style=flat)](https://www.npmjs.com/package/fill-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/fill-range.svg?style=flat)](https://npmjs.org/package/fill-range) [![NPM total downloads](https://img.shields.io/npm/dt/fill-range.svg?style=flat)](https://npmjs.org/package/fill-range) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/fill-range.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/fill-range).License",
+    "body": "Copyright © 2019, Jon Schlinkert. Released under the MIT License. This file was generated by verb-generate-readme, v0.8.0, on April 08, 2019.",
+    "path": "/.tmp/ci-repro/repo/node_modules/fill-range/README",
+    "id": ""
+  },
+  {
+    "title": "Security",
+    "body": "Please email @ljharb or see https://tidelift.com/security if you have a potential security vulnerability to report.",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/.github/SECURITY",
+    "id": ""
+  },
+  {
+    "title": "Changelog",
+    "body": "All notable changes to this project will be documented in this file. The format is based on Keep a Changelog and this project adheres to Semantic Versioning.",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Merged",
+    "body": "- Point to the correct file 16",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Tests] migrate tests to Github Actions 4f8b57c - [Tests] remove jscs 90eb2ed - [meta] update .gitignore 53fcdc3 - [Tests] up to node v11.10, v10.15, v9.11, v8.15, v6.16, v4.9; use nvm install-latest-npm; run audit script in tests 1fe8f6e - [meta] add auto-changelog 1921fcb - [Robustness] remove runtime dependency on all builtins except .apply f743e61 - Docs: enable badges; update wording 503cb12 - [readme] update badges 290c5db - [Tests] switch to nyc for coverage ea360ba - [Dev Deps] update eslint, @ljharb/eslint-config, tape cae5e9e - [meta] add funding field; create FUNDING.yml c9f4274 - [Tests] fix eslint errors from 15 f69aaa2 - [actions] fix permissions 99a0cd9 - [meta] use npmignore to autogenerate an npmignore file f03b524 - [Dev Deps] update @ljharb/eslint‑config, eslint, tape 7af9300 - [Dev Deps] update eslint, @ljharb/eslint-config, covert, tape 64a9127 - [Tests] use aud instead of npm audit e75069c - [Dev Deps] update @ljharb/eslint-config, aud, tape d03555c - [meta] add safe-publish-latest 9c8f809 - [Dev Deps] update @ljharb/eslint-config, tape baf6893 - [meta] create SECURITY.md 4db1779 - [Tests] add npm run audit c8b38ec - Revert \"Point to the correct file\" 05cdf0f",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Tests] up to node v8; newer npm breaks on older node; fix scripts 817f7d2 - [Dev Deps] update eslint, jscs, tape, @ljharb/eslint-config 854288b - [Dev Deps] update tape, jscs, eslint, @ljharb/eslint-config 83e639f - Only apps should have lockfiles 5ed97f5 - Use a SPDX-compliant “license” field. 5feefea",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- Update eslint, tape; use my personal shared eslint config 9c9062a - Add npm run eslint dd96c56 - [New] return the native bind when available. 82186e0 - [Dev Deps] update tape, jscs, eslint, @ljharb/eslint-config a3dd767 - Update eslint 3dae2f7 - Update tape, covert, jscs a181eee - [Tests] up to node v5.6, v4.3 964929a - Test up to io.js v2.1 2be7310 - Update tape, jscs, eslint, @ljharb/eslint-config 45f3d68 - [Dev Deps] update tape, jscs 6e1340d - [Tests] up to io.js v3.3, node v4.1 d9bad2b - Update eslint 935590c - [Dev Deps] update jscs, eslint, @ljharb/eslint-config 8c9a1ef - Test on io.js v2.2 9a3a38c - Run travis-ci tests on iojs and node v0.12; speed up builds; allow 0.8 failures. 69afc26 - [Dev Deps] Update tape, eslint 36c1be0 - Update tape, jscs 98d8303 - Update jscs 9633a4e - Update tape, jscs c80ef0f - Test up to io.js v3.0 7e2c853 - Test on io.js v2.4 5a199a2 - Test on io.js v2.3 a511b88 - Fixing a typo from 822b4e1938db02dc9584aa434fd3a45cb20caf43 732d6b6 - Update jscs da52a48 - Lock covert to v1.0.0. d6150fd",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Merged",
+    "body": "- make CI build faster 3",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- Using my standard jscs.json d8ee94c - Adding npm run lint 7571ab7 - Using consistent indentation e91a1b1 - Updating jscs 7e17892 - Using consistent quotes c50b57f - Adding keywords cb94631 - Directly export a function expression instead of using a declaration, and relying on hoisting. 5a33c5f - Naming npm URL and badge in README; use SVG 2aef8fc - Naming deps URLs in README 04228d7 - Naming travis-ci URLs in README; using SVG 62c810c - Make sure functions are invoked correctly (also passing coverage tests) 2b289b4 - Removing the strict mode pragmas; they make tests fail. 1aa701d - Adding myself as a contributor 85fd57b - Adding strict mode pragmas 915b08e - Adding devDeps URLs to README 4ccc731 - Fixing the description. a7a472c - Using a function expression instead of a function declaration. b5d3e4e - Updating tape f086be6 - Updating jscs 5f9bdb3 - Updating jscs 9b409ba - Run coverage as part of tests. 8e1b6d4 - Run linter as part of tests c1ca83f - Updating covert 701e837",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- Make sure old and unstable nodes don't fail Travis 27adca3 - Fixing an issue when the bound function is called as a constructor in ES3. e20122d - Adding npm run coverage a2e29c4 - Updating tape b741168 - Upgrading tape 63631a0 - Updating tape 363cb46",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- Updating test coverage to match es5-shim. aa94d44 - initial 942ee07 - Setting the bound function's length properly. 079f46a - Ensuring that some older browsers will throw when given a regex. 36ac55b - Removing npm scripts that don't have dependencies 9d2be60 - Updating tape 297a4ac - Skipping length tests for now. d9891ea - don't take my tea dccd930",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "function-bind <sup>[![Version Badge][npm-version-svg]][package-url]</sup>",
+    "body": "[![github actions][actions-image]][actions-url] [![dependency status][deps-svg]][deps-url] [![dev dependency status][dev-deps-svg]][dev-deps-url] [![License][license-image]][license-url] [![Downloads][downloads-image]][downloads-url] [![npm badge][npm-badge-png]][package-url] Implementation of function.prototype.bind Old versions of phantomjs, Internet Explorer < 9, and node < 0.6 don't support Function.prototype.bind. npm install function-bind - Raynos [package-url]: https://npmjs.org/package/function-bind [npm-version-svg]: https://versionbadg.es/Raynos/function-bind.svg [deps-svg]: https://david-dm.org/Raynos/function-bind.svg [deps-url]: https://david-dm.org/Raynos/function-bind [dev-deps-svg]: https://david-dm.org/Raynos/function-bind/dev-status.svg [dev-deps-url]: https://david-dm.org/Raynos/function-bind info=devDependencies [npm-badge-png]: https://nodei.co/npm/function-bind.png?downloads=true&stars=true [license-image]: https://img.shields.io/npm/l/function-bind.svg [license-url]: LICENSE [downloads-image]: https://img.shields.io/npm/dm/function-bind.svg [downloads-url]: https://npm-stat.com/charts.html?package=function-bind [codecov-image]: https://codecov.io/gh/Raynos/function-bind/branch/main/graphs/badge.svg [codecov-url]: https://app.codecov.io/gh/Raynos/function-bind/ [actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/Raynos/function-bind [actions-url]: https://github.com/Raynos/function-bind/actions",
+    "path": "/.tmp/ci-repro/repo/node_modules/function-bind/README",
+    "id": ""
+  },
+  {
+    "title": "Blue Oak Model License",
+    "body": "Version 1.0.0 This license gives everyone as much permission to work with this software as possible, while protecting contributors from liability. In order to receive this license, you must agree to its rules. The rules of this license are both obligations under that agreement and conditions to your license. You must not do anything with this software that triggers a rule that you cannot or will not follow. Each contributor licenses you to do everything with this software that would otherwise infringe that contributor's copyright in it. You must ensure that everyone who gets a copy of any part of this software from you, with or without changes, also gets the text of this license or a link to . If anyone notifies you in writing that you have not complied with Notices, you can keep your license by taking all practical steps to comply within 30 days after the notice. If you do not do so, your license ends immediately. Each contributor licenses you to do everything with this software that would otherwise infringe any patent claims they can license or become able to license. No contributor can revoke this license. As far as the law allows, this software comes as is, without any warranty or condition, and no contributor will be liable to anyone for any damages related to this software or this license, under any kind of legal claim.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/LICENSE",
+    "id": ""
+  },
+  {
+    "title": "Glob",
+    "body": "Match files using the patterns the shell uses. The most correct and second fastest glob implementation in JavaScript. (See Comparison to Other JavaScript Glob Implementations at the bottom of this readme.) !a fun cartoon logo made of glob characters Install with npm [!NOTE] The npm package name is not node-glob that's a different thing that was abandoned years ago. Just glob. [!NOTE] Glob patterns should always use / as a path separator, even on Windows systems, as \\ is used to escape glob characters. If you wish to use \\ as a path separator instead of using it as an escape character on Windows platforms, you may set windowsPathsNoEscape:true in the options. In this mode, special glob characters cannot be escaped, making it impossible to match a literal ? and so on in filenames. The glob CLI has been moved to the glob-bin package, and must be installed separately, as of version 13. Perform an asynchronous glob search for the pattern(s) specified. Returns Path objects if the withFileTypes option is set to true. See below for full options field desciptions. Synchronous form of glob(). Alias: glob.sync() Return an async iterator for walking glob pattern matches. Alias: glob.iterate() Return a sync iterator for walking glob pattern matches. Alias: glob.iterate.sync(), glob.sync.iterate() Return a stream that emits all the strings or Path objects and then emits end when completed. Alias: glob.stream() Syncronous form of globStream(). Will read all the matches as fast as you consume them, even all in a single tick if you consume them immediately, but will still respond to backpressure if they're not consumed immediately. Alias: glob.stream.sync(), glob.sync.stream() Returns true if the provided pattern contains any \"magic\" glob characters, given the options provided. Brace expansion is not considered \"magic\" unless the magicalBraces option is set, as brace expansion just turns one string into an array of strings. So a pattern like 'x{a,b}y' would return false, because 'xay' and 'xby' both do not contain any magic glob characters, and it's treated the same as if you had called it on ['xay', 'xby']. When magicalBraces:true is in the options, brace expansion is treated as a pattern having magic. Escape all magic characters in a glob pattern, so that it will only ever match literal strings If the windowsPathsNoEscape option is used, then characters are escaped by wrapping in [], because a magic character wrapped in a character class can only be satisfied by that exact character. Slashes (and backslashes in windowsPathsNoEscape mode) cannot be escaped or unescaped. Un-escape a glob string that may contain some escaped characters. If the windowsPathsNoEscape option is used, then square-brace escapes are removed, but not backslash escapes. For example, it will turn the string '[ ]' into , but it will not turn '\\\\ ' into ' ', because \\ is a path separator in windowsPathsNoEscape mode. When windowsPathsNoEscape is not set, then both brace escapes and backslash escapes are removed. Slashes (and backslashes in windowsPathsNoEscape mode) cannot be escaped or unescaped. An object that can perform glob pattern traversals.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.`const g = new Glob(pattern: string | string[], options: GlobOptions)`",
+    "body": "Options object is required. See full options descriptions below. [!NOTE] A previous Glob object can be passed as the GlobOptions to another Glob instantiation to re-use settings and caches with a new pattern. Traversal functions can be called multiple times to run the walk again.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "`g.stream()`",
+    "body": "Stream results asynchronously.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "`g.streamSync()`",
+    "body": "Stream results synchronously.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "`g.iterate()`",
+    "body": "Default async iteration function. Returns an AsyncGenerator that iterates over the results.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "`g.iterateSync()`",
+    "body": "Default sync iteration function. Returns a Generator that iterates over the results.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "`g.walk()`",
+    "body": "Returns a Promise that resolves to the results array.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "`g.walkSync()`",
+    "body": "Returns a results array.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.Properties",
+    "body": "All options are stored as properties on the Glob object. - opts The options provided to the constructor. - patterns An array of parsed immutable Pattern objects. Exported as GlobOptions TypeScript interface. A GlobOptions object may be provided to any of the exported methods, and must be provided to the Glob constructor. All options are optional, boolean, and false by default, unless otherwise noted. All resolved options are added to the Glob object as properties. If you are running many glob operations, you can pass a Glob object as the options argument to a subsequent operation to share the previously loaded cache. - cwd String path or file:// string or URL object. The current working directory in which to search. Defaults to process.cwd(). See also: \"Windows, CWDs, Drive Letters, and UNC Paths\", below. This option may be either a string path or a file:// URL object or string. - root A string path resolved against the cwd option, which is used as the starting point for absolute patterns that start with /, (but not drive letters or UNC paths on Windows). To start absolute and non-absolute patterns in the same path, you can use {root:''}. However, be aware that on Windows systems, a pattern like x:/ or //host/share/ will always start in the x:/ or //host/share directory, regardless of the root setting. [!NOTE] This doesn't necessarily limit the walk to the root directory, and doesn't affect the cwd starting point for non-absolute patterns. A pattern containing .. will still be able to traverse out of the root directory, if it is not an actual root directory on the filesystem, and any non-absolute patterns will be matched in the cwd. For example, the pattern /../ with {root:'/some/path'} will return all files in /some, not all files in /some/path. The pattern with {root:'/some/path'} will return all the entries in the cwd, not the entries in /some/path. - windowsPathsNoEscape Use \\\\ as a path separator only , and never as an escape character. If set, all \\\\ characters are replaced with / in the pattern. [!NOTE] This makes it impossible to match against paths containing literal glob pattern characters, but allows matching with patterns constructed using path.join() and path.resolve() on Windows platforms, mimicking the (buggy!) behavior of Glob v7 and before on Windows. Please use with caution, and be mindful of the caveat below about Windows paths. (For legacy reasons, this is also set if allowWindowsEscape is set to the exact value false.) - dot Include .dot files in normal matches and globstar matches. Note that an explicit dot in a portion of the pattern will always match dot files. - magicalBraces Treat brace expansion like {a,b} as a \"magic\" pattern. Has no effect if {@link nobrace} is set. Only has effect on the {@link hasMagic} function, no effect on glob pattern matching itself. - dotRelative Prepend all relative path strings with ./ (or .\\ on Windows). Without this option, returned relative paths are \"bare\", so instead of returning './foo/bar', they are returned as 'foo/bar'. Relative patterns starting with '../' are not prepended with ./, even if this option is set. - mark Add a / character to directory matches. Note that this requires additional stat calls. - nobrace Do not expand {a,b} and {1..3} brace sets. - noglobstar Do not match against multiple filenames. (Ie, treat it as a normal instead.) - noext Do not match \"extglob\" patterns such as +(a b). - nocase Perform a case-insensitive match. This defaults to true on macOS and Windows systems, and false on all others. [!NOTE] nocase should only be explicitly set when it is known that the filesystem's case sensitivity differs from the platform default. If set true on case-sensitive file systems, or false on case-insensitive file systems, then the walk may return more or less results than expected. As a shortcut to avoid excessive RegExp creations, Glob will use string portions as-is to readdir() calls while doing its traversal. If you are setting a nocase: true match on a file system that is in fact case sensitive, then this will result in matches not being found that you might expect, because for example the pattern Foo/ will fail to read the FOO/ or foo/ directories. On the other hand, if you set nocase: false on a case- insensitive system, then the opposite problem occurs: Foo/ will match foo/bar, but because we only detect the existence of the foo/ folder by successfully performing a readdir, there's no way to know what the \"real\" case is, and the match will be reported as Foo/bar, using the case of the string portion of the glob pattern. The default is usually correct, however it is possible to mount file systems with a different case-sensitivity from the host system. If you know this is the case, set this flag appropriately to the file system you are searching. - maxDepth Specify a number to limit the depth of the directory traversal to this many levels below the cwd. - matchBase Perform a basename-only match if the pattern does not contain any slash characters. That is, .js would be treated as equivalent to / .js, matching all js files in all directories. - nodir Do not match directories, only files. (Note: to match only directories, put a / at the end of the pattern.) [!NOTE] When follow and nodir are both set, then symbolic links to directories are also omitted. - stat Call lstat() on all entries, whether required or not to determine whether it's a valid match. When used with withFileTypes, this means that matches will include data such as modified time, permissions, and so on. Note that this will incur a performance cost due to the added system calls. - ignore string or string[], or an object with ignored and childrenIgnored methods. If a string or string[] is provided, then this is treated as a glob pattern or array of glob patterns to exclude from matches. To ignore all children within a directory, as well as the entry itself, append '/ ' to the ignore pattern. If an object is provided that has ignored(path) and/or childrenIgnored(path) methods, then these methods will be called to determine whether any Path is a match or if its children should be traversed, respectively. The path argument to the methods will be a path-scurry Path object, which extends fs.Dirent with additional useful methods like .fullpath(), .relative(), and more. [!NOTE] ignore patterns are always in dot:true mode, regardless of any other settings. - follow Follow symlinked directories when expanding patterns. This can result in a lot of duplicate references in the presence of cyclic links, and make performance quite bad. By default, a in a pattern will follow 1 symbolic link if it is not the first item in the pattern, or none if it is the first item in the pattern, following the same behavior as Bash. [!NOTE] When follow and nodir are both set, then symbolic links to directories are also omitted. - realpath Set to true to call fs.realpath on all of the results. In the case of an entry that cannot be resolved, the entry is omitted. This incurs a slight performance penalty, of course, because of the added system calls. - absolute Set to true to always receive absolute paths for matched files. Set to false to always receive relative paths for matched files. By default, when this option is not set, absolute paths are returned for patterns that are absolute, and otherwise paths are returned that are relative to the cwd setting. This does not make an extra system call to get the realpath, it only does string path resolution. absolute may not be used along with withFileTypes. - posix Set to true to use / as the path separator in returned results. On POSIX systems, this has no effect. On Windows systems, this will return / delimited path results, and absolute paths will be returned in their fully resolved UNC path form, e.g. instead of 'C:\\\\foo\\\\bar', it will return //?/C:/foo/bar. - platform Defaults to the value of process.platform if available, or 'linux' if not. Setting platform:'win32' on non-Windows systems may cause strange behavior. - withFileTypes Return path-scurry Path objects instead of strings. These are similar to a NodeJS fs.Dirent object, but with additional methods and properties. withFileTypes may not be used along with absolute. - signal An AbortSignal which will cancel the Glob walk when triggered. - fs An override object to pass in custom filesystem methods. See path-scurry docs for what can be overridden. - scurry A PathScurry object used to traverse the file system. If the nocase option is set explicitly, then any provided scurry object must match this setting. - includeChildMatches boolean, default true. Do not match any children of any matches. For example, the pattern \\/foo would match a/foo, but not a/foo/b/foo in this mode. This is especially useful for cases like \"find all node modules folders, but not the ones in node modules\". In order to support this, the Ignore implementation must support an add(pattern: string) method. If using the default Ignore class, then this is fine, but if this is set to false, and a custom Ignore is provided that does not have an add() method, then it will throw an error. For example: It's best to only set this to false if you can be reasonably sure that no components of the pattern will potentially match one another's file system descendants, or if the occasional included child entry will not cause problems. [!NOTE] It only ignores matches that would be a descendant of a previous match, and only if that descendant is matched after the ancestor is encountered. Since the file system walk happens in indeterminate order, it's possible that a match will already be added before its ancestor, if multiple or braced patterns are used. - braceExpandMax number, defaults to 10 000. This is the maximum number of {x,y,...} patterns to expand. It is very unlikely that you'll need more than this, and setting it higher exposes the system to out-of-memory errors. Much more information about glob pattern expansion can be found by running man bash and searching for Pattern Matching. \"Globs\" are the patterns you type when you do stuff like ls .js on the command line, or put build/ in a .gitignore file. Before parsing the path part patterns, braced sections are expanded into a set. Braced sections start with { and end with }, with 2 or more comma-delimited sections within. Braced sections may contain slash characters, so a{/b/c,bcd} would expand into a/b/c and abcd. The following characters have special magic meaning when used in a path portion. With the exception of , none of these match path separators (ie, / on all platforms, and \\ on Windows). - Matches 0 or more characters in a single path portion. When alone in a path portion, it must match at least 1 character. If dot:true is not specified, then will not match against a . character at the start of a path portion. - ? Matches 1 character. If dot:true is not specified, then ? will not match against a . character at the start of a path portion. - [...] Matches a range of characters, similar to a RegExp range. If the first character of the range is ! or ^ then it matches any character not in the range. If the first character is ], then it will be considered the same as \\], rather than the end of the character class. - !(pattern pattern pattern) Matches anything that does not match any of the patterns provided. May not contain / characters. Similar to , if alone in a path portion, then the path portion must have at least one character. - ?(pattern pattern pattern) Matches zero or one occurrence of the patterns provided. May not contain / characters. - +(pattern pattern pattern) Matches one or more occurrences of the patterns provided. May not contain / characters. - (a b c) Matches zero or more occurrences of the patterns provided. May not contain / characters. - @(pattern pat pat?erN) Matches exactly one of the patterns provided. May not contain / characters. - If a \"globstar\" is alone in a path portion, then it matches zero or more directories and subdirectories searching for matches. It does not crawl symlinked directories, unless {follow:true} is passed in the options object. A pattern like a/b/ will only match a/b if it is a directory. Follows 1 symbolic link if not the first item in the pattern, or 0 if it is the first item, unless follow:true is set, in which case it follows all symbolic links. [:class:] patterns are supported by this implementation, but [=c=] and [.symbol.] style class patterns are not.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.Dots",
+    "body": "If a file or directory path portion has a . as the first character, then it will not match any glob pattern unless that pattern's corresponding path part also has a . as its first character. For example, the pattern a/. /c would match the file at a/.b/c. However the pattern a/ /c would not, because does not start with a dot character. You can make glob treat dots as normal characters by setting dot:true in the options.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.Basename Matching",
+    "body": "If you set matchBase:true in the options, and the pattern has no slashes in it, then it will seek for any file anywhere in the tree with a matching basename. For example, .js would match test/simple/basic.js.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.Empty Sets",
+    "body": "If no matching files are found, then an empty array is returned. This differs from the shell, where the pattern itself is returned. For example: While strict compliance with the existing standards is a worthwhile goal, some discrepancies exist between node-glob and other implementations, and are intentional. The double-star character is supported by default, unless the noglobstar flag is set. This is supported in the manner of bsdglob and bash 5, where only has special significance if it is the only thing in a path part. That is, a/ /b will match a/x/y/b, but a/ b will not. [!NOTE] Symlinked directories are not traversed as part of a , though their contents may match against subsequent portions of the pattern. This prevents infinite loops and duplicates and the like. You can force glob to traverse symlinks with by setting {follow:true} in the options. There is no equivalent of the nonull option. A pattern that does not find any matches simply resolves to nothing. (An empty array, immediately ended stream, etc.) If brace expansion is not disabled, then it is performed before any other interpretation of the glob pattern. Thus, a pattern like +(a {b),c)}, which would not be valid in bash or zsh, is expanded first into the set of +(a b) and +(a c), and those patterns are checked for validity. Since those two are valid, matching proceeds. The character class patterns [:class:] (POSIX standard named classes) style class patterns are supported and Unicode-aware, but [=c=] (locale-specific character collation weight), and [.symbol.] (collating symbol), are not.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.Repeated Slashes",
+    "body": "Unlike Bash and zsh, repeated / are always coalesced into a single path separator.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.Comments and Negation",
+    "body": "Previously, this module let you mark a pattern as a \"comment\" if it started with a character, or a \"negated\" pattern if it started with a ! character. These options were deprecated in version 5, and removed in version 6. To specify things that should not match, use the ignore option. Please only use forward-slashes in glob expressions. Though Windows uses either / or \\ as its path separator, only / characters are used by this glob implementation. You must use forward-slashes only in glob expressions. Back-slashes will always be interpreted as escape characters, not path separators. Results from absolute patterns such as /foo/ are mounted onto the root setting using path.join. On Windows, this will by default result in /foo/ matching C:\\foo\\bar.txt. To automatically coerce all \\ characters to / in pattern strings, thus making it impossible to escape literal glob characters , you may set the windowsPathsNoEscape option to true.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.Windows, CWDs, Drive Letters, and UNC Paths",
+    "body": "On POSIX systems, when a pattern starts with /, any cwd option is ignored, and the traversal starts at /, plus any non-magic path portions specified in the pattern. On Windows systems, the behavior is similar, but the concept of an \"absolute path\" is somewhat more involved. UNC Paths A UNC path may be used as the start of a pattern on Windows platforms. For example, a pattern like: //?/x:/ will return all file entries in the root of the x: drive. A pattern like //ComputerName/Share/ will return all files in the associated share. UNC path roots are always compared case insensitively. Drive Letters A pattern starting with a drive letter, like c:/ , will search in that drive, regardless of any cwd option provided. If the pattern starts with /, and is not a UNC path, and there is an explicit cwd option set with a drive letter, then the drive letter in the cwd is used as the root of the directory traversal. For example, glob('/tmp', { cwd: 'c:/any/thing' }) will return ['c:/tmp'] as the result. If an explicit cwd option is not provided, and the pattern starts with /, then the traversal will run on the root of the drive provided as the cwd option. (That is, it is the result of path.resolve('/').) Glob searching, by its very nature, is susceptible to race conditions, since it relies on directory walking. As a result, it is possible that a file that exists when glob looks for it may have been deleted or modified by the time it returns the result. By design, this implementation caches all readdir calls that it makes, in order to cut down on system overhead. However, this also makes it even more susceptible to races, especially if the cache object is reused between glob calls. Users are thus advised not to use a glob result as a guarantee of filesystem state in the face of rapid changes. For the vast majority of operations, this is never a problem.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "Glob.See Also:",
+    "body": "- man sh - man bash Pattern Matching - man 3 fnmatch - man 5 gitignore - minimatch documentation Glob's logo was created by Tanya Brassie. Logo files can be found here. The logo is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. Any change to behavior (including bugfixes) must come with a test. Patches that fail tests or reduce performance will be rejected. ```sh",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "to run tests",
+    "body": "npm test",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "to re-generate test fixtures",
+    "body": "npm run test-regen",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "run the benchmarks",
+    "body": "npm run bench",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "to profile javascript",
+    "body": "npm run prof `` tl;dr - If you want glob matching that is as faithful as possible to Bash pattern expansion semantics, and as fast as possible within that constraint, use this module . - If you are reasonably sure that the patterns you will encounter are relatively simple, and want the absolutely fastest glob matcher out there, use fast-glob . - If you are reasonably sure that the patterns you will encounter are relatively simple, and want the convenience of automatically respecting .gitignore files, use globby . There are some other glob matcher libraries on npm, but these three are (in my opinion, as of 2023) the best. --- full explanation Every library reflects a set of opinions and priorities in the trade-offs it makes. Other than this library, I can personally recommend both globby and fast-glob, though they differ in their benefits and drawbacks. Both have very nice APIs and are reasonably fast. fast-glob is, as far as I am aware, the fastest glob implementation in JavaScript today. However, there are many cases where the choices that fast-glob makes in pursuit of speed mean that its results differ from the results returned by Bash and other sh-like shells, which may be surprising. In my testing, fast-glob is around 10-20% faster than this module when walking over 200k files nested 4 directories deep1. However, there are some inconsistencies with Bash matching behavior that this module does not suffer from: - only matches files, not directories - .. path portions are not handled unless they appear at the start of the pattern - ./!( ) will not match any files that start with , even if they do not match . For example, !(9).txt will not match 9999.txt. - Some brace patterns in the middle of a pattern will result in failing to find certain matches. - Extglob patterns are allowed to contain / characters. Globby exhibits all of the same pattern semantics as fast-glob, (as it is a wrapper around fast-glob) and is slightly slower than node-glob (by about 10-20% in the benchmark test set, or in other words, anywhere from 20-50% slower than fast-glob). However, it adds some API conveniences that may be worth the costs. - Support for .gitignore and other ignore files. - Support for negated globs (ie, patterns starting with ! rather than using a separate ignore option). The priority of this module is \"correctness\" in the sense of performing a glob pattern expansion as faithfully as possible to the behavior of Bash and other sh-like shells, with as much speed as possible. [!NOTE] Prior versions of node-glob are not on this list. Former versions of this module are far too slow for any cases where performance matters at all, and were designed with APIs that are extremely dated by current JavaScript standards. --- [1]: In the cases where this module returns results and fast-glob` doesn't, it's even faster, of course. !lumpy space princess saying 'oh my GLOB'",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "to profile javascript.Benchmark Results",
+    "body": "The first number is time, smaller is better. The second number is the count of results returned.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent",
+    "body": "[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coveralls Status][coveralls-image]][coveralls-url] Extract the non-magic parent path from a glob string.",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.`globParent(maybeGlobString, [options])`",
+    "body": "Takes a string and returns the part of the path before the glob begins. Be aware of Escaping rules and Limitations below. options The following characters have special significance in glob patterns and must be escaped if you want them to be treated as regular path characters: - ? (question mark) unless used as a path segment alone - (asterisk) - (pipe) - ( (opening parenthesis) - ) (closing parenthesis) - { (opening curly brace) - } (closing curly brace) - [ (opening bracket) - ] (closing bracket) Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.Braces & Brackets",
+    "body": "This library attempts a quick and imperfect method of determining which path parts have glob magic without fully parsing/lexing the pattern. There are some advanced use cases that can trip it up, such as nested braces where the outer pair is escaped and the inner one contains a path separator. If you find yourself in the unlikely circumstance of being affected by this or need to ensure higher-fidelity glob handling in your library, it is recommended that you pre-process your input with [expand-braces] and/or [expand-brackets].",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "glob-parent.Windows",
+    "body": "Backslashes are not valid path separators for globs. If a path with backslashes is provided anyway, for simple cases, glob-parent will replace the path separator for you and return the non-glob parent path (now with forward-slashes, which are still valid as Windows path separators). This cannot be used in conjunction with escape characters. If you are using escape characters for a pattern without path parts (i.e. relative to cwd), prefix with ./ to avoid confusing glob-parent. ISC [downloads-image]: https://img.shields.io/npm/dm/glob-parent.svg?style=flat-square [npm-url]: https://www.npmjs.com/package/glob-parent [npm-image]: https://img.shields.io/npm/v/glob-parent.svg?style=flat-square [ci-url]: https://github.com/gulpjs/glob-parent/actions?query=workflow:dev [ci-image]: https://img.shields.io/github/workflow/status/gulpjs/glob-parent/dev?style=flat-square [coveralls-url]: https://coveralls.io/r/gulpjs/glob-parent [coveralls-image]: https://img.shields.io/coveralls/gulpjs/glob-parent/master.svg?style=flat-square [expand-braces]: https://github.com/jonschlinkert/expand-braces [expand-brackets]: https://github.com/jonschlinkert/expand-brackets",
+    "path": "/.tmp/ci-repro/repo/node_modules/glob-parent/README",
+    "id": ""
+  },
+  {
+    "title": "Changelog",
+    "body": "All notable changes to this project will be documented in this file. The format is based on Keep a Changelog and this project adheres to Semantic Versioning.",
+    "path": "/.tmp/ci-repro/repo/node_modules/hasown/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [types] drop the dead key-narrowing overload fdab00e - [Dev Deps] update @ljharb/eslint-config, auto-changelog, eslint 91f6247",
+    "path": "/.tmp/ci-repro/repo/node_modules/hasown/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [actions] update workflows fb837b8 - [Dev Deps] update @arethetypeswrong/cli, @ljharb/eslint-config, @ljharb/tsconfig, @types/tape, auto-changelog, eslint, mock-property, npmignore, tape f4b279b - [Dev Deps] update eslint, @ljharb/eslint-config; migrate to flat config 7e415ce - [Dev Deps] update eslint ef313da - [meta] use npm audit instead of aud d5c6d4d - [types] add overload that narrows the key cc03a09",
+    "path": "/.tmp/ci-repro/repo/node_modules/hasown/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [types] use shared config 68e9d4d - [actions] remove redundant finisher; use reusable workflow 241a68e - [Tests] increase coverage 4125c0d - [Tests] skip npm ls in old node due to TS 01b9282 - [types] improve predicate type d340f85 - [Dev Deps] update tape 70089fc - [Tests] use @arethetypeswrong/cli 50b272c",
+    "path": "/.tmp/ci-repro/repo/node_modules/hasown/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [types] use a handwritten d.ts file; fix exported type 012b989 - [Dev Deps] update @types/function-bind, @types/mock-property, @types/tape, aud, mock-property, npmignore, tape, typescript 977a56f - [meta] add sideEffects flag 3a60b7b",
+    "path": "/.tmp/ci-repro/repo/node_modules/hasown/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- revamped implementation, tests, readme 72bf8b3 - [meta] revamp package.json 079775f - Only apps should have lockfiles 6640e23",
+    "path": "/.tmp/ci-repro/repo/node_modules/hasown/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- Initial commit 8dbfde6",
+    "path": "/.tmp/ci-repro/repo/node_modules/hasown/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "hasown <sup>[![Version Badge][npm-version-svg]][package-url]</sup>",
+    "body": "[![github actions][actions-image]][actions-url] [![coverage][codecov-image]][codecov-url] [![License][license-image]][license-url] [![Downloads][downloads-image]][downloads-url] [![npm badge][npm-badge-png]][package-url] A robust, ES3 compatible, \"has own property\" predicate. Simply clone the repo, npm install, and run npm test [package-url]: https://npmjs.org/package/hasown [npm-version-svg]: https://versionbadg.es/inspect-js/hasown.svg [deps-svg]: https://david-dm.org/inspect-js/hasOwn.svg [deps-url]: https://david-dm.org/inspect-js/hasOwn [dev-deps-svg]: https://david-dm.org/inspect-js/hasOwn/dev-status.svg [dev-deps-url]: https://david-dm.org/inspect-js/hasOwn info=devDependencies [npm-badge-png]: https://nodei.co/npm/hasown.png?downloads=true&stars=true [license-image]: https://img.shields.io/npm/l/hasown.svg [license-url]: LICENSE [downloads-image]: https://img.shields.io/npm/dm/hasown.svg [downloads-url]: https://npm-stat.com/charts.html?package=hasown [codecov-image]: https://codecov.io/gh/inspect-js/hasOwn/branch/main/graphs/badge.svg [codecov-url]: https://app.codecov.io/gh/inspect-js/hasOwn/ [actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/inspect-js/hasOwn [actions-url]: https://github.com/inspect-js/hasOwn/actions",
+    "path": "/.tmp/ci-repro/repo/node_modules/hasown/README",
+    "id": ""
+  },
+  {
+    "title": "is-binary-path [![Build Status](https://travis-ci.org/sindresorhus/is-binary-path.svg?branch=master)](https://travis-ci.org/sindresorhus/is-binary-path)",
+    "body": "Check if a file path is a binary file - binary-extensions - List of binary file extensions - is-text-path - Check if a filepath is a text file MIT © Sindre Sorhus, Paul Miller",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-binary-path/readme",
+    "id": ""
+  },
+  {
+    "title": "Changelog",
+    "body": "All notable changes to this project will be documented in this file. The format is based on Keep a Changelog and this project adheres to Semantic Versioning. /compare/v2.16.1...v2.16.2) - 2026-05-05",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Tests] increase coverage 1fc59fe - [actions] update workflows 0f6217b - [Fix] node 26 drops stream modules 3acff68 - [Dev Deps] update @ljharb/eslint-config, eslint, npmignore f06678c - [Deps] update hasown d9eae68 - [Dev Deps] update @ljharb/eslint-config 8273701 - [readme] replace runkit CI badge with shields.io check-runs badge 6b86754 /compare/v2.16.0...v2.16.1) - 2024-12-21",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Fixed",
+    "body": "- [Fix] node:sqlite is available in node ^22.13 17 /compare/v2.15.1...v2.16.0) - 2024-12-13",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [New] add node:sqlite 1ee94d2 - [Dev Deps] update auto-changelog, tape aa84aa3 /compare/v2.15.0...v2.15.1) - 2024-08-21",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Tests] add process.getBuiltinModule tests 28c7791 - [Fix] test/mock loader is no longer exposed as of v22.7 68b08b0 - [Tests] replace aud with npm audit 32f8060 - [Dev Deps] update mock-property f7d3c8f - [Dev Deps] add missing peer dep eaee885 /compare/v2.14.0...v2.15.0) - 2024-07-17",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [New] add node:sea 2819fb3 /compare/v2.13.1...v2.14.0) - 2024-06-20",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Dev Deps] update @ljharb/eslint-config, aud, mock-property, npmignore, tape 0e43200 - [meta] add missing engines.node 4ea3af8 - [New] add test/mock loader e9fbd29 - [Deps] update hasown 57f1940 /compare/v2.13.0...v2.13.1) - 2023-10-20",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Refactor] use hasown instead of has 0e52096 - [Dev Deps] update mock-property, tape 8736b35 /compare/v2.12.1...v2.13.0) - 2023-08-05",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Dev Deps] update @ljharb/eslint-config, aud, semver, tape c75b263 - [New] node:test/reporters and wasi/node:wasi are in v18.17 d76cbf8 /compare/v2.12.0...v2.12.1) - 2023-05-16",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Fix] test/reporters now requires the node: prefix as of v20.2 12183d0 /compare/v2.11.0...v2.12.0) - 2023-04-10",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [actions] update rebase action to use reusable workflow c0a7251 - [Dev Deps] update @ljharb/eslint-config, aud, tape 9ae8b7f - [New] test/reporters added in v19.9, wasi added in v20 9d5341a - [Dev Deps] add missing in-publish dep 5980245 /compare/v2.10.0...v2.11.0) - 2022-10-18",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [meta] use npmignore to autogenerate an npmignore file 3360011 - [Dev Deps] update aud, tape 651c6b0 - [New] inspector/promises and node:inspector/promises is now available in node 19 22d332f /compare/v2.9.0...v2.10.0) - 2022-08-03",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [New] node:test is now available in node ^16.17 e8fd36e - [Tests] improve skip message c014a4c /compare/v2.8.1...v2.9.0) - 2022-04-19",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [New] add node:test, in node 18+ f853eca - [Tests] use mock-property 03b3644 - [Dev Deps] update eslint, @ljharb/eslint-config, aud, auto-changelog, tape 7c0e2d0 - [meta] simplify \"exports\" d6ed201 /compare/v2.8.0...v2.8.1) - 2022-01-05",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [actions] reuse common workflows cd2cf9b - [Fix] update node 0.4 results 062195d - [Dev Deps] update eslint, @ljharb/eslint-config, safe-publish-latest, tape 0790b62 - [Dev Deps] update eslint, @ljharb/eslint-config, tape 7d139a6 - [Tests] run nyc in tests-only, not test 780e8a0 /compare/v2.7.0...v2.8.0) - 2021-10-14",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [actions] update codecov uploader 0cfe94e - [New] add readline/promises to node v17+ 4f78c30 - [Tests] node ^14.18 supports node: prefixes for CJS 43e2f17 /compare/v2.6.0...v2.7.0) - 2021-09-27",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [New] node v14.18 added node:-prefixed core modules to require 6d943ab - [Tests] add coverage for Object.prototype pollution c6baf5f - [Dev Deps] update @ljharb/eslint-config 6717f00 - [eslint] fix linter warning 594c10b - [meta] add sideEffects flag c32cfa5 /compare/v2.5.0...v2.6.0) - 2021-08-17",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Dev Deps] update eslint, tape 6cc928f - [New] add stream/consumers to node &gt;= 16.7 a1a423e - [Refactor] Remove duplicated && operand 86faea7 - [Tests] include prereleases a4da7a6 /compare/v2.4.0...v2.5.0) - 2021-07-12",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Dev Deps] update auto-changelog, eslint 6334cc9 - [New] add stream/web to node v16.5+ 17ac59b /compare/v2.3.0...v2.4.0) - 2021-05-09",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [readme] add actions and codecov badges 82b7faa - [Dev Deps] update @ljharb/eslint-config, aud 8096868 - [Dev Deps] update eslint 6726824 - [New] add diagnostics channel to node ^14.17 86c6563 - [meta] fix prepublish script 697a01e /compare/v2.2.0...v2.3.0) - 2021-04-24",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [meta] do not publish github action workflow files 060d4bb - [New] add support for node: prefix, in node 16+ 7341223 - [actions] use node/install instead of node/run; use codecov action 016269a - [patch] remove unneeded .0 in version ranges cb466a6 - [Dev Deps] update eslint, @ljharb/eslint-config, aud, tape c9f9c39 - [actions] update workflows 3ee4a89 - [Dev Deps] update eslint, @ljharb/eslint-config dee4fed - [Dev Deps] update eslint, @ljharb/eslint-config 7d046ba - [meta] use prepublishOnly script for npm 7+ 149e677 - [readme] remove travis badge 903b51d /compare/v2.1.0...v2.2.0) - 2020-11-26",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Tests] migrate tests to Github Actions c919f57 - [patch] core.json: %s/ /\\t/g db3f685 - [Tests] run nyc on all tests b2f925f - [Dev Deps] update eslint, @ljharb/eslint-config, aud; add safe-publish-latest 89f02a2 - [New] add path/posix, path/win32, util/types 77f94f1 /compare/v2.0.0...v2.1.0) - 2020-11-04",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- [Dev Deps] update eslint 5e0034e - [New] Add diagnostics channel c2d83d0 /compare/v1.0.2...v2.0.0) - 2020-09-29",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- v2 implementation 865aeb5 - Only apps should have lockfiles 5a5e660 - Initial commit for v2 5a51524 - Tests 116eae4 - [meta] add auto-changelog c24388b - [actions] add \"Automatic Rebase\" and \"require allow edits\" actions 34292db - [Tests] add npm run lint 4f9eeee - [readme] fix travis badges, https all URLs e516a73 - [meta] create FUNDING.yml 1aabebc - [Fix] domain: domain landed sometime &gt; v0.7.7 and &lt;= v0.7.12 2df7d37 - [Fix] sys: worked in 0.6, not 0.7, and 0.8+ a75c134 /compare/v1.0.1...v1.0.2) - 2014-09-28",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- simpler 66fe90f /compare/v1.0.0...v1.0.1) - 2014-09-28",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- remove stupid f21f906 - update readme 1eff0ec",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- init 48e5e76",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "is-core-module <sup>[![Version Badge][2]][1]</sup>",
+    "body": "[![github actions][actions-image]][actions-url] [![coverage][codecov-image]][codecov-url] [![dependency status][5]][6] [![dev dependency status][7]][8] [![License][license-image]][license-url] [![Downloads][downloads-image]][downloads-url] [![npm badge][11]][1] Is this specifier a node.js core module? Optionally provide a node version to check; defaults to the current node version. Clone the repo, npm install, and run npm test [1]: https://npmjs.org/package/is-core-module [2]: https://versionbadg.es/inspect-js/is-core-module.svg [5]: https://david-dm.org/inspect-js/is-core-module.svg [6]: https://david-dm.org/inspect-js/is-core-module [7]: https://david-dm.org/inspect-js/is-core-module/dev-status.svg [8]: https://david-dm.org/inspect-js/is-core-module info=devDependencies [11]: https://nodei.co/npm/is-core-module.png?downloads=true&stars=true [license-image]: https://img.shields.io/npm/l/is-core-module.svg [license-url]: LICENSE [downloads-image]: https://img.shields.io/npm/dm/is-core-module.svg [downloads-url]: https://npm-stat.com/charts.html?package=is-core-module [codecov-image]: https://codecov.io/gh/inspect-js/is-core-module/branch/main/graphs/badge.svg [codecov-url]: https://app.codecov.io/gh/inspect-js/is-core-module/ [actions-image]: https://img.shields.io/github/check-runs/inspect-js/is-core-module/main [actions-url]: https://github.com/inspect-js/is-core-module/actions",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-core-module/README",
+    "id": ""
+  },
+  {
+    "title": "is-extglob [![NPM version](https://img.shields.io/npm/v/is-extglob.svg?style=flat)](https://www.npmjs.com/package/is-extglob) [![NPM downloads](https://img.shields.io/npm/dm/is-extglob.svg?style=flat)](https://npmjs.org/package/is-extglob) [![Build Status](https://img.shields.io/travis/jonschlinkert/is-extglob.svg?style=flat)](https://travis-ci.org/jonschlinkert/is-extglob)",
+    "body": "Returns true if a string has an extglob. Install with npm: True False Escaped extglobs: Everything else... v2.0 Adds support for escaping. Escaped exglobs no longer return true.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-extglob/README",
+    "id": ""
+  },
+  {
+    "title": "is-extglob [![NPM version](https://img.shields.io/npm/v/is-extglob.svg?style=flat)](https://www.npmjs.com/package/is-extglob) [![NPM downloads](https://img.shields.io/npm/dm/is-extglob.svg?style=flat)](https://npmjs.org/package/is-extglob) [![Build Status](https://img.shields.io/travis/jonschlinkert/is-extglob.svg?style=flat)](https://travis-ci.org/jonschlinkert/is-extglob).Related projects",
+    "body": "has-glob: Returns true if an array has a glob pattern. homepage is-glob: Returns true if the given string looks like a glob pattern or an extglob pattern… more homepage micromatch: Glob matching for javascript/node.js. A drop-in replacement and faster alternative to minimatch and multimatch. homepage",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-extglob/README",
+    "id": ""
+  },
+  {
+    "title": "is-extglob [![NPM version](https://img.shields.io/npm/v/is-extglob.svg?style=flat)](https://www.npmjs.com/package/is-extglob) [![NPM downloads](https://img.shields.io/npm/dm/is-extglob.svg?style=flat)](https://npmjs.org/package/is-extglob) [![Build Status](https://img.shields.io/travis/jonschlinkert/is-extglob.svg?style=flat)](https://travis-ci.org/jonschlinkert/is-extglob).Contributing",
+    "body": "Pull requests and stars are always welcome. For bugs and feature requests, please create an issue.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-extglob/README",
+    "id": ""
+  },
+  {
+    "title": "is-extglob [![NPM version](https://img.shields.io/npm/v/is-extglob.svg?style=flat)](https://www.npmjs.com/package/is-extglob) [![NPM downloads](https://img.shields.io/npm/dm/is-extglob.svg?style=flat)](https://npmjs.org/package/is-extglob) [![Build Status](https://img.shields.io/travis/jonschlinkert/is-extglob.svg?style=flat)](https://travis-ci.org/jonschlinkert/is-extglob).Building docs",
+    "body": "(This document was generated by verb-generate-readme (a verb generator), please don't edit the readme directly. Any changes to the readme must be made in .verb.md.) To generate the readme and API documentation with verb:",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-extglob/README",
+    "id": ""
+  },
+  {
+    "title": "is-extglob [![NPM version](https://img.shields.io/npm/v/is-extglob.svg?style=flat)](https://www.npmjs.com/package/is-extglob) [![NPM downloads](https://img.shields.io/npm/dm/is-extglob.svg?style=flat)](https://npmjs.org/package/is-extglob) [![Build Status](https://img.shields.io/travis/jonschlinkert/is-extglob.svg?style=flat)](https://travis-ci.org/jonschlinkert/is-extglob).Running tests",
+    "body": "Install dev dependencies:",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-extglob/README",
+    "id": ""
+  },
+  {
+    "title": "is-extglob [![NPM version](https://img.shields.io/npm/v/is-extglob.svg?style=flat)](https://www.npmjs.com/package/is-extglob) [![NPM downloads](https://img.shields.io/npm/dm/is-extglob.svg?style=flat)](https://npmjs.org/package/is-extglob) [![Build Status](https://img.shields.io/travis/jonschlinkert/is-extglob.svg?style=flat)](https://travis-ci.org/jonschlinkert/is-extglob).Author",
+    "body": "Jon Schlinkert github/jonschlinkert twitter/jonschlinkert",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-extglob/README",
+    "id": ""
+  },
+  {
+    "title": "is-extglob [![NPM version](https://img.shields.io/npm/v/is-extglob.svg?style=flat)](https://www.npmjs.com/package/is-extglob) [![NPM downloads](https://img.shields.io/npm/dm/is-extglob.svg?style=flat)](https://npmjs.org/package/is-extglob) [![Build Status](https://img.shields.io/travis/jonschlinkert/is-extglob.svg?style=flat)](https://travis-ci.org/jonschlinkert/is-extglob).License",
+    "body": "Copyright © 2016, Jon Schlinkert. Released under the MIT license. This file was generated by verb-generate-readme, v0.1.31, on October 12, 2016.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-extglob/README",
+    "id": ""
+  },
+  {
+    "title": "is-glob [![NPM version](https://img.shields.io/npm/v/is-glob.svg?style=flat)](https://www.npmjs.com/package/is-glob) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![NPM total downloads](https://img.shields.io/npm/dt/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![Build Status](https://img.shields.io/github/workflow/status/micromatch/is-glob/dev)](https://github.com/micromatch/is-glob/actions)",
+    "body": "Returns true if the given string looks like a glob pattern or an extglob pattern. This makes it easy to create code that only uses external modules like node-glob when necessary, resulting in much faster code execution and initialization time, and a better user experience. Please consider following this project's author, Jon Schlinkert, and consider starring the project to show your :heart: and support. Install with npm: You might also be interested in is-valid-glob and has-glob.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-glob/README",
+    "id": ""
+  },
+  {
+    "title": "is-glob [![NPM version](https://img.shields.io/npm/v/is-glob.svg?style=flat)](https://www.npmjs.com/package/is-glob) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![NPM total downloads](https://img.shields.io/npm/dt/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![Build Status](https://img.shields.io/github/workflow/status/micromatch/is-glob/dev)](https://github.com/micromatch/is-glob/actions).Default behavior",
+    "body": "True Patterns that have glob characters or regex patterns will return true: Extglobs False Escaped globs or extglobs return false: Patterns that do not have glob patterns return false: Arrays are also false (If you want to check if an array has a glob pattern, use has-glob):",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-glob/README",
+    "id": ""
+  },
+  {
+    "title": "is-glob [![NPM version](https://img.shields.io/npm/v/is-glob.svg?style=flat)](https://www.npmjs.com/package/is-glob) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![NPM total downloads](https://img.shields.io/npm/dt/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![Build Status](https://img.shields.io/github/workflow/status/micromatch/is-glob/dev)](https://github.com/micromatch/is-glob/actions).Option strict",
+    "body": "When options.strict === false the behavior is less strict in determining if a pattern is a glob. Meaning that some patterns that would return false may return true. This is done so that matching libraries like micromatch have a chance at determining if the pattern is a glob or not. True Patterns that have glob characters or regex patterns will return true: Extglobs False Escaped globs or extglobs return false: Contributing Pull requests and stars are always welcome. For bugs and feature requests, please create an issue. Running Tests Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command: Building docs (This project's readme.md is generated by verb, please don't edit the readme directly. Any changes to the readme must be made in the .verb.md readme template.) To generate the readme, run the following command:",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-glob/README",
+    "id": ""
+  },
+  {
+    "title": "is-glob [![NPM version](https://img.shields.io/npm/v/is-glob.svg?style=flat)](https://www.npmjs.com/package/is-glob) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![NPM total downloads](https://img.shields.io/npm/dt/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![Build Status](https://img.shields.io/github/workflow/status/micromatch/is-glob/dev)](https://github.com/micromatch/is-glob/actions).Related projects",
+    "body": "You might also be interested in these projects: assemble: Get the rocks out of your socks! Assemble makes you fast at creating web projects… more homepage base: Framework for rapidly creating high quality, server-side node.js applications, using plugins like building blocks homepage update: Be scalable! Update is a new, open source developer framework and CLI for automating updates… more homepage verb: Documentation generator for GitHub projects. Verb is extremely powerful, easy to use, and is used… more homepage",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-glob/README",
+    "id": ""
+  },
+  {
+    "title": "is-glob [![NPM version](https://img.shields.io/npm/v/is-glob.svg?style=flat)](https://www.npmjs.com/package/is-glob) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![NPM total downloads](https://img.shields.io/npm/dt/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![Build Status](https://img.shields.io/github/workflow/status/micromatch/is-glob/dev)](https://github.com/micromatch/is-glob/actions).Contributors",
+    "body": "Commits Contributor --- --- 47 jonschlinkert 5 doowb 1 phated 1 danhper 1 paulmillr",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-glob/README",
+    "id": ""
+  },
+  {
+    "title": "is-glob [![NPM version](https://img.shields.io/npm/v/is-glob.svg?style=flat)](https://www.npmjs.com/package/is-glob) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![NPM total downloads](https://img.shields.io/npm/dt/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![Build Status](https://img.shields.io/github/workflow/status/micromatch/is-glob/dev)](https://github.com/micromatch/is-glob/actions).Author",
+    "body": "Jon Schlinkert GitHub Profile Twitter Profile LinkedIn Profile",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-glob/README",
+    "id": ""
+  },
+  {
+    "title": "is-glob [![NPM version](https://img.shields.io/npm/v/is-glob.svg?style=flat)](https://www.npmjs.com/package/is-glob) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![NPM total downloads](https://img.shields.io/npm/dt/is-glob.svg?style=flat)](https://npmjs.org/package/is-glob) [![Build Status](https://img.shields.io/github/workflow/status/micromatch/is-glob/dev)](https://github.com/micromatch/is-glob/actions).License",
+    "body": "Copyright © 2019, Jon Schlinkert. Released under the MIT License. This file was generated by verb-generate-readme, v0.8.0, on March 27, 2019.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-glob/README",
+    "id": ""
+  },
+  {
+    "title": "is-number [![NPM version](https://img.shields.io/npm/v/is-number.svg?style=flat)](https://www.npmjs.com/package/is-number) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-number.svg?style=flat)](https://npmjs.org/package/is-number) [![NPM total downloads](https://img.shields.io/npm/dt/is-number.svg?style=flat)](https://npmjs.org/package/is-number) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/is-number.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/is-number)",
+    "body": "Returns true if the value is a finite number. Please consider following this project's author, Jon Schlinkert, and consider starring the project to show your :heart: and support. Install with npm: In JavaScript, it's not always as straightforward as it should be to reliably check if a value is a number. It's common for devs to use +, -, or Number() to cast a string value to a number (for example, when values are returned from user input, regex matches, parsers, etc). But there are many non-intuitive edge cases that yield unexpected results: This library offers a performant way to smooth out edge cases like these. See the tests for more examples.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "is-number [![NPM version](https://img.shields.io/npm/v/is-number.svg?style=flat)](https://www.npmjs.com/package/is-number) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-number.svg?style=flat)](https://npmjs.org/package/is-number) [![NPM total downloads](https://img.shields.io/npm/dt/is-number.svg?style=flat)](https://npmjs.org/package/is-number) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/is-number.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/is-number).true",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "is-number [![NPM version](https://img.shields.io/npm/v/is-number.svg?style=flat)](https://www.npmjs.com/package/is-number) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-number.svg?style=flat)](https://npmjs.org/package/is-number) [![NPM total downloads](https://img.shields.io/npm/dt/is-number.svg?style=flat)](https://npmjs.org/package/is-number) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/is-number.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/is-number).False",
+    "body": "Everything else is false, as you would expect:",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "7.0.0",
+    "body": "Refactor. Now uses .isFinite if it exists. Performance is about the same as v6.0 when the value is a string or number. But it's now 3x-4x faster when the value is not a string or number.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "6.0.0",
+    "body": "Optimizations, thanks to @benaadams.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "5.0.0",
+    "body": "Breaking changes removed support for instanceof Number and instanceof String As with all benchmarks, take these with a grain of salt. See the benchmarks for more detail. ```",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "all",
+    "body": "v7.0 x 413,222 ops/sec ±2.02% (86 runs sampled) v6.0 x 111,061 ops/sec ±1.29% (85 runs sampled) parseFloat x 317,596 ops/sec ±1.36% (86 runs sampled) fastest is 'v7.0'",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "string",
+    "body": "v7.0 x 3,054,496 ops/sec ±1.05% (89 runs sampled) v6.0 x 2,957,781 ops/sec ±0.98% (88 runs sampled) parseFloat x 3,071,060 ops/sec ±1.13% (88 runs sampled) fastest is 'parseFloat,v7.0'",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "number",
+    "body": "v7.0 x 3,146,895 ops/sec ±0.89% (89 runs sampled) v6.0 x 3,214,038 ops/sec ±1.07% (89 runs sampled) parseFloat x 3,077,588 ops/sec ±1.07% (87 runs sampled) fastest is 'v6.0' sh $ npm install && npm test sh $ npm install -g verbose/verb dev verb-generate-readme && verb ```",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "number.Related projects",
+    "body": "You might also be interested in these projects: is-plain-object: Returns true if an object was created by the Object constructor. homepage is-primitive: Returns true if the value is a primitive. homepage isobject: Returns true if the value is an object and not an array or null. homepage kind-of: Get the native type of a value. homepage",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "number.Contributors",
+    "body": "Commits Contributor --- --- 49 jonschlinkert 5 charlike-old 1 benaadams 1 realityking",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "number.Author",
+    "body": "Jon Schlinkert LinkedIn Profile GitHub Profile Twitter Profile",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "number.License",
+    "body": "Copyright © 2018, Jon Schlinkert. Released under the MIT License. This file was generated by verb-generate-readme, v0.6.0, on June 15, 2018.",
+    "path": "/.tmp/ci-repro/repo/node_modules/is-number/README",
+    "id": ""
+  },
+  {
+    "title": "jiti",
+    "body": "[![npm version][npm-version-src]][npm-version-href] [![npm downloads][npm-downloads-src]][npm-downloads-href] [![bundle][bundle-src]][bundle-href] [![License][license-src]][license-href] Runtime Typescript and ESM support for Node.js. [!IMPORTANT] This is the support branch for jiti v1. Check out jiti/main for the latest version and unjs/jiti 174 for the roadmap. - Seamless typescript and ESM syntax support - Seamless interoperability between ESM and CommonJS - Synchronous API to replace require - Super slim and zero dependency - Smart syntax detection to avoid extra transforms - CommonJS cache integration - Filesystem transpile hard cache - V8 compile cache - Custom resolve alias",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "jiti.Programmatic",
+    "body": "You can also pass options as second argument:",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "jiti.CLI",
+    "body": "```bash jiti index.ts",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts",
+    "body": "```",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.Register require hook",
+    "body": "Alternatively, you can register jiti as a require hook programmatically:",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`debug`",
+    "body": "- Type: Boolean - Default: false - Environment Variable: JITI DEBUG Enable debug to see which files are transpiled",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`cache`",
+    "body": "- Type: Boolean String - Default: true - Environment Variable: JITI CACHE Use transpile cache If set to true will use node modules/.cache/jiti (if exists) or {TMP DIR}/node-jiti",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`esmResolve`",
+    "body": "- Type: Boolean String - Default: false - Environment Variable: JITI ESM RESOLVE Using esm resolution algorithm to support import condition.",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`transform`",
+    "body": "- Type: Function - Default: Babel (lazy loaded) Transform function. See src/babel for more details",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`sourceMaps`",
+    "body": "- Type: Boolean - Default false - Environment Variable: JITI SOURCE MAPS Add inline source map to transformed source for better debugging.",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`interopDefault`",
+    "body": "- Type: Boolean - Default: false Return the .default export of a module at the top-level.",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`alias`",
+    "body": "- Type: Object - Default: - - Environment Variable: JITI ALIAS Custom alias map used to resolve ids.",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`nativeModules`",
+    "body": "- Type: Array - Default: ['typescript] - Environment Variable: JITI NATIVE MODULES List of modules (within node modules`) to always use native require for them.",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`transformModules`",
+    "body": "- Type: Array - Default: [] - Environment Variable: JITI TRANSFORM MODULES List of modules (within node modules) to transform them regardless of syntax.",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "or npx jiti index.ts.`experimentalBun`",
+    "body": "- Type: Boolean - Default: Enabled if process.versions.bun exists (Bun runtime) - Environment Variable: JITI EXPERIMENTAL BUN Enable experimental native Bun support for transformations. - Clone this repository - Enable Corepack using corepack enable - Install dependencies using pnpm install - Run pnpm dev - Run pnpm jiti ./test/path/to/file.ts MIT. Made with 💖 [npm-version-src]: https://img.shields.io/npm/v/jiti?style=flat&colorA=18181B&colorB=F0DB4F [npm-version-href]: https://npmjs.com/package/jiti [npm-downloads-src]: https://img.shields.io/npm/dm/jiti?style=flat&colorA=18181B&colorB=F0DB4F [npm-downloads-href]: https://npmjs.com/package/jiti [bundle-src]: https://img.shields.io/bundlephobia/minzip/jiti?style=flat&colorA=18181B&colorB=F0DB4F [bundle-href]: https://bundlephobia.com/result?p=h3 [license-src]: https://img.shields.io/github/license/unjs/jiti.svg?style=flat&colorA=18181B&colorB=F0DB4F [license-href]: https://github.com/unjs/jiti/blob/main/LICENSE",
+    "path": "/.tmp/ci-repro/repo/node_modules/jiti/README",
+    "id": ""
+  },
+  {
+    "title": "Lilconfig ⚙️",
+    "body": "![npm version](https://badge.fury.io/js/lilconfig) ![install size](https://packagephobia.now.sh/result?p=lilconfig) ![Coverage Status](https://coveralls.io/github/antonk52/lilconfig) A zero-dependency alternative to cosmiconfig with the same API. ESM configs can be loaded with async API only . Specifically js files in projects with \"type\": \"module\" in package.json or mjs files. Lilconfig does not intend to be 100% compatible with cosmiconfig but tries to mimic it where possible. The key difference is no support for yaml files out of the box(lilconfig attempts to parse files with no extension as JSON instead of YAML). You can still add the support for YAML files by providing a loader, see an example below.",
+    "path": "/.tmp/ci-repro/repo/node_modules/lilconfig/readme",
+    "id": ""
+  },
+  {
+    "title": "Options difference between the two.",
+    "body": "cosmiconfig option lilconfig ------------------------ ----------- cache ✅ loaders ✅ ignoreEmptySearchPlaces ✅ packageProp ✅ searchPlaces ✅ stopDir ✅ transform ✅",
+    "path": "/.tmp/ci-repro/repo/node_modules/lilconfig/readme",
+    "id": ""
+  },
+  {
+    "title": "Lilconfig ⚙️.Yaml loader",
+    "body": "If you need the YAML support you can provide your own loader - lilconig v1 → cosmiconfig v6 - lilconig v2 → cosmiconfig v7 - lilconig v3 → cosmiconfig v8",
+    "path": "/.tmp/ci-repro/repo/node_modules/lilconfig/readme",
+    "id": ""
+  },
+  {
+    "title": "lines-and-columns",
+    "body": "Maps lines and columns to character offsets and back. This is useful for parsers and other text processors that deal in character ranges but process text with meaningful lines and columns. MIT",
+    "path": "/.tmp/ci-repro/repo/node_modules/lines-and-columns/README",
+    "id": ""
+  },
+  {
+    "title": "Blue Oak Model License",
+    "body": "Version 1.0.0 This license gives everyone as much permission to work with this software as possible, while protecting contributors from liability. In order to receive this license, you must agree to its rules. The rules of this license are both obligations under that agreement and conditions to your license. You must not do anything with this software that triggers a rule that you cannot or will not follow. Each contributor licenses you to do everything with this software that would otherwise infringe that contributor's copyright in it. You must ensure that everyone who gets a copy of any part of this software from you, with or without changes, also gets the text of this license or a link to . If anyone notifies you in writing that you have not complied with Notices, you can keep your license by taking all practical steps to comply within 30 days after the notice. If you do not do so, your license ends immediately. Each contributor licenses you to do everything with this software that would otherwise infringe any patent claims they can license or become able to license. No contributor can revoke this license. As far as the law allows, this software comes as is, without any warranty or condition, and no contributor will be liable to anyone for any damages related to this software or this license, under any kind of legal claim.",
+    "path": "/.tmp/ci-repro/repo/node_modules/lru-cache/LICENSE",
+    "id": ""
+  },
+  {
+    "title": "lru-cache",
+    "body": "A cache object that deletes the least-recently-used items. Specify a max number of the most recently used items that you want to keep, and this cache will keep that many of the most recently accessed items. This is not primarily a TTL cache, and does not make strong TTL guarantees. There is no preemptive pruning of expired items by default, but you may set a TTL on the cache or on a single set. If you do so, it will treat expired items as missing, and delete them when fetched. If you are more interested in TTL caching than LRU caching, check out @isaacs/ttlcache. As of version 7, this is one of the most performant LRU implementations available in JavaScript, and supports a wide diversity of use cases. However, note that using some of the features will necessarily impact performance, by causing the cache to have to do more work. See the \"Performance\" section below. If you put more stuff in the cache, then less recently used items will fall out. That's what an LRU cache is. For full description of the API and all options, please see the LRUCache typedocs This implementation aims to be as flexible as possible, within the limits of safe memory consumption and optimal performance. At initial object creation, storage is allocated for max items. If max is set to zero, then some performance is lost, and item count is unbounded. Either maxSize or ttl must be set if max is not specified. If maxSize is set, then this creates a safe limit on the maximum storage consumed, but without the performance benefits of pre-allocation. When maxSize is set, every item must provide a size, either via the sizeCalculation method provided to the constructor, or via a size or sizeCalculation option provided to cache.set(). The size of every item must be a positive integer. If neither max nor maxSize are set, then ttl tracking must be enabled. Note that, even when tracking item ttl, items are not preemptively deleted when they become stale, unless ttlAutopurge is enabled. Instead, they are only purged the next time the key is requested. Thus, if ttlAutopurge, max, and maxSize are all not set, then the cache will potentially grow unbounded. In this case, a warning is printed to standard error. Future versions may require the use of ttlAutopurge if max and maxSize are not specified. If you truly wish to use a cache that is bound only by TTL expiration, consider using a Map object, and calling setTimeout to delete entries when they expire. It will perform much better than an LRU cache. Here is an implementation you may use, under the same license as this package: If that isn't to your liking, check out @isaacs/ttlcache. This cache never stores undefined values, as undefined is used internally in a few places to indicate that a key is not in the cache. You may call cache.set(key, undefined), but this is just an alias for cache.delete(key). Note that this has the effect that cache.has(key) will return false after setting it to undefined. If you need to track undefined values, and still note that the key is in the cache, an easy workaround is to use a sigil object of your own. Most methods can accept a status option, which is an LRUCache.Status object that will be decorated along the operation with indications about what was done and why. Additionally, this library is instrumented using the node:diagnostics channel module on Node and other platforms that support it. In order to get diagnostics metrics, listen on the channel('lru-cache:metrics'). To get Tracing Channel traces, subscribe to the tracingChannel('lru-cache'). The LRUCache.Status objects will be provided as the message context to those channel listeners. For example, you could do the following to get comprehensive information about every LRUCache instance in your application: The async cache.fetch() and cache.forceFetch methods are covered by tracingChannels. All the other operations are covered by the lru-cache:metrics channel, because they are strictly synchronous, and thus don't have an asynchronous lifecycle to track. Note that using status objects or using node:diagnostics channel listeners will impose a modest performance penalty. Creating data objects is not ever free; do not believe anyone who tells you otherwise. But it is as small as possible.",
+    "path": "/.tmp/ci-repro/repo/node_modules/lru-cache/README",
+    "id": ""
+  },
+  {
+    "title": "lru-cache.Platform Compatibility Caveat",
+    "body": "Not all platforms support the node:diagnostics channel module. Currently, this is only available in Node, Bun, and Deno, and some edge computing platforms that provide a Node compatibility layer. To work around this, if you are loading in a non-Node environment, the package.json exports will direct your module loader to pull in a version that starts out with a dummy implementation, then does a conditional dynamic import of the node:diagnostics channel module, and then swaps out those dummy objects with the real thing if it succeeds. This means that cache metrics and tracing channels started in the first load-time tick of your application will not be covered, except in environments that load using the require import condition, or both the node and esm import conditions together. Top-level await could be used to remove this caveat, but that feature is dead on arrival, unfortunately. See 397 and 398 for more details. As of April 2026, version 11 of this library is one of the most performant LRU cache implementations in JavaScript. Benchmarks can be extremely difficult to get right. In particular, the performance of set/get/delete operations on objects will vary wildly depending on the type of key used. V8 is highly optimized for objects with keys that are short strings, especially integer numeric strings. Thus any benchmark which tests solely using numbers as keys will tend to find that an object-based approach performs the best. Note that coercing anything to strings to use as object keys is unsafe, unless you can be 100% certain that no other type of value will be used. For example: Also beware of \"Just So\" stories regarding performance. Garbage collection of large (especially: deep) object graphs can be incredibly costly, with several \"tipping points\" where it increases exponentially. As a result, putting that off until later can make it much worse, and less predictable. If a library performs well, but only in a scenario where the object graph is kept shallow, then that won't help you if you are using large objects as keys. In general, when attempting to use a library to improve performance (such as a cache like this one), it's best to choose an option that will perform well in the sorts of scenarios where you'll actually use it. This library is optimized for repeated gets and minimizing eviction time, since that is the expected need of a LRU. Set operations are somewhat slower on average than a few other options, in part because of that optimization. It is assumed that you'll be caching some costly operation, ideally as rarely as possible, so optimizing set over get would be unwise. If performance matters to you: 1. If it's at all possible to use small integer values as keys, and you can guarantee that no other types of values will be used as keys, then do that, and use a cache such as lru-fast, or mnemonist's LRUCache which uses an Object as its data store. 2. Failing that, if you can use short non-numeric strings (ie, less than 256 characters) as your keys, and you do not need any of the other features of this library, use mnemonist's LRUCache. 3. If the types of your keys will be anything else, especially long strings, strings that look like floats, objects, or some mix of types, or if you aren't sure, then this library will work well for you. If you do not need the features that this library provides (like asynchronous fetching, a variety of TTL staleness options, and so on), then mnemonist's LRUMap is also a very good option, and just slightly faster than this module (since it does considerably less). 4. Do not use a dispose function, size tracking, or especially ttl behavior or observability features, unless absolutely needed. These features are convenient, and necessary in some use cases, and every attempt has been made to make the performance impact minimal, but it isn't nothing. When writing tests that involve TTL-related functionality, note that this module creates an internal reference to the global performance or Date objects at import time. If you import it statically at the top level, those references cannot be mocked or overridden in your test environment. To avoid this, dynamically import the package within your tests so that the references are captured after your mocks are applied. For example: This ensures that your mocked timers or time sources are respected when testing TTL behavior. Additionally, you can pass in a perf option when creating your LRUCache instance. This option accepts any object with a now method that returns a number. For example, this would be a very bare-bones time-mocking system you could use in your tests, without any particular test framework: This library changed to a different algorithm and internal data structure in version 7, yielding significantly better performance, albeit with some subtle changes as a result. If you were relying on the internals of LRUCache in version 6 or before, it probably will not work in version 7 and above. - The fetchContext option was renamed to context, and may no longer be set on the cache instance itself. - Rewritten in TypeScript, so pretty much all the types moved around a lot. - The AbortController/AbortSignal polyfill was removed. For this reason, Node version 16.14.0 or higher is now required . - Internal properties were moved to actual private class properties. - Keys and values must not be null or undefined. - Minified export available at 'lru-cache/min', for both CJS and MJS builds. - Named export only, no default export. - AbortController polyfill returned, albeit with a warning when used. - cache.fetch() return type is now Promise instead of Promise . This is an irrelevant change practically speaking, but can require changes for TypeScript users. For more info, see the change log.",
+    "path": "/.tmp/ci-repro/repo/node_modules/lru-cache/README",
+    "id": ""
+  },
+  {
+    "title": "merge2",
+    "body": "Merge multiple streams into one stream in sequence or parallel. [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Downloads][downloads-image]][downloads-url] Install with npm",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "merge2.merge2()",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "merge2.merge2(options)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "merge2(stream1, stream2, ..., streamN)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "merge2(stream1, stream2, ..., streamN, options)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "merge2(stream1, [stream2, stream3, ...], streamN, options)",
+    "body": "return a duplex stream (mergedStream). streams in array will be merged in parallel.",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "mergedStream.add(stream)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "mergedStream.add(stream1, [stream2, stream3, ...], ...)",
+    "body": "return the mergedStream.",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "mergedStream.on('queueDrain', function() {})",
+    "body": "It will emit 'queueDrain' when all streams merged. If you set end === false in options, this event give you a notice that should add more streams to merge or end the mergedStream. stream option Type: Readable or Duplex or Transform stream. options option Type: Object. end - Boolean - if end === false then mergedStream will not be auto ended, you should end by yourself. Default: undefined pipeError - Boolean - if pipeError === true then mergedStream will emit error event from source streams. Default: undefined objectMode - Boolean . Default: true objectMode and other options(highWaterMark, defaultEncoding ...) is same as Node.js Stream. MIT © Teambition [npm-url]: https://npmjs.org/package/merge2 [npm-image]: http://img.shields.io/npm/v/merge2.svg [travis-url]: https://travis-ci.org/teambition/merge2 [travis-image]: http://img.shields.io/travis/teambition/merge2.svg [downloads-url]: https://npmjs.org/package/merge2 [downloads-image]: http://img.shields.io/npm/dm/merge2.svg?style=flat-square",
+    "path": "/.tmp/ci-repro/repo/node_modules/merge2/README",
+    "id": ""
+  },
+  {
+    "title": "micromatch [![NPM version](https://img.shields.io/npm/v/micromatch.svg?style=flat)](https://www.npmjs.com/package/micromatch) [![NPM monthly downloads](https://img.shields.io/npm/dm/micromatch.svg?style=flat)](https://npmjs.org/package/micromatch) [![NPM total downloads](https://img.shields.io/npm/dt/micromatch.svg?style=flat)](https://npmjs.org/package/micromatch)  [![Tests](https://github.com/micromatch/micromatch/actions/workflows/test.yml/badge.svg)](https://github.com/micromatch/micromatch/actions/workflows/test.yml)",
+    "body": "Glob matching for javascript/node.js. A replacement and faster alternative to minimatch and multimatch. Please consider following this project's author, Jon Schlinkert, and consider starring the project to show your :heart: and support. Details Install - Sponsors Gold Sponsors Quickstart Why use micromatch? + Matching features Switching to micromatch + From minimatch + From multimatch API Options Options Examples + options.basename + options.bash + options.expandRange + options.format + options.ignore + options.matchBase + options.noextglob + options.nonegate + options.noglobstar + options.nonull + options.nullglob + options.onIgnore + options.onMatch + options.onResult + options.posixSlashes + options.unescape Extended globbing + Extglobs + Braces + Regex character classes + Regex groups + POSIX bracket expressions Notes + Bash 4.3 parity + Backslashes Benchmarks + Running benchmarks + Latest results Contributing About Install with npm:",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors",
+    "body": "Become a Sponsor to add your logo to this README, or any of my other projects The main export takes a list of strings and one or more glob patterns: Use .isMatch() to for boolean matching: Switching from minimatch and multimatch is easy! micromatch is a replacement for minimatch and multimatch Supports all of the same matching features as minimatch and multimatch More complete support for the Bash 4.3 specification than minimatch and multimatch. Micromatch passes all of the spec tests from bash, including some that bash still fails. Fast & Performant - Loads in about 5ms and performs fast matches. Glob matching - Using wildcards ( and ?), globstars ( ) for nested directories Advanced globbing - Supports extglobs, braces, and POSIX brackets, and support for escaping special characters with \\ or quotes. Accurate - Covers more scenarios than minimatch Well tested - More than 5,000 test assertions Windows support - More reliable windows support than minimatch and multimatch. Safe - Micromatch is not subject to DoS with brace patterns like minimatch and multimatch.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.Matching features",
+    "body": "Support for multiple glob patterns (no need for wrappers like multimatch) Wildcards ( , .js) Negation ('!a/ .js', ' !(b).js') extglobs (+(x y), !(a b)) POSIX character classes ([[:alpha:][:digit:]]) brace expansion (foo/{1..5}.md, bar/{a,b,c}.js) regex character classes (foo-[1-5].js) regex logical \"or\" (foo/(abc xyz).js) You can mix and match these features to create whatever patterns you need! (There is one notable difference between micromatch and minimatch in regards to how backslashes are handled. See the notes about backslashes for more information.)",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.From minimatch",
+    "body": "Use micromatch.isMatch() instead of minimatch(): Use micromatch.match() instead of minimatch.match():",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.From multimatch",
+    "body": "Same signature: Params list {String Array } : List of strings to match. patterns {String Array } : One or more glob patterns to use for matching. options {Object} : See available options returns {Array} : Returns an array of matches Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.matcher](index.js?id=L109)",
+    "body": "Returns a matcher function from the given glob pattern and options. The returned function takes a string to match as its only argument and returns true if the string is a match. Params pattern {String} : Glob pattern options {Object} returns {Function} : Returns a matcher function. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.isMatch](index.js?id=L128)",
+    "body": "Returns true if any of the given glob patterns match the specified string. Params str {String} : The string to test. patterns {String Array} : One or more glob patterns to use for matching. [options] {Object} : See available options. returns {Boolean} : Returns true if any patterns match str Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.not](index.js?id=L153)",
+    "body": "Returns a list of strings that do not match any of the given patterns. Params list {Array} : Array of strings to match. patterns {String Array} : One or more glob pattern to use for matching. options {Object} : See available options for changing how matches are performed returns {Array} : Returns an array of strings that do not match the given patterns. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.contains](index.js?id=L193)",
+    "body": "Returns true if the given string contains the given pattern. Similar to .isMatch but the pattern can match any part of the string. Params str {String} : The string to match. patterns {String Array} : Glob pattern to use for matching. options {Object} : See available options for changing how matches are performed returns {Boolean} : Returns true if any of the patterns matches any part of str. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.matchKeys](index.js?id=L235)",
+    "body": "Filter the keys of the given object with the given glob pattern and options. Does not attempt to match nested keys. If you need this feature, use glob-object instead. Params object {Object} : The object with keys to filter. patterns {String Array} : One or more glob patterns to use for matching. options {Object} : See available options for changing how matches are performed returns {Object} : Returns an object with only keys that match the given patterns. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.some](index.js?id=L264)",
+    "body": "Returns true if some of the strings in the given list match any of the given glob patterns. Params list {String Array} : The string or array of strings to test. Returns as soon as the first match is found. patterns {String Array} : One or more glob patterns to use for matching. options {Object} : See available options for changing how matches are performed returns {Boolean} : Returns true if any patterns matches any of the strings in list Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.every](index.js?id=L300)",
+    "body": "Returns true if every string in the given list matches any of the given glob patterns. Params list {String Array} : The string or array of strings to test. patterns {String Array} : One or more glob patterns to use for matching. options {Object} : See available options for changing how matches are performed returns {Boolean} : Returns true if all patterns matches all of the strings in list Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.all](index.js?id=L339)",
+    "body": "Returns true if all of the given patterns match the specified string. Params str {String Array} : The string to test. patterns {String Array} : One or more glob patterns to use for matching. options {Object} : See available options for changing how matches are performed returns {Boolean} : Returns true if any patterns match str Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.capture](index.js?id=L366)",
+    "body": "Returns an array of matches captured by pattern in string, ornull if the pattern did not match. Params glob {String} : Glob pattern to use for matching. input {String} : String to match options {Object} : See available options for changing how matches are performed returns {Array null} : Returns an array of captures if the input matches the glob pattern, otherwise null`. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.makeRe](index.js?id=L392)",
+    "body": "Create a regular expression from the given glob pattern. Params pattern {String} : A glob pattern to convert to regex. options {Object} returns {RegExp} : Returns a regex created from the given pattern. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.scan](index.js?id=L408)",
+    "body": "Scan a glob pattern to separate the pattern into segments. Used by the split method. Params pattern {String} options {Object} returns {Object} : Returns an object with Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.parse](index.js?id=L424)",
+    "body": "Parse a glob pattern to create the source string for a regular expression. Params glob {String} options {Object} returns {Object} : Returns an object with useful properties and output to be used as regex source string. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.braces](index.js?id=L451)",
+    "body": "Process the given brace pattern. Params pattern {String} : String with brace pattern to process. options {Object} : Any options to change how expansion is performed. See the braces library for all available options. returns {Array} Example Option Type Default value Description --- --- --- --- basename boolean false If set, then patterns without slashes will be matched against the basename of the path if it contains slashes. For example, a?b would match the path /xyz/123/acb, but not /xyz/acb/123. bash boolean false Follow bash matching rules more strictly - disallows backslashes as escape characters, and treats single stars as globstars ( ). capture boolean undefined Return regex matches in supporting methods. contains boolean undefined Allows glob to match any part of the given string(s). cwd string process.cwd() Current working directory. Used by picomatch.split() debug boolean undefined Debug regular expressions when an error is thrown. dot boolean false Match dotfiles. Otherwise dotfiles are ignored unless a . is explicitly defined in the pattern. expandRange function undefined Custom function for expanding ranges in brace patterns, such as {a..z}. The function receives the range values as two arguments, and it must return a string to be used in the generated regex. It's recommended that returned strings be wrapped in parentheses. This option is overridden by the expandBrace option. failglob boolean false Similar to the failglob behavior in Bash, throws an error when no matches are found. Based on the bash option of the same name. fastpaths boolean true To speed up processing, full parsing is skipped for a handful common glob patterns. Disable this behavior by setting this option to false. flags boolean undefined Regex flags to use in the generated regex. If defined, the nocase option will be overridden. format function undefined Custom function for formatting the returned string. This is useful for removing leading slashes, converting Windows paths to Posix paths, etc. ignore array\\ string undefined One or more glob patterns for excluding strings that should not be matched from the result. keepQuotes boolean false Retain quotes in the generated regex, since quotes may also be used as an alternative to backslashes. literalBrackets boolean undefined When true, brackets in the glob pattern will be escaped so that only literal brackets will be matched. lookbehinds boolean true Support regex positive and negative lookbehinds. Note that you must be using Node 8.1.10 or higher to enable regex lookbehinds. matchBase boolean false Alias for basename maxLength boolean 65536 Limit the max length of the input string. An error is thrown if the input string is longer than this value. nobrace boolean false Disable brace matching, so that {a,b} and {1..3} would be treated as literal characters. nobracket boolean undefined Disable matching with regex brackets. nocase boolean false Perform case-insensitive matching. Equivalent to the regex i flag. Note that this option is ignored when the flags option is defined. nodupes boolean true Deprecated, use nounique instead. This option will be removed in a future major release. By default duplicates are removed. Disable uniquification by setting this option to false. noext boolean false Alias for noextglob noextglob boolean false Disable support for matching with extglobs (like +(a\\ b)) noglobstar boolean false Disable support for matching nested directories with globstars ( ) nonegate boolean false Disable support for negating with leading ! noquantifiers boolean false Disable support for regex quantifiers (like a{1,2}) and treat them as brace patterns to be expanded. onIgnore function undefined Function to be called on ignored items. onMatch function undefined Function to be called on matched items. onResult function undefined Function to be called on all items, regardless of whether or not they are matched or ignored. posix boolean false Support POSIX character classes (\"posix brackets\"). posixSlashes boolean undefined Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself prepend string undefined String to prepend to the generated regex used for matching. regex boolean false Use regular expression rules for + (instead of matching literal +), and for stars that follow closing parentheses or brackets (as in ) and ] ). strictBrackets boolean undefined Throw an error if brackets, braces, or parens are imbalanced. strictSlashes boolean undefined When true, picomatch won't match trailing slashes with single stars. unescape boolean undefined Remove preceding backslashes from escaped glob characters before creating the regular expression to perform matches. unixify boolean undefined Alias for posixSlashes, for backwards compatitibility.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.basename",
+    "body": "Allow glob patterns without slashes to match a file path based on its basename. Same behavior as minimatch option matchBase. Type : Boolean Default : false Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.bash",
+    "body": "Enabled by default, this option enforces bash-like behavior with stars immediately following a bracket expression. Bash bracket expressions are similar to regex character classes, but unlike regex, a star following a bracket expression does not repeat the bracketed characters . Instead, the star is treated the same as any other star. Type : Boolean Default : true Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.expandRange",
+    "body": "Type : function Default : undefined Custom function for expanding ranges in brace patterns. The fill-range library is ideal for this purpose, or you can use custom code to do whatever you need. Example The following example shows how to create a glob that matches a numeric folder name between 01 and 25, with leading zeros.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.format",
+    "body": "Type : function Default : undefined Custom function for formatting strings before they're matched. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.ignore",
+    "body": "String or array of glob patterns to match files to ignore. Type : String Array Default : undefined",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.matchBase",
+    "body": "Alias for options.basename.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.noextglob",
+    "body": "Disable extglob support, so that extglobs are regarded as literal characters. Type : Boolean Default : undefined Examples",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.nonegate",
+    "body": "Disallow negation (!) patterns, and treat leading ! as a literal character to match. Type : Boolean Default : undefined",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.noglobstar",
+    "body": "Disable matching with globstars ( ). Type : Boolean Default : undefined",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.nonull",
+    "body": "Alias for options.nullglob.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.nullglob",
+    "body": "If true, when no matches are found the actual (arrayified) glob pattern is returned instead of an empty array. Same behavior as minimatch option nonull. Type : Boolean Default : undefined",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.onIgnore",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.onMatch",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.onResult",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.posixSlashes",
+    "body": "Convert path separators on returned files to posix/unix-style forward slashes. Aliased as unixify for backwards compatibility. Type : Boolean Default : true on windows, false everywhere else. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "options.unescape",
+    "body": "Remove backslashes from escaped glob characters before creating the regular expression to perform matches. Type : Boolean Default : undefined Example In this example we want to match a literal : Micromatch supports the following extended globbing features.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.Extglobs",
+    "body": "Extended globbing, as described by the bash man page: pattern regex equivalent description --- --- --- ?(pattern) (pattern)? Matches zero or one occurrence of the given patterns (pattern) (pattern) Matches zero or more occurrences of the given patterns +(pattern) (pattern)+ Matches one or more occurrences of the given patterns @(pattern) (pattern) Matches one of the given patterns !(pattern) N/A (equivalent regex is much more complicated) Matches anything except one of the given patterns Note that @ isn't a regex character.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.Braces",
+    "body": "Brace patterns can be used to match specific ranges or sets of characters. Example The pattern {f,b} /{1..3}/{b,q} would match any of following strings: Visit braces to see the full range of features and options related to brace expansion, or to create brace matching or expansion related issues.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.Regex character classes",
+    "body": "Given the list: ['a.js', 'b.js', 'c.js', 'd.js', 'E.js']: [ac].js: matches both a and c, returning ['a.js', 'c.js'] [b-d].js: matches from b to d, returning ['b.js', 'c.js', 'd.js'] a/[A-Z].js: matches and uppercase letter, returning ['a/E.md'] Learn about regex character classes.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.Regex groups",
+    "body": "Given ['a.js', 'b.js', 'c.js', 'd.js', 'E.js']: (a c).js: would match either a or c, returning ['a.js', 'c.js'] (b d).js: would match either b or d, returning ['b.js', 'd.js'] (b [A-Z]).js: would match either b or an uppercase letter, returning ['b.js', 'E.js'] As with regex, parens can be nested, so patterns like ((a b) c)/b will work. Although brace expansion might be friendlier to use, depending on preference.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.POSIX bracket expressions",
+    "body": "POSIX brackets are intended to be more user-friendly than regex character classes. This of course is in the eye of the beholder. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Bash 4.3 parity",
+    "body": "Whenever possible matching behavior is based on behavior Bash 4.3, which is mostly consistent with minimatch. However, it's suprising how many edge cases and rabbit holes there are with glob matching, and since there is no real glob specification, and micromatch is more accurate than both Bash and minimatch, there are cases where best-guesses were made for behavior. In a few cases where Bash had no answers, we used wildmatch (used by git) as a fallback.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.Backslashes",
+    "body": "There is an important, notable difference between minimatch and micromatch in regards to how backslashes are handled in glob patterns. Micromatch exclusively and explicitly reserves backslashes for escaping characters in a glob pattern, even on windows, which is consistent with bash behavior. More importantly, unescaping globs can result in unsafe regular expressions . Minimatch converts all backslashes to forward slashes, which means you can't use backslashes to escape any characters in your glob patterns. We made this decision for micromatch for a couple of reasons: Consistency with bash conventions. Glob patterns are not filepaths. They are a type of regular language that is converted to a JavaScript regular expression. Thus, when forward slashes are defined in a glob pattern, the resulting regular expression will match windows or POSIX path separators just fine. A note about joining paths to globs Note that when you pass something like path.join('foo', ' ') to micromatch, you are creating a filepath and expecting it to still work as a glob pattern. This causes problems on windows, since the path.sep is \\\\. In other words, since \\\\ is reserved as an escape character in globs, on windows path.join('foo', ' ') would result in foo\\\\ , which tells micromatch to match as a literal character. This is the same behavior as bash. To solve this, you might be inspired to do something like 'foo\\\\ '.replace(/\\\\/g, '/'), but this causes another, potentially much more serious, problem.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.Running benchmarks",
+    "body": "Install dependencies for running benchmarks: Run the benchmarks:",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Sponsors.Latest results",
+    "body": "As of August 23, 2024 (longer bars are better): ```sh",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe star",
+    "body": "micromatch x 2,232,802 ops/sec ±2.34% (89 runs sampled)) minimatch x 781,018 ops/sec ±6.74% (92 runs sampled))",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe star; dot=true",
+    "body": "micromatch x 1,863,453 ops/sec ±0.74% (93 runs sampled) minimatch x 723,105 ops/sec ±0.75% (93 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe globstar",
+    "body": "micromatch x 1,624,179 ops/sec ±2.22% (91 runs sampled) minimatch x 1,117,230 ops/sec ±2.78% (86 runs sampled))",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe globstars",
+    "body": "micromatch x 1,658,642 ops/sec ±0.86% (92 runs sampled) minimatch x 741,224 ops/sec ±1.24% (89 runs sampled))",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe with leading star",
+    "body": "micromatch x 1,525,014 ops/sec ±1.63% (90 runs sampled) minimatch x 561,074 ops/sec ±3.07% (89 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - braces",
+    "body": "micromatch x 172,478 ops/sec ±2.37% (78 runs sampled) minimatch x 96,087 ops/sec ±2.34% (88 runs sampled)))",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - range (expanded)",
+    "body": "micromatch x 26,973 ops/sec ±0.84% (89 runs sampled) minimatch x 3,023 ops/sec ±0.99% (90 runs sampled))",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - range (compiled)",
+    "body": "micromatch x 152,892 ops/sec ±1.67% (83 runs sampled) minimatch x 992 ops/sec ±3.50% (89 runs sampled)d))",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - nested ranges (expanded)",
+    "body": "micromatch x 15,816 ops/sec ±13.05% (80 runs sampled) minimatch x 2,953 ops/sec ±1.64% (91 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - nested ranges (compiled)",
+    "body": "micromatch x 110,881 ops/sec ±1.85% (82 runs sampled) minimatch x 1,008 ops/sec ±1.51% (91 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - set (compiled)",
+    "body": "micromatch x 134,930 ops/sec ±3.54% (63 runs sampled)) minimatch x 43,242 ops/sec ±0.60% (93 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - nested sets (compiled)",
+    "body": "micromatch x 94,455 ops/sec ±1.74% (69 runs sampled)) minimatch x 27,720 ops/sec ±1.84% (93 runs sampled)) sh $ npm install && npm test sh $ npm install -g verbose/verb dev verb-generate-readme && verb ```",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - nested sets (compiled).Related projects",
+    "body": "You might also be interested in these projects: braces: Bash-like brace expansion, implemented in JavaScript. Safer than other brace expansion libs, with complete support… more homepage expand-brackets: Expand POSIX bracket expressions (character classes) in glob patterns. homepage in glob patterns.\") extglob: Extended glob support for JavaScript. Adds (almost) the expressive power of regular expressions to glob… more homepage the expressive power of regular expressions to glob patterns.\") fill-range: Fill in a range of numbers or letters, optionally passing an increment or step to… more homepage nanomatch: Fast, minimal glob matcher for node.js. Similar to micromatch, minimatch and multimatch, but complete Bash… more homepage\")",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - nested sets (compiled).Contributors",
+    "body": "Commits Contributor --- --- 523 jonschlinkert 12 es128 9 danez 8 doowb 6 paulmillr 5 mrmlnc 3 DrPizza 2 Tvrqvoise 2 antonyk 2 MartinKolarik 2 Glazy 2 mceIdo 2 TrySound 1 yvele 1 wtgtybhertgeghgtwtg 1 simlu 1 curbengh 1 fidian 1 tomByrer 1 ZoomerTedJackson 1 styfle 1 sebdeckers 1 muescha 1 juszczykjakub 1 joyceerhl 1 donatj 1 frangio 1 UltCombo 1 DianeLooney 1 devongovett 1 Cslove 1 amilajack",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - nested sets (compiled).Author",
+    "body": "Jon Schlinkert GitHub Profile Twitter Profile LinkedIn Profile",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe braces - nested sets (compiled).License",
+    "body": "Copyright © 2024, Jon Schlinkert. Released under the MIT License. This file was generated by verb-generate-readme, v0.8.0, on August 23, 2024.",
+    "path": "/.tmp/ci-repro/repo/node_modules/micromatch/README",
+    "id": ""
+  },
+  {
+    "title": "Blue Oak Model License",
+    "body": "Version 1.0.0 This license gives everyone as much permission to work with this software as possible, while protecting contributors from liability. In order to receive this license, you must agree to its rules. The rules of this license are both obligations under that agreement and conditions to your license. You must not do anything with this software that triggers a rule that you cannot or will not follow. Each contributor licenses you to do everything with this software that would otherwise infringe that contributor's copyright in it. You must ensure that everyone who gets a copy of any part of this software from you, with or without changes, also gets the text of this license or a link to . If anyone notifies you in writing that you have not complied with Notices, you can keep your license by taking all practical steps to comply within 30 days after the notice. If you do not do so, your license ends immediately. Each contributor licenses you to do everything with this software that would otherwise infringe any patent claims they can license or become able to license. No contributor can revoke this license. As far as the law allows, this software comes as is, without any warranty or condition, and no contributor will be liable to anyone for any damages related to this software or this license, under any kind of legal claim.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/LICENSE",
+    "id": ""
+  },
+  {
+    "title": "minimatch",
+    "body": "A minimal matching utility. This is the matching library used internally by npm. It works by converting glob expressions into JavaScript RegExp objects. [!WARNING] This library uses JavaScript regular expressions. Please read the following warning carefully, and be thoughtful about what you provide to this library in production systems. Any library in JavaScript that deals with matching string patterns using regular expressions will be subject to ReDoS if the pattern is generated using untrusted input. Efforts have been made to mitigate risk as much as is feasible in such a library, providing maximum recursion depths and so forth, but these measures can only ultimately protect against accidents, not malice. A dedicated attacker can always find patterns that cannot be defended against by a bash-compatible glob pattern matching system that uses JavaScript regular expressions. To be extremely clear: [!WARNING] If you create a system where you take user input, and use that input as the source of a Regular Expression pattern, in this or any extant glob matcher in JavaScript, you will be pwned. A future version of this library may use a different matching algorithm which does not exhibit backtracking problems. If and when that happens, it will likely be a sweeping change, and those improvements will not be backported to legacy versions. In the near term, it is not reasonable to continue to play whack-a-mole with security advisories, and so any future ReDoS reports will be considered \"working as intended\", and resolved entirely by this warning. Supports these glob features: - Brace Expansion - Extended glob matching - \"Globstar\" matching - Posix character classes, like [[:alpha:]], supporting the full range of Unicode characters. For example, [[:alpha:]] will match against 'é', though [a-zA-Z] will not. Collating symbol and set matching is not supported, so [[=e=]] will not match 'é' and [[.ch.]] will not match 'ch' in locales where ch is considered a single character. See: - man sh - man bash Pattern Matching - man 3 fnmatch - man 5 gitignore Please only use forward-slashes in glob expressions. Though windows uses either / or \\ as its path separator, only / characters are used by this glob implementation. You must use forward-slashes only in glob expressions. Back-slashes in patterns will always be interpreted as escape characters, not path separators. Note that \\ or / will be interpreted as path separators in paths on Windows, and will match against / in glob expressions. So just always use / in patterns.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.UNC Paths",
+    "body": "On Windows, UNC paths like //?/c:/... or //ComputerName/Share/... are handled specially. - Patterns starting with a double-slash followed by some non-slash characters will preserve their double-slash. As a result, a pattern like // will match //x, but not /x. - Patterns staring with //?/ : will not treat the ? as a wildcard character. Instead, it will be treated as a normal string. - Patterns starting with //?/ :/... will match file paths starting with :/..., and vice versa, as if the //?/ was not present. This behavior only is present when the drive letters are a case-insensitive match to one another. The remaining portions of the path/pattern are compared case sensitively, unless nocase:true is set. Note that specifying a UNC path using \\ characters as path separators is always allowed in the file path argument, but only allowed in the pattern argument when windowsPathsNoEscape: true is set in the options. Create a minimatch object by instantiating the minimatch.Minimatch class.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.Properties",
+    "body": "- pattern The original pattern the minimatch object represents. - options The options supplied to the constructor. - set A 2-dimensional array of regexp or string expressions. Each row in the array corresponds to a brace-expanded pattern. Each item in the row corresponds to a single path-part. For example, the pattern {a,b/c}/d would expand to a set of patterns like: [ [ a, d ] , [ b, c, d ] ] If a portion of the pattern doesn't have any \"magic\" in it (that is, it's something like \"foo\" rather than fo o?), then it will be left as a string rather than converted to a regular expression. - regexp Created by the makeRe method. A single regular expression expressing the entire pattern. This is useful in cases where you wish to use the pattern somewhat like fnmatch(3) with FNM PATH enabled. - negate True if the pattern is negated. - comment True if the pattern is a comment. - empty True if the pattern is \"\".",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.Methods",
+    "body": "- makeRe() Generate the regexp member if necessary, and return it. Will return false if the pattern is invalid. - match(fname) Return true if the filename matches the pattern, or false otherwise. - matchOne(fileArray, patternArray, partial) Take a /-split filename, and match it against a single row in the regExpSet. This method is mainly for internal use, but is exposed so that it can be used by a glob-walker that needs to avoid excessive filesystem calls. - hasMagic() Returns true if the parsed pattern contains any magic characters. Returns false if all comparator parts are string literals. If the magicalBraces option is set on the constructor, then it will consider brace expansions which are not otherwise magical to be magic. If not set, then a pattern like a{b,c}d will return false, because neither abd nor acd contain any special glob characters. This does not mean that the pattern string can be used as a literal filename, as it may contain magic glob characters that are escaped. For example, the pattern \\\\ or [ ] would not be considered to have magic, as the matching portion parses to the literal string ' ' and would match a path named ' ', not '\\\\ ' or '[ ]'. The minimatch.unescape() method may be used to remove escape characters. All other methods are internal, and will be called as necessary.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.minimatch(path, pattern, options)",
+    "body": "Main export. Tests a path against the pattern using the options.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.filter(pattern, options)",
+    "body": "Returns a function that tests its supplied argument, suitable for use with Array.filter. Example:",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.escape(pattern, options = {})",
+    "body": "Escape all magic characters in a glob pattern, so that it will only ever match literal strings. If the windowsPathsNoEscape option is used, then characters are escaped by wrapping in [], because a magic character wrapped in a character class can only be satisfied by that exact character. Slashes (and backslashes in windowsPathsNoEscape mode) cannot be escaped or unescaped.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.unescape(pattern, options = {})",
+    "body": "Un-escape a glob string that may contain some escaped characters. If the windowsPathsNoEscape option is used, then square-brace escapes are removed, but not backslash escapes. For example, it will turn the string '[ ]' into , but it will not turn '\\\\ ' into ' ', because \\ is a path separator in windowsPathsNoEscape mode. When windowsPathsNoEscape is not set, then both brace escapes and backslash escapes are removed. Slashes (and backslashes in windowsPathsNoEscape mode) cannot be escaped or unescaped.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.match(list, pattern, options)",
+    "body": "Match against the list of files, in the style of fnmatch or glob. If nothing is matched, and options.nonull is set, then return a list containing the pattern itself.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.makeRe(pattern, options)",
+    "body": "Make a regular expression object from the pattern. All options are false by default.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.debug",
+    "body": "Dump a ton of stuff to stderr.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.nobrace",
+    "body": "Do not expand {a,b} and {1..3} brace sets.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.noglobstar",
+    "body": "Disable matching against multiple folder names.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.dot",
+    "body": "Allow patterns to match filenames starting with a period, even if the pattern does not explicitly have a period in that spot. Note that by default, a/ /b will not match a/.d/b, unless dot is set.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.noext",
+    "body": "Disable \"extglob\" style patterns like +(a b).",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.nocase",
+    "body": "Perform a case-insensitive match.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.nocaseMagicOnly",
+    "body": "When used with {nocase: true}, create regular expressions that are case-insensitive, but leave string match portions untouched. Has no effect when used without {nocase: true}. Useful when some other form of case-insensitive matching is used, or if the original string representation is useful in some other way.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.nonull",
+    "body": "When a match is not found by minimatch.match, return a list containing the pattern itself if this option is set. When not set, an empty list is returned if there are no matches.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.magicalBraces",
+    "body": "This only affects the results of the Minimatch.hasMagic method. If the pattern contains brace expansions, such as a{b,c}d, but no other magic characters, then the Minimatch.hasMagic() method will return false by default. When this option set, it will return true for brace expansion as well as other magic glob characters.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.matchBase",
+    "body": "If set, then patterns without slashes will be matched against the basename of the path if it contains slashes. For example, a?b would match the path /xyz/123/acb, but not /xyz/acb/123.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.nocomment",
+    "body": "Suppress the behavior of treating at the start of a pattern as a comment.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.nonegate",
+    "body": "Suppress the behavior of treating a leading ! character as negation.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.flipNegate",
+    "body": "Returns from negate expressions the same as if they were not negated. (Ie, true on a hit, false on a miss.)",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.partial",
+    "body": "Compare a partial path to a pattern. As long as the parts of the path that are present are not contradicted by the pattern, it will be treated as a match. This is useful in applications where you're walking through a folder structure, and don't yet have the full path, but want to ensure that you do not walk down paths that can never be a match. For example,",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.windowsPathsNoEscape",
+    "body": "Use \\\\ as a path separator only , and never as an escape character. If set, all \\\\ characters are replaced with / in the pattern. Note that this makes it impossible to match against paths containing literal glob pattern characters, but allows matching with patterns constructed using path.join() and path.resolve() on Windows platforms, mimicking the (buggy!) behavior of earlier versions on Windows. Please use with caution, and be mindful of the caveat about Windows paths. For legacy reasons, this is also set if options.allowWindowsEscape is set to the exact value false.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.windowsNoMagicRoot",
+    "body": "When a pattern starts with a UNC path or drive letter, and in nocase:true mode, do not convert the root portions of the pattern into a case-insensitive regular expression, and instead leave them as strings. This is the default when the platform is win32 and nocase:true is set.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.preserveMultipleSlashes",
+    "body": "By default, multiple / characters (other than the leading // in a UNC path, see \"UNC Paths\" above) are treated as a single /. That is, a pattern like a///b will match the file path a/b. Set preserveMultipleSlashes: true to suppress this behavior.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.optimizationLevel",
+    "body": "A number indicating the level of optimization that should be done to the pattern prior to parsing and using it for matches. Globstar parts are always converted to when noglobstar is set, and multiple adjacent parts are converted into a single (ie, a/ / /b will be treated as a/ /b, as this is equivalent in all cases). - 0 - Make no further changes. In this mode, . and .. are maintained in the pattern, meaning that they must also appear in the same position in the test path string. Eg, a pattern like a/ /../c will match the string a/b/../c but not the string a/c. - 1 - (default) Remove cases where a double-dot .. follows a pattern portion that is not , ., .., or empty ''. For example, the pattern ./a/b/../ is converted to ./a/ , and so it will match the path string ./a/c, but not the path string ./a/b/../c. Dots and empty path portions in the pattern are preserved. - 2 (or higher) - Much more aggressive optimizations, suitable for use with file-walking cases: - Remove cases where a double-dot .. follows a pattern portion that is not , ., or empty ''. Remove empty and . portions of the pattern, where safe to do so (ie, anywhere other than the last position, the first position, or the second position in a pattern starting with /, as this may indicate a UNC path on Windows). - Convert patterns containing / /../ / into the equivalent /{.., }/ / , where is a a pattern portion other than ., .., , or empty ''. - Dedupe patterns where a portion is present in one and omitted in another, and it is not the final path portion, and they are otherwise equivalent. So {a/ /b,a/b} becomes a/ /b, because matches against an empty path portion. - Dedupe patterns where a portion is present in one, and a non-dot pattern other than , ., .., or '' is in the same position in the other. So a/{ ,x}/b becomes a/ /b, because can match against x. While these optimizations improve the performance of file-walking use cases such as glob (ie, the reason this module exists), there are cases where it will fail to match a literal string that would have been matched in optimization level 1 or 0. Specifically, while the Minimatch.match() method will optimize the file path string in the same ways, resulting in the same matches, it will fail when tested with the regular expression provided by Minimatch.makeRe(), unless the path string is first processed with minimatch.levelTwoFileOptimize() or similar.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.platform",
+    "body": "When set to win32, this will trigger all windows-specific behaviors (special handling for UNC paths, and treating \\ as separators in file paths for comparison.) Defaults to the value of process.platform.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.maxGlobstarRecursion",
+    "body": "Max number of non-adjacent patterns to recursively walk down. The default of 200 is almost certainly high enough for most purposes, and can handle absurdly excessive patterns. If the limit is exceeded (which would require very excessively long patterns and paths containing lots of patterns!), then it is treated as non-matching, even if the path would normally match the pattern provided. That is, this is an intentional false negative, deemed an acceptable break in correctness for security and performance.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "minimatch.maxExtglobRecursion",
+    "body": "Max depth to traverse for nested extglobs like (a b c) Default is 2, which is quite low, but any higher value swiftly results in punishing performance impacts. Note that this is not relevant when the globstar types can be safely coalesced into a single set. For example, (a @(b c) d) would be flattened into (a b c d). Thus, many common extglobs will retain good performance and never hit this limit, even if they are excessively deep and complicated. If the limit is hit, then the extglob characters are simply not parsed, and the pattern effectively switches into noextglob: true mode for the contents of that nested sub-pattern. This will typically not result in a match, but is considered a valid trade-off for security and performance. While strict compliance with the existing standards is a worthwhile goal, some discrepancies exist between minimatch and other implementations. Some are intentional, and some are unavoidable. If the pattern starts with a ! character, then it is negated. Set the nonegate flag to suppress this behavior, and treat leading ! characters normally. This is perhaps relevant if you wish to start the pattern with a negative extglob pattern like !(a B). Multiple ! characters at the start of a pattern will negate the pattern multiple times. If a pattern starts with , then it is treated as a comment, and will not match anything. Use \\ to match a literal at the start of a line, or set the nocomment flag to suppress this behavior. The double-star character is supported by default, unless the noglobstar flag is set. This is supported in the manner of bsdglob and bash 4.1, where only has special significance if it is the only thing in a path part. That is, a/ /b will match a/x/y/b, but a/ b will not. If an escaped pattern has no matches, and the nonull flag is set, then minimatch.match returns the pattern as-provided, rather than interpreting the character escapes. For example, minimatch.match([], \"\\\\ a\\\\?\") will return \"\\\\ a\\\\?\" rather than \" a?\". This is akin to setting the nullglob option in bash, except that it does not resolve escaped pattern characters. If brace expansion is not disabled, then it is performed before any other interpretation of the glob pattern. Thus, a pattern like +(a {b),c)}, which would not be valid in bash or zsh, is expanded first into the set of +(a b) and +(a c), and those patterns are checked for validity. Since those two are valid, matching proceeds. Negated extglob patterns are handled as closely as possible to Bash semantics, but there are some cases with negative extglobs which are exceedingly difficult to express in a JavaScript regular expression. In particular the negated pattern !( ) will in bash match anything that does not start with . However, !( ) will match paths starting with , because the empty string can match against the negated portion. In this library, !( ) will not match any pattern starting with , due to a difference in precisely which patterns are considered \"greedy\" in Regular Expressions vs bash path expansion. This may be fixable, but not without incurring some complexity and performance costs, and the trade-off seems to not be worth pursuing. Note that fnmatch(3) in libc is an extremely naive string comparison matcher, which does not do anything special for slashes. This library is designed to be used in glob searching and file walkers, and so it does do special things with /. Thus, foo will not match foo/bar in this library, even though it would in fnmatch(3).",
+    "path": "/.tmp/ci-repro/repo/node_modules/minimatch/README",
+    "id": ""
+  },
+  {
+    "title": "Blue Oak Model License",
+    "body": "Version 1.0.0 This license gives everyone as much permission to work with this software as possible, while protecting contributors from liability. In order to receive this license, you must agree to its rules. The rules of this license are both obligations under that agreement and conditions to your license. You must not do anything with this software that triggers a rule that you cannot or will not follow. Each contributor licenses you to do everything with this software that would otherwise infringe that contributor's copyright in it. You must ensure that everyone who gets a copy of any part of this software from you, with or without changes, also gets the text of this license or a link to . If anyone notifies you in writing that you have not complied with Notices, you can keep your license by taking all practical steps to comply within 30 days after the notice. If you do not do so, your license ends immediately. Each contributor licenses you to do everything with this software that would otherwise infringe any patent claims they can license or become able to license. No contributor can revoke this license. As far as the law allows, this software comes as is, without any warranty or condition, and no contributor will be liable to anyone for any damages related to this software or this license, under any kind of legal claim.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/LICENSE",
+    "id": ""
+  },
+  {
+    "title": "minipass",
+    "body": "A very minimal implementation of a PassThrough stream It's very fast for objects, strings, and buffers. Supports pipe()ing (including multi-pipe() and backpressure transmission), buffering data until either a data event handler or pipe() is added (so you don't lose the first chunk), and most other cases where PassThrough is a good idea. There is a read() method, but it's much more efficient to consume data from this stream via 'data' events or by calling pipe() into some other stream. Calling read() requires the buffer to be flattened in some cases, which requires copying memory. If you set objectMode: true in the options, then whatever is written will be emitted. Otherwise, it'll do a minimal amount of Buffer copying to ensure proper Streams semantics when read(n) is called. objectMode can only be set at instantiation. Attempting to write something other than a String or Buffer without having set objectMode in the options will throw an error. This is not a through or through2 stream. It doesn't transform the data, it just passes it right through. If you want to transform the data, extend the class, and override the write() method. Once you're done transforming the data however you want, call super.write() with the transform output. For some examples of streams that extend Minipass in various ways, check out: - minizlib - fs-minipass - tar - minipass-collect - minipass-flush - minipass-pipeline - tap - tap-parser - treport - minipass-fetch - pacote - make-fetch-happen - cacache - ssri - npm-registry-fetch - minipass-json-stream - minipass-sized The Minipass class takes three type template definitions: - RType the type being read, which defaults to Buffer. If RType is string, then the constructor must get an options object specifying either an encoding or objectMode: true. If it's anything other than string or Buffer, then it must get an options object specifying objectMode: true. - WType the type being written. If RType is Buffer or string, then this defaults to ContiguousData (Buffer, string, ArrayBuffer, or ArrayBufferView). Otherwise, it defaults to RType. - Events type mapping event names to the arguments emitted with that event, which extends Minipass.Events. To declare types for custom events in subclasses, extend the third parameter with your own event signatures. For example: Emitting/handling events that aren't declared in this way is fine, but the arguments will be typed as unknown. There are several things that make Minipass streams different from (and in some ways superior to) Node.js core streams. Please read these caveats if you are familiar with node-core streams and intend to use Minipass streams in your programs. You can avoid most of these differences entirely (for a very small performance penalty) by setting {async: true} in the constructor options.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Timing",
+    "body": "Minipass streams are designed to support synchronous use-cases. Thus, data is emitted as soon as it is available, always. It is buffered until read, but no longer. Another way to look at it is that Minipass streams are exactly as synchronous as the logic that writes into them. This can be surprising if your code relies on PassThrough.write() always providing data on the next tick rather than the current one, or being able to call resume() and not have the entire buffer disappear immediately. However, without this synchronicity guarantee, there would be no way for Minipass to achieve the speeds it does, or support the synchronous use cases that it does. Simply put, waiting takes time. This non-deferring approach makes Minipass streams much easier to reason about, especially in the context of Promises and other flow-control mechanisms. Example:",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Exception: Async Opt-In",
+    "body": "If you wish to have a Minipass stream with behavior that more closely mimics Node.js core streams, you can set the stream in async mode either by setting async: true in the constructor options, or by setting stream.async = true later on. Switching out of async mode is unsafe, as it could cause data corruption, and so is not enabled. Example: To avoid this problem, once set into async mode, any attempt to make the stream sync again will be ignored.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.No High/Low Water Marks",
+    "body": "Node.js core streams will optimistically fill up a buffer, returning true on all writes until the limit is hit, even if the data has nowhere to go. Then, they will not attempt to draw more data in until the buffer size dips below a minimum value. Minipass streams are much simpler. The write() method will return true if the data has somewhere to go (which is to say, given the timing guarantees, that the data is already there by the time write() returns). If the data has nowhere to go, then write() returns false, and the data sits in a buffer, to be drained out immediately as soon as anyone consumes it. Since nothing is ever buffered unnecessarily, there is much less copying data, and less bookkeeping about buffer capacity levels.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Hazards of Buffering (or: Why Minipass Is So Fast)",
+    "body": "Since data written to a Minipass stream is immediately written all the way through the pipeline, and write() always returns true/false based on whether the data was fully flushed, backpressure is communicated immediately to the upstream caller. This minimizes buffering. Consider this case: Along the way, the data was buffered and deferred at each stage, and multiple event deferrals happened, for an unblocked pipeline where it was perfectly safe to write all the way through! Furthermore, setting a highWaterMark of 1024 might lead someone reading the code to think an advisory maximum of 1KiB is being set for the pipeline. However, the actual advisory buffering level is the sum of highWaterMark values, since each one has its own bucket. Consider the Minipass case: It is extremely unlikely that you don't want to buffer any data written, or ever buffer data that can be flushed all the way through. Neither node-core streams nor Minipass ever fail to buffer written data, but node-core streams do a lot of unnecessary buffering and pausing. As always, the faster implementation is the one that does less stuff and waits less time to do it.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Immediately emit `end` for empty streams (when not paused)",
+    "body": "If a stream is not paused, and end() is called before writing any data into it, then it will emit end immediately. If you have logic that occurs on the end event which you don't want to potentially happen immediately (for example, closing file descriptors, moving on to the next entry in an archive parse stream, etc.) then be sure to call stream.pause() on creation, and then stream.resume() once you are ready to respond to the end event. However, this is usually not a problem because:",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Emit `end` When Asked",
+    "body": "One hazard of immediately emitting 'end' is that you may not yet have had a chance to add a listener. In order to avoid this hazard, Minipass streams safely re-emit the 'end' event if a new listener is added after 'end' has been emitted. Ie, if you do stream.on('end', someFunction), and the stream has already emitted end, then it will call the handler right away. (You can think of this somewhat like attaching a new .then(fn) to a previously-resolved Promise.) To prevent calling handlers multiple times who would not expect multiple ends to occur, all listeners are removed from the 'end' event whenever it is emitted.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Emit `error` When Asked",
+    "body": "The most recent error object passed to the 'error' event is stored on the stream. If a new 'error' event handler is added, and an error was previously emitted, then the event handler will be called immediately (or on process.nextTick in the case of async streams). This makes it much more difficult to end up trying to interact with a broken stream, if the error handler is added after an error was previously emitted.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Impact of \"immediate flow\" on Tee-streams",
+    "body": "A \"tee stream\" is a stream piping to multiple destinations: Since Minipass streams immediately process any pending data through the pipeline when a new pipe destination is added, this can have surprising effects, especially when a stream comes in from some other function and may or may not have data in its buffer. One solution is to create a dedicated tee-stream junction that pipes to both locations, and then pipe to that instead. The same caveat applies to on('data') event listeners. The first one added will immediately receive all of the data, leaving nothing for the second: Using a dedicated tee-stream can be used in this case as well: All of the hazards in this section are avoided by setting { async: true } in the Minipass constructor, or by setting stream.async = true afterwards. Note that this does add some overhead, so should only be done in cases where you are willing to lose a bit of performance in order to avoid having to refactor program logic. It's a stream! Use it like a stream and it'll most likely do what you want.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.OPTIONS",
+    "body": "- encoding How would you like the data coming out of the stream to be encoded? Accepts any values that can be passed to Buffer.toString(). - objectMode Emit data exactly as it comes in. This will be flipped on by default if you write() something other than a string or Buffer at any point. Setting objectMode: true will prevent setting any encoding value. - async Defaults to false. Set to true to defer data emission until next tick. This reduces performance slightly, but makes Minipass streams use timing behavior closer to Node core streams. See Timing for more details. - signal An AbortSignal that will cause the stream to unhook itself from everything and become as inert as possible. Note that providing a signal parameter will make 'error' events no longer throw if they are unhandled, but they will still be emitted to handlers if any are attached.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.API",
+    "body": "Implements the user-facing portions of Node.js's Readable and Writable streams.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Methods",
+    "body": "- write(chunk, [encoding], [callback]) - Put data in. (Note that, in the base Minipass class, the same data will come out.) Returns false if the stream will buffer the next write, or true if it's still in \"flowing\" mode. - end([chunk, [encoding]], [callback]) - Signal that you have no more data to write. This will queue an end event to be fired when all the data has been consumed. - pause() - No more data for a while, please. This also prevents end from being emitted for empty streams until the stream is resumed. - resume() - Resume the stream. If there's data in the buffer, it is all discarded. Any buffered events are immediately emitted. - pipe(dest) - Send all output to the stream provided. When data is emitted, it is immediately written to any and all pipe destinations. (Or written on next tick in async mode.) - unpipe(dest) - Stop piping to the destination stream. This is immediate, meaning that any asynchronously queued data will not make it to the destination when running in async mode. - options.end - Boolean, end the destination stream when the source stream ends. Default true. - options.proxyErrors - Boolean, proxy error events from the source stream to the destination stream. Note that errors are not proxied after the pipeline terminates, either due to the source emitting 'end' or manually unpiping with src.unpipe(dest). Default false. - on(ev, fn), emit(ev, fn) - Minipass streams are EventEmitters. Some events are given special treatment, however. (See below under \"events\".) - promise() - Returns a Promise that resolves when the stream emits end, or rejects if the stream emits error. - collect() - Return a Promise that resolves on end with an array containing each chunk of data that was emitted, or rejects if the stream emits error. Note that this consumes the stream data. - concat() - Same as collect(), but concatenates the data into a single Buffer object. Will reject the returned promise if the stream is in objectMode, or if it goes into objectMode by the end of the data. - read(n) - Consume n bytes of data out of the buffer. If n is not provided, then consume all of it. If n bytes are not available, then it returns null. Note consuming streams in this way is less efficient, and can lead to unnecessary Buffer copying. - destroy([er]) - Destroy the stream. If an error is provided, then an 'error' event is emitted. If the stream has a close() method, and has not emitted a 'close' event yet, then stream.close() will be called. Any Promises returned by .promise(), .collect() or .concat() will be rejected. After being destroyed, writing to the stream will emit an error. No more data will be emitted if the stream is destroyed, even if it was previously buffered.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Properties",
+    "body": "- bufferLength Read-only. Total number of bytes buffered, or in the case of objectMode, the total number of objects. - encoding Read-only. The encoding that has been set. - flowing Read-only. Boolean indicating whether a chunk written to the stream will be immediately emitted. - emittedEnd Read-only. Boolean indicating whether the end-ish events (ie, end, prefinish, finish) have been emitted. Note that listening on any end-ish event will immediateyl re-emit it if it has already been emitted. - writable Whether the stream is writable. Default true. Set to false when end() - readable Whether the stream is readable. Default true. - pipes An array of Pipe objects referencing streams that this stream is piping into. - destroyed A getter that indicates whether the stream was destroyed. - paused True if the stream has been explicitly paused, otherwise false. - objectMode Indicates whether the stream is in objectMode. - aborted Readonly property set when the AbortSignal dispatches an abort event.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Events",
+    "body": "- data Emitted when there's data to read. Argument is the data to read. This is never emitted while not flowing. If a listener is attached, that will resume the stream. - end Emitted when there's no more data to read. This will be emitted immediately for empty streams when end() is called. If a listener is attached, and end was already emitted, then it will be emitted again. All listeners are removed when end is emitted. - prefinish An end-ish event that follows the same logic as end and is emitted in the same conditions where end is emitted. Emitted after 'end'. - finish An end-ish event that follows the same logic as end and is emitted in the same conditions where end is emitted. Emitted after 'prefinish'. - close An indication that an underlying resource has been released. Minipass does not emit this event, but will defer it until after end has been emitted, since it throws off some stream libraries otherwise. - drain Emitted when the internal buffer empties, and it is again suitable to write() into the stream. - readable Emitted when data is buffered and ready to be read by a consumer. - resume Emitted when stream changes state from buffering to flowing mode. (Ie, when resume is called, pipe is called, or a data event listener is added.)",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.Static Methods",
+    "body": "- Minipass.isStream(stream) Returns true if the argument is a stream, and false otherwise. To be considered a stream, the object must be either an instance of Minipass, or an EventEmitter that has either a pipe() method, or both write() and end() methods. (Pretty much any stream in node-land will return true for this.) Here are some examples of things you can do with Minipass streams.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.simple \"are you done yet\" promise",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.collecting",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.collecting into a single blob",
+    "body": "This is a bit slower because it concatenates the data into one chunk for you, but if you're going to do it yourself anyway, it's convenient this way:",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.iteration",
+    "body": "You can iterate over streams synchronously or asynchronously in platforms that support it. Synchronous iteration will end when the currently available data is consumed, even if the end event has not been reached. In string and buffer mode, the data is concatenated, so unless multiple writes are occurring in the same tick as the read(), sync iteration loops will generally only have a single iteration. To consume chunks in this way exactly as they have been written, with no flattening, create the stream with the { objectMode: true } option. Asynchronous iteration will continue until the end event is reached, consuming all of the data.",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "subclass that `console.log()`s everything written into it",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.same thing, but using an inline anonymous class",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.subclass that defers 'end' for some reason",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.transform that creates newline-delimited JSON",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "minipass.transform that parses newline-delimited JSON",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/minipass/README",
+    "id": ""
+  },
+  {
+    "title": "MZ - Modernize node.js",
+    "body": "[![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Dependency Status][david-image]][david-url] [![License][license-image]][license-url] [![Downloads][downloads-image]][downloads-url] Modernize node.js to current ECMAScript specifications! node.js will not update their API to ES6+ for a while. This library is a wrapper for various aspects of node.js' API. Set mz as a dependency and install it. Then prefix the relevant require()s with mz/: With ES2017, this will allow you to use async functions cleanly with node's core API: Many node methods are converted into promises. Any properties that are deprecated or aren't asynchronous will simply be proxied. The modules wrapped are: - child process - crypto - dns - fs (uses graceful-fs if available) - readline - zlib mz uses any-promise.",
+    "path": "/.tmp/ci-repro/repo/node_modules/mz/README",
+    "id": ""
+  },
+  {
+    "title": "MZ - Modernize node.js.Can I use this in production?",
+    "body": "Yes, Node 4.x ships with stable promises support. For older engines, you should probably install your own promise implementation and register it with require('any-promise/register')('bluebird').",
+    "path": "/.tmp/ci-repro/repo/node_modules/mz/README",
+    "id": ""
+  },
+  {
+    "title": "MZ - Modernize node.js.Will this make my app faster?",
+    "body": "Nope, probably slower actually.",
+    "path": "/.tmp/ci-repro/repo/node_modules/mz/README",
+    "id": ""
+  },
+  {
+    "title": "MZ - Modernize node.js.Can I add more features?",
+    "body": "Sure. Open an issue. Currently, the plans are to eventually support: - New APIs in node.js that are not available in older versions of node - ECMAScript7 Streams [bluebird]: https://github.com/petkaantonov/bluebird [npm-image]: https://img.shields.io/npm/v/mz.svg?style=flat-square [npm-url]: https://npmjs.org/package/mz [github-tag]: http://img.shields.io/github/tag/normalize/mz.svg?style=flat-square [github-url]: https://github.com/normalize/mz/tags [travis-image]: https://img.shields.io/travis/normalize/mz.svg?style=flat-square [travis-url]: https://travis-ci.org/normalize/mz [coveralls-image]: https://img.shields.io/coveralls/normalize/mz.svg?style=flat-square [coveralls-url]: https://coveralls.io/r/normalize/mz?branch=master [david-image]: http://img.shields.io/david/normalize/mz.svg?style=flat-square [david-url]: https://david-dm.org/normalize/mz [license-image]: http://img.shields.io/npm/l/mz.svg?style=flat-square [license-url]: LICENSE [downloads-image]: http://img.shields.io/npm/dm/mz.svg?style=flat-square [downloads-url]: https://npmjs.org/package/mz",
+    "path": "/.tmp/ci-repro/repo/node_modules/mz/README",
+    "id": ""
+  },
+  {
+    "title": "Nano ID",
+    "body": "English Русский 简体中文 Bahasa Indonesia A tiny, secure, URL-friendly, unique string ID generator for JavaScript. “An amazing level of senseless perfectionism, which is simply impossible not to respect.” Small. 130 bytes (minified and gzipped). No dependencies. [Size Limit] controls the size. Fast. It is 2 times faster than UUID. Safe. It uses hardware random generator. Can be used in clusters. Short IDs. It uses a larger alphabet than UUID (A-Za-z0-9 -). So ID size was reduced from 36 to 21 symbols. Portable. Nano ID was ported to 20 programming languages. Supports modern browsers, IE [with Babel], Node.js and React Native. [online tool]: https://gitpod.io/ https://github.com/ai/nanoid/ [with Babel]: https://developer.epages.com/blog/coding/how-to-transpile-node-modules-with-babel-and-webpack-in-a-monorepo/ [Size Limit]: https://github.com/ai/size-limit Read full docs here .",
+    "path": "/.tmp/ci-repro/repo/node_modules/nanoid/README",
+    "id": ""
+  },
+  {
+    "title": "normalize-path [![NPM version](https://img.shields.io/npm/v/normalize-path.svg?style=flat)](https://www.npmjs.com/package/normalize-path) [![NPM monthly downloads](https://img.shields.io/npm/dm/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![NPM total downloads](https://img.shields.io/npm/dt/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/normalize-path.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/normalize-path)",
+    "body": "Normalize slashes in a file path to be posix/unix-like forward slashes. Also condenses repeat slashes to a single slash and removes and trailing slashes, unless disabled. Please consider following this project's author, Jon Schlinkert, and consider starring the project to show your :heart: and support. Install with npm: win32 namespaces Consecutive slashes Condenses multiple consecutive forward slashes (except for leading slashes in win32 namespaces) to a single slash.",
+    "path": "/.tmp/ci-repro/repo/node_modules/normalize-path/README",
+    "id": ""
+  },
+  {
+    "title": "normalize-path [![NPM version](https://img.shields.io/npm/v/normalize-path.svg?style=flat)](https://www.npmjs.com/package/normalize-path) [![NPM monthly downloads](https://img.shields.io/npm/dm/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![NPM total downloads](https://img.shields.io/npm/dt/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/normalize-path.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/normalize-path).Trailing slashes",
+    "body": "By default trailing slashes are removed. Pass false as the last argument to disable this behavior and keep trailing slashes :",
+    "path": "/.tmp/ci-repro/repo/node_modules/normalize-path/README",
+    "id": ""
+  },
+  {
+    "title": "v3.0",
+    "body": "No breaking changes in this release. a check was added to ensure that win32 namespaces.aspx namespaces) are handled properly by win32 path.parse() after a path has been normalized by this library. a minor optimization was made to simplify how the trailing separator was handled Contributing Pull requests and stars are always welcome. For bugs and feature requests, please create an issue. Running Tests Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command: Building docs (This project's readme.md is generated by verb, please don't edit the readme directly. Any changes to the readme must be made in the .verb.md readme template.) To generate the readme, run the following command:",
+    "path": "/.tmp/ci-repro/repo/node_modules/normalize-path/README",
+    "id": ""
+  },
+  {
+    "title": "normalize-path [![NPM version](https://img.shields.io/npm/v/normalize-path.svg?style=flat)](https://www.npmjs.com/package/normalize-path) [![NPM monthly downloads](https://img.shields.io/npm/dm/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![NPM total downloads](https://img.shields.io/npm/dt/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/normalize-path.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/normalize-path).Related projects",
+    "body": "Other useful path-related libraries: contains-path: Return true if a file path contains the given path. homepage is-absolute: Returns true if a file path is absolute. Does not rely on the path module… more homepage is-relative: Returns true if the path appears to be relative. homepage parse-filepath: Pollyfill for node.js path.parse, parses a filepath into an object. homepage path-ends-with: Return true if a file path ends with the given string/suffix. homepage unixify: Convert Windows file paths to unix paths. homepage",
+    "path": "/.tmp/ci-repro/repo/node_modules/normalize-path/README",
+    "id": ""
+  },
+  {
+    "title": "normalize-path [![NPM version](https://img.shields.io/npm/v/normalize-path.svg?style=flat)](https://www.npmjs.com/package/normalize-path) [![NPM monthly downloads](https://img.shields.io/npm/dm/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![NPM total downloads](https://img.shields.io/npm/dt/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/normalize-path.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/normalize-path).Contributors",
+    "body": "Commits Contributor --- --- 35 jonschlinkert 1 phated",
+    "path": "/.tmp/ci-repro/repo/node_modules/normalize-path/README",
+    "id": ""
+  },
+  {
+    "title": "normalize-path [![NPM version](https://img.shields.io/npm/v/normalize-path.svg?style=flat)](https://www.npmjs.com/package/normalize-path) [![NPM monthly downloads](https://img.shields.io/npm/dm/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![NPM total downloads](https://img.shields.io/npm/dt/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/normalize-path.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/normalize-path).Author",
+    "body": "Jon Schlinkert LinkedIn Profile GitHub Profile Twitter Profile",
+    "path": "/.tmp/ci-repro/repo/node_modules/normalize-path/README",
+    "id": ""
+  },
+  {
+    "title": "normalize-path [![NPM version](https://img.shields.io/npm/v/normalize-path.svg?style=flat)](https://www.npmjs.com/package/normalize-path) [![NPM monthly downloads](https://img.shields.io/npm/dm/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![NPM total downloads](https://img.shields.io/npm/dt/normalize-path.svg?style=flat)](https://npmjs.org/package/normalize-path) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/normalize-path.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/normalize-path).License",
+    "body": "Copyright © 2018, Jon Schlinkert. Released under the MIT License. This file was generated by verb-generate-readme, v0.6.0, on April 19, 2018.",
+    "path": "/.tmp/ci-repro/repo/node_modules/normalize-path/README",
+    "id": ""
+  },
+  {
+    "title": "object-assign [![Build Status](https://travis-ci.org/sindresorhus/object-assign.svg?branch=master)](https://travis-ci.org/sindresorhus/object-assign)",
+    "body": "ES2015 Object.assign() ponyfill Node.js 4 and up, as well as every evergreen browser (Chrome, Edge, Firefox, Opera, Safari), support Object.assign() :tada:. If you target only those environments, then by all means, use Object.assign() instead of this package.",
+    "path": "/.tmp/ci-repro/repo/node_modules/object-assign/readme",
+    "id": ""
+  },
+  {
+    "title": "objectAssign(target, [source, ...])",
+    "body": "Assigns enumerable own properties of source objects to the target object and returns the target object. Additional source objects will overwrite previous ones. - ES2015 spec - Object.assign - deep-assign - Recursive Object.assign() MIT © Sindre Sorhus",
+    "path": "/.tmp/ci-repro/repo/node_modules/object-assign/readme",
+    "id": ""
+  },
+  {
+    "title": "⚓ Oxc",
+    "body": "The Oxidation Compiler is creating a suite of high-performance tools for JavaScript and TypeScript. This is the formatter for oxc. See usage instructions. Run - npx --yes oxfmt@latest in your JavaScript / TypeScript codebase and see it complete in milliseconds. No configurations are required. - npx oxfmt@latest --help for quick usage instructions. - npx skills add https://github.com/oxc-project/oxc --skill migrate-oxfmt to install the migrate-oxfmt skill, then run /migrate-oxfmt to migrate from Prettier or Biome. - See also migrate from Prettier.",
+    "path": "/.tmp/ci-repro/repo/node_modules/oxfmt/README",
+    "id": ""
+  },
+  {
+    "title": "⚓ Oxc",
+    "body": "The Oxidation Compiler is creating a suite of high-performance tools for JavaScript and TypeScript. This is the linter for oxc. See usage instructions. Run - npx --yes oxlint@latest in your JavaScript / TypeScript codebase and see it complete in milliseconds. No configurations are required. - npx oxlint@latest --help for quick usage instructions. - npx oxlint@latest --rules for the list of rules. - npx skills add https://github.com/oxc-project/oxc --skill migrate-oxlint to install the migrate-oxlint skill, then run /migrate-oxlint to migrate from ESLint. - See also migrate from ESLint.",
+    "path": "/.tmp/ci-repro/repo/node_modules/oxlint/README",
+    "id": ""
+  },
+  {
+    "title": "path-parse [![Build Status](https://travis-ci.org/jbgutierrez/path-parse.svg?branch=master)](https://travis-ci.org/jbgutierrez/path-parse)",
+    "body": "Node.js path.parse(pathString) ponyfill. See path.parse(pathString) docs.",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-parse/README",
+    "id": ""
+  },
+  {
+    "title": "path-parse [![Build Status](https://travis-ci.org/jbgutierrez/path-parse.svg?branch=master)](https://travis-ci.org/jbgutierrez/path-parse).pathParse(path)",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-parse/README",
+    "id": ""
+  },
+  {
+    "title": "pathParse.posix(path)",
+    "body": "The Posix specific version.",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-parse/README",
+    "id": ""
+  },
+  {
+    "title": "pathParse.win32(path)",
+    "body": "The Windows specific version. MIT © Javier Blanco",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-parse/README",
+    "id": ""
+  },
+  {
+    "title": "Blue Oak Model License",
+    "body": "Version 1.0.0 This license gives everyone as much permission to work with this software as possible, while protecting contributors from liability. In order to receive this license, you must agree to its rules. The rules of this license are both obligations under that agreement and conditions to your license. You must not do anything with this software that triggers a rule that you cannot or will not follow. Each contributor licenses you to do everything with this software that would otherwise infringe that contributor's copyright in it. You must ensure that everyone who gets a copy of any part of this software from you, with or without changes, also gets the text of this license or a link to . If anyone notifies you in writing that you have not complied with Notices, you can keep your license by taking all practical steps to comply within 30 days after the notice. If you do not do so, your license ends immediately. Each contributor licenses you to do everything with this software that would otherwise infringe any patent claims they can license or become able to license. No contributor can revoke this license. As far as the law allows, this software comes as is, without any warranty or condition, and no contributor will be liable to anyone for any damages related to this software or this license, under any kind of legal claim.",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/LICENSE",
+    "id": ""
+  },
+  {
+    "title": "path-scurry",
+    "body": "Extremely high performant utility for building tools that read the file system, minimizing filesystem and path string munging operations to the greatest degree possible. Yes. None of the existing ones gave me exactly what I wanted. While working on glob, I found that I needed a module to very efficiently manage the traversal over a folder tree, such that: 1. No readdir() or stat() would ever be called on the same file or directory more than one time. 2. No readdir() calls would be made if we can be reasonably sure that the path is not a directory. (Ie, a previous readdir() or stat() covered the path, and ent.isDirectory() is false.) 3. path.resolve(), dirname(), basename(), and other string-parsing/munging operations are be minimized. This means it has to track \"provisional\" child nodes that may not exist (and if we find that they don't exist, store that information as well, so we don't have to ever check again). 4. The API is not limited to use as a stream/iterator/etc. There are many cases where an API like node's fs is preferrable. 5. It's more important to prevent excess syscalls than to be up to date, but it should be smart enough to know what it doesn't know, and go get it seamlessly when requested. 6. Do not blow up the JS heap allocation if operating on a directory with a huge number of entries. 7. Handle all the weird aspects of Windows paths, like UNC paths and drive letters and wrongway slashes, so that the consumer can return canonical platform-specific paths without having to parse or join or do any error-prone string munging. JavaScript people throw around the word \"blazing\" a lot. I hope that this module doesn't blaze anyone. But it does go very fast, in the cases it's optimized for, if used properly. PathScurry provides ample opportunities to get extremely good performance, as well as several options to trade performance for convenience. Benchmarks can be run by executing npm run bench. As is always the case, doing more means going slower, doing less means going faster, and there are trade offs between speed and memory usage. PathScurry makes heavy use of LRUCache to efficiently cache whatever it can, and Path objects remain in the graph for the lifetime of the walker, so repeated calls with a single PathScurry object will be extremely fast. However, adding items to a cold cache means \"doing more\", so in those cases, we pay a price. Nothing is free, but every effort has been made to reduce costs wherever possible. Also, note that a \"cache as long as possible\" approach means that changes to the filesystem may not be reflected in the results of repeated PathScurry operations. For resolving string paths, PathScurry ranges from 5-50 times faster than path.resolve on repeated resolutions, but around 100 to 1000 times slower on the first resolution. If your program is spending a lot of time resolving the same paths repeatedly (like, thousands or millions of times), then this can be beneficial. But both implementations are pretty fast, and speeding up an infrequent operation from 4µs to 400ns is not going to move the needle on your app's performance. For walking file system directory trees, a lot depends on how often a given PathScurry object will be used, and also on the walk method used. With default settings on a folder tree of 100,000 items, consisting of around a 10-to-1 ratio of normal files to directories, PathScurry performs comparably to @nodelib/fs.walk, which is the fastest and most reliable file system walker I could find. As far as I can tell, it's almost impossible to go much faster in a Node.js program, just based on how fast you can push syscalls out to the fs thread pool. On my machine, that is about 1000-1200 completed walks per second for async or stream walks, and around 500-600 walks per second synchronously. In the warm cache state, PathScurry's performance increases around 4x for async for await iteration, 10-15x faster for streams and synchronous for of iteration, and anywhere from 30x to 80x faster for the rest. ```",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/README",
+    "id": ""
+  },
+  {
+    "title": "walk 100,000 fs entries, 10/1 file/dir ratio",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/README",
+    "id": ""
+  },
+  {
+    "title": "operations / ms",
+    "body": "New PathScurry object Reuse PathScurry object stream: 1112.589 13974.917 sync stream: 492.718 15028.343 async walk: 1095.648 32706.395 sync walk: 527.632 46129.772 async iter: 1288.821 5045.510 sync iter: 498.496 17920.746",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/README",
+    "id": ""
+  },
+  {
+    "title": "manual recursive iteration functions",
+    "body": "cold cache warm cache async: 1164.901 17923.320 cb: 1101.127 40999.344 zalgo: 1082.240 66689.936 sync: 526.935 87097.591 ts // hybrid module, load with either method import { PathScurry, Path } from 'path-scurry' // or: const { PathScurry, Path } = require('path-scurry') // very simple example, say we want to find and // delete all the .DS Store files in a given path // note that the API is very similar to just a // naive walk with fs.readdir() import { unlink } from 'fs/promises' // easy way, iterate over the directory and do the thing const pw = new PathScurry(process.cwd()) for await (const entry of pw) { if (entry.isFile() && entry.name === '.DS Store') { unlink(entry.fullpath()) } } // here it is as a manual recursive method const walk = async (entry: Path) = { const promises: Promise = [] // readdir doesn't throw on non-directories, it just doesn't // return any entries, to save stack trace costs. // Items are returned in arbitrary unsorted order for (const child of await pw.readdir(entry)) { // each child is a Path object if (child.name === '.DS Store' && child.isFile()) { // could also do pw.resolve(entry, child.name), // just like fs.readdir walking, but .fullpath is // a slightly more efficient shorthand. promises.push(unlink(child.fullpath())) } else if (child.isDirectory()) { promises.push(walk(child)) } } return Promise.all(promises) } walk(pw.cwd).then(() = { console.log('all .DS Store files removed') }) const pw2 = new PathScurry('/a/b/c') // pw2.cwd is the Path for /a/b/c const relativeDir = pw2.cwd.resolve('../x') // Path entry for '/a/b/x' const relative2 = pw2.cwd.resolve('/a/b/d/../x') // same path, same entry assert.equal(relativeDir, relative2) `` Full TypeDoc API There are platform-specific classes exported, but for the most part, the default PathScurry and Path` exports are what you most likely need, unless you are testing behavior for other platforms. Intended public API is documented here, but the full documentation does include internal types, which should not be accessed directly.",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/README",
+    "id": ""
+  },
+  {
+    "title": "manual recursive iteration functions.Interface `PathScurryOpts`",
+    "body": "The type of the options argument passed to the PathScurry constructor. - nocase: Boolean indicating that file names should be compared case-insensitively. Defaults to true on darwin and win32 implementations, false elsewhere. Warning Performing case-insensitive matching on a case-sensitive filesystem will result in occasionally very bizarre behavior. Performing case-sensitive matching on a case-insensitive filesystem may negatively impact performance. - childrenCacheSize: Number of child entries to cache, in order to speed up resolve() and readdir() calls. Defaults to 16 1024 (ie, 16384). Setting it to a higher value will run the risk of JS heap allocation errors on large directory trees. Setting it to 256 or smaller will significantly reduce the construction time and data consumption overhead, but with the downside of operations being slower on large directory trees. Setting it to 0 will mean that effectively no operations are cached, and this module will be roughly the same speed as fs for file system operations, and much slower than path.resolve() for repeated path resolution. - fs An object that will be used to override the default fs methods. Any methods that are not overridden will use Node's built-in implementations. - lstatSync - readdir (callback withFileTypes Dirent variant, used for readdirCB and most walks) - readdirSync - readlinkSync - realpathSync - promises: Object containing the following async methods: - lstat - readdir (Dirent variant only) - readlink - realpath",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/README",
+    "id": ""
+  },
+  {
+    "title": "manual recursive iteration functions.Interface `WalkOptions`",
+    "body": "The options object that may be passed to all walk methods. - withFileTypes: Boolean, default true. Indicates that Path objects should be returned. Set to false to get string paths instead. - follow: Boolean, default false. Attempt to read directory entries from symbolic links. Otherwise, only actual directories are traversed. Regardless of this setting, a given target path will only ever be walked once, meaning that a symbolic link to a previously traversed directory will never be followed. Setting this imposes a slight performance penalty, because readlink must be called on all symbolic links encountered, in order to avoid infinite cycles. - filter: Function (entry: Path) = boolean. If provided, will prevent the inclusion of any entry for which it returns a falsey value. This will not prevent directories from being traversed if they do not pass the filter, though it will prevent the directories themselves from being included in the results. By default, if no filter is provided, then all entries are included in the results. - walkFilter: Function (entry: Path) = boolean. If provided, will prevent the traversal of any directory (or in the case of follow:true symbolic links to directories) for which the function returns false. This will not prevent the directories themselves from being included in the result set. Use filter for that. Note that TypeScript return types will only be inferred properly from static analysis if the withFileTypes option is omitted, or a constant true or false value.",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/README",
+    "id": ""
+  },
+  {
+    "title": "manual recursive iteration functions.Class `PathScurry`",
+    "body": "The main interface. Defaults to an appropriate class based on the current platform. Use PathScurryWin32, PathScurryDarwin, or PathScurryPosix if implementation-specific behavior is desired. All walk methods may be called with a WalkOptions argument to walk over the object's current working directory with the supplied options. async pw.walk(entry?: string Path WalkOptions, opts?: WalkOptions) Walk the directory tree according to the options provided, resolving to an array of all entries found. pw.walkSync(entry?: string Path WalkOptions, opts?: WalkOptions) Walk the directory tree according to the options provided, returning an array of all entries found. pw.iterate(entry?: string Path WalkOptions, opts?: WalkOptions) Iterate over the directory asynchronously, for use with for await of. This is also the default async iterator method. pw.iterateSync(entry?: string Path WalkOptions, opts?: WalkOptions) Iterate over the directory synchronously, for use with for of. This is also the default sync iterator method. pw.stream(entry?: string Path WalkOptions, opts?: WalkOptions) Return a Minipass stream that emits each entry or path string in the walk. Results are made available asynchronously. pw.streamSync(entry?: string Path WalkOptions, opts?: WalkOptions) Return a Minipass stream that emits each entry or path string in the walk. Results are made available synchronously, meaning that the walk will complete in a single tick if the stream is fully consumed. pw.cwd Path object representing the current working directory for the PathScurry. pw.chdir(path: string) Set the new effective current working directory for the scurry object, so that path.relative() and path.relativePosix() return values relative to the new cwd path. pw.depth(path?: Path string): number Return the depth of the specified path (or the PathScurry cwd) within the directory tree. Root entries have a depth of 0. pw.resolve(...paths: string[]) Caching path.resolve(). Significantly faster than path.resolve() if called repeatedly with the same paths. Significantly slower otherwise, as it builds out the cached Path entries. To get a Path object resolved from the PathScurry, use pw.cwd.resolve(path). Note that Path.resolve only takes a single string argument, not multiple. pw.resolvePosix(...paths: string[]) Caching path.resolve(), but always using posix style paths. This is identical to pw.resolve(...paths) on posix systems (ie, everywhere except Windows). On Windows, it returns the full absolute UNC path using / separators. Ie, instead of 'C:\\\\foo\\\\bar, it would return //?/C:/foo/bar. pw.relative(path: string Path): string Return the relative path from the PathWalker cwd to the supplied path string or entry. If the nearest common ancestor is the root, then an absolute path is returned. pw.relativePosix(path: string Path): string Return the relative path from the PathWalker cwd to the supplied path string or entry, using / path separators. If the nearest common ancestor is the root, then an absolute path is returned. On posix platforms (ie, all platforms except Windows), this is identical to pw.relative(path). On Windows systems, it returns the resulting string as a /-delimited path. If an absolute path is returned (because the target does not share a common ancestor with pw.cwd), then a full absolute UNC path will be returned. Ie, instead of 'C:\\\\foo\\\\bar, it would return //?/C:/foo/bar. pw.basename(path: string Path): string Return the basename of the provided string or Path. pw.dirname(path: string Path): string Return the parent directory of the supplied string or Path. async pw.readdir(dir = pw.cwd, opts = { withFileTypes: true }) Read the directory and resolve to an array of strings if withFileTypes is explicitly set to false or Path objects otherwise. Can be called as pw.readdir({ withFileTypes: boolean }) as well. Returns [] if no entries are found, or if any error occurs. Note that TypeScript return types will only be inferred properly from static analysis if the withFileTypes option is omitted, or a constant true or false value. pw.readdirSync(dir = pw.cwd, opts = { withFileTypes: true }) Synchronous pw.readdir() async pw.readlink(link = pw.cwd, opts = { withFileTypes: false }) Call fs.readlink on the supplied string or Path object, and return the result. Can be called as pw.readlink({ withFileTypes: boolean }) as well. Returns undefined if any error occurs (for example, if the argument is not a symbolic link), or a Path object if withFileTypes is explicitly set to true, or a string otherwise. Note that TypeScript return types will only be inferred properly from static analysis if the withFileTypes option is omitted, or a constant true or false value. pw.readlinkSync(link = pw.cwd, opts = { withFileTypes: false }) Synchronous pw.readlink() async pw.lstat(entry = pw.cwd) Call fs.lstat on the supplied string or Path object, and fill in as much information as possible, returning the updated Path object. Returns undefined if the entry does not exist, or if any error is encountered. Note that some Stats data (such as ino, dev, and mode) will not be supplied. For those things, you'll need to call fs.lstat yourself. pw.lstatSync(entry = pw.cwd) Synchronous pw.lstat() pw.realpath(entry = pw.cwd, opts = { withFileTypes: false }) Call fs.realpath on the supplied string or Path object, and return the realpath if available. Returns undefined if any error occurs. May be called as pw.realpath({ withFileTypes: boolean }) to run on pw.cwd. pw.realpathSync(entry = pw.cwd, opts = { withFileTypes: false }) Synchronous pw.realpath()",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/README",
+    "id": ""
+  },
+  {
+    "title": "Class `Path` implements [fs.Dirent](https://nodejs.org/docs/latest/api/fs.html#class-fsdirent)",
+    "body": "Object representing a given path on the filesystem, which may or may not exist. Note that the actual class in use will be either PathWin32 or PathPosix, depending on the implementation of PathScurry in use. They differ in the separators used to split and join path strings, and the handling of root paths. In PathPosix implementations, paths are split and joined using the '/' character, and '/' is the only root path ever in use. In PathWin32 implementations, paths are split using either '/' or '\\\\' and joined using '\\\\', and multiple roots may be in use based on the drives and UNC paths encountered. UNC paths such as //?/C:/ that identify a drive letter, will be treated as an alias for the same root entry as their associated drive letter (in this case 'C:\\\\'). path.name Name of this file system entry. Important : always test the path name against any test string using the isNamed method, and not by directly comparing this string. Otherwise, unicode path strings that the system sees as identical will not be properly treated as the same path, leading to incorrect behavior and possible security issues. path.isNamed(name: string): boolean Return true if the path is a match for the given path name. This handles case sensitivity and unicode normalization. Note: even on case-sensitive systems, it is not safe to test the equality of the .name property to determine whether a given pathname matches, due to unicode normalization mismatches. Always use this method instead of testing the path.name property directly. path.isCWD Set to true if this Path object is the current working directory of the PathScurry collection that contains it. path.getType() Returns the type of the Path object, 'File', 'Directory', etc. path.isType(t: type) Returns true if is{t}() returns true. For example, path.isType('Directory') is equivalent to path.isDirectory(). path.depth() Return the depth of the Path entry within the directory tree. Root paths have a depth of 0. path.fullpath() The fully resolved path to the entry. path.fullpathPosix() The fully resolved path to the entry, using / separators. On posix systems, this is identical to path.fullpath(). On windows, this will return a fully resolved absolute UNC path using / separators. Eg, instead of 'C:\\\\foo\\\\bar', it will return '//?/C:/foo/bar'. path.isFile(), path.isDirectory(), etc. Same as the identical fs.Dirent.isX() methods. path.isUnknown() Returns true if the path's type is unknown. Always returns true when the path is known to not exist. path.resolve(p: string) Return a Path object associated with the provided path string as resolved from the current Path object. path.relative(): string Return the relative path from the PathWalker cwd to the supplied path string or entry. If the nearest common ancestor is the root, then an absolute path is returned. path.relativePosix(): string Return the relative path from the PathWalker cwd to the supplied path string or entry, using / path separators. If the nearest common ancestor is the root, then an absolute path is returned. On posix platforms (ie, all platforms except Windows), this is identical to pw.relative(path). On Windows systems, it returns the resulting string as a /-delimited path. If an absolute path is returned (because the target does not share a common ancestor with pw.cwd), then a full absolute UNC path will be returned. Ie, instead of 'C:\\\\foo\\\\bar, it would return //?/C:/foo/bar. async path.readdir() Return an array of Path objects found by reading the associated path entry. If path is not a directory, or if any error occurs, returns [], and marks all children as provisional and non-existent. path.readdirSync() Synchronous path.readdir() async path.readlink() Return the Path object referenced by the path as a symbolic link. If the path is not a symbolic link, or any error occurs, returns undefined. path.readlinkSync() Synchronous path.readlink() async path.lstat() Call lstat on the path object, and fill it in with details determined. If path does not exist, or any other error occurs, returns undefined, and marks the path as \"unknown\" type. path.lstatSync() Synchronous path.lstat() async path.realpath() Call realpath on the path, and return a Path object corresponding to the result, or undefined if any error occurs. path.realpathSync() Synchornous path.realpath()",
+    "path": "/.tmp/ci-repro/repo/node_modules/path-scurry/README",
+    "id": ""
+  },
+  {
+    "title": "picocolors",
+    "body": "The tiniest and the fastest library for terminal output formatting with ANSI colors. - No dependencies. - 14 times smaller and 2 times faster than chalk. - Used by popular tools like PostCSS, SVGO, Stylelint, and Browserslist. - Node.js v6+ & browsers support. Support for both CJS and ESM projects. - TypeScript type declarations included. - NO COLOR friendly. Read full docs on GitHub.",
+    "path": "/.tmp/ci-repro/repo/node_modules/picocolors/README",
+    "id": ""
+  },
+  {
+    "title": "[picomatch](lib/picomatch.js?id=L32)",
+    "body": "Creates a matcher function from one or more glob patterns. The returned function takes a string to match as its first argument, and returns true if the string is a match. The returned matcher function also takes a boolean as the second argument that, when true, returns an object with additional information. Params globs {String Array} : One or more glob patterns. options {Object=} returns {Function=} : Returns a matcher function. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.test](lib/picomatch.js?id=L117)",
+    "body": "Test input with the given regex. This is used by the main picomatch() function to test the input string. Params input {String} : String to test. regex {RegExp} returns {Object} : Returns an object with matching info. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.matchBase](lib/picomatch.js?id=L161)",
+    "body": "Match the basename of a filepath. Params input {String} : String to test. glob {RegExp String} : Glob pattern or regex created by .makeRe. returns {Boolean} Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.isMatch](lib/picomatch.js?id=L183)",
+    "body": "Returns true if any of the given glob patterns match the specified string. Params {String Array} : str The string to test. {String Array} : patterns One or more glob patterns to use for matching. {Object} : See available options. returns {Boolean} : Returns true if any patterns match str Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.parse](lib/picomatch.js?id=L199)",
+    "body": "Parse a glob pattern to create the source string for a regular expression. Params pattern {String} options {Object} returns {Object} : Returns an object with useful properties and output to be used as a regex source string. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.scan](lib/picomatch.js?id=L231)",
+    "body": "Scan a glob pattern to separate the pattern into segments. Params input {String} : Glob pattern to scan. options {Object} returns {Object} : Returns an object with Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.compileRe](lib/picomatch.js?id=L245)",
+    "body": "Compile a regular expression from the state object returned by the parse() method. Params state {Object} options {Object} returnOutput {Boolean} : Intended for implementors, this argument allows you to return the raw output from the parser. returnState {Boolean} : Adds the state to a state property on the returned regex. Useful for implementors and debugging. returns {RegExp}",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.makeRe](lib/picomatch.js?id=L286)",
+    "body": "Create a regular expression from a parsed glob pattern. Params state {String} : The object returned from the .parse method. options {Object} returnOutput {Boolean} : Implementors may use this argument to return the compiled output, instead of a regular expression. This is not exposed on the options to prevent end-users from mutating the result. returnState {Boolean} : Implementors may use this argument to return the state from the parsed glob with the returned regular expression. returns {RegExp} : Returns a regex created from the given pattern. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.toRegex](lib/picomatch.js?id=L321)",
+    "body": "Create a regular expression from the given regex source string. Params source {String} : Regular expression source string. options {Object} returns {RegExp} Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/picomatch/README.Picomatch options",
+    "body": "The following options may be used with the main picomatch() function or any of the methods on the picomatch API. Option Type Default value Description --- --- --- --- basename boolean false If set, then patterns without slashes will be matched against the basename of the path if it contains slashes. For example, a?b would match the path /xyz/123/acb, but not /xyz/acb/123. bash boolean false Follow bash matching rules more strictly - disallows backslashes as escape characters, and treats single stars as globstars ( ). capture boolean undefined Return regex matches in supporting methods. contains boolean undefined Allows glob to match any part of the given string(s). cwd string process.cwd() Current working directory. Used by picomatch.split() debug boolean undefined Debug regular expressions when an error is thrown. dot boolean false Enable dotfile matching. By default, dotfiles are ignored unless a . is explicitly defined in the pattern, or options.dot is true expandRange function undefined Custom function for expanding ranges in brace patterns, such as {a..z}. The function receives the range values as two arguments, and it must return a string to be used in the generated regex. It's recommended that returned strings be wrapped in parentheses. failglob boolean false Throws an error if no matches are found. Based on the bash option of the same name. fastpaths boolean true To speed up processing, full parsing is skipped for a handful common glob patterns. Disable this behavior by setting this option to false. flags string undefined Regex flags to use in the generated regex. If defined, the nocase option will be overridden. format function undefined Custom function for formatting the returned string. This is useful for removing leading slashes, converting Windows paths to Posix paths, etc. ignore array\\ string undefined One or more glob patterns for excluding strings that should not be matched from the result. keepQuotes boolean false Retain quotes in the generated regex, since quotes may also be used as an alternative to backslashes. literalBrackets boolean undefined When true, brackets in the glob pattern will be escaped so that only literal brackets will be matched. matchBase boolean false Alias for basename maxLength number 65536 Limit the max length of the input string. An error is thrown if the input string is longer than this value. maxExtglobRecursion number\\ boolean 0 Limit nested quantified extglobs and other risky repeated extglob forms. When the limit is exceeded, the extglob is treated as a literal string instead of being compiled to regex. Set to false to disable this safeguard. nobrace boolean false Disable brace matching, so that {a,b} and {1..3} would be treated as literal characters. nobracket boolean undefined Disable matching with regex brackets. nocase boolean false Make matching case-insensitive. Equivalent to the regex i flag. Note that this option is overridden by the flags option. nodupes boolean true Deprecated, use nounique instead. This option will be removed in a future major release. By default duplicates are removed. Disable uniquification by setting this option to false. noext boolean false Alias for noextglob noextglob boolean false Disable support for matching with extglobs (like +(a\\ b)) noglobstar boolean false Disable support for matching nested directories with globstars ( ) nonegate boolean false Disable support for negating with leading ! noquantifiers boolean false Disable support for regex quantifiers (like a{1,2}) and treat them as brace patterns to be expanded. onIgnore function undefined Function to be called on ignored items. onMatch function undefined Function to be called on matched items. onResult function undefined Function to be called on all items, regardless of whether or not they are matched or ignored. posix boolean false Support POSIX character classes (\"posix brackets\"). posixSlashes boolean undefined Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself prepend boolean undefined String to prepend to the generated regex used for matching. regex boolean false Use regular expression rules for + (instead of matching literal +), and for stars that follow closing parentheses or brackets (as in ) and ] ). strictBrackets boolean undefined Throw an error if brackets, braces, or parens are imbalanced. strictSlashes boolean undefined When true, picomatch won't match trailing slashes with single stars. unescape boolean undefined Remove backslashes preceding escaped characters in the glob pattern. By default, backslashes are retained. unixify boolean undefined Alias for posixSlashes, for backwards compatibility. picomatch has automatic detection for regex positive and negative lookbehinds. If the pattern contains a negative lookbehind, you must be using Node.js = 8.10 or else picomatch will throw an error.",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/picomatch/README.Scan Options",
+    "body": "In addition to the main picomatch options, the following options may also be used with the .scan method. Option Type Default value Description --- --- --- --- tokens boolean false When true, the returned object will include an array of tokens (objects), representing each path \"segment\" in the scanned glob pattern parts boolean false When true, the returned object will include an array of strings representing each path \"segment\" in the scanned glob pattern. This is automatically enabled when options.tokens is true Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/picomatch/README.Options Examples",
+    "body": "options.expandRange Type : function Default : undefined Custom function for expanding ranges in brace patterns. The fill-range library is ideal for this purpose, or you can use custom code to do whatever you need. Example The following example shows how to create a glob that matches a folder options.format Type : function Default : undefined Custom function for formatting strings before they're matched. Example options.onMatch options.onIgnore options.onResult Basic globbing (Wildcard matching) Advanced globbing (extglobs, posix brackets, brace matching)",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/picomatch/README.Basic globbing",
+    "body": "Character Description --- --- Matches any character zero or more times, excluding path separators. Does not match path separators or hidden files or directories (\"dotfiles\"), unless explicitly enabled by setting the dot option to true. Matches any character zero or more times, including path separators. Note that will only match path separators (/, and \\\\ on Windows) when they are the only characters in a path segment. Thus, foo /bar is equivalent to foo /bar, and foo/a b/bar is equivalent to foo/a b/bar, and more than two consecutive stars in a glob path segment are regarded as a single star . Thus, foo/ /bar is equivalent to foo/ /bar. ? Matches any character excluding path separators one time. Does not match path separators or leading dots. [abc] Matches any characters inside the brackets. For example, [abc] would match the characters a, b or c, and nothing else. Matching behavior vs. Bash Picomatch's matching features and expected results in unit tests are based on Bash's unit tests and the Bash 4.3 specification, with the following exceptions: Bash will match foo/bar/baz with . Picomatch only matches nested directories with . Bash greedily matches with negated extglobs. For example, Bash 4.3 says that !(foo) should match foo and foobar, since the trailing bracktracks to match the preceding pattern. This is very memory-inefficient, and IMHO, also incorrect. Picomatch would return false for both foo and foobar.",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/picomatch/README.Advanced globbing",
+    "body": "extglobs POSIX brackets Braces Extglobs Pattern Description --- --- @(pattern) Match only one consecutive occurrence of pattern (pattern) Match zero or more consecutive occurrences of pattern +(pattern) Match one or more consecutive occurrences of pattern ?(pattern) Match zero or one consecutive occurrences of pattern !(pattern) Match anything but pattern Examples POSIX brackets POSIX classes are disabled by default. Enable this feature by setting the posix option to true. Enable POSIX bracket support Supported POSIX classes The following named POSIX bracket expressions are supported: [:alnum:] - Alphanumeric characters, equ [a-zA-Z0-9] [:alpha:] - Alphabetical characters, equivalent to [a-zA-Z]. [:ascii:] - ASCII characters, equivalent to [\\\\x00-\\\\x7F]. [:blank:] - Space and tab characters, equivalent to [ \\\\t]. [:cntrl:] - Control characters, equivalent to [\\\\x00-\\\\x1F\\\\x7F]. [:digit:] - Numerical digits, equivalent to [0-9]. [:graph:] - Graph characters, equivalent to [\\\\x21-\\\\x7E]. [:lower:] - Lowercase letters, equivalent to [a-z]. [:print:] - Print characters, equivalent to [\\\\x20-\\\\x7E ]. [:punct:] - Punctuation and symbols, equivalent to [\\\\-!\" $%&\\'()\\\\ +,./:; ?@[\\\\]^ { } ]. [:space:] - Extended space characters, equivalent to [ \\\\t\\\\r\\\\n\\\\v\\\\f]. [:upper:] - Uppercase letters, equivalent to [A-Z]. [:word:] - Word characters (letters, numbers and underscores), equivalent to [A-Za-z0-9 ]. [:xdigit:] - Hexadecimal digits, equivalent to [A-Fa-f0-9]`. See the Bash Reference Manual for more information.",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/picomatch/README.Braces",
+    "body": "Picomatch does not do brace expansion. For brace expansion and advanced matching with braces, use micromatch instead. Picomatch has very basic support for braces.",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/picomatch/README.Matching special characters as literals",
+    "body": "If you wish to match the following special characters in a filepath, and you want to use these characters in your glob pattern, they must be escaped with backslashes or quotes: Special Characters Some characters that are used for matching in regular expressions are also regarded as valid file path characters on some platforms. To match any of the following characters as literals: $^ +?()[] Examples: The following table shows which features are supported by minimatch, micromatch, picomatch, nanomatch, extglob, braces, and expand-brackets. Feature minimatch micromatch picomatch nanomatch extglob braces expand-brackets --- --- --- --- --- --- --- --- Wildcard matching ( ?+) ✔ ✔ ✔ ✔ - - - Advancing globbing ✔ ✔ ✔ - - - - Brace matching ✔ ✔ ✔ - - ✔ - Brace expansion ✔ ✔ - - - ✔ - Extglobs partial ✔ ✔ - ✔ - - Posix brackets - ✔ ✔ - - - ✔ Regular expression syntax - ✔ ✔ ✔ ✔ - ✔ File system operations - - - - - - - Performance comparison of picomatch and minimatch. ``",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe star",
+    "body": "picomatch x 1,993,050 ops/sec ±0.51% (91 runs sampled) minimatch x 627,206 ops/sec ±1.96% (87 runs sampled))",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe star; dot=true",
+    "body": "picomatch x 1,436,640 ops/sec ±0.62% (91 runs sampled) minimatch x 525,876 ops/sec ±0.60% (88 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe globstar",
+    "body": "picomatch x 1,592,742 ops/sec ±0.42% (90 runs sampled) minimatch x 962,043 ops/sec ±1.76% (91 runs sampled)d)",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe globstars",
+    "body": "picomatch x 1,615,199 ops/sec ±0.35% (94 runs sampled) minimatch x 477,179 ops/sec ±1.33% (91 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe with leading star",
+    "body": "picomatch x 1,220,856 ops/sec ±0.40% (92 runs sampled) minimatch x 453,564 ops/sec ±1.43% (94 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - basic braces",
+    "body": "picomatch x 392,067 ops/sec ±0.70% (90 runs sampled) minimatch x 99,532 ops/sec ±2.03% (87 runs sampled)) sh npm install && npm test sh npm install -g verbose/verb dev verb-generate-readme && verb ```",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - basic braces.Author",
+    "body": "Jon Schlinkert GitHub Profile Twitter Profile LinkedIn Profile",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - basic braces.License",
+    "body": "Copyright © 2017-present, Jon Schlinkert. Released under the MIT License.",
+    "path": "/.tmp/ci-repro/repo/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "Pirates [![Coverage][codecov-badge]][codecov-link]",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/pirates/README",
+    "id": ""
+  },
+  {
+    "title": "Pirates [![Coverage][codecov-badge]][codecov-link].Properly hijack require",
+    "body": "This library allows to add custom require hooks, which do not interfere with other require hooks. This library only works with commonJS. [codecov-badge]: https://img.shields.io/codecov/c/github/danez/pirates/master.svg?style=flat \"codecov\" [codecov-link]: https://codecov.io/gh/danez/pirates \"codecov\" Two reasons: 1. Babel and istanbul were breaking each other. 2. Everyone seemed to re-invent the wheel on this, and everyone wanted a solution that was DRY, simple, easy to use, and made everything Just Work™, while allowing multiple require hooks, in a fashion similar to calling super. For some context, see [the Babel issue thread][] which started this all, then [the nyc issue thread][], where discussion was moved (as we began to discuss just using the code nyc had developed), and finally to [ 1][issue-1] where discussion was finally moved. [the Babel issue thread]: https://github.com/babel/babel/pull/3062 \"Babel Issue Thread\" [the nyc issue thread]: https://github.com/bcoe/nyc/issues/70 \"NYC Issue Thread\" [issue-1]: https://github.com/danez/pirates/issues/1 \"Issue 1\" npm install --save pirates Using pirates is really easy:",
+    "path": "/.tmp/ci-repro/repo/node_modules/pirates/README",
+    "id": ""
+  },
+  {
+    "title": "pirates.addHook(hook, [opts={ [matcher: true], [exts: ['.js']], [ignoreNodeModules: true] }]);",
+    "body": "Add a require hook. hook must be a function that takes (code, filename), and returns the modified code. opts is an optional options object. Available options are: matcher, which is a function that accepts a filename, and returns a truthy value if the file should be hooked (defaults to a function that always returns true), falsey if otherwise; exts, which is an array of extensions to hook, they should begin with . (defaults to ['.js']); ignoreNodeModules, if true, any file in a node modules folder wont be hooked (the matcher also wont be called), if false, then the matcher will be called for any files in node modules (defaults to true). See the wiki page. If you add Pirates to your project, (And you should! It works best if everyone uses it. Then we can have a happy world full of happy require hooks!), please add yourself to the wiki.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pirates/README",
+    "id": ""
+  },
+  {
+    "title": "pixelmatch",
+    "body": "![Node](https://github.com/mapbox/pixelmatch/actions/workflows/node.yml) ![](https://github.com/mourner/projects) The smallest, simplest and fastest JavaScript pixel-level image comparison library, originally created to compare screenshots in tests. Features accurate anti-aliased pixels detection and perceptual color difference metrics . Inspired by Resemble.js and Blink-diff. Unlike these libraries, pixelmatch is around 150 lines of code , has no dependencies , and works on raw typed arrays of image data, so it's blazing fast and can be used in any environment (Node or browsers). Implements ideas from the following papers: - Measuring perceived color difference using YIQ NTSC transmission color space in mobile applications (2010, Yuriy Kotsarenko, Fernando Ramos) - Anti-aliased pixel and intensity slope detector (2009, Vytautas Vyšniauskas) expected actual diff --- --- --- ![](test/fixtures/4a.png) ![](test/fixtures/4b.png) !1diff ![](test/fixtures/3a.png) ![](test/fixtures/3b.png) !1diff ![](test/fixtures/6a.png) ![](test/fixtures/6b.png) !1diff",
+    "path": "/.tmp/ci-repro/repo/node_modules/pixelmatch/README",
+    "id": ""
+  },
+  {
+    "title": "pixelmatch.pixelmatch(img1, img2, output, width, height[, options])",
+    "body": "- img1, img2 — Image data of the images to compare (Buffer, Uint8Array or Uint8ClampedArray). Note: image dimensions must be equal. - output — Image data to write the diff to, or null if don't need a diff image. - width, height — Width and height of the images. Note that all three images need to have the same dimensions. options is an object literal with the following properties: - threshold — Matching threshold, ranges from 0 to 1. Smaller values make the comparison more sensitive. 0.1 by default. - includeAA — If true, disables detecting and ignoring anti-aliased pixels. false by default. - alpha — Blending factor of unchanged pixels in the diff output. Ranges from 0 for pure white to 1 for original brightness. 0.1 by default. - aaColor — The color of anti-aliased pixels in the diff output in [R, G, B] format. [255, 255, 0] by default. - diffColor — The color of differing pixels in the diff output in [R, G, B] format. [255, 0, 0] by default. - diffColorAlt — An alternative color to use for dark on light differences to differentiate between \"added\" and \"removed\" parts. If not provided, all differing pixels use the color specified by diffColor. null by default. - diffMask — Draw the diff over a transparent background (a mask), rather than over the original image. Will not draw anti-aliased pixels (if detected). Compares two images, writes the output diff and returns the number of mismatched pixels. Pixelmatch comes with a binary that works with PNG images:",
+    "path": "/.tmp/ci-repro/repo/node_modules/pixelmatch/README",
+    "id": ""
+  },
+  {
+    "title": "Node.js",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/pixelmatch/README",
+    "id": ""
+  },
+  {
+    "title": "pixelmatch.Browsers",
+    "body": "Install with NPM: Or use in the browser from a CDN:",
+    "path": "/.tmp/ci-repro/repo/node_modules/pixelmatch/README",
+    "id": ""
+  },
+  {
+    "title": "Changelog",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "7.0.0 - 19/02/2023",
+    "body": "- BREAKING - Drop support for node 12 (Though nothing incompatible in this release yet) - Switch to a pngjs organisation",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.0 - 24/10/2020",
+    "body": "- BREAKING - Sync version now throws if there is unexpected content at the end of the stream. - BREAKING - Drop support for node 10 (Though nothing incompatible in this release yet) - Reduce the number of files included in the package",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.1.0 - 13/09/2020",
+    "body": "- Add option to skip rescaling",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.0.0 - 15/04/2020",
+    "body": "- Drop support for Node 8 - Browserified bundle may now contain ES20(15-20) code if the supported node version supports it. Please run the browserified version through babel if you need to support older browsers.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "4.0.1 - 15/04/2020",
+    "body": "- Fix to possible null reference in nextTick of async method",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "4.0.0 - 09/04/2020",
+    "body": "- Fix issue in newer nodes with using Buffer - Fix async issue with some png files - Drop support for Node 4 & 6",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.4.0 - 09/03/2019",
+    "body": "- Include whether the png has alpha in the meta data - emit an error if the image is truncated instead of hanging - Add a browserified version - speed up some mapping functions",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.3.3 - 19/04/2018",
+    "body": "- Real fix for node 9",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.3.2 - 16/02/2018",
+    "body": "- Fix for node 9",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.3.1 - 15/11/2017",
+    "body": "- Bugfixes and removal of es6",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.3.0",
+    "body": "- Add writing 16 bit channels and support for grayscale input",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.2.0 - 30/04/2017",
+    "body": "- Support for encoding 8-bit grayscale images",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.1.0 - 30/04/2017",
+    "body": "- Support for pngs with zlib chunks that are malformed after valid data",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.0.1 - 16/02/2017",
+    "body": "- Fix single pixel pngs",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.0.0 - 03/08/2016",
+    "body": "- Drop support for node below v4 and iojs. Pin to 2.3.0 to use with old, unsupported or patched node versions.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.3.0 - 22/04/2016",
+    "body": "- Support for sync in node 0.10",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.2.0 - 04/12/2015",
+    "body": "- Add sync write api - Fix newfile example - Correct comparison table",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.1.0 - 28/10/2015",
+    "body": "- rename package to pngjs - added 'bgColor' option",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.0.0 - 08/10/2015",
+    "body": "- fixes to readme - breaking change - bitblt on the png prototype now doesn't take a unused, unnecessary src first argument",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.2.0 - 13/09/2015",
+    "body": "- support passing colorType to write PNG's and writing bitmaps without alpha information",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.1.0 - 07/09/2015",
+    "body": "- support passing a deflate factory for controlled compression",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.0.2 - 22/08/2015",
+    "body": "- Expose all PNG creation info",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.0.1 - 21/08/2015",
+    "body": "- Fix non square interlaced files",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.0.0 - 08/08/2015",
+    "body": "- More tests - source linted - maintainability refactorings - async API - exceptions in reading now emit warnings - documentation improvement - sync api now documented, adjustGamma documented - breaking change - gamma chunk is now written. previously a read then write would destroy gamma information, now it is persisted.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "0.0.3 - 03/08/2015",
+    "body": "- Error handling fixes - ignore files for smaller npm footprint",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "0.0.2 - 02/08/2015",
+    "body": "- Bugfixes to interlacing, support for transparent colours",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "0.0.1 - 02/08/2015",
+    "body": "- Initial release, see pngjs for older changelog.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "pngjs",
+    "body": "Simple PNG encoder/decoder for Node.js with no dependencies. Based on the original pngjs with the follow enhancements. - Support for reading 1,2,4 & 16 bit files - Support for reading interlace files - Support for reading tTRNS transparent colours - Support for writing colortype 0 (grayscale), colortype 2 (RGB), colortype 4 (grayscale alpha) and colortype 6 (RGBA) - Sync interface as well as async - API compatible with pngjs and node-pngjs Known lack of support for: - Extended PNG e.g. Animation - Writing in colortype 3 (indexed color)",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Table of Contents",
+    "body": "- Requirements - Comparison Table - Tests - Installation - Browser - Example - Async API - Sync API - Changelog",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Comparison Table",
+    "body": "Name Forked From Sync Async 16 Bit 1/2/4 Bit Interlace Gamma Encodes Tested ------------- ----------- ---- ----- ------ --------- --------- ------ ------- ------ pngjs Yes Yes Yes Yes Yes Yes Yes Yes node-png pngjs No Yes No No No Hidden Yes Manual png-coder pngjs No Yes Yes No No Hidden Yes Manual pngparse No Yes No Yes No No No Yes pngparse-sync pngparse Yes No No Yes No No No Yes png-async No Yes No No No No Yes Yes png-js No Yes No No No No No No Native C++ node decoders: - png - png-sync (sync version of above) - pixel-png - png-img",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Tests",
+    "body": "Tested using PNG Suite. We read every file into pngjs, output it in standard 8bit colour, synchronously and asynchronously, then compare the original with the newly saved images. To run the tests, fetch the repo (tests are not distributed via npm) and install with npm i, run npm test. The only thing not converted is gamma correction - this is because multiple vendors will do gamma correction differently, so the tests will have different results on different browsers.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Installation",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Browser",
+    "body": "The package has been build with a Browserify version (npm run browserify) and you can use the browser version by including in your code:",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Example",
+    "body": "For more examples see examples folder.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API",
+    "body": "As input any color type is accepted (grayscale, rgb, palette, grayscale with alpha, rgb with alpha) but 8 bit per sample (channel) is the only supported bit depth. Interlaced mode is not supported. PNG is readable and writable Stream.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Options",
+    "body": "- width - use this with height if you want to create png from scratch - height - as above - checkCRC - whether parser should be strict about checksums in source stream (default: true) - deflateChunkSize - chunk size used for deflating data chunks, this should be power of 2 and must not be less than 256 and more than 32\\ 1024 (default: 32 kB) - deflateLevel - compression level for deflate (default: 9) - deflateStrategy - compression strategy for deflate (default: 3) - deflateFactory - deflate stream factory (default: zlib.createDeflate) - filterType - png filtering method for scanlines (default: -1 = auto, accepts array of numbers 0-4) - colorType - the output colorType - see constants. 0 = grayscale, no alpha, 2 = color, no alpha, 4 = grayscale & alpha, 6 = color & alpha. Default currently 6, but in the future may calculate best mode. - inputColorType - the input colorType - see constants. Default is 6 (RGBA) - bitDepth - the bitDepth of the output, 8 or 16 bits. Input data is expected to have this bit depth. 16 bit data is expected in the system endianness (Default: 8) - inputHasAlpha - whether the input bitmap has 4 bytes per pixel (rgb and alpha) or 3 (rgb - no alpha). - bgColor - an object containing red, green, and blue values between 0 and 255 that is used when packing a PNG if alpha is not to be included (default: 255,255,255)",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Event \"metadata\"",
+    "body": "function(metadata) { } Image's header has been parsed, metadata contains this information: - width image size in pixels - height image size in pixels - palette image is paletted - color image is not grayscale - alpha image contains alpha channel - interlace image is interlaced",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Event: \"parsed\"",
+    "body": "function(data) { } Input image has been completely parsed, data is complete and ready for modification.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Event: \"error\"",
+    "body": "function(error) { }",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "png.parse(data, [callback])",
+    "body": "Parses PNG file data. Can be String or Buffer. Alternatively you can stream data to instance of PNG. Optional callback is once called on error or parsed. The callback gets two arguments (err, data). Returns this for method chaining. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "png.pack()",
+    "body": "Starts converting data to PNG file Stream. Returns this for method chaining.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "png.bitblt(dst, sx, sy, w, h, dx, dy)",
+    "body": "Helper for image manipulation, copies a rectangle of pixels from current (i.e. the source) image (sx, sy, w, h) to dst image (at dx, dy). Returns this for method chaining. For example, the following code copies the top-left 100x50 px of in.png into dst and writes it to out.png:",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Property: adjustGamma()",
+    "body": "Helper that takes data and adjusts it to be gamma corrected. Note that it is not 100% reliable with transparent colours because that requires knowing the background colour the bitmap is rendered on to. In tests against PNG suite it compared 100% with chrome on all 8 bit and below images. On IE there were some differences. The following example reads a file, adjusts the gamma (which sets the gamma to 0) and writes it out again, effectively removing any gamma correction from the image.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Property: width",
+    "body": "Width of image in pixels",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Property: height",
+    "body": "Height of image in pixels",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Property: data",
+    "body": "Buffer of image pixel data. Every pixel consists 4 bytes: R, G, B, A (opacity).",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Async API.Property: gamma",
+    "body": "Gamma of image (0 if not specified) When removing the alpha channel from an image, there needs to be a background color to correctly convert each pixel's transparency to the appropriate RGB value. By default, pngjs will flatten the image against a white background. You can override this in the options:",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "Sync API",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "PNG.sync.read(buffer)",
+    "body": "Take a buffer and returns a PNG image. The properties on the image include the meta data and data as per the async API above.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "PNG.sync.write(png)",
+    "body": "Take a PNG image and returns a buffer. The properties on the image include the meta data and data as per the async API above.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "PNG.adjustGamma(src)",
+    "body": "Adjusts the gamma of a sync image. See the async adjustGamma.",
+    "path": "/.tmp/ci-repro/repo/node_modules/pngjs/README",
+    "id": ""
+  },
+  {
+    "title": "PostCSS",
+    "body": "PostCSS is a tool for transforming styles with JS plugins. These plugins can lint your CSS, support variables and mixins, transpile future CSS syntax, inline images, and more. PostCSS is used by industry leaders including Wikipedia, Twitter, Alibaba, and JetBrains. The [Autoprefixer] and [Stylelint] PostCSS plugins are some of the most popular CSS tools. --- PostCSS is built by Evil Martians , an American design and engineering consultancy for developer tools, AI, and cybersecurity startups . --- [Abstract Syntax Tree]: https://en.wikipedia.org/wiki/Abstract syntax tree [Evil Martians]: https://evilmartians.com/?utm source=postcss [Autoprefixer]: https://github.com/postcss/autoprefixer [Stylelint]: https://stylelint.io/ [plugins]: https://github.com/postcss/postcss plugins Read full docs here .",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-import",
+    "body": "![Build](https://travis-ci.org/postcss/postcss-import) ![Version](https://github.com/postcss/postcss-import/blob/master/CHANGELOG.md) ![postcss compatibility](https://postcss.org/) PostCSS plugin to transform @import rules by inlining content. This plugin can consume local files, node modules or web modules. To resolve path of an @import rule, it can look into root directory (by default process.cwd()), web modules, node modules or local modules. When importing a module, it will look for index.css or file referenced in package.json in the style or main fields. You can also provide manually multiples paths where to look at. Notes: - This plugin should probably be used as the first plugin of your list. This way, other plugins will work on the AST as if there were only a single file to process, and will probably work as you can expect . - This plugin works great with postcss-url plugin, which will allow you to adjust assets url() (or even inline them) after inlining imported files. - In order to optimize output, this plugin will only import a file once on a given scope (root, media query...). Tests are made from the path & the content of imported files (using a hash table). If this behavior is not what you want, look at skipDuplicates option - If you are looking for Glob Imports , you can use postcss-import-ext-glob to extend postcss-import. - Imports which are not modified (by options.filter or because they are remote imports) are moved to the top of the output. - This plugin attempts to follow the CSS @import spec ; @import statements must precede all other statements (besides @charset). Unless your stylesheet is in the same place where you run postcss (process.cwd()), you will need to use from option to make relative imports work. css/input.css: will give you: Checkout the tests for more examples.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-import/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-import.Options",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-import/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-import.`filter`",
+    "body": "Type: Function Default: () = true Only transform imports for which the test function returns true. Imports for which the test function returns false will be left as is. The function gets the path to import as an argument and should return a boolean. root Type: String Default: process.cwd() or dirname of the postcss from Define the root where to resolve path (eg: place where node modules are). Should not be used that much. Note: nested @import will additionally benefit of the relative dirname of imported files. path Type: String Array Default: [] A string or an array of paths in where to look for files. plugins Type: Array Default: undefined An array of plugins to be applied on each imported files. resolve Type: Function Default: null You can provide a custom path resolver with this option. This function gets (id, basedir, importOptions) arguments and should return a path, an array of paths or a promise resolving to the path(s). If you do not return an absolute path, your path will be resolved to an absolute path using the default resolver. You can use resolve for this. load Type: Function Default: null You can overwrite the default loading way by setting this option. This function gets (filename, importOptions) arguments and returns content or promised content. skipDuplicates Type: Boolean Default: true By default, similar files (based on the same content) are being skipped. It's to optimize output and skip similar files like normalize.css for example. If this behavior is not what you want, just set this option to false to disable it. addModulesDirectories Type: Array Default: [] An array of folder names to add to Node's resolver. Values will be appended to the default resolve directories: [\"node modules\", \"web modules\"]. This option is only for adding additional directories to default resolver. If you provide your own resolver via the resolve configuration option above, then this value will be ignored. nameLayer Type: Function Default: null You can provide a custom naming function for anonymous layers (@import 'baz.css' layer;). This function gets (index, rootFilename) arguments and should return a unique string. This option only influences imports without a layer name. Without this option the plugin will warn on anonymous layers. Example with some options postcss-import adds a message to result.messages for each @import. Messages are in the following format: This is mainly for use by postcss runners that implement file watching. --- ⇄ Pull requests and ★ Stars are always welcome. For bugs and feature requests, please create an issue. Pull requests must be accompanied by passing automated tests ($ npm test).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-import/README",
+    "id": ""
+  },
+  {
+    "title": "PostCSS JS",
+    "body": "[PostCSS] for CSS-in-JS and styles in JS objects. For example, to use [Stylelint] or [RTLCSS] plugins in your workflow. [Stylelint]: https://github.com/stylelint/stylelint [PostCSS]: https://github.com/postcss/postcss [RTLCSS]: https://github.com/MohammadYounes/rtlcss Read full docs here .",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-js/README",
+    "id": ""
+  },
+  {
+    "title": "`package.json`",
+    "body": "Create a postcss section in your project's package.json",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": "`.postcssrc`",
+    "body": "Create a .postcssrc file in JSON or YAML format ℹ️ It's recommended to use an extension (e.g .postcssrc.json or .postcssrc.yml ) instead of .postcssrc .postcssrc.json .postcssrc.yml [!NOTE] For YAML configs, you must have yaml installed as a peer dependency.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": "`.postcssrc.js` or `postcss.config.js`",
+    "body": "You may need some logic within your config. In this case create JS/TS file named: - .postcssrc.js - .postcssrc.mjs - .postcssrc.cjs - .postcssrc.ts - .postcssrc.mts - .postcssrc.cts - postcss.config.js - postcss.config.mjs - postcss.config.cjs - postcss.config.ts - postcss.config.mts - postcss.config.cts [!NOTE] For TypeScript configs, you must have tsx or jiti installed as a peer dependency. You can export the config as an {Object} .postcssrc.js Or export a {Function} that returns the config (more about the ctx param below) .postcssrc.js Plugins can be loaded either using an {Object} or an {Array} {Object} .postcssrc.js ℹ️ When using an {Object}, the key can be a Node.js module name, a path to a JavaScript file that is relative to the directory of the PostCSS config file, or an absolute path to a JavaScript file. {Array} .postcssrc.js :warning: When using an {Array}, make sure to require() each plugin Options Name Type Default Description :--: :--: :-----: :---------- to {String} undefined Destination File Path map {String\\ Object} false Enable/Disable Source Maps from {String} undefined Source File Path parser {String\\ Function} false Custom PostCSS Parser syntax {String\\ Function} false Custom PostCSS Syntax stringifier {String\\ Function} false Custom PostCSS Stringifier",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`parser`",
+    "body": ".postcssrc.js",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`syntax`",
+    "body": ".postcssrc.js",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`stringifier`",
+    "body": ".postcssrc.js",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": "[**`map`**](https://github.com/postcss/postcss/blob/master/docs/source-maps.md)",
+    "body": ".postcssrc.js :warning: In most cases options.from && options.to are set by the third-party which integrates this package (CLI, gulp, webpack). It's unlikely one needs to set/use options.from && options.to within a config file. Unless you're a third-party plugin author using this module and its Node API directly dont't set options.from && options.to yourself",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`to`",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`from`",
+    "body": "Plugins",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`{} || null`",
+    "body": "The plugin will be loaded with defaults .postcssrc.js :warning: {} must be an empty {Object} literal",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`{Object}`",
+    "body": "The plugin will be loaded with given options .postcssrc.js",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`false`",
+    "body": "The plugin will not be loaded .postcssrc.js",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/postcss-load-config/README.`Ordering`",
+    "body": "Plugin execution order is determined by declaration in the plugins section ( top-down ) Context When using a {Function} (postcss.config.js or .postcssrc.js), it's possible to pass context to postcss-load-config, which will be evaluated while loading your config. By default ctx.env (process.env.NODE ENV) and ctx.cwd (process.cwd()) are available on the ctx {Object} ℹ️ Most third-party integrations add additional properties to the ctx (e.g postcss-loader). Check the specific module's README for more information about what is available on the respective ctx Examples postcss.config.js webpack.config.js Maintainers Michael Ciniawsky Mateusz Derks Contributors Ryan Dunckel Patrick Gilday Dalton Santos François Wouts </table To report a security vulnerability, please use the [Tidelift security contact]. Tidelift will coordinate the fix and disclosure. [Tidelift security contact]: https://tidelift.com/security",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-load-config/README",
+    "id": ""
+  },
+  {
+    "title": "PostCSS Nested",
+    "body": "[PostCSS] plugin to unwrap nested rules closer to Sass syntax. will be processed to: Related plugins: - Use [postcss-current-selector] after this plugin if you want to use current selector in properties or variables values. - Use [postcss-nested-ancestors] before this plugin if you want to reference any ancestor element directly in your selectors with ^&. Alternatives: - See also [postcss-nesting], which implements [CSSWG draft]. - [postcss-nested-props] for nested properties like font-size. [postcss-current-selector]: https://github.com/komlev/postcss-current-selector [postcss-nested-ancestors]: https://github.com/toomuchdesign/postcss-nested-ancestors [postcss-nested-props]: https://github.com/jedmao/postcss-nested-props [postcss-nesting]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-nesting [CSSWG draft]: https://drafts.csswg.org/css-nesting-1/ [PostCSS]: https://github.com/postcss/postcss Read full docs here .",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-nested/README",
+    "id": ""
+  },
+  {
+    "title": "API Documentation",
+    "body": "Please use only this documented API when working with the parser. Methods not documented here are subject to change at any point. This is the module's main entry point.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "API Documentation.`parser([transform], [options])`",
+    "body": "Creates a new processor instance Or, with optional transform function See processor documentation Arguments: transform (function): Provide a function to work with the parsed AST. options (object): Provide default options for all calls on the returned Processor.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.attribute([props])`",
+    "body": "Creates a new attribute selector. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.className([props])`",
+    "body": "Creates a new class selector. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.combinator([props])`",
+    "body": "Creates a new selector combinator. Arguments: props (object): The new node's properties. Notes: Descendant Combinators The value of descendant combinators created by the parser always just a single space (\" \"). For descendant selectors with no comments, additional space is now stored in node.spaces.before. Depending on the location of comments, additional spaces may be stored in node.raws.spaces.before, node.raws.spaces.after, or node.raws.value. Named Combinators Although, nonstandard and unlikely to ever become a standard, named combinators like /deep/ and /for/ are parsed as combinators. The node.value is name after being unescaped and normalized as lowercase. The original value for the combinator name is stored in node.raws.value.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.comment([props])`",
+    "body": "Creates a new comment. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.id([props])`",
+    "body": "Creates a new id selector. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.nesting([props])`",
+    "body": "Creates a new nesting selector. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.pseudo([props])`",
+    "body": "Creates a new pseudo selector. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.root([props])`",
+    "body": "Creates a new root node. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.selector([props])`",
+    "body": "Creates a new selector node. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.string([props])`",
+    "body": "Creates a new string node. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.tag([props])`",
+    "body": "Creates a new tag selector. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`parser.universal([props])`",
+    "body": "Creates a new universal selector. Arguments: props (object): The new node's properties.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.type`",
+    "body": "A string representation of the selector type. It can be one of the following; attribute, class, combinator, comment, id, nesting, pseudo, root, selector, string, tag, or universal. Note that for convenience, these constants are exposed on the main parser as uppercased keys. So for example you can get id by querying parser.ID.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.parent`",
+    "body": "Returns the parent node.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.toString()`, `String(node)`, or `'' + node`",
+    "body": "Returns a string representation of the node.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.next()` & `node.prev()`",
+    "body": "Returns the next/previous child of the parent node.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.replaceWith(node)`",
+    "body": "Replace a node with another. Arguments: node: The node to substitute the original with.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.remove()`",
+    "body": "Removes the node from its parent node.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.clone([opts])`",
+    "body": "Returns a copy of a node, detached from any parent containers that the original might have had.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.isAtPosition(line, column)`",
+    "body": "Return a boolean indicating whether this node includes the character at the position of the given line and column. Returns undefined if the nodes lack sufficient source metadata to determine the position. Arguments: line: 1-index based line number relative to the start of the selector. column: 1-index based column number relative to the start of the selector.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.spaces`",
+    "body": "Extra whitespaces around the node will be moved into node.spaces.before and node.spaces.after. So for example, these spaces will be moved as they have no semantic meaning: For descendent selectors, the value is always a single space. Additional whitespace is found in either the node.spaces.before and node.spaces.after depending on the presence of comments or other whitespace characters. If the actual whitespace does not start or end with a single space, the node's raw value is set to the actual space(s) found in the source.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.source`",
+    "body": "An object describing the node's start/end, line/column source position. Within the following CSS, the .bar class node ... ... will contain the following source object.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`node.sourceIndex`",
+    "body": "The zero-based index of the node within the original source string. Within the following CSS, the .baz class node will have a sourceIndex of 12. The root, selector, and pseudo nodes have some helper methods for working with their children.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.nodes`",
+    "body": "An array of the container's children.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.first` & `container.last`",
+    "body": "The first/last child of the container.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.at(index)`",
+    "body": "Returns the node at position index. Arguments: index: The index of the node to return.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.atPosition(line, column)`",
+    "body": "Returns the node at the source position line and column. Arguments: line: The line number of the node to return. column: The column number of the node to return.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.index(node)`",
+    "body": "Return the index of the node within its container. Arguments: node: A node within the current container.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.length`",
+    "body": "Proxy to the length of the container's nodes.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "API Documentation.`container` Array iterators",
+    "body": "The container class provides proxies to certain Array methods; these are: container.map === container.nodes.map container.reduce === container.nodes.reduce container.every === container.nodes.every container.some === container.nodes.some container.filter === container.nodes.filter container.sort === container.nodes.sort Note that these methods only work on a container's immediate children; recursive iteration is provided by container.walk.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.each(callback)`",
+    "body": "Iterate the container's immediate children, calling callback for each child. You may return false within the callback to break the iteration. Note that unlike Array forEach(), this iterator is safe to use whilst adding or removing nodes from the container. Arguments: callback (function): A function to call for each node, which receives node and index arguments.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.walk(callback)`",
+    "body": "Like container each, but will also iterate child nodes as long as they are container types. Arguments: callback (function): A function to call for each node, which receives node and index arguments. This iterator is safe to use whilst mutating container.nodes, like container each.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.walk` proxies",
+    "body": "The container class provides proxy methods for iterating over types of nodes, so that it is easier to write modules that target specific selectors. Those methods are: container.walkAttributes container.walkClasses container.walkCombinators container.walkComments container.walkIds container.walkNesting container.walkPseudos container.walkTags container.walkUniversals",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.split(callback)`",
+    "body": "This method allows you to split a group of nodes by returning true from a callback. It returns an array of arrays, where each inner array corresponds to the groups that you created via the callback. Arguments: callback (function): A function to call for each node, which receives node as an argument.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.prepend(node)` & `container.append(node)`",
+    "body": "Add a node to the start/end of the container. Note that doing so will set the parent property of the node to this container. Arguments: node: The node to add.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.insertBefore(old, new)` & `container.insertAfter(old, new)`",
+    "body": "Add a node before or after an existing node in a container: Arguments: old: The existing node in the container. new: The new node to add before/after the existing node.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.removeChild(node)`",
+    "body": "Remove the node from the container. Note that you can also use node.remove() if you would like to remove just a single node. Arguments: node: The node to remove.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`container.removeAll()` or `container.empty()`",
+    "body": "Remove all children from the container. A root node represents a comma separated list of selectors. Indeed, all a root's toString() method does is join its selector children with a ','. Other than this, it has no special functionality and acts like a container.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`root.trailingComma`",
+    "body": "This will be set to true if the input has a trailing comma, in order to support parsing of legacy CSS hacks. A selector node represents a single complex selector. For example, this selector string h1 h2 h3, [href] p, is represented as two selector nodes. It has no special functionality of its own. A pseudo selector extends a container node; if it has any parameters of its own (such as h1:not(h2, h3)), they will be its children. Note that the pseudo value will always contain the colons preceding the pseudo identifier. This is so that both :before and ::before are properly represented in the AST.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`attribute.quoted`",
+    "body": "Returns true if the attribute's value is wrapped in quotation marks, false if it is not. Remains undefined if there is no attribute value.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`attribute.qualifiedAttribute`",
+    "body": "Returns the attribute name qualified with the namespace if one is given.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`attribute.offsetOf(part)`",
+    "body": "Returns the offset of the attribute part specified relative to the start of the node of the output string. This is useful in raising error messages about a specific part of the attribute, especially in combination with attribute.sourceIndex. Returns -1 if the name is invalid or the value doesn't exist in this attribute. The legal values for part are: \"ns\" - alias for \"namespace\" \"namespace\" - the namespace if it exists. \"attribute\" - the attribute name \"attributeNS\" - the start of the attribute or its namespace \"operator\" - the match operator of the attribute \"value\" - The value (string or identifier) \"insensitive\" - the case insensitivity flag",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`attribute.raws.unquoted`",
+    "body": "Returns the unquoted content of the attribute's value. Remains undefined if there is no attribute value.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`attribute.spaces`",
+    "body": "Like node.spaces with the before and after values containing the spaces around the element, the parts of the attribute can also have spaces before and after them. The for each of attribute, operator, value and insensitive there is corresponding property of the same nam in node.spaces that has an optional before or after string containing only whitespace. Note that corresponding values in attributes.raws.spaces contain values including any comments. If set, these values will override the attribute.spaces value. Take care to remove them if changing attribute.spaces.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "`attribute.raws`",
+    "body": "The raws object stores comments and other information necessary to re-render the node exactly as it was in the source. If a comment is embedded within the identifiers for the namespace, attribute or value then a property is placed in the raws for that value containing the full source of the propery including comments. If a comment is embedded within the space between parts of the attribute then the raw for that space is set accordingly. Setting an attribute's property raws value to be deleted. For now, changing the spaces required also updating or removing any of the raws values that override them. Example: [ / before / href / after-attr / = / after-operator / te/ inside-value /st/ wow / / omg /i/ bbq / / whodoesthis /] would parse as:",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "API Documentation.`ProcessorOptions`",
+    "body": "lossless - When true, whitespace is preserved. Defaults to true. updateSelector - When true, if any processor methods are passed a postcss Rule node instead of a string, then that Rule's selector is updated with the results of the processing. Defaults to true.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "API Documentation.`process|processSync(selectors, [options])`",
+    "body": "Processes the selectors, returning a string from the result of processing. Note: when the updateSelector option is set, the rule's selector will be updated with the resulting string. Example: Arguments: selectors (string postcss.Rule): Either a selector string or a PostCSS Rule node. [options] (object): Process options",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "API Documentation.`ast|astSync(selectors, [options])`",
+    "body": "Like process() and processSync() but after processing the selectors these methods return the Root node of the result instead of a string. Note: when the updateSelector option is set, the rule's selector will be updated with the resulting string.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "API Documentation.`transform|transformSync(selectors, [options])`",
+    "body": "Like process() and processSync() but after processing the selectors these methods return the value returned by the processor callback. Note: when the updateSelector option is set, the rule's selector will be updated with the resulting string.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "API Documentation.Error Handling Within Selector Processors",
+    "body": "The root node passed to the selector processor callback has a method error(message, options) that returns an error object. This method should always be used to raise errors relating to the syntax of selectors. The options to this method are passed to postcss's error constructor (documentation). Async Error Example Synchronous Error Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/API",
+    "id": ""
+  },
+  {
+    "title": "6.1.4 - 2026-06-11",
+    "body": "- fix: tolerate non-node children when serializing selectors",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.1.3 - 2026-06-11",
+    "body": "- Fix CVE-2026-9358 (NVD) / SNYK-JS-POSTCSSSELECTORPARSER-16873882 via backport of ( 316 by @MoOx)",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.1.2",
+    "body": "- Fixed: erroneous trailing combinators in pseudos",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.1.1",
+    "body": "- Fixed: improve typings of constructor helpers ( 292)",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.1.0",
+    "body": "- Feature: add sourceIndex to Selector nodes ( 290)",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.16",
+    "body": "- Fixed: add missing index argument to each/walk callback types ( 289)",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.15",
+    "body": "- Fixed: Node prev and Node next type for the first/last node",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.14",
+    "body": "- Fixed: type definitions",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.13",
+    "body": "- Fixed: throw on unexpected pipe symbols",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.12",
+    "body": "- Fixed: clone arguments should be optional",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.11",
+    "body": "- Fixed: parse attribute case insensitivity flag",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.10",
+    "body": "- Fixed: isPseudoElement() supports :first-letter and :first-line",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.9",
+    "body": "- Fixed: Combinator.raws property type",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.8",
+    "body": "- Fixed: reduced size",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.7",
+    "body": "- Fixed: parse animation percents",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.6",
+    "body": "- Fixed: parse quoted attributes containing a newline correctly",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.5",
+    "body": "- Perf: rework unesc for a 63+% performance boost",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.4",
+    "body": "- Fixed: ts errors",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.3",
+    "body": "- Fixed: replace node built-in \"util\" module with \"util-deprecate\" - Fixed: handle uppercase pseudo elements - Fixed: do not create invalid combinator before comment",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.2",
+    "body": "- Fixed an issue with parsing and stringifying an empty attribute value",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.1",
+    "body": "- Fixed an issue with unicode surrogate pair parsing",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "6.0.0",
+    "body": "- Updated: cssesc to 3.0.0 (major) - Fixed: Issues with escaped id and class selectors",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.0.0",
+    "body": "- Allow escaped dot within class name. - Update PostCSS to 7.0.7 (patch)",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.0.0-rc.4",
+    "body": "- Fixed an issue where comments immediately after an insensitive (in attribute) were not parsed correctly. - Updated cssesc to 2.0.0 (major). - Removed outdated integration tests. - Added tests for custom selectors, tags with attributes, the universal selector with pseudos, and tokens after combinators.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.0.0-rc.1",
+    "body": "To ease adoption of the v5.0 release, we have relaxed the node version check performed by npm at installation time to allow for node 4, which remains officially unsupported, but likely to continue working for the time being.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.0.0-rc.0",
+    "body": "This release has BREAKING CHANGES that were required to fix regressions in 4.0.0 and to make the Combinator Node API consistent for all combinator types. Please read carefully. The way a descendent combinator that isn't a single space character (E.g. .a .b) is stored in the AST has changed. Named Combinators (E.g. .a /for/ .b) are now properly parsed as a combinator. It is now possible to look up a node based on the source location of a character in that node and to query nodes if they contain some character. Several bug fixes that caused the parser to hang and run out of memory when a / was encountered have been fixed. The minimum supported version of Node is now v6.0.0.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.0.0-rc.0.Changes to the Descendent Combinator",
+    "body": "In prior releases, the value of a descendant combinator with multiple spaces included all the spaces. .a .b: Extra spaces are now stored as space before. - Old & Busted: - combinator.value === \" \" - New hotness: - combinator.value === \" \" && combinator.spaces.before === \" \" .a / comment /.b: A comment at the end of the combinator causes extra space to become after space. - Old & Busted: - combinator.value === \" \" - combinator.raws.value === \" / comment/\" - New hotness: - combinator.value === \" \" - combinator.spaces.after === \" \" - combinator.raws.spaces.after === \" / comment /\" .a .b: whitespace that doesn't start or end with a single space character is stored as a raw value. - Old & Busted: - combinator.value === \"\\n\" - combinator.raws.value === undefined - New hotness: - combinator.value === \" \" - combinator.raws.value === \"\\n\"",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.0.0-rc.0.Support for \"Named Combinators\"",
+    "body": "Although, nonstandard and unlikely to ever become a standard, combinators like /deep/ and /for/ are now properly supported. Because they've been taken off the standardization track, there is no spec-official name for combinators of the form / /. However, I talked to Tab Atkins and we agreed to call them \"named combinators\" so now they are called that. Before this release such named combinators were parsed without intention and generated three nodes of type \"tag\" where the first and last nodes had a value of \"/\". .a /for/ .b is parsed as a combinator. - Old & Busted: - root.nodes[0].nodes[1].type === \"tag\" - root.nodes[0].nodes[1].value === \"/\" - New hotness: - root.nodes[0].nodes[1].type === \"combinator\" - root.nodes[0].nodes[1].value === \"/for/\" .a /F\\6fR/ .b escapes are handled and uppercase is normalized. - Old & Busted: - root.nodes[0].nodes[2].type === \"tag\" - root.nodes[0].nodes[2].value === \"F\\\\6fR\" - New hotness: - root.nodes[0].nodes[1].type === \"combinator\" - root.nodes[0].nodes[1].value === \"/for/\" - root.nodes[0].nodes[1].raws.value === \"/F\\\\6fR/\"",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "5.0.0-rc.0.Source position checks and lookups",
+    "body": "A new API was added to look up a node based on the source location.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "4.0.0",
+    "body": "This release has BREAKING CHANGES that were required to fix bugs regarding values with escape sequences. Please read carefully. Identifiers with escapes - CSS escape sequences are now hidden from the public API by default. The normal value of a node like a class name or ID, or an aspect of a node such as attribute selector's value, is unescaped. Escapes representing Non-ascii characters are unescaped into unicode characters. For example: bu\\tton, .\\31 00, i\\2764\\FE0Fu, [attr=\"value is \\\"quoted\\\"\"] will parse respectively to the values button, 100, i❤️u, value is \"quoted\". The original escape sequences for these values can be found in the corresponding property name in node.raws. Where possible, deprecation warnings were added, but the nature of escape handling makes it impossible to detect what is escaped or not. Our expectation is that most users are neither expecting nor handling escape sequences in their use of this library, and so for them, this is a bug fix. Users who are taking care to handle escapes correctly can now update their code to remove the escape handling and let us do it for them. Mutating values with escapes - When you make an update to a node property that has escape handling The value is assumed to be unescaped, and any special characters are escaped automatically and the corresponding raws value is immediately updated. This can result in changes to the original escape format. Where the exact value of the escape sequence is important there are methods that allow both values to be set in conjunction. There are a number of new convenience methods for manipulating values that involve escapes, especially for attributes values where the quote mark is involved. See https://github.com/postcss/postcss-selector-parser/pull/133 for an extensive write-up on these changes. Upgrade/API Example In 3.x there was no unescape handling and internal consistency of several properties was the caller's job to maintain. It was very easy for the developer to create a CSS file that did not parse correctly when some types of values were in use. In 4.0 there is a convenient API for setting and mutating values that may need escaping. Especially for attributes.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.1.2",
+    "body": "Fix: Removed dot-prop dependency since it's no longer written in es5.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.1.1",
+    "body": "Fix: typescript definitions weren't in the published package.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.1.0",
+    "body": "Fixed numerous bugs in attribute nodes relating to the handling of comments and whitespace. There's significant changes to attrNode.spaces and attrNode.raws since the 3.0.0 release. Added Attribute offsetOf(part) to get the offset location of attribute parts like \"operator\" and \"value\". This is most often added to Attribute sourceIndex for error reporting.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.0.0",
+    "body": "Some tweaks to the tokenizer/attribute selector parsing mean that whitespace locations might be slightly different to the 2.x code. Better attribute selector parsing with more validation; postcss-selector-parser no longer uses regular expressions to parse attribute selectors. Added an async API (thanks to @jacobp100); the default process API is now async, and the sync API is now accessed through processSync instead. process() and processSync() now return a string instead of the Processor instance. Tweaks handling of Less interpolation (thanks to @jwilsson). Removes support for Node 0.12. ast() and astSync() methods have been added to the Processor. These return the Root node of the selectors after processing them. transform() and transformSync() methods have been added to the Processor. These return the value returned by the processor callback after processing the selectors. Set the parent when inserting a node (thanks to @chriseppstein). Correctly adjust indices when using insertBefore/insertAfter (thanks to @tivac). Fixes handling of namespaces with qualified tag selectors. process, ast and transform (and their sync variants) now accept a postcss rule node. When provided, better errors are generated and selector processing is automatically set back to the rule selector (unless the updateSelector option is set to false.) Now more memory efficient when tokenizing selectors.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "3.0.0.Upgrade hints",
+    "body": "The pattern of: rule.selector = processor.process(rule.selector).result.toString(); is now: processor.processSync(rule)",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.2.3",
+    "body": "Resolves an issue where the parser would not reduce multiple spaces between an ampersand and another simple selector in lossy mode (thanks to @adam-26).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.2.2",
+    "body": "No longer hangs on an unescaped semicolon; instead the parser will throw an exception for these cases.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.2.1",
+    "body": "Allows a consumer to specify whitespace tokens when creating a new Node (thanks to @Semigradsky).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.2.0",
+    "body": "Added a new option to normalize whitespace when parsing the selector string (thanks to @adam-26).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.1.1",
+    "body": "Better unquoted value handling within attribute selectors (thanks to @evilebottnawi).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.1.0",
+    "body": "Added: Use string constants for all node types & expose them on the main parser instance (thanks to @Aweary).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "2.0.0",
+    "body": "This release contains the following breaking changes: Renamed all eachInside iterators to walk. For example, eachTag is now walkTags, and eachInside is now walk. Renamed Node removeSelf() to Node remove(). Renamed Container remove() to Container removeChild(). Renamed Node raw to Node raws (thanks to @davidtheclark). Now parses & as the nesting selector, rather than a tag selector. Fixes misinterpretation of Sass interpolation (e.g. {foo}) as an id selector (thanks to @davidtheclark). and; Fixes parsing of attribute selectors with equals signs in them (e.g. [data-attr=\"foo=bar\"]) (thanks to @montmanu). Adds quoted and raw.unquoted properties to attribute nodes (thanks to @davidtheclark).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.3.3",
+    "body": "Fixes an infinite loop on ) and ] tokens when they had no opening pairs. Now postcss-selector-parser will throw when it encounters these lone tokens.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.3.2",
+    "body": "Now uses plain integers rather than str.charCodeAt(0) for compiled builds.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.3.1",
+    "body": "Update flatten to v1.x (thanks to @shinnn).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.3.0",
+    "body": "Adds a new node type, String, to fix a crash on selectors such as foo:bar(\"test\").",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.2.1",
+    "body": "Fixes a crash when the parser encountered a trailing combinator.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.2.0",
+    "body": "A more descriptive error is thrown when the parser expects to find a pseudo-class/pseudo-element (thanks to @ashelley). Adds support for line/column locations for selector nodes, as well as a Node sourceIndex method (thanks to @davidtheclark).",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.1.4",
+    "body": "Fixes a crash when a selector started with a combinator. The module will now no longer throw if a selector has a leading/trailing combinator node.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.1.3",
+    "body": "Fixes a crash on @ tokens.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.1.2",
+    "body": "Fixes an infinite loop caused by using parentheses in a non-pseudo element context.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.1.1",
+    "body": "Fixes a crash when a backslash ended a selector string.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.1.0",
+    "body": "Adds support for replacing multiple nodes at once with replaceWith (thanks to @jonathantneal). Parser no longer throws on sequential IDs and trailing commas, to support parsing of selector hacks.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.0.1",
+    "body": "Fixes using insertAfter and insertBefore during iteration.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "1.0.0",
+    "body": "Adds clone and replaceWith methods to nodes. Adds insertBefore and insertAfter to containers. Stabilises API.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "0.0.5",
+    "body": "Fixes crash on extra whitespace inside a pseudo selector's parentheses. Adds sort function to the container class. Enables the parser to pass its input through without transforming. Iteration-safe each and eachInside.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "0.0.4",
+    "body": "Tidy up redundant duplication. Fixes a bug where the parser would loop infinitely on universal selectors inside pseudo selectors. Adds length getter and eachInside, map, reduce to the container class. When a selector has been removed from the tree, the root node will no longer cast it to a string. Adds node type iterators to the container class (e.g. eachComment). Adds filter function to the container class. Adds split function to the container class. Create new node types by doing parser.id(opts) etc. Adds support for pseudo classes anywhere in the selector.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "0.0.3",
+    "body": "Adds next and prev to the node class. Adds first and last getters to the container class. Adds every and some iterators to the container class. Add empty alias for removeAll. Combinators are now types of node. Fixes the at method so that it is not an alias for index. Tidy up creation of new nodes in the parser. Refactors how namespaces are handled for consistency & less redundant code. Refactors AST to use nodes exclusively, and eliminates excessive nesting. Fixes nested pseudo parsing. Fixes whitespace parsing.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "0.0.2",
+    "body": "Adds support for namespace selectors. Adds support for selectors joined by escaped spaces - such as .\\31\\ 0.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "0.0.1",
+    "body": "Initial release.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "postcss-selector-parser [![test](https://github.com/postcss/postcss-selector-parser/actions/workflows/test.yml/badge.svg)](https://github.com/postcss/postcss-selector-parser/actions/workflows/test.yml)",
+    "body": "Selector parser with built in methods for working with selector strings. With npm do: To normalize selector whitespace: Async support is provided through parser.process and will resolve a Promise with the resulting selector string. Please see API.md.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-selector-parser [![test](https://github.com/postcss/postcss-selector-parser/actions/workflows/test.yml/badge.svg)](https://github.com/postcss/postcss-selector-parser/actions/workflows/test.yml).Selector nesting depth (CVE-2026-9358)",
+    "body": "The parser walks the selector AST recursively, both when parsing and when serializing it back to a string (.toString()). In versions up to and including 7.1.1, a selector with extreme nesting — for example thousands of nested :not(...) — could recurse deeply enough to overflow the call stack and throw RangeError: Maximum call stack size exceeded, a potential denial-of-service when processing untrusted CSS. This is now bounded by a maximum nesting depth (default: 256). Beyond that depth, parsing and serialization throw a regular, catchable Error at a predictable point instead of relying on the runtime hitting its stack limit. The default is far above any realistic selector, so it does not affect normal use. Practical impact is low. The only attacker-controlled input is the selector string itself, which is now capped by the default limit. The limit is adjustable through the maxNestingDepth option, but that option is trusted configuration provided by the integrating code — it is never derived from the parsed CSS, so a malicious selector cannot change it: Raising maxNestingDepth to a very large value is an explicit, informed choice and can reintroduce the stack-overflow risk in environments with a small call stack (e.g. browser workers). The default is recommended unless you have a specific need. Huge thanks to Andrey Sitnik (@ai) for work on PostCSS which helped accelerate this module's development. MIT",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-selector-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser",
+    "body": "![Travis CI](https://travis-ci.org/TrySound/postcss-value-parser) Transforms CSS declaration values and at-rule parameters into a tree of nodes, and provides a simple traversal API. For example, parsing the value rgba(233, 45, 66, .5) will return the following: If you wanted to convert each rgba() value in sourceCSS to a hex value, you could do so like this: Each node is an object with these common properties: - type : The type of node (word, string, div, space, comment, or function). Each type is documented below. - value : Each node has a value property; but what exactly value means is specific to the node type. Details are documented for each type below. - sourceIndex : The starting index of the node within the original source string. For example, given the source string 10px 20px, the word node whose value is 20px will have a sourceIndex of 5.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser.word",
+    "body": "The catch-all node type that includes keywords (e.g. no-repeat), quantities (e.g. 20px, 75%, 1.5), and hex colors (e.g. e6e6e6). Node-specific properties: - value : The \"word\" itself.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser.string",
+    "body": "A quoted string value, e.g. \"something\" in content: \"something\";. Node-specific properties: - value : The text content of the string. - quote : The quotation mark surrounding the string, either \" or '. - unclosed : true if the string was not closed properly. e.g. \"unclosed string .",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser.div",
+    "body": "A divider, for example - , in animation-duration: 1s, 2s, 3s - / in border-radius: 10px / 23px - : in (min-width: 700px) Node-specific properties: - value : The divider character. Either ,, /, or : (see examples above). - before : Whitespace before the divider. - after : Whitespace after the divider.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser.space",
+    "body": "Whitespace used as a separator, e.g. occurring twice in border: 1px solid black;. Node-specific properties: - value : The whitespace itself.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser.comment",
+    "body": "A CSS comment starts with / and ends with / Node-specific properties: - value : The comment value without / and / - unclosed : true if the comment was not closed properly. e.g. / comment without an end .",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser.function",
+    "body": "A CSS function, e.g. rgb(0,0,0) or url(foo.bar). Function nodes have nodes nested within them: the function arguments. Additional properties: - value : The name of the function, e.g. rgb in rgb(0,0,0). - before : Whitespace after the opening parenthesis and before the first argument, e.g. in rgb( 0,0,0). - after : Whitespace before the closing parenthesis and after the last argument, e.g. in rgb(0,0,0 ). - nodes : More nodes representing the arguments to the function. - unclosed : true if the parentheses was not closed properly. e.g. ( unclosed-function . Media features surrounded by parentheses are considered functions with an empty value. For example, (min-width: 700px) parses to these nodes: url() functions can be parsed a little bit differently depending on whether the first character in the argument is a quotation mark. url( /gfx/img/bg.jpg ) parses to: url( \"/gfx/img/bg.jpg\" ), on the other hand, parses to:",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser.unicode-range",
+    "body": "The unicode-range CSS descriptor sets the specific range of characters to be used from a font defined by @font-face and made available for use on the current page (unicode-range: U+0025-00FF). Node-specific properties: - value : The \"unicode-range\" itself.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "valueParser.unit(quantity)",
+    "body": "Parses quantity, distinguishing the number from the unit. Returns an object like the following: If the quantity argument cannot be parsed as a number, returns false. This function does not parse complete values : you cannot pass it 1px solid black and expect px as the unit. Instead, you should pass it single quantities only. Parse 1px solid black, then pass it the stringified 1px node (a word node) to parse the number and unit.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "valueParser.stringify(nodes[, custom])",
+    "body": "Stringifies a node or array of nodes. The custom function is called for each node; return a string to override the default behaviour.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "valueParser.walk(nodes, callback[, bubble])",
+    "body": "Walks each provided node, recursively walking all descendent nodes within functions. Returning false in the callback will prevent traversal of descendent nodes (within functions). You can use this feature to for shallow iteration, walking over only the immediate children. Note: This only applies if bubble is false (which is the default). By default, the tree is walked from the outermost node inwards. To reverse the direction, pass true for the bubble argument. The callback is invoked with three arguments: callback(node, index, nodes). - node: The current node. - index: The index of the current node. - nodes: The complete nodes array passed to walk(). Returns the valueParser instance.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser.var parsed = valueParser(value)",
+    "body": "Returns the parsed node tree.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "parsed.nodes",
+    "body": "The array of nodes.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "parsed.toString()",
+    "body": "Stringifies the node tree.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "parsed.walk(callback[, bubble])",
+    "body": "Walks each node inside parsed.nodes. See the documentation for valueParser.walk() above.",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "License",
+    "body": "MIT © Bogdan Chadkin",
+    "path": "/.tmp/ci-repro/repo/node_modules/postcss-value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "queue-microtask [![ci][ci-image]][ci-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]",
+    "body": "[ci-image]: https://img.shields.io/github/workflow/status/feross/queue-microtask/ci/master [ci-url]: https://github.com/feross/queue-microtask/actions [npm-image]: https://img.shields.io/npm/v/queue-microtask.svg [npm-url]: https://npmjs.org/package/queue-microtask [downloads-image]: https://img.shields.io/npm/dm/queue-microtask.svg [downloads-url]: https://npmjs.org/package/queue-microtask [standard-image]: https://img.shields.io/badge/code style-standard-brightgreen.svg [standard-url]: https://standardjs.com",
+    "path": "/.tmp/ci-repro/repo/node_modules/queue-microtask/README",
+    "id": ""
+  },
+  {
+    "title": "fast, tiny [`queueMicrotask`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/queueMicrotask) shim for modern engines",
+    "body": "- Use queueMicrotask in all modern JS engines. - No dependencies. Less than 10 lines. No shims or complicated fallbacks. - Optimal performance in all modern environments - Uses queueMicrotask in modern environments - Fallback to Promise.resolve().then(fn) in Node.js 10 and earlier, and old browsers (same performance as queueMicrotask) The queueMicrotask function is a WHATWG standard. It queues a microtask to be executed prior to control returning to the event loop. A microtask is a short function which will run after the current task has completed its work and when there is no other code waiting to be run before control of the execution context is returned to the event loop. The code queueMicrotask(fn) is equivalent to the code Promise.resolve().then(fn). It is also very similar to process.nextTick(fn) in Node. Using microtasks lets code run without interfering with any other, potentially higher priority, code that is pending, but before the JS engine regains control over the execution context. See the spec or Node documentation for more information. This package allows you to use queueMicrotask safely in all modern JS engines. Use it if you prioritize small JS bundle size over support for old browsers. If you just need to support Node 12 and later, use queueMicrotask directly. If you need to support all versions of Node, use this package. In Node, queueMicrotask and process.nextTick are essentially equivalent, though there are subtle differences that don't matter in most situations. You can think of queueMicrotask as a standardized version of process.nextTick that works in the browser. No need to rely on your browser bundler to shim process for the browser environment. This approach is the most compatible, but it has problems. Modern browsers throttle timers severely, so setTimeout(…, 0) usually takes at least 4ms to run. Furthermore, the throttling gets even worse if the page is backgrounded. If you have many setTimeout calls, then this can severely limit the performance of your program. These packages are great! However, if you prioritize small JS bundle size over optimal performance in old browsers then you may want to consider this package. This package (queue-microtask) is four times smaller than immediate, twice as small as asap, and twice as small as using process.nextTick and letting the browser bundler shim it automatically. Note: This package throws an exception in JS environments which lack Promise support -- which are usually very old browsers and Node.js versions. Since the queueMicrotask API is supported in Node.js, Chrome, Firefox, Safari, Opera, and Edge, the vast majority of users will get optimal performance . Any JS environment with Promise, which is almost all of them, also get optimal performance. If you need support for JS environments which lack Promise support, use one of the alternative packages. In computer programming, a shim is a library that transparently intercepts API calls and changes the arguments passed, handles the operation itself or redirects the operation elsewhere. – Wikipedia) This package could also be described as a \"ponyfill\". A ponyfill is almost the same as a polyfill, but not quite. Instead of patching functionality for older browsers, a ponyfill provides that functionality as a standalone module you can use. – PonyFoo",
+    "path": "/.tmp/ci-repro/repo/node_modules/queue-microtask/README",
+    "id": ""
+  },
+  {
+    "title": "queue-microtask [![ci][ci-image]][ci-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url].`queueMicrotask(fn)`",
+    "body": "The queueMicrotask() method queues a microtask. The fn argument is a function to be executed after all pending tasks have completed but before yielding control to the browser's event loop. MIT. Copyright (c) Feross Aboukhadijeh.",
+    "path": "/.tmp/ci-repro/repo/node_modules/queue-microtask/README",
+    "id": ""
+  },
+  {
+    "title": "read-cache [![CI](https://github.com/TrySound/read-cache/actions/workflows/ci.yml/badge.svg)](https://github.com/TrySound/read-cache/actions/workflows/ci.yml)",
+    "body": "Reads and caches the entire contents of a file until it is modified.",
+    "path": "/.tmp/ci-repro/repo/node_modules/read-cache/README",
+    "id": ""
+  },
+  {
+    "title": "read-cache [![CI](https://github.com/TrySound/read-cache/actions/workflows/ci.yml/badge.svg)](https://github.com/TrySound/read-cache/actions/workflows/ci.yml).readCache(path[, encoding])",
+    "body": "Returns a promise that resolves with the file's contents.",
+    "path": "/.tmp/ci-repro/repo/node_modules/read-cache/README",
+    "id": ""
+  },
+  {
+    "title": "readCache.sync(path[, encoding])",
+    "body": "Returns the content of the file.",
+    "path": "/.tmp/ci-repro/repo/node_modules/read-cache/README",
+    "id": ""
+  },
+  {
+    "title": "readCache.get(path[, encoding])",
+    "body": "Returns the content of cached file or null.",
+    "path": "/.tmp/ci-repro/repo/node_modules/read-cache/README",
+    "id": ""
+  },
+  {
+    "title": "readCache.clear()",
+    "body": "Clears the contents of the cache. MIT © Bogdan Chadkin",
+    "path": "/.tmp/ci-repro/repo/node_modules/read-cache/README",
+    "id": ""
+  },
+  {
+    "title": "readdirp [![Weekly downloads](https://img.shields.io/npm/dw/readdirp.svg)](https://github.com/paulmillr/readdirp)",
+    "body": "Recursive version of fs.readdir. Exposes a stream API and a promise API . For more examples, check out examples directory. const stream = readdirp(root[, options]) — Stream API - Reads given root recursively and returns a stream of entry infos - Optionally can be used like for await (const entry of stream) with node.js 10+ (asyncIterator). - on('data', (entry) = {}) entry info for every file / dir. - on('warn', (error) = {}) non-fatal Error that prevents a file / dir from being processed. Example: inaccessible to the user. - on('error', (error) = {}) fatal Error which also ends the stream. Example: illegal options where passed. - on('end') — we are done. Called when all entries were found and no more will be emitted. - on('close') — stream is destroyed via stream.destroy(). Could be useful if you want to manually abort even on a non fatal error. At that point the stream is no longer readable and no more entries, warning or errors are emitted - To learn more about streams, consult the very detailed nodejs streams documentation or the stream-handbook const entries = await readdirp.promise(root[, options]) — Promise API . Returns a list of entry infos. First argument is awalys root, path in which to start reading and recursing into subdirectories.",
+    "path": "/.tmp/ci-repro/repo/node_modules/readdirp/README",
+    "id": ""
+  },
+  {
+    "title": "readdirp [![Weekly downloads](https://img.shields.io/npm/dw/readdirp.svg)](https://github.com/paulmillr/readdirp).options",
+    "body": "- fileFilter: [\" .js\"]: filter to include or exclude files. A Function, Glob string or Array of glob strings. - Function : a function that takes an entry info as a parameter and returns true to include or false to exclude the entry - Glob string : a string (e.g., .js) which is matched using picomatch, so go there for more information. Globstars ( ) are not supported since specifying a recursive pattern for an already recursive function doesn't make sense. Negated globs (as explained in the minimatch documentation) are allowed, e.g., ! .txt matches everything but text files. - Array of glob strings : either need to be all inclusive or all exclusive (negated) patterns otherwise an error is thrown. [' .json', ' .js'] includes all JavaScript and Json files. ['!.git', '!node modules'] includes all directories except the '.git' and 'node modules'. - Directories that do not pass a filter will not be recursed into. - directoryFilter: ['!.git']: filter to include/exclude directories found and to recurse into. Directories that do not pass a filter will not be recursed into. - depth: 5: depth at which to stop recursing even if more subdirectories are found - type: 'files': determines if data events on the stream should be emitted for 'files' (default), 'directories', 'files directories', or 'all'. Setting to 'all' will also include entries for other types of file descriptors like character devices, unix sockets and named pipes. - alwaysStat: false: always return stats property for every file. Default is false, readdirp will return Dirent entries. Setting it to true can double readdir execution time - use it only when you need file size, mtime etc. Cannot be enabled on node <10.10.0. - lstat: false: include symlink entries in the stream along with files. When true, fs.lstat would be used instead of fs.stat",
+    "path": "/.tmp/ci-repro/repo/node_modules/readdirp/README",
+    "id": ""
+  },
+  {
+    "title": "readdirp [![Weekly downloads](https://img.shields.io/npm/dw/readdirp.svg)](https://github.com/paulmillr/readdirp).`EntryInfo`",
+    "body": "Has the following properties: - path: 'assets/javascripts/react.js': path to the file/directory (relative to given root) - fullPath: '/Users/dev/projects/app/assets/javascripts/react.js': full path to the file/directory found - basename: 'react.js': name of the file/directory - dirent: fs.Dirent: built-in dir entry object - only with alwaysStat: false - stats: fs.Stats: built in stat object - only with alwaysStat: true - 3.5 (Oct 13, 2020) disallows recursive directory-based symlinks. Before, it could have entered infinite loop. - 3.4 (Mar 19, 2020) adds support for directory-based symlinks. - 3.3 (Dec 6, 2019) stabilizes RAM consumption and enables perf management with highWaterMark option. Fixes race conditions related to for-await looping. - 3.2 (Oct 14, 2019) improves performance by 250% and makes streams implementation more idiomatic. - 3.1 (Jul 7, 2019) brings bigint support to stat output on Windows. This is backwards-incompatible for some cases. Be careful. It you use it incorrectly, you'll see \"TypeError: Cannot mix BigInt and other types, use explicit conversions\". - 3.0 brings huge performance improvements and stream backpressure support. - Upgrading 2.x to 3.x: - Signature changed from readdirp(options) to readdirp(root, options) - Replaced callback API with promise API. - Renamed entryType option to type - Renamed entryType: 'both' to 'files directories' - EntryInfo - Renamed stat to stats - Emitted only when alwaysStat: true - dirent is emitted instead of stats by default with alwaysStat: false - Renamed name to basename - Removed parentDir and fullParentDir properties - Supported node.js versions: - 3.x: node 8+ - 2.x: node 0.6+ Copyright (c) 2012-2019 Thorsten Lorenz, Paul Miller ( ) MIT License, see LICENSE file.",
+    "path": "/.tmp/ci-repro/repo/node_modules/readdirp/README",
+    "id": ""
+  },
+  {
+    "title": "resolve package - session notes",
+    "body": "- Manual versioning only - do NOT use npm version - Edit package.json version directly, commit with message v{version}, then create annotated tag - Changelog lives in git tag annotations, not a separate file - Tag format: git tag -a v{version} -m \"{changelog}\" - proto : null on ALL object literals (prototype pollution protection) - .slice() not .substring() - One exported function per file - Move nested/inner functions to module level when feasible - Prefer non-hoisted declarations (function declarations at module level, not expressions) - No mutation - copy objects instead of modifying inputs - test/list-exports is a git submodule with sparse checkout - Tests should cover ALL entrypoints from fixtures, not just '.' subpaths - Use extensions: ['.js', '.json'] when testing exports resolution - Uses node-exports-info for category semantics - Categories: pre-exports, broken, conditions, patterns, pattern-trailers, current - exportsCategory option or engines: true to auto-detect from consumer's engines.node - Self-reference resolution respects node modules boundaries",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.claude/notes",
+    "id": ""
+  },
+  {
+    "title": "Incident Response Process for **resolve**",
+    "body": "We take the security of resolve very seriously. If you believe you’ve found a security vulnerability, please inform us responsibly through coordinated disclosure.",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/INCIDENT_RESPONSE_PROCESS",
+    "id": ""
+  },
+  {
+    "title": "Incident Response Process for **resolve**.How to Report",
+    "body": "Do not report security vulnerabilities through public GitHub issues, discussions, or social media. Instead, please use one of these secure channels: 1. GitHub Security Advisories Use the Report a vulnerability button in the Security tab of the browserify/resolve repository. 2. Email Follow the posted Security Policy.",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/INCIDENT_RESPONSE_PROCESS",
+    "id": ""
+  },
+  {
+    "title": "Incident Response Process for **resolve**.What to Include",
+    "body": "Required Information: - Brief description of the vulnerability type - Affected version(s) and components - Steps to reproduce the issue - Impact assessment (what an attacker could achieve) - Confirm the issue is not present in test files (in other words, only via the official entry points in exports) Helpful Additional Details: - Full paths of affected source files - Specific commit or branch where the issue exists - Required configuration to reproduce - Proof-of-concept code (if available) - Suggested mitigation or fix Timeline Commitments: - Initial acknowledgment : Within 24 hours - Detailed response : Within 3 business days - Status updates : Every 7 days until resolved - Resolution target : 90 days for most issues What We’ll Do: 1. Acknowledge your report and assign a tracking ID 2. Assess the vulnerability and determine severity 3. Develop and test a fix 4. Coordinate disclosure timeline with you 5. Release a security update and publish an advisory and CVE 6. Credit you in our security advisory (if desired) - Coordinated disclosure : We’ll work with you on timing - Typical timeline : 90 days from report to public disclosure - Early disclosure : If actively exploited - Delayed disclosure : For complex issues In Scope: - resolve package (all supported versions) - Official examples and documentation - Core resolution APIs - Dependencies with direct security implications Out of Scope: - Third-party wrappers or extensions - Bundler-specific integrations - Social engineering or physical attacks - Theoretical vulnerabilities without practical exploitation - Issues in non-production files Our Commitments: - Regular vulnerability scanning via npm audit - Automated security checks in CI/CD (GitHub Actions) - Secure coding practices and mandatory code review - Prompt patch releases for critical issues User Responsibilities: - Keep resolve updated - Monitor dependency vulnerabilities - Follow secure configuration guidelines for module resolution We will NOT: - Initiate legal action - Contact law enforcement - Suspend or terminate your access You must: - Only test against your own installations - Not access, modify, or delete user data - Not degrade service availability - Not publicly disclose before coordinated disclosure - Act in good faith - Advisory Credits : Credit in GitHub Security Advisories (unless anonymous) Stay Informed: - Subscribe to npm updates for resolve - Enable GitHub Security Advisory notifications Update Process: - Patch releases (e.g., 1.22.10 → 1.22.11) - Out-of-band releases for critical issues - Advisories via GitHub Security Advisories - Security reports : Security tab of browserify/resolve - General inquiries : GitHub Discussions or Issues",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/INCIDENT_RESPONSE_PROCESS",
+    "id": ""
+  },
+  {
+    "title": "1. Library Overview",
+    "body": "- Library Name: resolve - Brief Description: Implements Node.js require.resolve() algorithm for synchronous and asynchronous file path resolution. Used to locate modules and files in Node.js projects. - Key Public APIs/Functions: resolve.sync() / resolve/sync, resolve() / resolve/async",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/THREAT_MODEL",
+    "id": ""
+  },
+  {
+    "title": "2. Define Scope",
+    "body": "This threat model focuses on the core path resolution algorithm, including filesystem interaction, option handling, and cache management.",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/THREAT_MODEL",
+    "id": ""
+  },
+  {
+    "title": "3. Conceptual System Diagram",
+    "body": "Trust Boundaries: - Input module IDs: May come from untrusted sources (user input, configuration) - Filesystem access: The library interacts with the filesystem to resolve paths - Options: Provided by the caller - Cache: Used to improve performance, but could be a vector for tampering or information disclosure if not handled securely",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/THREAT_MODEL",
+    "id": ""
+  },
+  {
+    "title": "4. Identify Assets",
+    "body": "- Integrity of resolution output: Ensure correct and safe file path matching. - Confidentiality of configuration: Prevent sensitive path information from being leaked. - Availability/performance for host application: Prevent crashes or resource exhaustion. - Security of host application: Prevent path traversal or unintended filesystem access. - Reputation of library: Maintain trust by avoiding supply chain attacks and vulnerabilities[1][3][4].",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/THREAT_MODEL",
+    "id": ""
+  },
+  {
+    "title": "5. Identify Threats",
+    "body": "Component / API / Interaction S T R I D E ----------------------------------------------------- ---- ---- ---- ---- ---- ---- Public API Call (resolve/async, resolve/sync) ✓ ✓ – ✓ – – Filesystem Access – ✓ – ✓ ✓ – Options Handling ✓ ✓ – ✓ – – Cache System – ✓ – ✓ – – Key Threats: - Spoofing: Malicious module IDs mimicking legitimate packages, or spoofing configuration options[1]. - Tampering: Caller-provided paths altering resolution order, or cache tampering leading to incorrect results[1][4]. - Information Disclosure: Error messages revealing filesystem structure or sensitive paths[1]. - Denial of Service: Recursive or excessive resolution exhausting filesystem handles or causing application crashes[1]. - Path Traversal: Malicious input allowing access to files outside the intended directory[4].",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/THREAT_MODEL",
+    "id": ""
+  },
+  {
+    "title": "6. Mitigation/Countermeasures",
+    "body": "Threat Identified Proposed Mitigation -------------------------------------------- --------------------- Spoofing (malicious module IDs/config) Sanitize input IDs; validate against known patterns; restrict basedir to app-controlled paths[1][4]. Tampering (path traversal, cache) Validate input IDs for directory escapes; secure cache reads/writes; restrict cache to trusted sources[1][4]. Information Disclosure (error messages) Generic \"not found\" errors without internal paths; avoid exposing sensitive configuration in errors[1]. Denial of Service (resource exhaustion) Limit recursive resolution depth; implement timeout; monitor for excessive filesystem operations[1].",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/THREAT_MODEL",
+    "id": ""
+  },
+  {
+    "title": "7. Risk Ranking",
+    "body": "- High: Path traversal via malicious IDs (if not properly mitigated) - Medium: Cache tampering or spoofing (if cache is not secured) - Low: Information disclosure in errors (if error handling is generic)",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/THREAT_MODEL",
+    "id": ""
+  },
+  {
+    "title": "8. Next Steps & Review",
+    "body": "1. Implement input sanitization for module IDs and configuration. 2. Add resolution depth limiting and timeout. 3. Audit cache handling for race conditions and tampering. 4. Regularly review dependencies for vulnerabilities. 5. Keep documentation and threat model up to date. 6. Monitor for new threats as the ecosystem and library evolve[1][3].",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/.github/THREAT_MODEL",
+    "id": ""
+  },
+  {
+    "title": "Security",
+    "body": "Please file a private vulnerability report, or email @ljharb, if you have a potential security vulnerability to report. See our Incident Response Process. See THREAT MODEL.md.",
+    "path": "/.tmp/ci-repro/repo/node_modules/resolve/SECURITY",
+    "id": ""
+  },
+  {
+    "title": "reusify",
+    "body": "[![npm version][npm-badge]][npm-url] Reuse your objects and functions for maximum speed. This technique will make any function run 10% faster. You call your functions a lot, and it adds up quickly in hot code paths. The above benchmark uses fibonacci to simulate a real high-cpu load. The actual numbers might differ for your use case, but the difference should not. The benchmark was taken using Node v6.10.0. This library was extracted from fastparallel. The above example was intended for synchronous code, let's see async: Also note how in the above examples, the code, that consumes an instance of MyObject, reset the state to initial condition, just before storing it in the cache. That's needed so that every subsequent request for an instance from the cache, could get a clean instance. It is faster because V8 doesn't have to collect all the functions you create. On a short-lived benchmark, it is as fast as creating the nested function, but on a longer time frame it creates less pressure on the garbage collector. If you want to see some complex example, checkout middie and steed. Thanks to Trevor Norris for getting me down the rabbit hole of performance, and thanks to Mathias Buss for suggesting me to share this trick. MIT [npm-badge]: https://badge.fury.io/js/reusify.svg [npm-url]: https://badge.fury.io/js/reusify",
+    "path": "/.tmp/ci-repro/repo/node_modules/reusify/README",
+    "id": ""
+  },
+  {
+    "title": "Security Policy",
+    "body": "Use this section to tell people about which versions of your project are currently being supported with security updates. Version Supported ------- ------------------ 1.x :white check mark: < 1.0 :x: Please report all vulnerabilities at https://github.com/mcollina/fastq/security.",
+    "path": "/.tmp/ci-repro/repo/node_modules/reusify/SECURITY",
+    "id": ""
+  },
+  {
+    "title": "run-parallel [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]",
+    "body": "[travis-image]: https://img.shields.io/travis/feross/run-parallel/master.svg [travis-url]: https://travis-ci.org/feross/run-parallel [npm-image]: https://img.shields.io/npm/v/run-parallel.svg [npm-url]: https://npmjs.org/package/run-parallel [downloads-image]: https://img.shields.io/npm/dm/run-parallel.svg [downloads-url]: https://npmjs.org/package/run-parallel [standard-image]: https://img.shields.io/badge/code style-standard-brightgreen.svg [standard-url]: https://standardjs.com",
+    "path": "/.tmp/ci-repro/repo/node_modules/run-parallel/README",
+    "id": ""
+  },
+  {
+    "title": "run-parallel [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url].Run an array of functions in parallel",
+    "body": "!parallel ![Sauce Test Status](https://saucelabs.com/u/run-parallel)",
+    "path": "/.tmp/ci-repro/repo/node_modules/run-parallel/README",
+    "id": ""
+  },
+  {
+    "title": "run-parallel [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url].install",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/run-parallel/README",
+    "id": ""
+  },
+  {
+    "title": "run-parallel [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url].usage",
+    "body": "parallel(tasks, [callback]) Run the tasks array of functions in parallel, without waiting until the previous function has completed. If any of the functions pass an error to its callback, the main callback is immediately called with the value of the error. Once the tasks have completed, the results are passed to the final callback as an array. It is also possible to use an object instead of an array. Each property will be run as a function and the results will be passed to the final callback as an object instead of an array. This can be a more readable way of handling the results. arguments - tasks - An array or object containing functions to run. Each function is passed a callback(err, result) which it must call on completion with an error err (which can be null) and an optional result value. - callback(err, results) - An optional callback to run once all the functions have completed. This function gets a results array (or object) containing all the result arguments passed to the task callbacks. example This module is basically equavalent to async.parallel, but it's handy to just have the one function you need instead of the kitchen sink. Modularity! Especially handy if you're serving to the browser and need to reduce your javascript bundle size. Works great in the browser with browserify!",
+    "path": "/.tmp/ci-repro/repo/node_modules/run-parallel/README",
+    "id": ""
+  },
+  {
+    "title": "run-parallel [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url].see also",
+    "body": "- run-auto - run-parallel-limit - run-series - run-waterfall",
+    "path": "/.tmp/ci-repro/repo/node_modules/run-parallel/README",
+    "id": ""
+  },
+  {
+    "title": "run-parallel [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url].license",
+    "body": "MIT. Copyright (c) Feross Aboukhadijeh.",
+    "path": "/.tmp/ci-repro/repo/node_modules/run-parallel/README",
+    "id": ""
+  },
+  {
+    "title": "Source Map JS",
+    "body": "![NPM](https://www.npmjs.com/package/source-map-js) Difference between original source-map: TL,DR: it's fork of original source-map@0.6, but with perfomance optimizations. This journey starts from source-map@0.7.0. Some part of it was rewritten to Rust and WASM and API became async. It's still a major block for many libraries like PostCSS or Sass for example because they need to migrate the whole API to the async way. This is the reason why 0.6.1 has 2x more downloads than 0.7.3 while it's faster several times. !Downloads count More important that WASM version has some optimizations in JS code too. This is why community asked to create branch for 0.6 version and port these optimizations but, sadly, the answer was «no». A bit later I discovered the issue created by Ben Rothman (@benthemonkey) with no response at all. Roman Dvornov (@lahmatiy) wrote a serveral posts (russian, only, sorry) about source-map library in his own Telegram channel. He mentioned the article «Maybe you don't need Rust and WASM to speed up your JS» written by Vyacheslav Egorov (@mraleph). This article contains optimizations and hacks that lead to almost the same performance compare to WASM implementation. I decided to fork the original source-map and port these optimizations from the article and several others PR from the original source-map. --------- This is a library to generate and consume the source map format [described here][format]. [format]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b- 2gc6fAH0KY0k/edit $ npm install source-map-js -- -------------------------------------------------------------------------------- - Examples - Consuming a source map - Generating a source map - With SourceNode (high level API) - With SourceMapGenerator (low level API) - API - SourceMapConsumer - new SourceMapConsumer(rawSourceMap) - SourceMapConsumer.prototype.computeColumnSpans() - SourceMapConsumer.prototype.originalPositionFor(generatedPosition) - SourceMapConsumer.prototype.generatedPositionFor(originalPosition) - SourceMapConsumer.prototype.allGeneratedPositionsFor(originalPosition) - SourceMapConsumer.prototype.hasContentsOfAllSources() - [SourceMapConsumer.prototype.sourceContentFor(source[, returnNullOnMissing])]( sourcemapconsumerprototypesourcecontentforsource-returnnullonmissing) - SourceMapConsumer.prototype.eachMapping(callback, context, order) - SourceMapGenerator - [new SourceMapGenerator([startOfSourceMap])]( new-sourcemapgeneratorstartofsourcemap) - SourceMapGenerator.fromSourceMap(sourceMapConsumer) - SourceMapGenerator.prototype.addMapping(mapping) - SourceMapGenerator.prototype.setSourceContent(sourceFile, sourceContent) - [SourceMapGenerator.prototype.applySourceMap(sourceMapConsumer[, sourceFile[, sourceMapPath]])]( sourcemapgeneratorprototypeapplysourcemapsourcemapconsumer-sourcefile-sourcemappath) - SourceMapGenerator.prototype.toString() - SourceNode - [new SourceNode([line, column, source[, chunk[, name]]])]( new-sourcenodeline-column-source-chunk-name) - [SourceNode.fromStringWithSourceMap(code, sourceMapConsumer[, relativePath])]( sourcenodefromstringwithsourcemapcode-sourcemapconsumer-relativepath) - SourceNode.prototype.add(chunk) - SourceNode.prototype.prepend(chunk) - SourceNode.prototype.setSourceContent(sourceFile, sourceContent) - SourceNode.prototype.walk(fn) - SourceNode.prototype.walkSourceContents(fn) - SourceNode.prototype.join(sep) - SourceNode.prototype.replaceRight(pattern, replacement) - SourceNode.prototype.toString() - [SourceNode.prototype.toStringWithSourceMap([startOfSourceMap])]( sourcenodeprototypetostringwithsourcemapstartofsourcemap)",
+    "path": "/.tmp/ci-repro/repo/node_modules/source-map-js/README",
+    "id": ""
+  },
+  {
+    "title": "Source Map JS.Consuming a source map",
+    "body": "",
+    "path": "/.tmp/ci-repro/repo/node_modules/source-map-js/README",
+    "id": ""
+  },
+  {
+    "title": "Source Map JS.Generating a source map",
+    "body": "In depth guide: Compiling to JavaScript, and Debugging with Source Maps With SourceNode (high level API) With SourceMapGenerator (low level API) Get a reference to the module:",
+    "path": "/.tmp/ci-repro/repo/node_modules/source-map-js/README",
+    "id": ""
+  },
+  {
+    "title": "Source Map JS.SourceMapConsumer",
+    "body": "A SourceMapConsumer instance represents a parsed source map which we can query for information about the original file positions by giving it a file position in the generated source. new SourceMapConsumer(rawSourceMap) The only parameter is the raw source map (either as a string which can be JSON.parse'd, or an object). According to the spec, source maps have the following attributes: version: Which version of the source map spec this map is following. sources: An array of URLs to the original source files. names: An array of identifiers which can be referenced by individual mappings. sourceRoot: Optional. The URL root from which all sources are relative. sourcesContent: Optional. An array of contents of the original source files. mappings: A string of base64 VLQs which contain the actual mappings. file: Optional. The generated filename this source map is associated with. SourceMapConsumer.prototype.computeColumnSpans() Compute the last column for each generated mapping. The last column is inclusive. SourceMapConsumer.prototype.originalPositionFor(generatedPosition) Returns the original source, line, and column information for the generated source's line and column positions provided. The only argument is an object with the following properties: line: The line number in the generated source. Line numbers in this library are 1-based (note that the underlying source map specification uses 0-based line numbers -- this library handles the translation). column: The column number in the generated source. Column numbers in this library are 0-based. bias: Either SourceMapConsumer.GREATEST LOWER BOUND or SourceMapConsumer.LEAST UPPER BOUND. Specifies whether to return the closest element that is smaller than or greater than the one we are searching for, respectively, if the exact element cannot be found. Defaults to SourceMapConsumer.GREATEST LOWER BOUND. and an object is returned with the following properties: source: The original source file, or null if this information is not available. line: The line number in the original source, or null if this information is not available. The line number is 1-based. column: The column number in the original source, or null if this information is not available. The column number is 0-based. name: The original identifier, or null if this information is not available. SourceMapConsumer.prototype.generatedPositionFor(originalPosition) Returns the generated line and column information for the original source, line, and column positions provided. The only argument is an object with the following properties: source: The filename of the original source. line: The line number in the original source. The line number is 1-based. column: The column number in the original source. The column number is 0-based. and an object is returned with the following properties: line: The line number in the generated source, or null. The line number is 1-based. column: The column number in the generated source, or null. The column number is 0-based. SourceMapConsumer.prototype.allGeneratedPositionsFor(originalPosition) Returns all generated line and column information for the original source, line, and column provided. If no column is provided, returns all mappings corresponding to a either the line we are searching for or the next closest line that has any mappings. Otherwise, returns all mappings corresponding to the given line and either the column we are searching for or the next closest column that has any offsets. The only argument is an object with the following properties: source: The filename of the original source. line: The line number in the original source. The line number is 1-based. column: Optional. The column number in the original source. The column number is 0-based. and an array of objects is returned, each with the following properties: line: The line number in the generated source, or null. The line number is 1-based. column: The column number in the generated source, or null. The column number is 0-based. SourceMapConsumer.prototype.hasContentsOfAllSources() Return true if we have the embedded source content for every source listed in the source map, false otherwise. In other words, if this method returns true, then consumer.sourceContentFor(s) will succeed for every source s in consumer.sources. SourceMapConsumer.prototype.sourceContentFor(source[, returnNullOnMissing]) Returns the original source content for the source provided. The only argument is the URL of the original source file. If the source content for the given source is not found, then an error is thrown. Optionally, pass true as the second param to have null returned instead. SourceMapConsumer.prototype.eachMapping(callback, context, order) Iterate over each mapping between an original source/line/column and a generated line/column in this source map. callback: The function that is called with each mapping. Mappings have the form { source, generatedLine, generatedColumn, originalLine, originalColumn, name } context: Optional. If specified, this object will be the value of this every time that callback is called. order: Either SourceMapConsumer.GENERATED ORDER or SourceMapConsumer.ORIGINAL ORDER. Specifies whether you want to iterate over the mappings sorted by the generated file's line/column order or the original's source/line/column order, respectively. Defaults to SourceMapConsumer.GENERATED ORDER.",
+    "path": "/.tmp/ci-repro/repo/node_modules/source-map-js/README",
+    "id": ""
+  },
+  {
+    "title": "Source Map JS.SourceMapGenerator",
+    "body": "An instance of the SourceMapGenerator represents a source map which is being built incrementally. new SourceMapGenerator([startOfSourceMap]) You may pass an object with the following properties: file: The filename of the generated source that this source map is associated with. sourceRoot: A root for all relative URLs in this source map. skipValidation: Optional. When true, disables validation of mappings as they are added. This can improve performance but should be used with discretion, as a last resort. Even then, one should avoid using this flag when running tests, if possible. ignoreInvalidMapping: Optional. When true, instead of throwing error on invalid mapping, it will be ignored. SourceMapGenerator.fromSourceMap(sourceMapConsumer, sourceMapGeneratorOptions) Creates a new SourceMapGenerator from an existing SourceMapConsumer instance. sourceMapConsumer The SourceMap. sourceMapGeneratorOptions options that will be passed to the SourceMapGenerator constructor which used under the hood. SourceMapGenerator.prototype.addMapping(mapping) Add a single mapping from original source line and column to the generated source's line and column for this source map being created. The mapping object should have the following properties: generated: An object with the generated line and column positions. original: An object with the original line and column positions. source: The original source file (relative to the sourceRoot). name: An optional original token name for this mapping. SourceMapGenerator.prototype.setSourceContent(sourceFile, sourceContent) Set the source content for an original source file. sourceFile the URL of the original source file. sourceContent the content of the source file. SourceMapGenerator.prototype.applySourceMap(sourceMapConsumer[, sourceFile[, sourceMapPath]]) Applies a SourceMap for a source file to the SourceMap. Each mapping to the supplied source file is rewritten using the supplied SourceMap. Note: The resolution for the resulting mappings is the minimum of this map and the supplied map. sourceMapConsumer: The SourceMap to be applied. sourceFile: Optional. The filename of the source file. If omitted, sourceMapConsumer.file will be used, if it exists. Otherwise an error will be thrown. sourceMapPath: Optional. The dirname of the path to the SourceMap to be applied. If relative, it is relative to the SourceMap. This parameter is needed when the two SourceMaps aren't in the same directory, and the SourceMap to be applied contains relative source paths. If so, those relative source paths need to be rewritten relative to the SourceMap. If omitted, it is assumed that both SourceMaps are in the same directory, thus not needing any rewriting. (Supplying '.' has the same effect.) SourceMapGenerator.prototype.toString() Renders the source map being generated to a string.",
+    "path": "/.tmp/ci-repro/repo/node_modules/source-map-js/README",
+    "id": ""
+  },
+  {
+    "title": "Source Map JS.SourceNode",
+    "body": "SourceNodes provide a way to abstract over interpolating and/or concatenating snippets of generated JavaScript source code, while maintaining the line and column information associated between those snippets and the original source code. This is useful as the final intermediate representation a compiler might use before outputting the generated JS and source map. new SourceNode([line, column, source[, chunk[, name]]]) line: The original line number associated with this source node, or null if it isn't associated with an original line. The line number is 1-based. column: The original column number associated with this source node, or null if it isn't associated with an original column. The column number is 0-based. source: The original source's filename; null if no filename is provided. chunk: Optional. Is immediately passed to SourceNode.prototype.add, see below. name: Optional. The original identifier. SourceNode.fromStringWithSourceMap(code, sourceMapConsumer[, relativePath]) Creates a SourceNode from generated code and a SourceMapConsumer. code: The generated code sourceMapConsumer The SourceMap for the generated code relativePath The optional path that relative sources in sourceMapConsumer should be relative to. SourceNode.prototype.add(chunk) Add a chunk of generated JS to this source node. chunk: A string snippet of generated JS code, another instance of SourceNode, or an array where each member is one of those things. SourceNode.prototype.prepend(chunk) Prepend a chunk of generated JS to this source node. chunk: A string snippet of generated JS code, another instance of SourceNode, or an array where each member is one of those things. SourceNode.prototype.setSourceContent(sourceFile, sourceContent) Set the source content for a source file. This will be added to the SourceMap in the sourcesContent field. sourceFile: The filename of the source file sourceContent: The content of the source file SourceNode.prototype.walk(fn) Walk over the tree of JS snippets in this node and its children. The walking function is called once for each snippet of JS and is passed that snippet and the its original associated source's line/column location. fn: The traversal function. SourceNode.prototype.walkSourceContents(fn) Walk over the tree of SourceNodes. The walking function is called for each source file content and is passed the filename and source content. fn: The traversal function. SourceNode.prototype.join(sep) Like Array.prototype.join except for SourceNodes. Inserts the separator between each of this source node's children. sep: The separator. SourceNode.prototype.replaceRight(pattern, replacement) Call String.prototype.replace on the very right-most source snippet. Useful for trimming white space from the end of a source node, etc. pattern: The pattern to replace. replacement: The thing to replace the pattern with. SourceNode.prototype.toString() Return the string representation of this source node. Walks over the tree and concatenates all the various snippets together to one string. SourceNode.prototype.toStringWithSourceMap([startOfSourceMap]) Returns the string representation of this tree of source nodes, plus a SourceMapGenerator which contains all the mappings between the generated and original sources. The arguments are the same as those to new SourceMapGenerator.",
+    "path": "/.tmp/ci-repro/repo/node_modules/source-map-js/README",
+    "id": ""
+  },
+  {
+    "title": "Sucrase",
+    "body": "![Build Status](https://github.com/alangpierce/sucrase/actions) ![npm version](https://www.npmjs.com/package/sucrase) ![Install Size](https://packagephobia.now.sh/result?p=sucrase) ![MIT License](LICENSE) ![Join the chat at https://gitter.im/sucrasejs](https://gitter.im/sucrasejs/Lobby) Using the ts-node integration: Sucrase is an alternative to Babel that allows super-fast development builds. Instead of compiling a large range of JS features to be able to work in Internet Explorer, Sucrase assumes that you're developing with a recent browser or recent Node.js version, so it focuses on compiling non-standard language extensions: JSX, TypeScript, and Flow. Because of this smaller scope, Sucrase can get away with an architecture that is much more performant but less extensible and maintainable. Sucrase's parser is forked from Babel's parser (so Sucrase is indebted to Babel and wouldn't be possible without it) and trims it down to a focused subset of what Babel solves. If it fits your use case, hopefully Sucrase can speed up your development experience! Sucrase has been extensively tested. It can successfully build the Benchling frontend code, Babel, React, TSLint, Apollo client, and decaffeinate with all tests passing, about 1 million lines of code total. Sucrase is about 20x faster than Babel. Here's one measurement of how Sucrase compares with other tools when compiling the Jest codebase 3 times, about 360k lines of code total: Details: Measured on July 2022. Tools run in single-threaded mode without warm-up. See the benchmark code for methodology and caveats. The main configuration option in Sucrase is an array of transform names. These transforms are available: jsx : Enables JSX syntax. By default, JSX is transformed to React.createClass, but may be preserved or transformed to jsx() by setting the jsxRuntime option. Also adds createReactClass display names and JSX context information. typescript : Compiles TypeScript code to JavaScript, removing type annotations and handling features like enums. Does not check types. Sucrase transforms each file independently, so you should enable the isolatedModules TypeScript flag so that the typechecker will disallow the few features like const enums that need cross-file compilation. The Sucrase option keepUnusedImports can be used to disable all automatic removal of imports and exports, analogous to TS verbatimModuleSyntax. flow : Removes Flow type annotations. Does not check types. imports : Transforms ES Modules (import/export) to CommonJS (require/module.exports) using the same approach as Babel and TypeScript with --esModuleInterop. If preserveDynamicImport is specified in the Sucrase options, then dynamic import expressions are left alone, which is particularly useful in Node to load ESM-only libraries. If preserveDynamicImport is not specified, import expressions are transformed into a promise-wrapped call to require. react-hot-loader : Performs the equivalent of the react-hot-loader/babel transform in the react-hot-loader project. This enables advanced hot reloading use cases such as editing of bound methods. jest : Hoist desired jest method calls above imports in the same way as babel-plugin-jest-hoist. Does not validate the arguments passed to jest.mock, but the same rules still apply. When the imports transform is not specified (i.e. when targeting ESM), the injectCreateRequireForImportRequire option can be specified to transform TS import foo = require(\"foo\"); in a way that matches the TypeScript 4.7 behavior with module: nodenext. These newer JS features are transformed by default: Optional chaining: a?.b Nullish coalescing: a ?? b Class fields: class C { x = 1; }. This includes static fields but not the x private field syntax. Numeric separators: const n = 1 234; Optional catch binding: try { doThing(); } catch { }. If your target runtime supports these features, you can specify disableESTransforms: true so that Sucrase preserves the syntax rather than trying to transform it. Note that transpiled and standard class fields behave slightly differently; see the TypeScript 3.7 release notes for details. If you use TypeScript, you can enable the TypeScript option useDefineForClassFields to enable error checking related to these differences.",
+    "path": "/.tmp/ci-repro/repo/node_modules/sucrase/README",
+    "id": ""
+  },
+  {
+    "title": "Sucrase.Unsupported syntax",
+    "body": "All JS syntax not mentioned above will \"pass through\" and needs to be supported by your JS runtime. For example: Decorators, private fields, throw expressions, generator arrow functions, and do expressions are all unsupported in browsers and Node (as of this writing), and Sucrase doesn't make an attempt to transpile them. Object rest/spread, async functions, and async iterators are all recent features that should work fine, but might cause issues if you use older versions of tools like webpack. BigInt and newer regex features may or may not work, based on your tooling.",
+    "path": "/.tmp/ci-repro/repo/node_modules/sucrase/README",
+    "id": ""
+  },
+  {
+    "title": "Sucrase.JSX Options",
+    "body": "By default, JSX is compiled to React functions in development mode. This can be configured with a few options: jsxRuntime : A string specifying the transform mode, which can be one of three values: \"classic\" (default): The original JSX transform that calls React.createElement by default. To configure for non-React use cases, specify: jsxPragma : Element creation function, defaults to React.createElement. jsxFragmentPragma : Fragment component, defaults to React.Fragment. \"automatic\": The new JSX transform introduced with React 17, which calls jsx functions and auto-adds import statements. To configure for non-React use cases, specify: jsxImportSource : Package name for auto-generated import statements, defaults to react. \"preserve\": Don't transform JSX, and instead emit it as-is in the output code. production : If true, use production version of functions and don't include debugging information. When using React in production mode with the automatic transform, this must be set to true to avoid an error about jsxDEV being missing.",
+    "path": "/.tmp/ci-repro/repo/node_modules/sucrase/README",
+    "id": ""
+  },
+  {
+    "title": "Sucrase.Legacy CommonJS interop",
+    "body": "Two legacy modes can be used with the imports transform: enableLegacyTypeScriptModuleInterop : Use the default TypeScript approach to CommonJS interop instead of assuming that TypeScript's --esModuleInterop flag is enabled. For example, if a CJS module exports a function, legacy TypeScript interop requires you to write import as add from './add';, while Babel, Webpack, Node.js, and TypeScript with --esModuleInterop require you to write import add from './add';. As mentioned in the docs, the TypeScript team recommends you always use --esModuleInterop. enableLegacyBabel5ModuleInterop : Use the Babel 5 approach to CommonJS interop, so that you can run require('./MyModule') instead of require('./MyModule').default. Analogous to babel-plugin-add-module-exports.",
+    "path": "/.tmp/ci-repro/repo/node_modules/sucrase/README",
+    "id": ""
+  },
+  {
+    "title": "Sucrase.Tool integrations",
+    "body": "Webpack Gulp Jest Rollup Broccoli",
+    "path": "/.tmp/ci-repro/repo/node_modules/sucrase/README",
+    "id": ""
+  },
+  {
+    "title": "Sucrase.Usage in Node",
+    "body": "The most robust way is to use the Sucrase plugin for ts-node, which has various Node integrations and configures Sucrase via tsconfig.json: For projects that don't target ESM, Sucrase also has a require hook with some reasonable defaults that can be accessed in a few ways: From code: require(\"sucrase/register\"); When invoking Node: node -r sucrase/register main.ts As a separate binary: sucrase-node main.ts Options can be passed to the require hook via a SUCRASE OPTIONS environment variable holding a JSON string of options.",
+    "path": "/.tmp/ci-repro/repo/node_modules/sucrase/README",
+    "id": ""
+  },
+  {
+    "title": "Sucrase.Compiling a project to JS",
+    "body": "For simple use cases, Sucrase comes with a sucrase CLI that mirrors your directory structure to an output directory:",
+    "path": "/.tmp/ci-repro/repo/node_modules/sucrase/README",
+    "id": ""
+  },
+  {
+    "title": "Sucrase.Usage from code",
+    "body": "For any advanced use cases, Sucrase can be called from JS directly: Sucrase is intended to be useful for the most common cases, but it does not aim to have nearly the scope and versatility of Babel. Some specific examples: Sucrase does not check your code for errors. Sucrase's contract is that if you give it valid code, it will produce valid JS code. If you give it invalid code, it might produce invalid code, it might produce valid code, or it might give an error. Always use Sucrase with a linter or typechecker, which is more suited for error-checking. Sucrase is not pluginizable. With the current architecture, transforms need to be explicitly written to cooperate with each other, so each additional transform takes significant extra work. Sucrase is not good for prototyping language extensions and upcoming language features. Its faster architecture makes new transforms more difficult to write and more fragile. Sucrase will never produce code for old browsers like IE. Compiling code down to ES5 is much more complicated than any transformation that Sucrase needs to do. Sucrase is hesitant to implement upcoming JS features, although some of them make sense to implement for pragmatic reasons. Its main focus is on language extensions (JSX, TypeScript, Flow) that will never be supported by JS runtimes. Like Babel, Sucrase is not a typechecker, and must process each file in isolation. For example, TypeScript const enums are treated as regular enums rather than inlining across files. You should think carefully before using Sucrase in production. Sucrase is mostly beneficial in development, and in many cases, Babel or tsc will be more suitable for production builds. See the Project Vision document for more details on the philosophy behind Sucrase. As JavaScript implementations mature, it becomes more and more reasonable to disable Babel transforms, especially in development when you know that you're targeting a modern runtime. You might hope that you could simplify and speed up the build step by eventually disabling Babel entirely, but this isn't possible if you're using a non-standard language extension like JSX, TypeScript, or Flow. Unfortunately, disabling most transforms in Babel doesn't speed it up as much as you might expect. To understand, let's take a look at how Babel works: 1. Tokenize the input source code into a token stream. 2. Parse the token stream into an AST. 3. Walk the AST to compute the scope information for each variable. 4. Apply all transform plugins in a single traversal, resulting in a new AST. 5. Print the resulting AST. Only step 4 gets faster when disabling plugins, so there's always a fixed cost to running Babel regardless of how many transforms are enabled. Sucrase bypasses most of these steps, and works like this: 1. Tokenize the input source code into a token stream using a trimmed-down fork of the Babel parser. This fork does not produce a full AST, but still produces meaningful token metadata specifically designed for the later transforms. 2. Scan through the tokens, computing preliminary information like all imported/exported names. 3. Run the transform by doing a pass through the tokens and performing a number of careful find-and-replace operations, like replacing <Foo with React.createElement(Foo. Because Sucrase works on a lower level and uses a custom parser for its use case, it is much faster than Babel. Contributions are welcome, whether they be bug reports, PRs, docs, tests, or anything else! Please take a look through the Contributing Guide to learn how to get started. Sucrase is MIT-licensed. A large part of Sucrase is based on a fork of the Babel parser, which is also MIT-licensed. Sucrase is an enzyme that processes sugar. Get it?",
+    "path": "/.tmp/ci-repro/repo/node_modules/sucrase/README",
+    "id": ""
+  },
+  {
+    "title": "Changelog",
+    "body": "All notable changes to this project will be documented in this file. The format is based on Keep a Changelog and this project adheres to Semantic Versioning.",
+    "path": "/.tmp/ci-repro/repo/node_modules/supports-preserve-symlinks-flag/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Commits",
+    "body": "- Tests e2f59ad - Initial commit dc222aa - [meta] do not publish workflow files 5ef77f7 - npm init 992b068 - read me 6c9afa9 - Initial implementation 2f98925 - [meta] add auto-changelog 6c476ae - [Dev Deps] add eslint, @ljharb/eslint-config d0fffc8 - Only apps should have lockfiles ab318ed - [meta] add safe-publish-latest 2bb23b3 - [meta] add sideEffects flag 600223b",
+    "path": "/.tmp/ci-repro/repo/node_modules/supports-preserve-symlinks-flag/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "node-supports-preserve-symlinks-flag <sup>[![Version Badge][npm-version-svg]][package-url]</sup>",
+    "body": "[![github actions][actions-image]][actions-url] [![coverage][codecov-image]][codecov-url] [![dependency status][deps-svg]][deps-url] [![dev dependency status][dev-deps-svg]][dev-deps-url] [![License][license-image]][license-url] [![Downloads][downloads-image]][downloads-url] [![npm badge][npm-badge-png]][package-url] Determine if the current node version supports the --preserve-symlinks flag. Simply clone the repo, npm install, and run npm test [package-url]: https://npmjs.org/package/node-supports-preserve-symlinks-flag [npm-version-svg]: https://versionbadg.es/inspect-js/node-supports-preserve-symlinks-flag.svg [deps-svg]: https://david-dm.org/inspect-js/node-supports-preserve-symlinks-flag.svg [deps-url]: https://david-dm.org/inspect-js/node-supports-preserve-symlinks-flag [dev-deps-svg]: https://david-dm.org/inspect-js/node-supports-preserve-symlinks-flag/dev-status.svg [dev-deps-url]: https://david-dm.org/inspect-js/node-supports-preserve-symlinks-flag info=devDependencies [npm-badge-png]: https://nodei.co/npm/node-supports-preserve-symlinks-flag.png?downloads=true&stars=true [license-image]: https://img.shields.io/npm/l/node-supports-preserve-symlinks-flag.svg [license-url]: LICENSE [downloads-image]: https://img.shields.io/npm/dm/node-supports-preserve-symlinks-flag.svg [downloads-url]: https://npm-stat.com/charts.html?package=node-supports-preserve-symlinks-flag [codecov-image]: https://codecov.io/gh/inspect-js/node-supports-preserve-symlinks-flag/branch/main/graphs/badge.svg [codecov-url]: https://app.codecov.io/gh/inspect-js/node-supports-preserve-symlinks-flag/ [actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/inspect-js/node-supports-preserve-symlinks-flag [actions-url]: https://github.com/inspect-js/node-supports-preserve-symlinks-flag/actions",
+    "path": "/.tmp/ci-repro/repo/node_modules/supports-preserve-symlinks-flag/README",
+    "id": ""
+  },
+  {
+    "title": "tailwindcss/nesting",
+    "body": "This is a PostCSS plugin that wraps postcss-nested or postcss-nesting and acts as a compatibility layer to make sure your nesting plugin of choice properly understands Tailwind's custom syntax like @apply and @screen. Add it to your PostCSS configuration, somewhere before Tailwind itself: By default, it uses the postcss-nested plugin under the hood, which uses a Sass-like syntax and is the plugin that powers nesting support in the Tailwind CSS plugin API. If you'd rather use postcss-nesting (which is based on the work-in-progress CSS Nesting specification), first install the plugin alongside: Then pass the plugin itself as an argument to tailwindcss/nesting in your PostCSS configuration: This can also be helpful if for whatever reason you need to use a very specific version of postcss-nested and want to override the version we bundle with tailwindcss/nesting itself.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tailwindcss/lib/postcss-plugins/nesting/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser (forked + inlined)",
+    "body": "This is a customized version of of PostCSS Value Parser to fix some bugs around parsing CSS functions.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tailwindcss/lib/value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "tailwindcss/nesting",
+    "body": "This is a PostCSS plugin that wraps postcss-nested or postcss-nesting and acts as a compatibility layer to make sure your nesting plugin of choice properly understands Tailwind's custom syntax like @apply and @screen. Add it to your PostCSS configuration, somewhere before Tailwind itself: By default, it uses the postcss-nested plugin under the hood, which uses a Sass-like syntax and is the plugin that powers nesting support in the Tailwind CSS plugin API. If you'd rather use postcss-nesting (which is based on the work-in-progress CSS Nesting specification), first install the plugin alongside: Then pass the plugin itself as an argument to tailwindcss/nesting in your PostCSS configuration: This can also be helpful if for whatever reason you need to use a very specific version of postcss-nested and want to override the version we bundle with tailwindcss/nesting itself.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tailwindcss/src/postcss-plugins/nesting/README",
+    "id": ""
+  },
+  {
+    "title": "postcss-value-parser (forked + inlined)",
+    "body": "This is a customized version of of PostCSS Value Parser to fix some bugs around parsing CSS functions.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tailwindcss/src/value-parser/README",
+    "id": ""
+  },
+  {
+    "title": "thenify",
+    "body": "[![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Dependency Status][david-image]][david-url] [![License][license-image]][license-url] [![Downloads][downloads-image]][downloads-url] Promisify a callback-based function using any-promise. - Preserves function names - Uses a native promise implementation if available and tries to fall back to a promise implementation such as bluebird - Converts multiple arguments from the callback into an Array, also support change the behavior by options.multiArgs - Resulting function never deoptimizes - Supports both callback and promise style An added benefit is that thrown errors in that async function will be caught by the promise!",
+    "path": "/.tmp/ci-repro/repo/node_modules/thenify/README",
+    "id": ""
+  },
+  {
+    "title": "thenify.fn = thenify(fn, options)",
+    "body": "Promisifies a function.",
+    "path": "/.tmp/ci-repro/repo/node_modules/thenify/README",
+    "id": ""
+  },
+  {
+    "title": "thenify.Options",
+    "body": "options are optional. - options.withCallback - support both callback and promise style, default to false. - options.multiArgs - change the behavior when callback have multiple arguments. default to true. - true - converts multiple arguments to an array - false- always use the first argument - Array - converts multiple arguments to an object with keys provided in options.multiArgs - Turn async functions into promises - Backward compatible with callback or use thenify.withCallback() - Always return the first argument in callback - Converts callback arguments to an object [gitter-image]: https://badges.gitter.im/thenables/thenify.png [gitter-url]: https://gitter.im/thenables/thenify [npm-image]: https://img.shields.io/npm/v/thenify.svg?style=flat-square [npm-url]: https://npmjs.org/package/thenify [github-tag]: http://img.shields.io/github/tag/thenables/thenify.svg?style=flat-square [github-url]: https://github.com/thenables/thenify/tags [travis-image]: https://img.shields.io/travis/thenables/thenify.svg?style=flat-square [travis-url]: https://travis-ci.org/thenables/thenify [coveralls-image]: https://img.shields.io/coveralls/thenables/thenify.svg?style=flat-square [coveralls-url]: https://coveralls.io/r/thenables/thenify [david-image]: http://img.shields.io/david/thenables/thenify.svg?style=flat-square [david-url]: https://david-dm.org/thenables/thenify [license-image]: http://img.shields.io/npm/l/thenify.svg?style=flat-square [license-url]: LICENSE [downloads-image]: http://img.shields.io/npm/dm/thenify.svg?style=flat-square [downloads-url]: https://npmjs.org/package/thenify",
+    "path": "/.tmp/ci-repro/repo/node_modules/thenify/README",
+    "id": ""
+  },
+  {
+    "title": "thenify-all",
+    "body": "[![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Dependency Status][david-image]][david-url] [![License][license-image]][license-url] [![Downloads][downloads-image]][downloads-url] [![Gittip][gittip-image]][gittip-url] Promisifies all the selected functions in an object.",
+    "path": "/.tmp/ci-repro/repo/node_modules/thenify-all/README",
+    "id": ""
+  },
+  {
+    "title": "thenify-all.var obj = thenifyAll(source, [obj], [methods])",
+    "body": "Promisifies all the selected functions in an object. - source - the source object for the async functions - obj - the destination to set all the promisified methods - methods - an array of method names of source",
+    "path": "/.tmp/ci-repro/repo/node_modules/thenify-all/README",
+    "id": ""
+  },
+  {
+    "title": "var obj = thenifyAll.withCallback(source, [obj], [methods])",
+    "body": "Promisifies all the selected functions in an object and backward compatible with callback. - source - the source object for the async functions - obj - the destination to set all the promisified methods - methods - an array of method names of source",
+    "path": "/.tmp/ci-repro/repo/node_modules/thenify-all/README",
+    "id": ""
+  },
+  {
+    "title": "thenifyAll.thenify",
+    "body": "Exports thenify this package uses. [gitter-image]: https://badges.gitter.im/thenables/thenify-all.png [gitter-url]: https://gitter.im/thenables/thenify-all [npm-image]: https://img.shields.io/npm/v/thenify-all.svg?style=flat-square [npm-url]: https://npmjs.org/package/thenify-all [github-tag]: http://img.shields.io/github/tag/thenables/thenify-all.svg?style=flat-square [github-url]: https://github.com/thenables/thenify-all/tags [travis-image]: https://img.shields.io/travis/thenables/thenify-all.svg?style=flat-square [travis-url]: https://travis-ci.org/thenables/thenify-all [coveralls-image]: https://img.shields.io/coveralls/thenables/thenify-all.svg?style=flat-square [coveralls-url]: https://coveralls.io/r/thenables/thenify-all [david-image]: http://img.shields.io/david/thenables/thenify-all.svg?style=flat-square [david-url]: https://david-dm.org/thenables/thenify-all [license-image]: http://img.shields.io/npm/l/thenify-all.svg?style=flat-square [license-url]: LICENSE [downloads-image]: http://img.shields.io/npm/dm/thenify-all.svg?style=flat-square [downloads-url]: https://npmjs.org/package/thenify-all [gittip-image]: https://img.shields.io/gratipay/jonathanong.svg?style=flat-square [gittip-url]: https://gratipay.com/jonathanong/",
+    "path": "/.tmp/ci-repro/repo/node_modules/thenify-all/README",
+    "id": ""
+  },
+  {
+    "title": "tinyglobby",
+    "body": "![npm version](https://npmjs.com/package/tinyglobby) ![weekly downloads](https://npmjs.com/package/tinyglobby) A fast and minimal alternative to globby and fast-glob, meant to behave the same way. Both globby and fast-glob present some behavior no other globbing lib has, which makes it hard to manually replace with something smaller and better. This library uses only two subdependencies, compared to globby's 23 and fast-glob's 17. Visit https://superchupu.dev/tinyglobby to read the full documentation.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/fdir/README.Installation",
+    "body": "You can install using npm: or Yarn:",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/fdir/README",
+    "id": ""
+  },
+  {
+    "title": "import",
+    "body": "Documentation for all methods is available here. Please check the benchmark against the latest version here. fdir is downloaded over 200k+ times a week by projects around the world. Here's a list of some notable projects using fdir in production: Note: if you think your project should be here, feel free to open an issue. Notable is anything with a considerable amount of GitHub stars. 1. rollup/plugins 2. SuperchupuDev/tinyglobby 3. pulumi/pulumi 4. dotenvx/dotenvx 5. mdn/yari 6. streetwriters/notesnook 7. imba/imba 8. moroshko/react-scanner 9. netlify/build 10. yassinedoghri/astro-i18next 11. selfrefactor/rambda 12. whyboris/Video-Hub-App Copyright &copy; 2024 Abdullah Atta under MIT. Read full text here.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/fdir/README",
+    "id": ""
+  },
+  {
+    "title": "[picomatch](lib/picomatch.js?id=L43)",
+    "body": "Creates a matcher function from one or more glob patterns. The returned function takes a string to match as its first argument, and returns true if the string is a match. The returned matcher function also takes a boolean as the second argument that, when true, returns an object with additional information. Params globs {String Array} : One or more glob patterns. options {Object=} returns {Function=} : Returns a matcher function. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.test](lib/picomatch.js?id=L128)",
+    "body": "Test input with the given regex. This is used by the main picomatch() function to test the input string. Params input {String} : String to test. regex {RegExp} returns {Object} : Returns an object with matching info. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.matchBase](lib/picomatch.js?id=L172)",
+    "body": "Match the basename of a filepath. Params input {String} : String to test. glob {RegExp String} : Glob pattern or regex created by .makeRe. returns {Boolean} Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.isMatch](lib/picomatch.js?id=L194)",
+    "body": "Returns true if any of the given glob patterns match the specified string. Params {String Array} : str The string to test. {String Array} : patterns One or more glob patterns to use for matching. {Object} : See available options. returns {Boolean} : Returns true if any patterns match str Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.parse](lib/picomatch.js?id=L210)",
+    "body": "Parse a glob pattern to create the source string for a regular expression. Params pattern {String} options {Object} returns {Object} : Returns an object with useful properties and output to be used as a regex source string. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.scan](lib/picomatch.js?id=L242)",
+    "body": "Scan a glob pattern to separate the pattern into segments. Params input {String} : Glob pattern to scan. options {Object} returns {Object} : Returns an object with Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.compileRe](lib/picomatch.js?id=L264)",
+    "body": "Compile a regular expression from the state object returned by the parse() method. Params state {Object} options {Object} returnOutput {Boolean} : Intended for implementors, this argument allows you to return the raw output from the parser. returnState {Boolean} : Adds the state to a state property on the returned regex. Useful for implementors and debugging. returns {RegExp} Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.makeRe](lib/picomatch.js?id=L305)",
+    "body": "Create a regular expression from a parsed glob pattern. Params state {String} : The object returned from the .parse method. options {Object} returnOutput {Boolean} : Implementors may use this argument to return the compiled output, instead of a regular expression. This is not exposed on the options to prevent end-users from mutating the result. returnState {Boolean} : Implementors may use this argument to return the state from the parsed glob with the returned regular expression. returns {RegExp} : Returns a regex created from the given pattern. Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "[.toRegex](lib/picomatch.js?id=L340)",
+    "body": "Create a regular expression from the given regex source string. Params source {String} : Regular expression source string. options {Object} returns {RegExp} Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README.Picomatch options",
+    "body": "The following options may be used with the main picomatch() function or any of the methods on the picomatch API. Option Type Default value Description --- --- --- --- basename boolean false If set, then patterns without slashes will be matched against the basename of the path if it contains slashes. For example, a?b would match the path /xyz/123/acb, but not /xyz/acb/123. bash boolean false Follow bash matching rules more strictly - disallows backslashes as escape characters, and treats single stars as globstars ( ). capture boolean undefined Return regex matches in supporting methods. contains boolean undefined Allows glob to match any part of the given string(s). debug boolean undefined Debug regular expressions when an error is thrown. dot boolean false Enable dotfile matching. By default, dotfiles are ignored unless a . is explicitly defined in the pattern, or options.dot is true expandRange function undefined Custom function for expanding ranges in brace patterns, such as {a..z}. The function receives the range values as two arguments, and it must return a string to be used in the generated regex. It's recommended that returned strings be wrapped in parentheses. fastpaths boolean true To speed up processing, full parsing is skipped for a handful common glob patterns. Disable this behavior by setting this option to false. flags string undefined Regex flags to use in the generated regex. If defined, the nocase option will be overridden. format function undefined Custom function for formatting the returned string. This is useful for removing leading slashes, converting Windows paths to Posix paths, etc. ignore array\\ string undefined One or more glob patterns for excluding strings that should not be matched from the result. keepQuotes boolean false Retain quotes in the generated regex, since quotes may also be used as an alternative to backslashes. literalBrackets boolean undefined When true, brackets in the glob pattern will be escaped so that only literal brackets will be matched. matchBase boolean false Alias for basename maxLength number 65536 Limit the max length of the input string. An error is thrown if the input string is longer than this value. maxExtglobRecursion number\\ boolean 0 Limit nested quantified extglobs and other risky repeated extglob forms. When the limit is exceeded, the extglob is treated as a literal string instead of being compiled to regex. Set to false to disable this safeguard. nobrace boolean false Disable brace matching, so that {a,b} and {1..3} would be treated as literal characters. nobracket boolean undefined Disable matching with regex brackets. nocase boolean false Make matching case-insensitive. Equivalent to the regex i flag. Note that this option is overridden by the flags option. noext boolean false Alias for noextglob noextglob boolean false Disable support for matching with extglobs (like +(a\\ b)) noglobstar boolean false Disable support for matching nested directories with globstars ( ) nonegate boolean false Disable support for negating with leading ! onIgnore function undefined Function to be called on ignored items. onMatch function undefined Function to be called on matched items. onResult function undefined Function to be called on all items, regardless of whether or not they are matched or ignored. posix boolean false Support POSIX character classes (\"posix brackets\"). prepend boolean undefined String to prepend to the generated regex used for matching. regex boolean false Use regular expression rules for + (instead of matching literal +), and for stars that follow closing parentheses or brackets (as in ) and ] ). strictBrackets boolean undefined Throw an error if brackets, braces, or parens are imbalanced. strictSlashes boolean undefined When true, picomatch won't match trailing slashes with single stars. unescape boolean undefined Remove backslashes preceding escaped characters in the glob pattern. By default, backslashes are retained. windows boolean false Also accept backslashes as the path separator.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README.Scan Options",
+    "body": "In addition to the main picomatch options, the following options may also be used with the .scan method. Option Type Default value Description --- --- --- --- tokens boolean false When true, the returned object will include an array of tokens (objects), representing each path \"segment\" in the scanned glob pattern parts boolean false When true, the returned object will include an array of strings representing each path \"segment\" in the scanned glob pattern. This is automatically enabled when options.tokens is true Example",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README.Options Examples",
+    "body": "options.expandRange Type : function Default : undefined Custom function for expanding ranges in brace patterns. The fill-range library is ideal for this purpose, or you can use custom code to do whatever you need. Example The following example shows how to create a glob that matches a folder options.format Type : function Default : undefined Custom function for formatting strings before they're matched. Example options.onMatch options.onIgnore options.onResult Basic globbing (Wildcard matching) Advanced globbing (extglobs, posix brackets, brace matching)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README.Basic globbing",
+    "body": "Character Description --- --- Matches any character zero or more times, excluding path separators. Does not match path separators or hidden files or directories (\"dotfiles\"), unless explicitly enabled by setting the dot option to true. Matches any character zero or more times, including path separators. Note that will only match path separators (/, and \\\\ with the windows option) when they are the only characters in a path segment. Thus, foo /bar is equivalent to foo /bar, and foo/a b/bar is equivalent to foo/a b/bar, and more than two consecutive stars in a glob path segment are regarded as a single star . Thus, foo/ /bar is equivalent to foo/ /bar. ? Matches any character excluding path separators one time. Does not match path separators or leading dots. [abc] Matches any characters inside the brackets. For example, [abc] would match the characters a, b or c, and nothing else. Matching behavior vs. Bash Picomatch's matching features and expected results in unit tests are based on Bash's unit tests and the Bash 4.3 specification, with the following exceptions: Bash will match foo/bar/baz with . Picomatch only matches nested directories with . Bash greedily matches with negated extglobs. For example, Bash 4.3 says that !(foo) should match foo and foobar, since the trailing bracktracks to match the preceding pattern. This is very memory-inefficient, and IMHO, also incorrect. Picomatch would return false for both foo and foobar.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README.Advanced globbing",
+    "body": "extglobs POSIX brackets Braces Extglobs Pattern Description --- --- @(pattern) Match only one consecutive occurrence of pattern (pattern) Match zero or more consecutive occurrences of pattern +(pattern) Match one or more consecutive occurrences of pattern ?(pattern) Match zero or one consecutive occurrences of pattern !(pattern) Match anything but pattern Examples POSIX brackets POSIX classes are disabled by default. Enable this feature by setting the posix option to true. Enable POSIX bracket support Supported POSIX classes The following named POSIX bracket expressions are supported: [:alnum:] - Alphanumeric characters, equ [a-zA-Z0-9] [:alpha:] - Alphabetical characters, equivalent to [a-zA-Z]. [:ascii:] - ASCII characters, equivalent to [\\\\x00-\\\\x7F]. [:blank:] - Space and tab characters, equivalent to [ \\\\t]. [:cntrl:] - Control characters, equivalent to [\\\\x00-\\\\x1F\\\\x7F]. [:digit:] - Numerical digits, equivalent to [0-9]. [:graph:] - Graph characters, equivalent to [\\\\x21-\\\\x7E]. [:lower:] - Lowercase letters, equivalent to [a-z]. [:print:] - Print characters, equivalent to [\\\\x20-\\\\x7E ]. [:punct:] - Punctuation and symbols, equivalent to [\\\\-!\" $%&\\'()\\\\ +,./:; ?@[\\\\]^ { } ]. [:space:] - Extended space characters, equivalent to [ \\\\t\\\\r\\\\n\\\\v\\\\f]. [:upper:] - Uppercase letters, equivalent to [A-Z]. [:word:] - Word characters (letters, numbers and underscores), equivalent to [A-Za-z0-9 ]. [:xdigit:] - Hexadecimal digits, equivalent to [A-Fa-f0-9]`. See the Bash Reference Manual for more information.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README.Braces",
+    "body": "Picomatch only does brace expansion of comma-delimited lists (e.g. a/{b,c}/d). For advanced matching with braces, use micromatch, which supports advanced syntax such as ranges (e.g. {01..03}) and increments (e.g. {2..10..2}).",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README.Matching special characters as literals",
+    "body": "If you wish to match the following special characters in a filepath, and you want to use these characters in your glob pattern, they must be escaped with backslashes or quotes: Special Characters Some characters that are used for matching in regular expressions are also regarded as valid file path characters on some platforms. To match any of the following characters as literals: $^ +?()[] Examples: The following table shows which features are supported by minimatch, micromatch, picomatch, nanomatch, extglob, braces, and expand-brackets. Feature minimatch micromatch picomatch nanomatch extglob braces expand-brackets --- --- --- --- --- --- --- --- Wildcard matching ( ?+) ✔ ✔ ✔ ✔ - - - Advancing globbing ✔ ✔ ✔ - - - - Brace matching ✔ ✔ ✔ - - ✔ - Brace expansion ✔ ✔ - - - ✔ - Extglobs partial ✔ ✔ - ✔ - - Posix brackets - ✔ ✔ - - - ✔ Regular expression syntax - ✔ ✔ ✔ ✔ - ✔ File system operations - - - - - - - Performance comparison of picomatch and minimatch. ``",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe star (*)",
+    "body": "picomatch x 3,251,247 ops/sec ±0.25% (95 runs sampled) minimatch x 497,224 ops/sec ±0.11% (100 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe star; dot=true (*)",
+    "body": "picomatch x 2,624,035 ops/sec ±0.16% (98 runs sampled) minimatch x 446,244 ops/sec ±0.63% (99 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe globstar (**)",
+    "body": "picomatch x 2,524,465 ops/sec ±0.13% (99 runs sampled) minimatch x 1,396,257 ops/sec ±0.58% (96 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe globstars (**/**/**)",
+    "body": "picomatch x 2,545,674 ops/sec ±0.10% (99 runs sampled) minimatch x 1,196,835 ops/sec ±0.63% (98 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe with leading star (*.txt)",
+    "body": "picomatch x 2,537,708 ops/sec ±0.11% (100 runs sampled) minimatch x 345,284 ops/sec ±0.64% (96 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - basic braces ({a,b,c}*.txt)",
+    "body": "picomatch x 505,430 ops/sec ±1.04% (94 runs sampled) minimatch x 107,991 ops/sec ±0.54% (99 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - short ranges ({a..z}*.txt)",
+    "body": "picomatch x 371,179 ops/sec ±2.91% (77 runs sampled) minimatch x 14,104 ops/sec ±0.61% (99 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - medium ranges ({1..100000}*.txt)",
+    "body": "picomatch x 384,958 ops/sec ±1.70% (82 runs sampled) minimatch x 2.55 ops/sec ±3.22% (11 runs sampled)",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - long ranges ({1..10000000}*.txt)",
+    "body": "picomatch x 382,552 ops/sec ±1.52% (71 runs sampled) minimatch x 0.83 ops/sec ±5.67% (7 runs sampled)) sh npm install && npm test sh npm install -g verbose/verb dev verb-generate-readme && verb ```",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - long ranges ({1..10000000}*.txt).Author",
+    "body": "Jon Schlinkert GitHub Profile Twitter Profile LinkedIn Profile",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": ".makeRe - long ranges ({1..10000000}*.txt).License",
+    "body": "Copyright © 2017-present, Jon Schlinkert. Released under the MIT License.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinyglobby/node_modules/picomatch/README",
+    "id": ""
+  },
+  {
+    "title": "Tinypool - the node.js worker pool 🧵",
+    "body": "Piscina: A fast, efficient Node.js Worker Thread Pool implementation Tinypool is a fork of piscina. What we try to achieve in this library, is to eliminate some dependencies and features that our target users don't need (currently, our main user will be Vitest). Tinypool's install size (38KB) can then be smaller than Piscina's install size (6MB when Tinypool was created, Piscina has since reduced it's size to 800KB). If you need features like utilization or OS-specific thread priority setting, Piscina is a better choice for you. We think that Piscina is an amazing library, and we may try to upstream some of the dependencies optimization in this fork. - ✅ Smaller install size, 38KB - ✅ Minimal - ✅ No dependencies - ✅ Physical cores instead of Logical cores with physical-cpu-count - ✅ Supports worker threads and child process - ❌ No utilization - ❌ No OS-specific thread priority setting - Written in TypeScript, and ESM support only. For Node.js 18.x and higher. In case you need more tiny libraries like tinypool or tinyspy, please consider submitting an RFC",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinypool/README",
+    "id": ""
+  },
+  {
+    "title": "Tinypool - the node.js worker pool 🧵.Using `node:worker_threads`",
+    "body": "Basic usage Main thread worker thread communication See code",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinypool/README",
+    "id": ""
+  },
+  {
+    "title": "Tinypool - the node.js worker pool 🧵.Using `node:child_process`",
+    "body": "Basic usage See code Main process worker process communication See code We have a similar API to Piscina, so for more information, you can read Piscina's detailed documentation and apply the same techniques here.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinypool/README",
+    "id": ""
+  },
+  {
+    "title": "Tinypool - the node.js worker pool 🧵.Tinypool specific APIs",
+    "body": "Pool constructor options - isolateWorkers: Disabled by default. Always starts with a fresh worker when running tasks to isolate the environment. - terminateTimeout: Disabled by default. If terminating a worker takes terminateTimeout amount of milliseconds to execute, an error is raised. - maxMemoryLimitBeforeRecycle: Disabled by default. When defined, the worker's heap memory usage is compared against this value after task has been finished. If the current memory usage exceeds this limit, worker is terminated and a new one is started to take its place. This option is useful when your tasks leak memory and you don't want to enable isolateWorkers option. - runtime: Used to pick worker runtime. Default value is worker threads. - worker threads: Runs workers in node:worker threads. For main thread worker thread communication you can use MessagePort in the pool.run() method's transferList option. See example. - child process: Runs workers in node:child process. For main thread worker process communication you can use TinypoolChannel in the pool.run() method's channel option. For filtering out the Tinypool's internal messages see TinypoolWorkerMessage. See example. - teardown: name of the function in file that should be called before worker is terminated. Must be named exported. - serialization: Specify the kind of serialization used for the child process runtime. Possible values are 'json' and 'advanced'. See Node.js Advanced serialization for more details. Pool methods - cancelPendingTasks(): Gracefully cancels all pending tasks without stopping or interfering with on-going tasks. This method is useful when your tasks may have side effects and should not be terminated forcefully during task execution. If your tasks don't have any side effects you may want to use { signal } option for forcefully terminating all tasks, including the on-going ones, instead. - recycleWorkers(options): Waits for all current tasks to finish and re-creates all workers. Can be used to force isolation imperatively even when isolateWorkers is disabled. Accepts { runtime } option as argument. Exports - workerId: Each worker now has an id ( Mohammad Bagher ------------------------------------------------------------------------------------------------------------------------------------------------ Your sponsorship can make a huge difference in continuing our work in open source! The Vitest team for giving me the chance of creating and maintaing this project for vitest. Piscina, because Tinypool is not more than a friendly fork of piscina.",
+    "path": "/.tmp/ci-repro/repo/node_modules/tinypool/README",
+    "id": ""
+  },
+  {
+    "title": "to-regex-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/to-regex-range.svg?style=flat)](https://www.npmjs.com/package/to-regex-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![NPM total downloads](https://img.shields.io/npm/dt/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![Linux Build Status](https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/to-regex-range)",
+    "body": "Pass two numbers, get a regex-compatible source string for matching ranges. Validated against more than 2.78 million test assertions. Please consider following this project's author, Jon Schlinkert, and consider starring the project to show your :heart: and support. Install with npm: What does this do? This libary generates the source string to be passed to new RegExp() for matching a range of numbers. Example A string is returned so that you can do whatever you need with it before passing it to new RegExp() (like adding ^ or $ boundaries, defining flags, or combining it another string). Why use this library?",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "to-regex-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/to-regex-range.svg?style=flat)](https://www.npmjs.com/package/to-regex-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![NPM total downloads](https://img.shields.io/npm/dt/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![Linux Build Status](https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/to-regex-range).Convenience",
+    "body": "Creating regular expressions for matching numbers gets deceptively complicated pretty fast. For example, let's say you need a validation regex for matching part of a user-id, postal code, social security number, tax id, etc: regex for matching 1 = /1/ (easy enough) regex for matching 1 through 5 = /[1-5]/ (not bad...) regex for matching 1 or 5 = /(1 5)/ (still easy...) regex for matching 1 through 50 = /([1-9] [1-4][0-9] 50)/ (uh-oh...) regex for matching 1 through 55 = /([1-9] [1-4][0-9] 5[0-5])/ (no prob, I can do this...) regex for matching 1 through 555 = /([1-9] [1-9][0-9] [1-4][0-9]{2} 5[0-4][0-9] 55[0-5])/ (maybe not...) regex for matching 0001 through 5555 = /(0{3}[1-9] 0{2}[1-9][0-9] 0[1-9][0-9]{2} [1-4][0-9]{3} 5[0-4][0-9]{2} 55[0-4][0-9] 555[0-5])/ (okay, I get the point!) The numbers are contrived, but they're also really basic. In the real world you might need to generate a regex on-the-fly for validation. Learn more If you're interested in learning more about character classes and other regex features, I personally have always found regular-expressions.info to be pretty useful.",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "to-regex-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/to-regex-range.svg?style=flat)](https://www.npmjs.com/package/to-regex-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![NPM total downloads](https://img.shields.io/npm/dt/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![Linux Build Status](https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/to-regex-range).Heavily tested",
+    "body": "As of April 07, 2019, this library runs 1m test assertions against generated regex-ranges to provide brute-force verification that results are correct. Tests run in 280ms on my MacBook Pro, 2.5 GHz Intel Core i7.",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "to-regex-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/to-regex-range.svg?style=flat)](https://www.npmjs.com/package/to-regex-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![NPM total downloads](https://img.shields.io/npm/dt/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![Linux Build Status](https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/to-regex-range).Optimized",
+    "body": "Generated regular expressions are optimized: duplicate sequences and character classes are reduced using quantifiers smart enough to use ? conditionals when number(s) or range(s) can be positive or negative uses fragment caching to avoid processing the same exact string more than once Add this library to your javascript application with the following line of code The main export is a function that takes two integers: the min value and max value (formatted as strings or numbers).",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "options.capture",
+    "body": "Type : boolean Deafault : undefined Wrap the returned value in parentheses when there is more than one regex condition. Useful when you're dynamically generating ranges.",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "options.shorthand",
+    "body": "Type : boolean Deafault : undefined Use the regex shorthand for [0-9]:",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "options.relaxZeros",
+    "body": "Type : boolean Default : true This option relaxes matching for leading zeros when when ranges are zero-padded. When relaxZeros is false, matching is strict: Range Result Compile time --- --- --- toRegexRange(-10, 10) -[1-9]\\ -?10\\ [0-9] 132μs toRegexRange(-100, -10) -1[0-9]\\ -[2-9][0-9]\\ -100 50μs toRegexRange(-100, 100) -[1-9]\\ -?[1-9][0-9]\\ -?100\\ [0-9] 42μs toRegexRange(001, 100) 0{0,2}[1-9]\\ 0?[1-9][0-9]\\ 100 109μs toRegexRange(001, 555) 0{0,2}[1-9]\\ 0?[1-9][0-9]\\ [1-4][0-9]{2}\\ 5[0-4][0-9]\\ 55[0-5] 51μs toRegexRange(0010, 1000) 0{0,2}1[0-9]\\ 0{0,2}[2-9][0-9]\\ 0?[1-9][0-9]{2}\\ 1000 31μs toRegexRange(1, 50) [1-9]\\ [1-4][0-9]\\ 50 24μs toRegexRange(1, 55) [1-9]\\ [1-4][0-9]\\ 5[0-5] 23μs toRegexRange(1, 555) [1-9]\\ [1-9][0-9]\\ [1-4][0-9]{2}\\ 5[0-4][0-9]\\ 55[0-5] 30μs toRegexRange(1, 5555) [1-9]\\ [1-9][0-9]{1,2}\\ [1-4][0-9]{3}\\ 5[0-4][0-9]{2}\\ 55[0-4][0-9]\\ 555[0-5] 43μs toRegexRange(111, 555) 11[1-9]\\ 1[2-9][0-9]\\ [2-4][0-9]{2}\\ 5[0-4][0-9]\\ 55[0-5] 38μs toRegexRange(29, 51) 29\\ [34][0-9]\\ 5[01] 24μs toRegexRange(31, 877) 3[1-9]\\ [4-9][0-9]\\ [1-7][0-9]{2}\\ 8[0-6][0-9]\\ 87[0-7] 32μs toRegexRange(5, 5) 5 8μs toRegexRange(5, 6) 5\\ 6 11μs toRegexRange(1, 2) 1\\ 2 6μs toRegexRange(1, 5) [1-5] 15μs toRegexRange(1, 10) [1-9]\\ 10 22μs toRegexRange(1, 100) [1-9]\\ [1-9][0-9]\\ 100 25μs toRegexRange(1, 1000) [1-9]\\ [1-9][0-9]{1,2}\\ 1000 31μs toRegexRange(1, 10000) [1-9]\\ [1-9][0-9]{1,3}\\ 10000 34μs toRegexRange(1, 100000) [1-9]\\ [1-9][0-9]{1,4}\\ 100000 36μs toRegexRange(1, 1000000) [1-9]\\ [1-9][0-9]{1,5}\\ 1000000 42μs toRegexRange(1, 10000000) [1-9]\\ [1-9][0-9]{1,6}\\ 10000000 42μs Order of arguments When the min is larger than the max, values will be flipped to create a valid range: Is effectively flipped to: Steps / increments This library does not support steps (increments). A pr to add support would be welcome.",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "v2.0.0 - 2017-04-21",
+    "body": "New features Adds support for zero-padding!",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "v1.0.0",
+    "body": "Optimizations Repeating ranges are now grouped using quantifiers. rocessing time is roughly the same, but the generated regex is much smaller, which should result in faster matching. Inspired by the python library range-regex. Contributing Pull requests and stars are always welcome. For bugs and feature requests, please create an issue. Running Tests Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command: Building docs (This project's readme.md is generated by verb, please don't edit the readme directly. Any changes to the readme must be made in the .verb.md readme template.) To generate the readme, run the following command:",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "to-regex-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/to-regex-range.svg?style=flat)](https://www.npmjs.com/package/to-regex-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![NPM total downloads](https://img.shields.io/npm/dt/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![Linux Build Status](https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/to-regex-range).Related projects",
+    "body": "You might also be interested in these projects: expand-range: Fast, bash-like range expansion. Expand a range of numbers or letters, uppercase or lowercase. Used… more homepage fill-range: Fill in a range of numbers or letters, optionally passing an increment or step to… more homepage micromatch: Glob matching for javascript/node.js. A drop-in replacement and faster alternative to minimatch and multimatch. homepage repeat-element: Create an array by repeating the given value n times. homepage repeat-string: Repeat the given string n times. Fastest implementation for repeating a string. homepage",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "to-regex-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/to-regex-range.svg?style=flat)](https://www.npmjs.com/package/to-regex-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![NPM total downloads](https://img.shields.io/npm/dt/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![Linux Build Status](https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/to-regex-range).Contributors",
+    "body": "Commits Contributor --- --- 63 jonschlinkert 3 doowb 2 realityking",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "to-regex-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/to-regex-range.svg?style=flat)](https://www.npmjs.com/package/to-regex-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![NPM total downloads](https://img.shields.io/npm/dt/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![Linux Build Status](https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/to-regex-range).Author",
+    "body": "Jon Schlinkert GitHub Profile Twitter Profile LinkedIn Profile Please consider supporting me on Patreon, or start your own Patreon page!",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "to-regex-range [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/to-regex-range.svg?style=flat)](https://www.npmjs.com/package/to-regex-range) [![NPM monthly downloads](https://img.shields.io/npm/dm/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![NPM total downloads](https://img.shields.io/npm/dt/to-regex-range.svg?style=flat)](https://npmjs.org/package/to-regex-range) [![Linux Build Status](https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&label=Travis)](https://travis-ci.org/micromatch/to-regex-range).License",
+    "body": "Copyright © 2019, Jon Schlinkert. Released under the MIT License. This file was generated by verb-generate-readme, v0.8.0, on April 07, 2019.",
+    "path": "/.tmp/ci-repro/repo/node_modules/to-regex-range/README",
+    "id": ""
+  },
+  {
+    "title": "ts-interface-checker",
+    "body": "![Build Status](https://travis-ci.org/gristlabs/ts-interface-checker) ![npm version](https://badge.fury.io/js/ts-interface-checker) Runtime library to validate data against TypeScript interfaces. This package is the runtime support for validators created by ts-interface-builder. It allows validating data, such as parsed JSON objects received over the network, or parsed JSON or YAML files, to check if they satisfy a TypeScript interface, and to produce informative error messages if they do not. Suppose you have a TypeScript file defining an interface: The first step is to generate some code for runtime checks: It produces a file like this: Now at runtime, to check if a value satisfies the Square interface: Note that ts-interface-builder is only needed for the build-time step, and ts-interface-checker is needed at runtime. That's why the recommendation is to npm-install the former using --save-dev flag and the latter using --save. If you have an interface with methods, you can validate method call arguments and return values: After generating the runtime code, you can now check calls like: If one type refers to a type defined in another file, you need to tell the interface checker about all type names when you call createCheckers(). E.g. given the produced files color-ti.ts and shape-ti.ts do not automatically refer to each other, but expect you to relate them in createCheckers() call: You may check that data contains no extra properties. Note that it is not generally recommended as it this prevents backward compatibility: if you add new properties to an interface, then older code with strict checks will not accept them. Following on the example above: Standard Checker objects do the type checking logic, but are unable to make the TypeScript compiler aware that an object of unknown type implements a certain interface. Basic code: With a Checker available: To enable type guard functionality on the existing test, and strictTest functions, Checker objects should be cast to CheckerT< using the appropriate type. Using CheckerT< : CheckerT< will eventually support type assertions using the check and strictCheck functions, however, this feature is not yet fully working in TypeScript.",
+    "path": "/.tmp/ci-repro/repo/node_modules/ts-interface-checker/README",
+    "id": ""
+  },
+  {
+    "title": "TypeScript",
+    "body": "![CI](https://github.com/microsoft/TypeScript/actions/workflows/ci.yml) ![npm version](https://www.npmjs.com/package/typescript) ![Downloads](https://www.npmjs.com/package/typescript) ![OpenSSF Scorecard](https://securityscorecards.dev/viewer/?uri=github.com/microsoft/TypeScript) TypeScript is a language for application-scale JavaScript. TypeScript adds optional types to JavaScript that support tools for large-scale JavaScript applications for any browser, for any host, on any OS. TypeScript compiles to readable, standards-based JavaScript. Try it out at the playground, and stay up to date via our blog and Bluesky. Find others who are using TypeScript at our community page. For the latest stable version: For our nightly builds: There are many ways to contribute to TypeScript. Submit bugs and help us verify fixes as they are checked in. Review the source code changes. Engage with other TypeScript users and developers on Stack Overflow. Help each other in the TypeScript Community Discord. Join the typescript discussion on Bluesky. Contribute bug fixes. This project has adopted the Microsoft Open Source Code of Conduct. For more information see the Code of Conduct FAQ or contact opencode@microsoft.com with any additional questions or comments. TypeScript in 5 minutes Programming handbook Homepage For details on our planned features and future direction, please refer to our roadmap.",
+    "path": "/.tmp/ci-repro/repo/node_modules/typescript/README",
+    "id": ""
+  },
+  {
+    "title": "VSCode JSON RPC",
+    "body": "![NPM Version](https://npmjs.org/package/vscode-jsonrpc) ![NPM Downloads](https://npmjs.org/package/vscode-jsonrpc) ![Build Status](https://dev.azure.com/vscode/vscode-languageserver-node/ build/latest?definitionId=52&branchName=main) This npm module implements the base messaging protocol spoken between a VSCode language server and a VSCode language client. The npm module can also be used standalone to establish a JSON-RPC channel between a client and a server. Below an example how to setup a JSON-RPC connection. First the client side. The server side looks very symmetrical:",
+    "path": "/.tmp/ci-repro/repo/node_modules/typescript/vendor/vscode-jsonrpc/README",
+    "id": ""
+  },
+  {
+    "title": "History",
+    "body": "For the history please see the main repository MIT",
+    "path": "/.tmp/ci-repro/repo/node_modules/typescript/vendor/vscode-jsonrpc/README",
+    "id": ""
+  },
+  {
+    "title": "undici-types",
+    "body": "This package is a dual-publish of the undici library types. The undici package still contains types . This package is for users who only need undici types (such as for @types/node). It is published alongside every release of undici, so you can always use the same version. - GitHub nodejs/undici - Undici Documentation",
+    "path": "/.tmp/ci-repro/repo/node_modules/undici-types/README",
+    "id": ""
+  },
+  {
+    "title": "The Node.js `util.deprecate()` function with browser support",
+    "body": "In Node.js, this module simply re-exports the util.deprecate() function. In the web browser (i.e. via browserify), a browser-specific implementation of the util.deprecate() function is used. A deprecate() function is the only thing exposed by this module. (The MIT License) Copyright (c) 2014 Nathan Rajlich Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+    "path": "/.tmp/ci-repro/repo/node_modules/util-deprecate/README",
+    "id": ""
+  },
+  {
+    "title": "Changelog",
+    "body": "- Added: toast Template loaded when the mod starts.",
+    "path": "/.tmp/ci-repro/repo/src/template/CHANGELOG",
+    "id": ""
+  },
+  {
+    "title": "Template",
+    "body": "Starter mod in src/. Shows a toast when the mod loads. 1. Enable the mod. 2. Load the Template Void save (F5 Sandustry opens the newest save in that world). 3. Look for the toast: Template loaded . Set id, name, author, and description in modinfo.json. Edit main.ts. Copy src/template/ to src/ / when you want a second mod. See CHANGELOG.md.",
+    "path": "/.tmp/ci-repro/repo/src/template/README",
+    "id": ""
+  },
+  {
+    "title": "Changelog",
+    "body": "All notable changes to this project are documented in this file. The format is based on Keep a Changelog, and this project adheres to Semantic Versioning. https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.8.0",
     "path": "/Changelog",
     "id": ""
   },
   {
     "title": "Changelog.Added",
-    "body": "- Missing Sandkit declarations: cooldown.start, resources.refresh, player.inventory.hasById, items.getRegisteredIds, items.spriteMounts, signals.registerSenderType, signals.setOutputAtCell, signals.interactables, input.getMousePositionAtCell, input.getMousePositionAtWorld",
+    "body": "- Missing Sandkit declarations: cooldown.start, resources.refresh, player.inventory.hasById, items.getRegisteredIds, items.spriteMounts, signals.registerSenderType, signals.setOutputAtCell, signals.interactables, input.getMousePositionAtCell, input.getMousePositionAtWorld - CellXY for cell payload objects (cellX / cellY). - Size2 for { width; height } pixel / UI sizes.",
     "path": "/Changelog",
     "id": ""
   },
   {
     "title": "Changelog.Changed",
-    "body": "- API catalog generation fails when official or expected members are undeclared. - Catalog scans src/worker/api/ as well as src/sandkit/api/. - Official HTML path qualification prefixes nested dotted signatures and skips return-handle docs. - Removed scripts/api-gen/generated/api-gaps.md (gaps stay in api-catalog.json and must be zero). https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.7.0",
+    "body": "- API catalog generation fails when official or expected members are undeclared. - Catalog scans src/worker/api/ as well as src/sandkit/api/. - Official HTML path qualification prefixes nested dotted signatures and skips return-handle docs. - Removed scripts/api-gen/generated/api-gaps.md (gaps stay in api-catalog.json and must be zero). - Move Vector2 and CellCoordinates into shared/geometry.d.ts. - Re-export geometry types from @sandustry-modding/types/shared and shared/player. - Reuse Vector2, Size2, and CellXY on input, sound, structures, rendering, elements, hooks, pipes, maps, tech, and modinfo map points. https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.7.0",
     "path": "/Changelog",
     "id": ""
   },
@@ -175,7 +5731,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "number",
-    "body": "Property Type Description --- --- --- x number World X in pixels. y number World Y in pixels. x y World-pixel spawn or unstuck point.",
+    "body": "Property Type Description --- --- --- x number Horizontal component. y number Vertical component. x y World-pixel spawn or unstuck point. Same shape as Vector2. Extends - Vector2",
     "path": "/api/configs",
     "id": "modmappoint"
   },
@@ -1843,7 +7399,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "sandkit.api.elements.getVelocityAtCell()",
-    "body": "Argument Type Description --- --- --- args ...CellCoordinates args Return per-cell velocity for moving elements. \\{ x: number; y: number; \\} & 124; null",
+    "body": "Argument Type Description --- --- --- args ...CellCoordinates args Return per-cell velocity for moving elements. Vector2 & 124; null",
     "path": "/api/sandkit.api.elements",
     "id": "getvelocityatcell"
   },
@@ -2122,7 +7678,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "ElementType",
-    "body": "Property Type Description --- --- --- elementType? ElementType Required when subscribing to element:moved. Optional on emit. terrainType? number Required when subscribing to terrain:updated. Optional on emit. elementType? terrainType? Guard filter for worker events.",
+    "body": "Property Type Description --- --- --- elementType? ElementType Required when subscribing to element:moved. Optional on emit. terrainType? TerrainType Required when subscribing to terrain:updated. Optional on emit. elementType? terrainType? Guard filter for worker events.",
     "path": "/api/sandkit.api.events.worker",
     "id": "eventguard"
   },
@@ -2448,6 +8004,48 @@ window.SMT_SEARCH_INDEX = [
     "id": "hookoptions"
   },
   {
+    "title": "string",
+    "body": "Property Type Description --- --- --- key string code string event KeyboardEvent key code event Keyboard intercept payload for InterceptHookMap \"input:keyDown\" and \"input:keyUp\".",
+    "path": "/api/sandkit.api.hooks",
+    "id": "inputkeyinterceptargs"
+  },
+  {
+    "title": "string",
+    "body": "Property Type Description --- --- --- id string exitX number exitY number cooldown? number lastUsed? number id exitX exitY cooldown? lastUsed? Teleport zone snapshot on InterceptHookMap \"teleport:effect:create\". Indexable",
+    "path": "/api/sandkit.api.hooks",
+    "id": "teleporteffectzone"
+  },
+  {
+    "title": "number",
+    "body": "Property Type Description --- --- --- x number y number cX number cY number collidedCell? boolean outOfBounds? boolean blockedByZone? boolean lastFreePosition? Vector2 x y cX cY collidedCell? outOfBounds? blockedByZone? lastFreePosition? Projectile travel hit from InterceptHookMap \"projectile:hit\".",
+    "path": "/api/sandkit.api.hooks",
+    "id": "projectiletravelresult"
+  },
+  {
+    "title": "string",
+    "body": "Property Type Description --- --- --- currencyId string amount number currencyId amount One currency line on InterceptHookMap \"progression:purchase\".",
+    "path": "/api/sandkit.api.hooks",
+    "id": "progressionpurchasecost"
+  },
+  {
+    "title": "number",
+    "body": "Property Type Description --- --- --- x number y number x y Cell origin used on structure move and remove payloads.",
+    "path": "/api/sandkit.api.hooks",
+    "id": "structurecellref"
+  },
+  {
+    "title": "Vector2",
+    "body": "Property Type Description --- --- --- from Vector2 to Vector2 from to Successful move row on ModifierHookMap \"structures:moved:prepare\".",
+    "path": "/api/sandkit.api.hooks",
+    "id": "structuremoverecord"
+  },
+  {
+    "title": "Vector2",
+    "body": "Property Type Description --- --- --- from? Vector2 type? StructureType data? StructureData from? type? data? Failed place row on structure move and by-move remove payloads. Indexable",
+    "path": "/api/sandkit.api.hooks",
+    "id": "structuremovefailure"
+  },
+  {
     "title": "item:use",
     "body": "item:use teleport:effect:create teleport:effect Deprecated Deprecated alias. action:start action:intercept Deprecated Deprecated alias. input:keyDown input:keydown Deprecated Deprecated alias. input:keyUp input:keyup Deprecated Deprecated alias. placePoints:suppress placePoints:isSuppressed Deprecated Deprecated alias. placePoints:directionalArrows:suppress placePoints:directionalArrows:isSuppressed Deprecated Deprecated alias. entity:update building:place building:clearShape input:scroll input:boostDown input:boost-down Deprecated Deprecated alias. input:descendDown input:descend-down Deprecated Deprecated alias. input:escape interactable:suppressHover fire:element:ignite projectile:fire:overStructure projectile:hit player:position:commit progression:purchase Intercept hook argument shapes keyed by hook id.",
     "path": "/api/sandkit.api.hooks",
@@ -2484,6 +8082,12 @@ window.SMT_SEARCH_INDEX = [
     "body": "Known main-thread modify hook ids plus custom strings.",
     "path": "/api/sandkit.api.hooks",
     "id": "modifyhookid"
+  },
+  {
+    "title": "sandkit.api.hooks.ItemUseStats",
+    "body": "Property Type Description --- --- --- energyCost? number energyCost? Per-use stats copied into InterceptHookMap \"item:use\". energyCost is the field shown in official Sandkit. Extra keys depend on the item definition. Indexable",
+    "path": "/api/sandkit.api.hooks",
+    "id": "itemusestats"
   },
   {
     "title": "sandkit.api.hooks.InterceptHookArgs",
@@ -2534,6 +8138,12 @@ window.SMT_SEARCH_INDEX = [
     "id": "modifyhookoptions"
   },
   {
+    "title": "Uint8Array",
+    "body": "Property Type Description --- --- --- type Uint8Array x Uint16Array y Uint16Array velocityX Float32Array velocityY Float32Array minVelocityX Float32Array minVelocityY Float32Array thresholdX Float32Array thresholdY Float32Array hasBeenUpdated Uint8Array isFreeFalling Uint8Array density Float32Array variantIndex Uint8Array durationMax Float32Array durationLeft Float32Array skipPhysics Uint8Array movesYAxis Uint16Array movesYAxisCount Uint16Array lastSideChecked Int16Array linkedElementIndex Uint32Array hasDuration Uint8Array dataField1 Uint16Array dataField2 Int16Array dataField3 Uint16Array dataField4 Float32Array type x y velocityX velocityY minVelocityX minVelocityY thresholdX thresholdY hasBeenUpdated isFreeFalling density variantIndex durationMax durationLeft skipPhysics movesYAxis movesYAxisCount lastSideChecked linkedElementIndex hasDuration dataField1 dataField2 dataField3 dataField4 Shared elementData SOA passed to InterceptHookMap \"element:update\". Index with elementIndex. Indexable",
+    "path": "/api/sandkit.api.hooks.worker",
+    "id": "elementsimdata"
+  },
+  {
     "title": "cell:process",
     "body": "cell:process element:update element:move element:move:blocked element:blocked Deprecated Deprecated alias. element:duration:expire element:duration Deprecated Deprecated alias. fire:element:burn fire:terrain:burn shaker:elementOn Intercept hook argument shapes keyed by hook id.",
     "path": "/api/sandkit.api.hooks.worker",
@@ -2569,6 +8179,18 @@ window.SMT_SEARCH_INDEX = [
     "body": "Known worker modify hook ids plus custom strings.",
     "path": "/api/sandkit.api.hooks.worker",
     "id": "modifyhookid"
+  },
+  {
+    "title": "sandkit.api.hooks.ElementBlockedCollider",
+    "body": "What an element collided with on InterceptHookMap \"element:move:blocked\".",
+    "path": "/api/sandkit.api.hooks.worker",
+    "id": "elementblockedcollider"
+  },
+  {
+    "title": "sandkit.api.hooks.ElementBlockedDirection",
+    "body": "Blocked-move direction on InterceptHookMap \"element:move:blocked\".",
+    "path": "/api/sandkit.api.hooks.worker",
+    "id": "elementblockeddirection"
   },
   {
     "title": "sandkit.api.hooks.ModifyHookMap",
@@ -2779,20 +8401,20 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "sandkit.api.input.getMousePositionAtCell()",
-    "body": "Return the mouse position in cell coordinates. Cell { x, y } under the cursor. x: number y: number",
+    "body": "Return the mouse position in cell coordinates. Vector2 Cell Vector2 under the cursor.",
     "path": "/api/sandkit.api.input",
     "id": "getmousepositionatcell"
   },
   {
     "title": "sandkit.api.input.getMouseCellPosition",
-    "body": "Deprecated Use getMousePositionAtCell instead. Cell { x, y } under the cursor. x: number y: number",
+    "body": "Deprecated Use getMousePositionAtCell instead. Vector2 Cell Vector2 under the cursor.",
     "path": "/api/sandkit.api.input",
     "id": "getmousecellposition",
     "deprecated": true
   },
   {
     "title": "sandkit.api.input.getMousePositionAtWorld()",
-    "body": "Return the mouse position in world pixels. World { x, y } under the cursor. x: number y: number",
+    "body": "Return the mouse position in world pixels. Vector2 World Vector2 under the cursor.",
     "path": "/api/sandkit.api.input",
     "id": "getmousepositionatworld"
   },
@@ -3049,8 +8671,8 @@ window.SMT_SEARCH_INDEX = [
     "id": ""
   },
   {
-    "title": "number",
-    "body": "Property Type Description --- --- --- cellX number cellY number name string cellX cellY name Artifact location entry from getArtifactLocations. Indexable",
+    "title": "string",
+    "body": "Property Type Description --- --- --- name string cellX number Cell column. cellY number Cell row. name cellX cellY Artifact location entry from getArtifactLocations. Extends - CellXY Indexable",
     "path": "/api/sandkit.api.maps",
     "id": "artifactlocation"
   },
@@ -3220,7 +8842,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "number",
-    "body": "Property Type Description --- --- --- cellX number cellY number cellX cellY Connected vent cell position. Indexable",
+    "body": "Property Type Description --- --- --- cellX number Cell column. cellY number Cell row. cellX cellY Connected vent cell position. Extends - CellXY Indexable",
     "path": "/api/sandkit.api.pipes",
     "id": "pipeventcell"
   },
@@ -3471,13 +9093,13 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "Record&lt;string, unknown&gt;",
-    "body": "Property Type Description --- --- --- opts Record&lt;string, unknown&gt; type unknown opts type Blueprint used to spawn a projectile.",
+    "body": "Property Type Description --- --- --- opts Record&lt;string, unknown&gt; type ProjectileType opts type Blueprint used to spawn a projectile.",
     "path": "/api/sandkit.api.projectiles",
     "id": "projectileblueprint"
   },
   {
     "title": "number",
-    "body": "Property Type Description --- --- --- id number x number y number id x y Active projectile instance. Indexable",
+    "body": "Property Type Description --- --- --- id number x number y number type ProjectileType id x y type Active projectile instance. Indexable",
     "path": "/api/sandkit.api.projectiles",
     "id": "projectile"
   },
@@ -3597,7 +9219,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "sandkit.api.rendering.getOverlayViewportSize()",
-    "body": "Return overlay viewport width and height in pixels. width: number height: number",
+    "body": "Return overlay viewport width and height in pixels. Size2",
     "path": "/api/sandkit.api.rendering",
     "id": "getoverlayviewportsize"
   },
@@ -3760,7 +9382,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "sandkit.api.signals.interactables.register()",
-    "body": "Argument Type Description --- --- --- structureTypeOrId unknown Structure type id or enum value. handler (structure: unknown) =&gt; void Called with the structure instance. structureTypeOrId handler Register a handler when the player interacts with a structure type. Example",
+    "body": "Argument Type Description --- --- --- structureTypeOrId StructureRef Structure type id or enum value. handler (structure: Structure) =&gt; void Called with the structure instance. structureTypeOrId handler Register a handler when the player interacts with a structure type. Example",
     "path": "/api/sandkit.api.signals.interactables",
     "id": "register"
   },
@@ -3771,26 +9393,26 @@ window.SMT_SEARCH_INDEX = [
     "id": ""
   },
   {
+    "title": "boolean",
+    "body": "Property Type Description --- --- --- combined boolean inputCount number onCount number combined inputCount onCount Payload delivered to a signal target handler.",
+    "path": "/api/sandkit.api.signals",
+    "id": "signaltargetpayloadv1"
+  },
+  {
     "title": "sandkit.api.signals.StructureType",
-    "body": "Structure type id or enum value.",
+    "body": "Structure type handle.",
     "path": "/api/sandkit.api.signals",
     "id": "structuretype"
   },
   {
     "title": "sandkit.api.signals.Structure",
-    "body": "Structure instance in the world.",
+    "body": "Live structure instance.",
     "path": "/api/sandkit.api.signals",
     "id": "structure"
   },
   {
-    "title": "sandkit.api.signals.SignalTargetPayloadV1",
-    "body": "Payload delivered to a signal target handler.",
-    "path": "/api/sandkit.api.signals",
-    "id": "signaltargetpayloadv1"
-  },
-  {
     "title": "sandkit.api.signals.registerSenderType()",
-    "body": "Argument Type Description --- --- --- structureId string Structure type id. getOutput? (structure: unknown) =&gt; boolean Optional getter; return true when the sender should be on. structureId getOutput? Register a structure type as a signal sender. Example",
+    "body": "Argument Type Description --- --- --- structureId string Structure type id. getOutput? (structure: Structure) =&gt; boolean Optional getter; return true when the sender should be on. structureId getOutput? Register a structure type as a signal sender. Example",
     "path": "/api/sandkit.api.signals",
     "id": "registersendertype"
   },
@@ -3808,7 +9430,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "sandkit.api.signals.targets.register()",
-    "body": "Argument Type Description --- --- --- structureTypeOrId unknown Structure type id or enum value. apply (structure: unknown, payload: unknown) =&gt; void Called when a signal reaches a matching structure. structureTypeOrId apply Register a handler when a signal targets a structure type. Example",
+    "body": "Argument Type Description --- --- --- structureTypeOrId StructureRef Structure type id or enum value. apply (structure: Structure, payload: SignalTargetPayloadV1) =&gt; void Called when a signal reaches a matching structure. structureTypeOrId apply Register a handler when a signal targets a structure type. Example",
     "path": "/api/sandkit.api.signals.targets",
     "id": "register"
   },
@@ -3832,13 +9454,13 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "number",
-    "body": "Property Type Description --- --- --- volume? number Volume multiplier (0–1 typical). playbackRate? number Playback rate multiplier. position? { x: number; y: number } World position for distance attenuation. loop? boolean When true, loop until stopped. rateLimitKey? string Key used with rateLimitMs to dedupe rapid replays. rateLimitMs? number Minimum ms between plays with the same rateLimitKey. volume? playbackRate? position? loop? rateLimitKey? rateLimitMs? Options passed to sound play helpers. Indexable",
+    "body": "Property Type Description --- --- --- volume? number Volume multiplier (0–1 typical). playbackRate? number Playback rate multiplier. position? Vector2 World position for distance attenuation. loop? boolean When true, loop until stopped. rateLimitKey? string Key used with rateLimitMs to dedupe rapid replays. rateLimitMs? number Minimum ms between plays with the same rateLimitKey. volume? playbackRate? position? loop? rateLimitKey? rateLimitMs? Options passed to sound play helpers. Indexable",
     "path": "/api/sandkit.api.sound",
     "id": "soundoptions"
   },
   {
-    "title": "{ x: number; y: number }",
-    "body": "Property Type Description --- --- --- position? { x: number; y: number } World position applied to all layers. volume? number Volume multiplier applied to all layers. rateLimitKey? string Key used with rateLimitMs to dedupe rapid replays. rateLimitMs? number Minimum ms between plays with the same rateLimitKey. position? volume? rateLimitKey? rateLimitMs? Shared options for playLayers.",
+    "title": "Vector2",
+    "body": "Property Type Description --- --- --- position? Vector2 World position applied to all layers. volume? number Volume multiplier applied to all layers. rateLimitKey? string Key used with rateLimitMs to dedupe rapid replays. rateLimitMs? number Minimum ms between plays with the same rateLimitKey. position? volume? rateLimitKey? rateLimitMs? Shared options for playLayers.",
     "path": "/api/sandkit.api.sound",
     "id": "soundlayersoptions"
   },
@@ -4042,20 +9664,20 @@ window.SMT_SEARCH_INDEX = [
     "id": "structuretooltiphoverfield"
   },
   {
-    "title": "{ width: number; height: number }",
-    "body": "Property Type Description --- --- --- frameSize { width: number; height: number } frames number intervalMs number rowDataField? string When set, frame row follows this structure data field. frameSize frames intervalMs rowDataField? Spritesheet animation on a structure render block.",
+    "title": "Size2",
+    "body": "Property Type Description --- --- --- frameSize Size2 frames number intervalMs number rowDataField? string When set, frame row follows this structure data field. frameSize frames intervalMs rowDataField? Spritesheet animation on a structure render block.",
     "path": "/api/sandkit.api.structures",
     "id": "structurespritesheet"
   },
   {
     "title": "string",
-    "body": "Property Type Description --- --- --- imageName? string size? { width: number; height: number } offset? { x: number; y: number } outline? boolean width? string height? string clipToBounds? boolean imageName? size? offset? outline? width? height? clipToBounds? Hotbar / build-menu UI sprite settings.",
+    "body": "Property Type Description --- --- --- imageName? string size? Size2 offset? Vector2 outline? boolean width? string height? string clipToBounds? boolean imageName? size? offset? outline? width? height? clipToBounds? Hotbar / build-menu UI sprite settings.",
     "path": "/api/sandkit.api.structures",
     "id": "structurerenderui"
   },
   {
     "title": "string",
-    "body": "Property Type Description --- --- --- imageName? string size? { width: number; height: number } offset? { x: number; y: number } z? number ambienceGroup? string ui? StructureRenderUi spritesheet? StructureSpritesheet imageName? size? offset? z? ambienceGroup? ui? spritesheet? Render settings for a structure definition.",
+    "body": "Property Type Description --- --- --- imageName? string size? Size2 offset? Vector2 z? number ambienceGroup? string ui? StructureRenderUi spritesheet? StructureSpritesheet imageName? size? offset? z? ambienceGroup? ui? spritesheet? Render settings for a structure definition.",
     "path": "/api/sandkit.api.structures",
     "id": "structurerender"
   },
@@ -4494,7 +10116,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "number",
-    "body": "Property Type Description --- --- --- x number y number x y Position on the tech grid.",
+    "body": "Property Type Description --- --- --- x number Horizontal component. y number Vertical component. x y Position on the tech grid. Extends - Vector2",
     "path": "/api/sandkit.api.tech",
     "id": "techgridposition"
   },
@@ -8994,15 +14616,27 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "shared.player.CellCoordinates",
-    "body": "Grid cell position as [cellX, cellY]. Cell coordinates match sandkit.api. AtCell helpers: column first, then row.",
+    "body": "Grid cell position as [cellX, cellY]. Cell coordinates match sandkit.api. AtCell helpers: column first, then row. Prefer this tuple for rest-parameter cell APIs.",
     "path": "/api/shared.player",
     "id": "cellcoordinates"
   },
   {
     "title": "shared.player.Vector2",
-    "body": "Property Type Description --- --- --- x number Horizontal component. y number Vertical component. x y 2D vector in world or cell space. World positions use pixels. Cell helpers may return pixel or cell units depending on the API.",
+    "body": "Property Type Description --- --- --- x number Horizontal component. y number Vertical component. x y 2D vector in world or cell space. World positions use pixels. Cell helpers may return pixel or cell units depending on the API. Prefer this object for returns, options, and { x, y } payloads. Extended by - TechGridPosition - ModMapPoint",
     "path": "/api/shared.player",
     "id": "vector2"
+  },
+  {
+    "title": "shared.player.CellXY",
+    "body": "Property Type Description --- --- --- cellX number Cell column. cellY number Cell row. cellX cellY Grid cell position as an object. Prefer this for event and hook payloads. Prefer CellCoordinates for ...AtCell rest args. Extended by - ArtifactLocation - PipeVentCell",
+    "path": "/api/shared.player",
+    "id": "cellxy"
+  },
+  {
+    "title": "shared.player.Size2",
+    "body": "Property Type Description --- --- --- width number Horizontal size. height number Vertical size. width height 2D size in pixels or UI units. Do not use for grid extents. Grid size uses widthCells / heightCells on GridDimensions.",
+    "path": "/api/shared.player",
+    "id": "size2"
   },
   {
     "title": "Sandkit API types",
@@ -9223,7 +14857,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "Utils",
-    "body": "Small helpers under modkit/utils/. Import from @modkit/utils. Runs fn in a try/catch. On success, returns the result. On error, returns fallback (default null). Use it when Sandkit calls may throw or return unexpected shapes (for example settings or scene queries). Reads a boolean from sandkit.api.settings.get(\"enabled\"). When the setting is missing or not a boolean, it defaults to true. Define custom fields in configSchema. See config-schema.md. Call isEnabled in main.ts or a feature hook when the mod must respect Mod enabled . The build does not skip the entry for that setting. It does wrap the main entry in try / catch and logs failures with console.error. Returns false on main-menu and intro scenes; true everywhere else. Uses sandkit.api.scene.getActive() and sandkit.enums.Scene when available. Falls back to numeric scene ids 1 (MainMenu) and 2 (Intro) when enums are missing. Registers a game on the in-world Retro Console via sandkit.engine.api.retroConsole.registerGame. Returns false when retroConsole.registerGame is not available (logs a warning). Returns true after a successful registration. Types re-exported from @modkit/utils: Type Role ------------------------- ------------------------------------ RetroConsoleGame Game definition passed to the engine RetroConsoleGameOptions Options on the game object RetroConsoleApi Engine retro console API shape RetroConsoleDisplay Display interface RetroConsoleInput Input interface RetroConsolePixel Pixel type Full shapes live in @sandustry-modding/types (sandkit/engine) and the Sandkit API reference. Tunable debug numbers on a globalThis key, with an F3 live-config panel. See live-config.md. File Exports ------------------ ------------------------------------------- index.ts Re-exports all public API safe.ts safe settings.ts isEnabled scene.ts inGame retro-console.ts registerRetroGame and retro console types live-config.ts createLiveConfig and live-config registry",
+    "body": "Small helpers under modkit/utils/. Import from @modkit/utils. Runs fn in a try/catch. On success, returns the result. On error, returns fallback (default null). Use it when Sandkit calls may throw or return unexpected shapes (for example settings or scene queries). Reads a boolean from sandkit.api.settings.get(\"enabled\"). When the setting is missing or not a boolean, it defaults to true. Define custom fields in configSchema. See config-schema.md. Call isEnabled in main.ts or a feature hook when the mod must respect Mod enabled . The build does not skip the entry for that setting. It does wrap the main entry in try / catch and logs failures with console.error. Returns false on main-menu and intro scenes; true everywhere else. Uses sandkit.api.scene.getActive() and sandkit.enums.Scene when available. Falls back to numeric scene ids 1 (MainMenu) and 2 (Intro) when enums are missing. Tunable debug numbers on a globalThis key, with an F3 live-config panel. See live-config.md. File Exports ---------------- ------------------------------------------- index.ts Re-exports all public API safe.ts safe settings.ts isEnabled scene.ts inGame live-config.ts createLiveConfig and live-config registry",
     "path": "/modkit/utils",
     "id": ""
   },
@@ -9302,7 +14936,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "sandkit.api.signals",
-    "body": "Main thread only. Official HTML (0.5.5) lists four public entry points. Runtime detail is in Engine signals runtime. Path Method Role --- --- --- sandkit.api.signals.targets register(structureTypeOrId, apply) Receiver handler when incoming links change. sandkit.api.signals.interactables register(structureTypeOrId, handler) Override structure interact (click) behavior. sandkit.api.signals registerSenderType(structureId, getOutput?) Register a structure type as a signal sender. sandkit.api.signals setOutputAtCell(cellX, cellY, on) Set sender output at a structure origin cell. targets.register wraps sandkit.engine.api.signals.targets.register. The handler receives: - structure — structure instance at the receiver cell. - payload — official shape { combined, inputCount, onCount }. combined is true when any incoming link to that receiver is on. inputCount is incoming link count. onCount is how many of those are on. interactables.register handler receives structure only. Use for custom toggle or lever logic. Call api.structures.update(structure) when mutating structure.data. registerSenderType optional getOutput(structure) returns boolean output. Vanilla senders use this. Mods can also drive output with setOutputAtCell. setOutputAtCell is a mutator . Do not call in read-only probes. Types may still list StructureType, Structure, SignalTargetPayloadV1 as unknown. Prefer the official payload above. There is no public sandkit.api.signals.link. Linking is in-game UI or engine signals.link. - Official Sandkit API — signature truth for runtime shapes. - sandkit.api.signals — generated member page. - Networks and signals — domain overview.",
+    "body": "Main thread only. Official HTML (0.5.5) lists four public entry points. Runtime detail is in Engine signals runtime. Path Method Role --- --- --- sandkit.api.signals.targets register(structureTypeOrId, apply) Receiver handler when incoming links change. sandkit.api.signals.interactables register(structureTypeOrId, handler) Override structure interact (click) behavior. sandkit.api.signals registerSenderType(structureId, getOutput?) Register a structure type as a signal sender. sandkit.api.signals setOutputAtCell(cellX, cellY, on) Set sender output at a structure origin cell. targets.register wraps sandkit.engine.api.signals.targets.register. The handler receives: - structure — structure instance at the receiver cell. - payload — official shape { combined, inputCount, onCount }. combined is true when any incoming link to that receiver is on. inputCount is incoming link count. onCount is how many of those are on. interactables.register handler receives structure only. Use for custom toggle or lever logic. Call api.structures.update(structure) when mutating structure.data. registerSenderType optional getOutput(structure) returns boolean output. Vanilla senders use this. Mods can also drive output with setOutputAtCell. setOutputAtCell is a mutator . Do not call in read-only probes. Types list Structure, StructureType, and SignalTargetPayloadV1 (combined, inputCount, onCount). There is no public sandkit.api.signals.link. Linking is in-game UI or engine signals.link. - Official Sandkit API — signature truth for runtime shapes. - sandkit.api.signals — generated member page. - Networks and signals — domain overview.",
     "path": "/okf/energy/api-signals",
     "id": ""
   },

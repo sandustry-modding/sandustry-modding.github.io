@@ -1792,10 +1792,10 @@ Return true when the element at the cell is falling.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L223" target="_blank" rel="noopener">elements.d.ts:223</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.elements.getVelocityAtCell(...args: CellCoordinates): { x: number; y: number; } | null">
+<div class="smt-member-sig" data-sig="sandkit.api.elements.getVelocityAtCell(...args: CellCoordinates): Vector2 | null">
 
 ```ts
-getVelocityAtCell(...args: CellCoordinates): { x: number; y: number; } | null
+getVelocityAtCell(...args: CellCoordinates): Vector2 | null
 ```
 
 </div>
@@ -1812,7 +1812,7 @@ getVelocityAtCell(...args: CellCoordinates): { x: number; y: number; } | null
 
 Return per-cell velocity for moving elements.
 
-\{ `x`: `number`; `y`: `number`; \} &#124; `null`
+[`Vector2`](api/shared.player.md?id=vector2) &#124; `null`
 
 </div>
 

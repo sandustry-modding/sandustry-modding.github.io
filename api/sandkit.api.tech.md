@@ -6,7 +6,7 @@
 
 ### sandkit.api.tech.TechDefinition :id=techdefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L136" target="_blank" rel="noopener">tech.d.ts:136</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L137" target="_blank" rel="noopener">tech.d.ts:137</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -56,12 +56,12 @@ Tech definition shape.
 
 ### sandkit.api.tech.TechGridPosition :id=techgridposition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L165" target="_blank" rel="noopener">tech.d.ts:165</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L166" target="_blank" rel="noopener">tech.d.ts:166</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
-| x | <code>number</code> |  |
-| y | <code>number</code> |  |
+| x | <code>number</code> | Horizontal component. |
+| y | <code>number</code> | Vertical component. |
 
 <div class="smt-member-anchors">
 
@@ -73,13 +73,17 @@ Tech definition shape.
 
 Position on the tech grid.
 
+#### Extends
+
+- [`Vector2`](api/shared.player.md?id=vector2)
+
 </div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.tech.ConservatoryUnlocks :id=conservatoryunlocks
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L171" target="_blank" rel="noopener">tech.d.ts:171</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L169" target="_blank" rel="noopener">tech.d.ts:169</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -104,7 +108,7 @@ Unlock payload for [conservatory.appendUnlock](api/sandkit.api.tech.conservatory
 
 ### sandkit.api.tech.TechGridId :id=techgridid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L133" target="_blank" rel="noopener">tech.d.ts:133</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L134" target="_blank" rel="noopener">tech.d.ts:134</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.tech.TechGridId = Tech | LooseString&lt;never&gt; | TaggedNumber&lt;&quot;tech&quot;&gt;">
 
@@ -125,7 +129,7 @@ Built-in [TechEnum](api/sandkit.enums.Tech.md) values autocomplete; custom strin
 
 ### sandkit.api.tech.getDefinitionById :id=getdefinitionbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L18" target="_blank" rel="noopener">tech.d.ts:18</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L19" target="_blank" rel="noopener">tech.d.ts:19</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.tech.getDefinitionById(techId: TechGridId): TechDefinition | undefined">
 
@@ -155,7 +159,7 @@ Return a tech definition by string id.
 
 ### sandkit.api.tech.updateDefinition :id=updatedefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L34" target="_blank" rel="noopener">tech.d.ts:34</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L35" target="_blank" rel="noopener">tech.d.ts:35</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.tech.updateDefinition(techId: TechGridId, updates: Partial&lt;TechDefinition&gt;): void">
 
@@ -194,7 +198,7 @@ api.tech.updateDefinition("exampleTech", {
 
 ### sandkit.api.tech.registerDefinition :id=registerdefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L54" target="_blank" rel="noopener">tech.d.ts:54</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L55" target="_blank" rel="noopener">tech.d.ts:55</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.tech.registerDefinition(techId: TechGridId, definition: TechDefinition): void">
 
@@ -237,7 +241,7 @@ api.tech.registerDefinition("exampleTech", {
 
 ### ~~sandkit.api.tech.addDefinition~~ :id=adddefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L60" target="_blank" rel="noopener">tech.d.ts:60</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L61" target="_blank" rel="noopener">tech.d.ts:61</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -275,7 +279,7 @@ addDefinition(techId: TechGridId, definition: TechDefinition): void
 
 ### sandkit.api.tech.registerNode :id=registernode
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L79" target="_blank" rel="noopener">tech.d.ts:79</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L80" target="_blank" rel="noopener">tech.d.ts:80</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.tech.registerNode(techId: TechGridId, definition: TechDefinition, options: object): TechGridPosition">
 
@@ -321,7 +325,7 @@ const position = api.tech.registerNode(
 
 ### sandkit.api.tech.isLockedById :id=islockedbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L91" target="_blank" rel="noopener">tech.d.ts:91</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L92" target="_blank" rel="noopener">tech.d.ts:92</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.tech.isLockedById(techId: TechGridId): boolean">
 
@@ -349,7 +353,7 @@ Return true when a tech entry is locked.
 
 ### sandkit.api.tech.setLockedById :id=setlockedbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L100" target="_blank" rel="noopener">tech.d.ts:100</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L101" target="_blank" rel="noopener">tech.d.ts:101</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.tech.setLockedById(techId: TechGridId, locked: boolean): void">
 
@@ -380,7 +384,7 @@ Set locked state for a tech entry by id.
 
 ### sandkit.api.tech.isResearchedById :id=isresearchedbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L108" target="_blank" rel="noopener">tech.d.ts:108</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L109" target="_blank" rel="noopener">tech.d.ts:109</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.tech.isResearchedById(techId: TechGridId): boolean">
 

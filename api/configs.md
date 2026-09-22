@@ -20,7 +20,7 @@ https://sandustry-modding.github.io/schemas/workshop.json
 
 ### configs.ConfigSchemaNumber :id=configschemanumber
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L134" target="_blank" rel="noopener">modinfo.d.ts:134</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L136" target="_blank" rel="noopener">modinfo.d.ts:136</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -64,7 +64,7 @@ Number setting in `modinfo.json` `configSchema`.
 
 ### configs.ConfigSchemaBoolean :id=configschemaboolean
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L174" target="_blank" rel="noopener">modinfo.d.ts:174</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L176" target="_blank" rel="noopener">modinfo.d.ts:176</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -99,7 +99,7 @@ Boolean setting in `modinfo.json` `configSchema`.
 
 ### configs.ConfigSchemaChoiceOption :id=configschemachoiceoption
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L202" target="_blank" rel="noopener">modinfo.d.ts:202</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L204" target="_blank" rel="noopener">modinfo.d.ts:204</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -125,7 +125,7 @@ One option inside a [ConfigSchemaChoice](?id=configschemachoice).
 
 ### configs.ConfigSchemaChoice :id=configschemachoice
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L218" target="_blank" rel="noopener">modinfo.d.ts:218</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L220" target="_blank" rel="noopener">modinfo.d.ts:220</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -163,7 +163,7 @@ Choice setting in `modinfo.json` `configSchema`.
 
 ### configs.TextureOverride :id=textureoverride
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L261" target="_blank" rel="noopener">modinfo.d.ts:261</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L263" target="_blank" rel="noopener">modinfo.d.ts:263</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -192,7 +192,7 @@ Animated (or static) texture replacement for a vanilla asset id.
 
 ### configs.ModProvide :id=modprovide
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L284" target="_blank" rel="noopener">modinfo.d.ts:284</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L286" target="_blank" rel="noopener">modinfo.d.ts:286</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -218,7 +218,7 @@ Optional content pack exposed by this mod for other mods or the game to consume.
 
 ### configs.ModMapBlueprints :id=modmapblueprints
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L305" target="_blank" rel="noopener">modinfo.d.ts:305</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L307" target="_blank" rel="noopener">modinfo.d.ts:307</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -261,12 +261,12 @@ Paths are relative to the mod root.
 
 ### configs.ModMapPoint :id=modmappoint
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L344" target="_blank" rel="noopener">modinfo.d.ts:344</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L347" target="_blank" rel="noopener">modinfo.d.ts:347</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
-| x | <code>number</code> | World X in pixels. |
-| y | <code>number</code> | World Y in pixels. |
+| x | <code>number</code> | Horizontal component. |
+| y | <code>number</code> | Vertical component. |
 
 <div class="smt-member-anchors">
 
@@ -278,13 +278,19 @@ Paths are relative to the mod root.
 
 World-pixel spawn or unstuck point.
 
+Same shape as [Vector2](api/shared.player.md?id=vector2).
+
+#### Extends
+
+- [`Vector2`](api/shared.player.md?id=vector2)
+
 </div>
 
 <div class="smt-member-card">
 
 ### configs.ModMapTopBounds :id=modmaptopbounds
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L359" target="_blank" rel="noopener">modinfo.d.ts:359</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L353" target="_blank" rel="noopener">modinfo.d.ts:353</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -307,7 +313,7 @@ Vertical camera / travel bounds for the custom map.
 
 ### configs.ModMapDepthLight :id=modmapdepthlight
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L374" target="_blank" rel="noopener">modinfo.d.ts:374</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L368" target="_blank" rel="noopener">modinfo.d.ts:368</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -336,7 +342,7 @@ Depth-based light sizing for the custom map.
 
 ### configs.ModMapParallax :id=modmapparallax
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L397" target="_blank" rel="noopener">modinfo.d.ts:397</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L391" target="_blank" rel="noopener">modinfo.d.ts:391</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -359,7 +365,7 @@ Parallax background tuning for the custom map.
 
 ### configs.ModMapColorMappingLayers :id=modmapcolormappinglayers
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L412" target="_blank" rel="noopener">modinfo.d.ts:412</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L406" target="_blank" rel="noopener">modinfo.d.ts:406</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -382,7 +388,7 @@ Color-map cell that paints both background and foreground terrain.
 
 ### configs.ModMapDefinition :id=modmapdefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L433" target="_blank" rel="noopener">modinfo.d.ts:433</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L427" target="_blank" rel="noopener">modinfo.d.ts:427</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -429,7 +435,7 @@ Custom map pack block in `modinfo.json`.
 
 ### configs.ModGameVersion :id=modgameversion
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L480" target="_blank" rel="noopener">modinfo.d.ts:480</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L474" target="_blank" rel="noopener">modinfo.d.ts:474</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -452,7 +458,7 @@ Compatible game version range for the mod.
 
 ### configs.ModInfo :id=modinfo
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L503" target="_blank" rel="noopener">modinfo.d.ts:503</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L497" target="_blank" rel="noopener">modinfo.d.ts:497</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -715,7 +721,7 @@ Links a local mod folder to its Steam Workshop item.
 
 ### configs.ConfigSchemaEntry :id=configschemaentry
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L255" target="_blank" rel="noopener">modinfo.d.ts:255</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L257" target="_blank" rel="noopener">modinfo.d.ts:257</a></p>
 
 <div class="smt-member-sig" data-sig="configs.ConfigSchemaEntry = ConfigSchemaNumber | ConfigSchemaBoolean | ConfigSchemaChoice">
 
@@ -735,7 +741,7 @@ Keys of `configSchema` are setting ids read via `api.settings.get`.
 
 ### configs.ModMapColorMapping :id=modmapcolormapping
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L427" target="_blank" rel="noopener">modinfo.d.ts:427</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L421" target="_blank" rel="noopener">modinfo.d.ts:421</a></p>
 
 <div class="smt-member-sig" data-sig="configs.ModMapColorMapping = string | ModMapColorMappingLayers">
 

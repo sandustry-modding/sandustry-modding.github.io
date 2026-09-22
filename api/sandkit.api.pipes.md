@@ -14,8 +14,8 @@ Available as `sandkit.api.pipes`.
 
 | Property | Type | Description |
 | --- | --- | --- |
-| cellX | <code>number</code> |  |
-| cellY | <code>number</code> |  |
+| cellX | <code>number</code> | Cell column. |
+| cellY | <code>number</code> | Cell row. |
 
 <div class="smt-member-anchors">
 
@@ -26,6 +26,10 @@ Available as `sandkit.api.pipes`.
 </div>
 
 Connected vent cell position.
+
+#### Extends
+
+- [`CellXY`](api/shared.player.md?id=cellxy)
 
 #### Indexable
 

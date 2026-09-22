@@ -9,7 +9,7 @@ Main thread only.
 
 ### sandkit.api.input.InputBindingHandlers :id=inputbindinghandlers
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L127" target="_blank" rel="noopener">input.d.ts:127</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L128" target="_blank" rel="noopener">input.d.ts:128</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -32,7 +32,7 @@ Handlers invoked when a binding is pressed or released.
 
 ### sandkit.api.input.InputBindingDefinition :id=inputbindingdefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L135" target="_blank" rel="noopener">input.d.ts:135</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L136" target="_blank" rel="noopener">input.d.ts:136</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -69,7 +69,7 @@ Definition for a registered input binding.
 
 ### sandkit.api.input.BindingId :id=bindingid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L106" target="_blank" rel="noopener">input.d.ts:106</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L107" target="_blank" rel="noopener">input.d.ts:107</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.BindingId = LooseString&lt;` ${KeyBinding} `&gt;">
 
@@ -87,7 +87,7 @@ Binding id. Vanilla [KeyBindingEnum](api/sandkit.enums.KeyBinding.md) names auto
 
 ### sandkit.api.input.KeyCode :id=keycode
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L111" target="_blank" rel="noopener">input.d.ts:111</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L112" target="_blank" rel="noopener">input.d.ts:112</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.KeyCode = LooseString&lt;&quot;Shift&quot; | &quot;Alt&quot; | &quot;Control&quot; | &quot;Meta&quot; | &quot;ShiftLeft&quot; | &quot;ShiftRight&quot; | &quot;AltLeft&quot; | &quot;AltRight&quot; | &quot;ControlLeft&quot; | &quot;ControlRight&quot; | &quot;MetaLeft&quot; | &quot;MetaRight&quot;&gt;">
 
@@ -107,7 +107,7 @@ KeyboardEvent.code, a modifier alias (`Shift`), or a chord (`Control+KeyC`).
 
 ### sandkit.api.input.registerBinding :id=registerbinding
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L31" target="_blank" rel="noopener">input.d.ts:31</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L32" target="_blank" rel="noopener">input.d.ts:32</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.registerBinding(bindingId: BindingId, defaultKeys: KeyCode[], definition: InputBindingDefinition): BindingId">
 
@@ -159,19 +159,19 @@ api.input.registerBinding("ExampleToggle", ["KeyO"], {
 
 ### sandkit.api.input.getMousePositionAtCell :id=getmousepositionatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L41" target="_blank" rel="noopener">input.d.ts:41</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L42" target="_blank" rel="noopener">input.d.ts:42</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.input.getMousePositionAtCell(): object">
+<div class="smt-member-sig" data-sig="sandkit.api.input.getMousePositionAtCell(): Vector2">
 
 ```ts
-getMousePositionAtCell(): object
+getMousePositionAtCell(): Vector2
 ```
 
 </div>
 
 Return the mouse position in cell coordinates.
 
-Cell `{ x, y }` under the cursor. x: number y: number
+[`Vector2`](api/shared.player.md?id=vector2) Cell [Vector2](api/shared.player.md?id=vector2) under the cursor.
 
 </div>
 
@@ -179,7 +179,7 @@ Cell `{ x, y }` under the cursor. x: number y: number
 
 ### ~~sandkit.api.input.getMouseCellPosition~~ :id=getmousecellposition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L46" target="_blank" rel="noopener">input.d.ts:46</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L47" target="_blank" rel="noopener">input.d.ts:47</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -190,15 +190,15 @@ Use [getMousePositionAtCell](api/sandkit.api.input.md?id=getmousepositionatcell)
 </div>
 </div>
 
-<div class="smt-member-sig" data-sig="sandkit.api.input.getMouseCellPosition(): object">
+<div class="smt-member-sig" data-sig="sandkit.api.input.getMouseCellPosition(): Vector2">
 
 ```ts
-getMouseCellPosition(): object
+getMouseCellPosition(): Vector2
 ```
 
 </div>
 
-Cell `{ x, y }` under the cursor. x: number y: number
+[`Vector2`](api/shared.player.md?id=vector2) Cell [Vector2](api/shared.player.md?id=vector2) under the cursor.
 
 </div>
 
@@ -206,19 +206,19 @@ Cell `{ x, y }` under the cursor. x: number y: number
 
 ### sandkit.api.input.getMousePositionAtWorld :id=getmousepositionatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L51" target="_blank" rel="noopener">input.d.ts:51</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L52" target="_blank" rel="noopener">input.d.ts:52</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.input.getMousePositionAtWorld(): object">
+<div class="smt-member-sig" data-sig="sandkit.api.input.getMousePositionAtWorld(): Vector2">
 
 ```ts
-getMousePositionAtWorld(): object
+getMousePositionAtWorld(): Vector2
 ```
 
 </div>
 
 Return the mouse position in world pixels.
 
-World `{ x, y }` under the cursor. x: number y: number
+[`Vector2`](api/shared.player.md?id=vector2) World [Vector2](api/shared.player.md?id=vector2) under the cursor.
 
 </div>
 
@@ -226,7 +226,7 @@ World `{ x, y }` under the cursor. x: number y: number
 
 ### sandkit.api.input.getBoundKeys :id=getboundkeys
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L60" target="_blank" rel="noopener">input.d.ts:60</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L61" target="_blank" rel="noopener">input.d.ts:61</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.getBoundKeys(bindingId: BindingId): KeyCode[]">
 
@@ -256,7 +256,7 @@ Return the keys currently bound to a binding id.
 
 ### sandkit.api.input.getDisplayKey :id=getdisplaykey
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L68" target="_blank" rel="noopener">input.d.ts:68</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L69" target="_blank" rel="noopener">input.d.ts:69</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.getDisplayKey(bindingId: BindingId, defaultLabel?: string): string">
 
@@ -289,7 +289,7 @@ Human-readable key label for UI.
 
 ### sandkit.api.input.triggerBinding :id=triggerbinding
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L74" target="_blank" rel="noopener">input.d.ts:74</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L75" target="_blank" rel="noopener">input.d.ts:75</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.triggerBinding(bindingId: BindingId): void">
 
@@ -317,7 +317,7 @@ Fire the binding down handler as if the key was pressed.
 
 ### sandkit.api.input.pressBinding :id=pressbinding
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L80" target="_blank" rel="noopener">input.d.ts:80</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L81" target="_blank" rel="noopener">input.d.ts:81</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.pressBinding(bindingId: BindingId): void">
 
@@ -345,7 +345,7 @@ Fire the binding down handler without a matching release.
 
 ### sandkit.api.input.releaseBinding :id=releasebinding
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L86" target="_blank" rel="noopener">input.d.ts:86</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L87" target="_blank" rel="noopener">input.d.ts:87</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.releaseBinding(bindingId: BindingId): void">
 
@@ -373,7 +373,7 @@ Fire the binding up handler.
 
 ### sandkit.api.input.resetMouseState :id=resetmousestate
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L89" target="_blank" rel="noopener">input.d.ts:89</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L90" target="_blank" rel="noopener">input.d.ts:90</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.resetMouseState(): void">
 
@@ -391,7 +391,7 @@ Clear internal mouse button state.
 
 ### sandkit.api.input.isCtrlHeld :id=isctrlheld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L95" target="_blank" rel="noopener">input.d.ts:95</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L96" target="_blank" rel="noopener">input.d.ts:96</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.isCtrlHeld(): boolean">
 
@@ -411,7 +411,7 @@ True when the Ctrl modifier is down.
 
 ### sandkit.api.input.isAltHeld :id=isaltheld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L101" target="_blank" rel="noopener">input.d.ts:101</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L102" target="_blank" rel="noopener">input.d.ts:102</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.isAltHeld(): boolean">
 

@@ -9,7 +9,7 @@ Main thread only. The `events` object is frozen; do not replace `on` or `emit`.
 
 ### sandkit.api.events.PlayerCollisionPreparePayload :id=playercollisionpreparepayload
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L175" target="_blank" rel="noopener">events.d.ts:175</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L178" target="_blank" rel="noopener">events.d.ts:178</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ Listeners may change `maxStepCells` (clamped 1–8) and phasing flags.
 
 ### sandkit.api.events.EventPayloadMap :id=eventpayloadmap
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L185" target="_blank" rel="noopener">events.d.ts:185</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L188" target="_blank" rel="noopener">events.d.ts:188</a></p>
 
 <h4 class="smt-hook-heading" id="item-used"><code>item:used</code></h4>
 
@@ -47,20 +47,20 @@ Listeners may change `maxStepCells` (clamped 1–8) and phasing flags.
   kind: string;
   cellX: number;
   cellY: number;
-  prepared: Readonly<Record<string, unknown>>;
+  prepared: Readonly<ItemUseStats>;
 }
 ```
 
 <h4 class="smt-hook-heading" id="frame-render"><code>frame:render</code></h4>
 
 ```ts
-Record<string, unknown>
+Record<string, never>
 ```
 
 <h4 class="smt-hook-heading" id="scene-game-started"><code>scene:game:started</code></h4>
 
 ```ts
-Record<string, unknown>
+Record<string, never>
 ```
 
 <h4 class="smt-hook-heading" id="scene-started-game"><code>scene:started:game</code></h4>
@@ -75,13 +75,13 @@ Deprecated alias.
 </div>
 
 ```ts
-Record<string, unknown>
+Record<string, never>
 ```
 
 <h4 class="smt-hook-heading" id="earlyAccess-completed"><code>earlyAccess:completed</code></h4>
 
 ```ts
-Record<string, unknown>
+Record<string, never>
 ```
 
 <h4 class="smt-hook-heading" id="earlyAccess-complete"><code>earlyAccess:complete</code></h4>
@@ -96,7 +96,7 @@ Deprecated alias.
 </div>
 
 ```ts
-Record<string, unknown>
+Record<string, never>
 ```
 
 <h4 class="smt-hook-heading" id="terrain-destroyed"><code>terrain:destroyed</code></h4>
@@ -105,7 +105,7 @@ Record<string, unknown>
 {
   cellX: number;
   cellY: number;
-  cellType: number;
+  cellType: TerrainType;
   x: number;
   y: number;
 }
@@ -136,7 +136,7 @@ Record<string, unknown>
 
 ```ts
 {
-  structure: Record<string, unknown>;
+  structure: Structure;
   x: number;
   y: number;
   isBatch: boolean;
@@ -171,15 +171,15 @@ Fires before `building:removed`.
 <h4 class="smt-hook-heading" id="structures-placed"><code>structures:placed</code></h4>
 
 ```ts
-{ structures: unknown[] }
+{ structures: Structure[] }
 ```
 
 <h4 class="smt-hook-heading" id="structures-removed"><code>structures:removed</code></h4>
 
 ```ts
 {
-  removed: unknown[];
-  structures: unknown[];
+  removed: (Structure | StructureCellRef | StructureMoveFailure)[];
+  structures: Structure[];
   byMove: boolean;
 }
 ```
@@ -188,27 +188,27 @@ Fires before `building:removed`.
 
 ```ts
 {
-  moved: unknown[];
-  failedToPlace: unknown[];
+  moved: StructureMoveRecord[];
+  failedToPlace: StructureMoveFailure[];
 }
 ```
 
 <h4 class="smt-hook-heading" id="game-ready"><code>game:ready</code></h4>
 
 ```ts
-Record<string, unknown>
+Record<string, never>
 ```
 
 <h4 class="smt-hook-heading" id="game-started"><code>game:started</code></h4>
 
 ```ts
-Record<string, unknown>
+Record<string, never>
 ```
 
 <h4 class="smt-hook-heading" id="tutorial-stepChanged"><code>tutorial:stepChanged</code></h4>
 
 ```ts
-{ step: unknown }
+{ step: number }
 ```
 
 <h4 class="smt-hook-heading" id="tutorial-completed"><code>tutorial:completed</code></h4>
@@ -258,6 +258,7 @@ PlayerCollisionPreparePayload
 ```ts
 {
   dt: number;
+  teleportMapLerpMs: number;
   state: unknown;
 }
 ```
@@ -272,7 +273,7 @@ Known event payloads. Unlisted ids still use `unknown`.
 
 ### sandkit.api.events.EventId :id=eventid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L285" target="_blank" rel="noopener">events.d.ts:285</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L289" target="_blank" rel="noopener">events.d.ts:289</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.EventId = LooseString&lt;keyof EventPayloadMap&gt;">
 
@@ -290,7 +291,7 @@ Known event names plus any custom string id.
 
 ### sandkit.api.events.EventPayload :id=eventpayload
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L288" target="_blank" rel="noopener">events.d.ts:288</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L292" target="_blank" rel="noopener">events.d.ts:292</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.EventPayload&lt;K&gt; = K *extends* keyof EventPayloadMap ? EventPayloadMap[K] : unknown">
 
@@ -310,7 +311,7 @@ Event payload type for a given event id.
 
 ### sandkit.api.events.on :id=on
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L157" target="_blank" rel="noopener">events.d.ts:157</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L160" target="_blank" rel="noopener">events.d.ts:160</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.on&lt;K *extends* EventId&gt;(eventId: K, callback: (payload: EventPayload&lt;K&gt;) =&gt; void): () =&gt; void">
 
@@ -509,7 +510,7 @@ api.events.on("resource:collected", (payload) => {
 
 ### sandkit.api.events.emit :id=emit
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L169" target="_blank" rel="noopener">events.d.ts:169</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/events.d.ts#L172" target="_blank" rel="noopener">events.d.ts:172</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.events.emit&lt;K *extends* EventId&gt;(eventId: K, payload: EventPayload&lt;K&gt;): void">
 

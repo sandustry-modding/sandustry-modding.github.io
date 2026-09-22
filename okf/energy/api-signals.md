@@ -55,8 +55,7 @@ Mods can also drive output with `setOutputAtCell`.
 `setOutputAtCell` is a **mutator**.
 Do not call in read-only probes.
 
-Types may still list `StructureType`, `Structure`, `SignalTargetPayloadV1` as `unknown`.
-Prefer the official payload above.
+Types list `Structure`, `StructureType`, and `SignalTargetPayloadV1` (`combined`, `inputCount`, `onCount`).
 
 There is no public `sandkit.api.signals.link`.
 Linking is in-game UI or engine `signals.link`.

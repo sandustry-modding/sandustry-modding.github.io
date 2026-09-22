@@ -1,22 +1,50 @@
 # sandkit.api.signals
 
+## Interfaces <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.signals.SignalTargetPayloadV1 :id=signaltargetpayloadv1
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L111" target="_blank" rel="noopener">signals.d.ts:111</a></p>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| combined | <code>boolean</code> |  |
+| inputCount | <code>number</code> |  |
+| onCount | <code>number</code> |  |
+
+<div class="smt-member-anchors">
+
+##### combined <!-- {docsify-ignore} -->
+
+##### inputCount <!-- {docsify-ignore} -->
+
+##### onCount <!-- {docsify-ignore} -->
+
+</div>
+
+Payload delivered to a signal target handler.
+
+</div>
+
 ## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.signals.StructureType :id=structuretype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L105" target="_blank" rel="noopener">signals.d.ts:105</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L107" target="_blank" rel="noopener">signals.d.ts:107</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.signals.StructureType = unknown">
+<div class="smt-member-sig" data-sig="sandkit.api.signals.StructureType = StructureType">
 
 ```ts
-StructureType = unknown
+StructureType = StructureType
 ```
 
 </div>
 
-Structure type id or enum value.
+Structure type handle.
 
 </div>
 
@@ -24,35 +52,17 @@ Structure type id or enum value.
 
 ### sandkit.api.signals.Structure :id=structure
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L107" target="_blank" rel="noopener">signals.d.ts:107</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.signals.Structure = unknown">
-
-```ts
-Structure = unknown
-```
-
-</div>
-
-Structure instance in the world.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.signals.SignalTargetPayloadV1 :id=signaltargetpayloadv1
-
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L109" target="_blank" rel="noopener">signals.d.ts:109</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.signals.SignalTargetPayloadV1 = unknown">
+<div class="smt-member-sig" data-sig="sandkit.api.signals.Structure = Structure">
 
 ```ts
-SignalTargetPayloadV1 = unknown
+Structure = Structure
 ```
 
 </div>
 
-Payload delivered to a signal target handler.
+Live structure instance.
 
 </div>
 
@@ -62,12 +72,12 @@ Payload delivered to a signal target handler.
 
 ### sandkit.api.signals.registerSenderType :id=registersendertype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L84" target="_blank" rel="noopener">signals.d.ts:84</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L86" target="_blank" rel="noopener">signals.d.ts:86</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.signals.registerSenderType(structureId: string, getOutput?: (structure: unknown) =&gt; boolean): void">
+<div class="smt-member-sig" data-sig="sandkit.api.signals.registerSenderType(structureId: string, getOutput?: (structure: Structure) =&gt; boolean): void">
 
 ```ts
-registerSenderType(structureId: string, getOutput?: (structure: unknown) => boolean): void
+registerSenderType(structureId: string, getOutput?: (structure: Structure) => boolean): void
 ```
 
 </div>
@@ -75,7 +85,7 @@ registerSenderType(structureId: string, getOutput?: (structure: unknown) => bool
 | Argument | Type | Description |
 | --- | --- | --- |
 | structureId | `string` | Structure type id. |
-| getOutput? | <code>(`structure`: `unknown`) =&gt; `boolean`</code> | Optional getter; return true when the sender should be on. |
+| getOutput? | <code>(`structure`: [`Structure`](api/sandkit.api.structures.worker.md?id=structure)) =&gt; `boolean`</code> | Optional getter; return true when the sender should be on. |
 
 <div class="smt-member-anchors">
 
@@ -101,7 +111,7 @@ api.signals.registerSenderType("exampleSensor", (structure) => {
 
 ### sandkit.api.signals.setOutputAtCell :id=setoutputatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L102" target="_blank" rel="noopener">signals.d.ts:102</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L104" target="_blank" rel="noopener">signals.d.ts:104</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.signals.setOutputAtCell(cellX: number, cellY: number, on: boolean): void">
 

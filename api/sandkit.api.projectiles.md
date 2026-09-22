@@ -6,7 +6,7 @@
 
 ### sandkit.api.projectiles.ProjectileDefinition :id=projectiledefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L59" target="_blank" rel="noopener">projectiles.d.ts:59</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L61" target="_blank" rel="noopener">projectiles.d.ts:61</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -41,12 +41,12 @@ Mod-registered projectile definition.
 
 ### sandkit.api.projectiles.ProjectileBlueprint :id=projectileblueprint
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L73" target="_blank" rel="noopener">projectiles.d.ts:73</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L75" target="_blank" rel="noopener">projectiles.d.ts:75</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
 | opts | <code>Record&lt;string, unknown&gt;</code> |  |
-| type | <code>unknown</code> |  |
+| type | <code>ProjectileType</code> |  |
 
 <div class="smt-member-anchors">
 
@@ -64,13 +64,14 @@ Blueprint used to spawn a projectile.
 
 ### sandkit.api.projectiles.Projectile :id=projectile
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L79" target="_blank" rel="noopener">projectiles.d.ts:79</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L81" target="_blank" rel="noopener">projectiles.d.ts:81</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
 | id | <code>number</code> |  |
 | x | <code>number</code> |  |
 | y | <code>number</code> |  |
+| type | <code>ProjectileType</code> |  |
 
 <div class="smt-member-anchors">
 
@@ -79,6 +80,8 @@ Blueprint used to spawn a projectile.
 ##### x <!-- {docsify-ignore} -->
 
 ##### y <!-- {docsify-ignore} -->
+
+##### type <!-- {docsify-ignore} -->
 
 </div>
 
@@ -98,7 +101,7 @@ Active projectile instance.
 
 ### sandkit.api.projectiles.register :id=register
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L13" target="_blank" rel="noopener">projectiles.d.ts:13</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L15" target="_blank" rel="noopener">projectiles.d.ts:15</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.projectiles.register(definition: ProjectileDefinition): void">
 
@@ -126,7 +129,7 @@ Register a projectile definition.
 
 ### sandkit.api.projectiles.getDefinitionById :id=getdefinitionbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L19" target="_blank" rel="noopener">projectiles.d.ts:19</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L21" target="_blank" rel="noopener">projectiles.d.ts:21</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.projectiles.getDefinitionById(projectileId: string): ProjectileDefinition | undefined">
 
@@ -156,7 +159,7 @@ Return a projectile definition by string id.
 
 ### sandkit.api.projectiles.createBlueprintFromId :id=createblueprintfromid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L26" target="_blank" rel="noopener">projectiles.d.ts:26</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L28" target="_blank" rel="noopener">projectiles.d.ts:28</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.projectiles.createBlueprintFromId(projectileId: string): ProjectileBlueprint">
 
@@ -186,7 +189,7 @@ Build a spawn blueprint from a projectile string id.
 
 ### sandkit.api.projectiles.getAll :id=getall
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L29" target="_blank" rel="noopener">projectiles.d.ts:29</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L31" target="_blank" rel="noopener">projectiles.d.ts:31</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.projectiles.getAll(): Projectile[]">
 
@@ -206,7 +209,7 @@ Return all active projectiles.
 
 ### sandkit.api.projectiles.getById :id=getbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L35" target="_blank" rel="noopener">projectiles.d.ts:35</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L37" target="_blank" rel="noopener">projectiles.d.ts:37</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.projectiles.getById(projectileId: number): Projectile | undefined">
 
@@ -236,7 +239,7 @@ Return a projectile by numeric id.
 
 ### sandkit.api.projectiles.remove :id=remove
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L41" target="_blank" rel="noopener">projectiles.d.ts:41</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L43" target="_blank" rel="noopener">projectiles.d.ts:43</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.projectiles.remove(projectile: Projectile): void">
 
@@ -264,7 +267,7 @@ Remove a projectile from the world.
 
 ### sandkit.api.projectiles.spawnAtWorld :id=spawnatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L51" target="_blank" rel="noopener">projectiles.d.ts:51</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/projectiles.d.ts#L53" target="_blank" rel="noopener">projectiles.d.ts:53</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.projectiles.spawnAtWorld(worldX: number, worldY: number, angle: number, blueprint: ProjectileBlueprint): Projectile">
 
