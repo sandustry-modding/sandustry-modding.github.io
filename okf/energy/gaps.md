@@ -34,7 +34,7 @@ Documented elsewhere:
 
 Documented (CDP `:9222`, 0.5.6 dev-tools save):
 
-- `powerBrick` copier paste blocked by `disallowSelection`; intended path is copper mold + liquid copper — [Engine energy](/okf/energy/engine-energy.md#powerbrick-placement-and-unlock-056-live).
+- `powerBrick` copier paste blocked by `disallowSelection`; intended path is copper mold + liquid copper — [Engine energy](/okf/energy/engine-energy.md?id=powerbrick-placement-and-unlock-056-live).
 - `FH.structures.build` places `powerBrick`, `goldBattery`, and `electricityConnector` on probe saves when terrain exists under the snap cell.
 
 Heat coupling: [World: grid and elements](/okf/world/grid-and-elements.md).

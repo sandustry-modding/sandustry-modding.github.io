@@ -40,7 +40,7 @@ Underscores: **C**ontinue, **S**ave, **L**oad, **O**ptions, **E**xit.
 
 Footer: Discord `https://discord.gg/HJNk5eMnmt`, **Early Access 0.5.6 | seed:** (live example `g5uk0hk7`), **Copy info for bug report**.
 
-**Exit** opens the [Exit game dialog](/okf/ui/screens.md#exit-game-dialog) (save checkbox, main menu / desktop / cancel).
+**Exit** opens the [Exit game dialog](/okf/ui/screens.md?id=exit-game-dialog) (save checkbox, main menu / desktop / cancel).
 
 API: `sandkit.api.ui.openPauseMenu()`.
 

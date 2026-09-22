@@ -24,9 +24,9 @@ Still open:
 
 Resolved this pass (CDP `:9222`, 0.5.6 extract + live probes):
 
-- Worker-thread `api.player` read helpers — [Player state and API](/okf/player/player.md#worker-sandkitapiplayer-read-only)
-- `engine.api.tutorialBuild` constraints and `store.mods.tutorialBuild` distinction — [Tutorial](/okf/progression/tutorial.md#engine-build-helpers)
-- Teleporter `locations[]` — no entry schema in shipping 0.5.6; array unused — [Tools and grabber](/okf/player/tools.md#teleporter-item-data-factory-default)
+- Worker-thread `api.player` read helpers — [Player state and API](/okf/player/player.md?id=worker-sandkitapiplayer-read-only)
+- `engine.api.tutorialBuild` constraints and `store.mods.tutorialBuild` distinction — [Tutorial](/okf/progression/tutorial.md?id=engine-build-helpers)
+- Teleporter `locations[]` — no entry schema in shipping 0.5.6; array unused — [Tools and grabber](/okf/player/tools.md?id=teleporter-item-data-factory-default)
 
 Resolved in this pass (see linked concepts):
 

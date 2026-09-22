@@ -85,7 +85,7 @@ Read-only helpers on worker `sandkit.api.player`:
 | `isWithinRadiusOfCell(x, y, r)` | `engine.api.player.isWithinRadius(state, x, y, r)` |
 
 No mutators or inventory helpers on workers.
-Details: [Player state and API](/okf/player/player.md#worker-sandkitapiplayer-read-only).
+Details: [Player state and API](/okf/player/player.md?id=worker-sandkitapiplayer-read-only).
 
 Boot and thread mesh: [Workers runtime](/okf/internals/workers-runtime.md).
 

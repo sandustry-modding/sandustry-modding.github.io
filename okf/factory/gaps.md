@@ -27,17 +27,17 @@ Still open:
 
 Resolved on 0.5.6 CDP evaluate (`__debug.state`; ambient `sandkit` undefined):
 
-- `sandkit.api.pipes.*` / `authorization.canBuildAtCell` — not reachable in evaluate scope; engine twins via webpack **46781** (`FH.pipes.*`, `FH.authorization.*`) verified live — [Pipes](/okf/factory/pipes.md#engine-twin-via-fh-056-evaluate), [Authorization](/okf/factory/authorization.md#engine-twin-via-fh-056-evaluate)
+- `sandkit.api.pipes.*` / `authorization.canBuildAtCell` — not reachable in evaluate scope; engine twins via webpack **46781** (`FH.pipes.*`, `FH.authorization.*`) verified live — [Pipes](/okf/factory/pipes.md?id=engine-twin-via-fh-056-evaluate), [Authorization](/okf/factory/authorization.md?id=engine-twin-via-fh-056-evaluate)
 - `FH.structures.build(state, { x, y }, type)` placement — pipe **23**, pump **24**, vent **25**, and energy mod types on dev-tools save when Block terrain exists under the cell — [Feature save setup](/okf/live/feature-save-setup.md)
 
 Documented from bundle extract (0.5.6):
 
 - Vanilla refinery recipe tables per slot — [Vanilla refinery recipes](/okf/factory/refinery-recipes.md)
 - `registerPlacementConfig` field schemas and runtime storage — [Placement config](/okf/factory/placement-config.md)
-- `engine.api.structures.getConfig` return shape (`C.VI[id]`) — [Placement config](/okf/factory/placement-config.md#getconfig)
-- Placement clearance preview rules (`BuildingClearance`, engine-only) — [Structures](/okf/factory/structures.md#placement-clearance-engine-only)
-- Thermal condenser / smelter tick gates (heat relay, lava / freezingIce RNG, smelter 25% skip) — [Processing](/okf/factory/processing.md#thermal-machine-tick-internals-056-bundle)
-- Worker `RegisterConveyorType` IPC payload — [Conveyors](/okf/factory/conveyors.md#worker-registration-payload-056-extract)
+- `engine.api.structures.getConfig` return shape (`C.VI[id]`) — [Placement config](/okf/factory/placement-config.md?id=getconfig)
+- Placement clearance preview rules (`BuildingClearance`, engine-only) — [Structures](/okf/factory/structures.md?id=placement-clearance-engine-only)
+- Thermal condenser / smelter tick gates (heat relay, lava / freezingIce RNG, smelter 25% skip) — [Processing](/okf/factory/processing.md?id=thermal-machine-tick-internals-056-bundle)
+- Worker `RegisterConveyorType` IPC payload — [Conveyors](/okf/factory/conveyors.md?id=worker-registration-payload-056-extract)
 
 Resolved on 0.5.6 CDP probe (`__debug.state`; `sandkit.api` not ambient in evaluate):
 

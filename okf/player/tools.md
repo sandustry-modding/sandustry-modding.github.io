@@ -42,7 +42,7 @@ It is **not** the copier/digger/teleporter/hauler runtime path.
 ### Copier `customData.mode`
 
 Uses `sandkit.enums` clipboard/move modes (extract: `Selected`, `Moving`, `Copying`).
-`selectedStructures[]` entries — see [Clipboard structure schema](/okf/player/clipboard.md#structure-array-schema).
+`selectedStructures[]` entries — see [Clipboard structure schema](/okf/player/clipboard.md?id=structure-array-schema).
 
 ### Digger recall
 

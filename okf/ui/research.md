@@ -47,8 +47,8 @@ Each entry has `id`, `name`, and optional `details.nameKey`.
 | swarmConsole | swarmConsole |
 | fluxEmanator | fluxEmanator |
 
-Full grid coordinates: [Tech tree structure](/okf/progression/tech-tree.md#live-grid-056).
-Numeric ids without Lexicon `name` strings (e.g. **71**, **106**) resolve via unlock-target i18n — see [Numeric grid ids](/okf/progression/tech-tree.md#numeric-grid-ids--lexicon-and-unlock-names-056).
+Full grid coordinates: [Tech tree structure](/okf/progression/tech-tree.md?id=live-grid-056).
+Numeric ids without Lexicon `name` strings (e.g. **71**, **106**) resolve via unlock-target i18n — see [Numeric grid ids](/okf/progression/tech-tree.md?id=numeric-grid-ids--lexicon-and-unlock-names-056).
 
 ## Conservatory
 

@@ -123,7 +123,7 @@ Copy `.env.example` to `.env` (or run `npm run setup`). **Sandustry** writes one
 Linux uses `xrandr` and `wmctrl`.
 Windows uses PowerShell `Screen` and `--start-maximized`.
 macOS and other OSes ignore monitor selection and use `0,0`.
-See [README troubleshooting](../README.md#wrong-monitor-on-launch).
+See [README troubleshooting](../README.md?id=wrong-monitor-on-launch).
 If `npm run dev` is already running, it restarts the bundle when that file changes (unless `DEV_MODS=all`).
 It does not uninstall other owned OS folders (Workshop items and other local mods stay).
 Use `npm run dev:pick` for a keyboard picker before the watch starts. **All mods** is the first row.

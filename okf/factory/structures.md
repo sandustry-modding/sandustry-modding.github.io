@@ -123,7 +123,7 @@ Linked placement (`linkedClearance: "allOrNothing"`) promotes all cells in a bat
 
 When `structures.build` receives `copiedStructure` in its options bag, unlock checks are skipped.
 Defs with `disallowSelection: true` still reject the build and return **null** — live: `powerBrick` with a fake `copiedStructure` → null; normal build via `FH.structures.build` without that flag succeeds on probe saves.
-`disallowPick: true` blocks copier pick; pair with `disallowSelection` on energy storage that must come from mold fill — [Engine energy](/okf/energy/engine-energy.md#powerbrick-placement-and-unlock-056-live).
+`disallowPick: true` blocks copier pick; pair with `disallowSelection` on energy storage that must come from mold fill — [Engine energy](/okf/energy/engine-energy.md?id=powerbrick-placement-and-unlock-056-live).
 
 ## Engine-only extras (`engine.api.structures`)
 
@@ -131,7 +131,7 @@ State-first twin.
 Live extras vs public: `build`, `removeAt`, `removeBetween`, `removeAtPositions`, `beginBatchWrite`, `endBatchWrite`, `getConfig`, `resolveTypeName`, `isBlockedByPlayer`, `isUnlocked`, `isTypeAt`.
 
 `engine.api.structures.recipes`: `getWeightedRecipe`, `register`, `selectWeightedOutput`.
-`getConfig(type)` returns `C.VI[type]` — see [Placement config](/okf/factory/placement-config.md#getconfig).
+`getConfig(type)` returns `C.VI[type]` — see [Placement config](/okf/factory/placement-config.md?id=getconfig).
 
 ## Built-in type ids
 

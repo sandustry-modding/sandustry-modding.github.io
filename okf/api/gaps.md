@@ -92,7 +92,7 @@ These affect **how** you read the API, not what the game ships.
 - Worker official namespace list — [Worker entry API](/okf/internals/worker-api.md).
 - Public `api.processing` registration surface — [Factory processing](/okf/factory/processing.md).
 - Live-only table rows above — re-probed on CDP `:9222` with `FH` hook (2026-09-15).
-- `TechStatus.Unknown` / `Hidden` — reserved enum values; vanilla assigns only 0–2 ([TechStatus](/okf/progression/tech-status.md#unknown-and-hidden-future-use)).
+- `TechStatus.Unknown` / `Hidden` — reserved enum values; vanilla assigns only 0–2 ([TechStatus](/okf/progression/tech-status.md?id=unknown-and-hidden-future-use)).
 
 ## Related
 

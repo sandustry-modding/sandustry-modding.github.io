@@ -33,13 +33,13 @@ Resolved this pass (CDP `:9222`, 0.5.6):
   Only engine `parseTechTree` derives status ([TechStatus](/okf/progression/tech-status.md)).
 - Vanilla upgrade `itemId` / `upgradeId` pairs — **38** leaves on `store.upgrades` in [Upgrades](/okf/progression/upgrades.md).
 - Worker-thread `store.upgrades` — **no mirror** on `__debug.state.shared`; main-thread `store.upgrades` is the source of truth.
-- Live grid coordinates for every string-id node — full `getTechGrid()` via webpack module **77135** in [Tech tree structure](/okf/progression/tech-tree.md#live-grid-056).
-- Mod `register()` upgrade pairs vs `store.upgrades` leaves — metadata on `sandkit.mods.upgrading` (definition objects) vs runtime `{ level, availableLevel }` on store; 10 mod pairs / 38 vanilla leaves on dev-tools save — [Upgrades](/okf/progression/upgrades.md#mod-metadata-shape-cdp-9222-dev-tools-save-056).
-- Lexicon display names for numeric grid ids `71`, `81`, `85`, `86`, `106` — unlock-target cross-ref in [Tech tree structure](/okf/progression/tech-tree.md#numeric-grid-ids--lexicon-and-unlock-names-056).
+- Live grid coordinates for every string-id node — full `getTechGrid()` via webpack module **77135** in [Tech tree structure](/okf/progression/tech-tree.md?id=live-grid-056).
+- Mod `register()` upgrade pairs vs `store.upgrades` leaves — metadata on `sandkit.mods.upgrading` (definition objects) vs runtime `{ level, availableLevel }` on store; 10 mod pairs / 38 vanilla leaves on dev-tools save — [Upgrades](/okf/progression/upgrades.md?id=mod-metadata-shape-cdp-9222-dev-tools-save-056).
+- Lexicon display names for numeric grid ids `71`, `81`, `85`, `86`, `106` — unlock-target cross-ref in [Tech tree structure](/okf/progression/tech-tree.md?id=numeric-grid-ids--lexicon-and-unlock-names-056).
 
 Resolved this pass:
 
-- `TechStatus.Unknown` / `Hidden` — reserved enum; vanilla `parseTechTree` never assigns **3** or **4** ([TechStatus](/okf/progression/tech-status.md#unknown-and-hidden-future-use)).
+- `TechStatus.Unknown` / `Hidden` — reserved enum; vanilla `parseTechTree` never assigns **3** or **4** ([TechStatus](/okf/progression/tech-status.md?id=unknown-and-hidden-future-use)).
 
 Still open:
 

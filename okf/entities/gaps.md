@@ -24,7 +24,7 @@ Still open (live probes with active entities still needed for some runtime-only 
 
 Resolved this pass (CDP `:9222`, 0.5.6):
 
-- Live `DroneType.Digger` drone instances — [Drones](/okf/entities/drones.md#live-dronetypedigger-instance-cdp-9222-056) (`FH.drones.spawn(state, 1, …)` in-memory probe)
+- Live `DroneType.Digger` drone instances — [Drones](/okf/entities/drones.md?id=live-dronetypedigger-instance-cdp-9222-056) (`FH.drones.spawn(state, 1, …)` in-memory probe)
 - Live `getMarkers` with GlyphKey unlock — [Teleport zones and portals](/okf/entities/teleport-portals.md) (`b93kqvog6zn-exitsave`, two portal rows; reconfirmed this pass)
 - Live hauler / sweeper `data` mid-sim — [Drones](/okf/entities/drones.md) (`FH.drones.spawn` on dev autosave; in-memory only)
 - Portal static table and runtime marker fields — [Teleport zones and portals](/okf/entities/teleport-portals.md)

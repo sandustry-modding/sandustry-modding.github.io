@@ -90,7 +90,7 @@ Fueled by heat from `thermalRelay` or `lava`.
 ## Mod rows
 
 Mods append to the same `state.sandkit.mods.recipes` slot arrays.
-Live probe sample: [Processing and recipes](/okf/factory/processing.md#mod-refinery-rows-statesandkitmodsrecipes).
+Live probe sample: [Processing and recipes](/okf/factory/processing.md?id=mod-refinery-rows-statesandkitmodsrecipes).
 
 ## Related
 

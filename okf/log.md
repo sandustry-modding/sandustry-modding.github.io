@@ -2,7 +2,7 @@
 
 - Live dev-tools save `irishbruse.dev-tools-exitsave`; ambient `sandkit` undefined; webpack **46781** (`FH`) for engine twins.
 - Documented mod `register()` upgrade metadata on `sandkit.mods.upgrading` (10 pairs) vs `store.upgrades` leaves (38 vanilla) — [Upgrades](/okf/progression/upgrades.md).
-- Closed `powerBrick` gap: `disallowSelection` blocks copier paste; mold + liquid copper is the player path; `FH.structures.build` is probe-only — [Engine energy](/okf/energy/engine-energy.md#powerbrick-placement-and-unlock-056-live).
+- Closed `powerBrick` gap: `disallowSelection` blocks copier paste; mold + liquid copper is the player path; `FH.structures.build` is probe-only — [Engine energy](/okf/energy/engine-energy.md?id=powerbrick-placement-and-unlock-056-live).
 - Verified `FH.pipes.*` and `FH.authorization.*` twins when `sandkit.api` is missing in evaluate — [Pipes](/okf/factory/pipes.md), [Authorization](/okf/factory/authorization.md).
 - Updated [Progression gaps](/okf/progression/gaps.md), [Energy gaps](/okf/energy/gaps.md), [Factory gaps](/okf/factory/gaps.md), [Structures](/okf/factory/structures.md), [Factory probe](/okf/factory/probe.md).
 

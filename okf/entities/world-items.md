@@ -47,7 +47,7 @@ Optional `data.lightIndex` when spawned with a point light.
 
 | Key                            | Shape        | Notes                                                                                                                                                         |
 | ------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `store.stratacores`            | `string[]`   | Collected stratacore ids — see [Stratacore ids](#stratacore-ids) below. Separate from live `worldItems` pickups.                                            |
+| `store.stratacores`            | `string[]`   | Collected stratacore ids — see [Stratacore ids](?id=stratacore-ids) below. Separate from live `worldItems` pickups.                                            |
 | `store.gloom.emitterPositions` | `{ x, y }[]` | Gloom emitter world positions. Element sim detail lives in [World](/okf/world/grid-and-elements.md); listed here only because stratacore/gloom progression overlaps entity probes. |
 
 ### Stratacore ids
