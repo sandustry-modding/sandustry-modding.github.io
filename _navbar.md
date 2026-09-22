@@ -1,6 +1,5 @@
 - [Home](/)
 - [Guides](guides/)
-- [OKF](okf/)
 - [Types](types/)
 - [Template](builds.md)
 - [UI](ui/)

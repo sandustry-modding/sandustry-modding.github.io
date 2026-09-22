@@ -31,9 +31,10 @@
     <script src="assets/sidebar-headers.js"></script>
     <script src="assets/sidebar-groups.js"></script>
     <script src="assets/search-query.js"></script>
+    <script src="assets/api-tree.js"></script>
+    <script src="assets/api-sidebar-pane.js"></script>
     <script src="assets/search-page.js"></script>
     <script src="assets/docs-settings.js"></script>
-    <script src="assets/okf-viewer.js"></script>
     <script src="ui/ui-canvas.js"></script>
   </head>
   <body class="loading sidebar-toggle-chevron">
@@ -79,7 +80,7 @@
           "/guides/": "/guides/README.md",
           "/types/": "/types/README.md",
           "/ui/": "/ui/README.md",
-          "/okf/": "/okf/README.md",
+          "/okf/": "/okf/index.md",
           "/okf/api/": "/okf/api/index.md",
           "/okf/world/": "/okf/world/index.md",
           "/okf/factory/": "/okf/factory/index.md",
@@ -152,9 +153,9 @@
           window.smtDocsifyHeadingCopyPlugin,
           window.smtDocsifySidebarHeadersPlugin,
           window.smtDocsifySidebarGroupsPlugin,
+          window.smtDocsifyApiSidebarPlugin,
           window.smtDocsifySearchPlugin,
           window.smtDocsifyDocsSettingsPlugin,
-          window.smtDocsifyOkfViewerPlugin,
           window.smtDocsifyUiCanvasPlugin,
         ].filter(function (p) {
           return typeof p === "function";

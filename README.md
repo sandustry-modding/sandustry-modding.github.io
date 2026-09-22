@@ -5,7 +5,7 @@
 
 # Sandustry Modding
 
-Community docs for Sandustry mods: Sandkit API reference, domain guides, the TypeScript mod template kit, and an [OKF viewer](okf/) for the game knowledge bundle.
+Community docs for Sandustry mods: Sandkit API reference, domain guides, the TypeScript mod template kit, and an [OKF markdown bundle](okf/) for agent game knowledge.
 
 Browser tools live under [Tools](/tools/ ':ignore :target=_self'), including a [save editor](/tools/map/ ':ignore :target=_self') for `.save` metadata.
 

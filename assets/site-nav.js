@@ -14,7 +14,6 @@
     "<ul>" +
     '<li><a href="/#/">Home</a></li>' +
     '<li><a href="/#/guides/">Guides</a></li>' +
-    '<li><a href="/#/okf/">OKF</a></li>' +
     '<li><a href="/#/types/">Types</a></li>' +
     '<li><a href="/#/builds">Template</a></li>' +
     '<li><a href="/#/ui/">UI</a></li>' +

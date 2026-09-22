@@ -13,7 +13,7 @@
 
 ## Site context
 
-- [OKF viewer](/okf/README.md): human graph viewer on the OKF tab
+- [OKF bundle root](/okf/index.md): raw markdown for game knowledge (agent-first)
 - [Tools](/tools/): browser tools. Save editor at `/tools/map/`
 - [Human home](/README.md): landing page for contributors and readers
 - [AGENTS.md](/AGENTS.md): repo rules for agents editing this site

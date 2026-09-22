@@ -96,8 +96,12 @@ npm run docs:archive-sandkit      # Fetch official sandkit.html into official-ap
 Output lands in `api/` and `schemas/` on that clone.
 `npm run generate` overwrites those API pages in place.
 It does not delete `api/`.
-Browse namespaces from [Search](search.md) on this site.
-On an API namespace page the sidebar also lists that namespace and its children.
+Browse the full collapsible API tree below, or use [Search](search.md) to filter namespaces and jump to members.
+On a generated `/api/` page, the same tree appears at the bottom of the left sidebar for that namespace and its children.
+
+## API tree
+
+<div id="smt-api-tree-root" class="smt-api-tree-page"></div>
 The combined page is `full.md`.
 `npm run docs` runs that step, then serves the docs site.
 `npm run docs:links` fails when a markdown link does not resolve to a docs page or heading id.

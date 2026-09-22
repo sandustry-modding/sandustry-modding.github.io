@@ -1,23 +1,3 @@
-- [Home](/)
-
-- OKF
-  - [Viewer](okf/)
-  - [Bundle index](okf/index.md)
-  - [Consume](okf/consume.md)
-  - [Agent rules](okf/AGENTS.md)
-  - [API](okf/api/index.md)
-  - [World](okf/world/index.md)
-  - [Factory](okf/factory/index.md)
-  - [Energy](okf/energy/index.md)
-  - [Player](okf/player/index.md)
-  - [UI](okf/ui/index.md)
-  - [Progression](okf/progression/index.md)
-  - [Entities](okf/entities/index.md)
-  - [Internals](okf/internals/index.md)
-  - [Live](okf/live/index.md)
-  - [References](okf/references/index.md)
-  - [Log](okf/log.md)
-
 - Guides
   - [All guides](guides/)
   - [Getting started](guides/getting-started.md)
@@ -35,8 +15,8 @@
   - [Engine vs public API](guides/engine.md)
 
 - Types
-  - [Search](types/search.md)
   - [Install](types/)
+  - [Search](types/search.md)
   - [Full API reference](full.md)
   - [Config types](api/configs.md)
   - [JSON Schema](types/schemas.md)

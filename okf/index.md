@@ -5,7 +5,8 @@ okf_version: "0.2"
 # Sandustry modding OKF
 
 Open Knowledge Format bundle for agents.
-Humans can open the **OKF** tab for a graph viewer, or keep using the sidebar.
+Read these markdown files directly (clone, IDE, or `/#/okf/...` routes).
+The site navbar does not list OKF; agents use [llms.txt](/llms.txt) and [Consume](/okf/consume.md).
 
 ## Playbook
 
