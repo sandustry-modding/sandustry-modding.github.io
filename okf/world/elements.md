@@ -139,12 +139,32 @@ Matter-type `getExtraProps` on the physics table (Liquid axis counters, Particle
 | `metaColor`                      | RGB packed as `0xRRGGBB`                                                                                                                                            |
 | `materialId`                     | Render / sim material index                                                                                                                                         |
 | `hidden`                         | Hide from some UI                                                                                                                                                   |
-| `duration` / `durationRandom`    | Lifetime seconds                                                                                                                                                    |
+| `duration` / `durationRandom`    | Lifetime **seconds**. See **Duration and expiry** below. Lava is **0.28**; Fire is **1.28** with `durationRandom` **1.03–2.53** |
 | `horizontalSpeed`                | Sideways motion (example: Lava `0.1`)                                                                                                                               |
 | `flammable`                      | Burn output id, chance, fire duration. Builtins may omit this object                                                                                                |
 | `collectable.value`              | Collector gold                                                                                                                                                      |
 | `mixes`                          | Contact mix `{ elementType, result }`                                                                                                                               |
 | `interactions`                   | Tooltip kinds (`flammable`, `freezable`, …). Residue is `kind: "flammable"` only; engine fire writes Burnt Residue at 25% — see [Sim crafting](/okf/world/sim-crafting.md) |
+
+### Duration and expiry
+
+`duration` on the definition is copied to `durationMax` and `durationLeft` in seconds.
+Each sim step subtracts the same `dt` used for `velocityY += gravity * dt`.
+`api.elements.setDurationAtCell` writes that number straight into `durationLeft`.
+`updateMax: true` also writes `durationMax`.
+The TypeScript comment says “ticks”; the stored unit is the definition’s seconds.
+
+When `durationLeft` hits **0**, the engine runs `element:duration` interceptors.
+`context.cancel()` makes `runInterceptors` return true, and the cell is not removed.
+With no cancel, the engine removes the cell.
+Seedling refreshes its duration before that interceptor path.
+Lava never reaches this generic remove; its spread handler returns first.
+See [Sim crafting](/okf/world/sim-crafting.md).
+
+### `element:update`
+
+`element:update` runs at the start of an element sim step, before skip-physics.
+If an interceptor cancels, that cell’s physics step does not run.
 
 Built-in enum: `sandkit.enums.ElementType` — Sand (1) … Basalt (20), **Gloom (8)**.
 String id for mods is `definition.id`; for builtins parse `nameKey` (`elements|sand|name`).

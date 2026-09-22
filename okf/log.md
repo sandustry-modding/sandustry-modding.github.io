@@ -1,3 +1,9 @@
+## 2026-09-23 matter fall and lava fire (Steam app.asar)
+
+- Powder falls at **0.3×** gravity with max speed **20**; Slushy and Solid use full gravity — [Cells](/okf/world/cells.md).
+- Lava pulses every **0.28s** and spawns Fire on an empty side at **1%**; Flame uses **25%** — [Sim crafting](/okf/world/sim-crafting.md).
+- `setDurationAtCell` stores seconds, and `element:duration` cancel keeps the cell — [Elements](/okf/world/elements.md).
+
 ## 2026-09-15 progression, energy, factory gap closure (CDP :9222, 0.5.6)
 
 - Live dev-tools save `irishbruse.dev-tools-exitsave`; ambient `sandkit` undefined; webpack **46781** (`FH`) for engine twins.

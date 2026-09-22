@@ -13,6 +13,8 @@ The mod template clones it into `docs/` during `npm run setup`.
 
 Agents retrieving **game** knowledge MUST load [llms.txt](/llms.txt), then [/okf/consume.md](/okf/consume.md), then **one** OKF domain index.
 Follow [/okf/AGENTS.md](/okf/AGENTS.md) when editing OKF.
+When a session learns a new vanilla game or Sandkit fact, write it into `okf/` before the session ends.
+Mod behavior stays out of OKF.
 
 Agents working on the **mod template** use the template README and `modkit/` — not OKF.
 

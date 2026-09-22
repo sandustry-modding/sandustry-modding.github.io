@@ -73,6 +73,45 @@ Resolve through `elements.getMatterTypeAtCell` or definition `matterType`.
 Workshop mods may use values outside 1–8 via `engine.api.matters.register`.
 Engine-only `matters.register` / `getMatterTypeFromId`: see [Engine and workers](/okf/internals/engine-and-workers.md).
 
+### Fall
+
+The shared mover accelerates with `(down ? gravity : upflow) * (gravityFactor ?? 1) * dt`.
+`maxVelocityY` caps that speed only when the matter config sets it.
+On a blocked step, `velocityY` is divided by `velocityDivisor` (default **10**).
+
+| Matter | Gravity factor | Max fall speed | On block |
+| --- | --- | --- | --- |
+| Solid | 1 (omitted) | none | divide by **10** |
+| Slushy | 1 (omitted) | none | divide by **5**, then × random **0.8–1.2**; side-step damping **0.95** |
+| Powder | **0.3** | **20** | divide by **2**; side-step damping **0.7** |
+
+Solid can also take `disableDiagonal` and `disableHorizontalMovement`.
+Aurixite’s registered matter id `crystal` (type **9**) calls `runSolidUpdate` with both flags set.
+That matter is `transportable: true` and `displaceable: false`.
+
+A buried cell (same element on the left, right, and the vertical neighbor) uses the same split: Powder accelerates at **0.3×** gravity, Gas uses upflow, other matters use full gravity.
+
+### Builtin examples
+
+| Element | Matter | Density |
+| --- | --- | --- |
+| Sand | Solid | 150 |
+| Gold | Solid | 300 |
+| Redsand (`sandium`) | Solid | 160 |
+| Copper | Solid | 200 |
+| Wet Sand | Slushy | 150 |
+| Residue | Slushy | 50 |
+| Wet Seed | Slushy | 100 |
+| Gloom | Slushy | 30 |
+| Snow (`freezingIce`) | Powder | 150 |
+| Auralite | Powder | 100 |
+| Cloud | Powder | 30 |
+| Lava | Liquid | 200 |
+| Fire | Gas | 25 |
+
+Lava also sets `duration` **0.28** seconds and `horizontalSpeed` **0.1**.
+Fire spread from lava is in [Sim crafting](/okf/world/sim-crafting.md).
+
 ## Resolved vs raw type
 
 - `getTypeAtCell` returns the raw stored type.

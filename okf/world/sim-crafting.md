@@ -68,6 +68,26 @@ Residue is burnable with **no** `def.flammable` object (only `interactions: [{ k
 Water also lists `kind: "flammable"` with no burn product.
 Mod elements that set `flammable.outputElementId` use that object instead.
 
+### Lava and flame spread
+
+Lava and Flame share one duration handler.
+There is no element flag that means “emit fire.”
+On that pulse the handler checks the four orthogonal neighbors.
+
+| Source | Empty neighbor | Spawn |
+| --- | --- | --- |
+| Lava | **1%** (`0.01`) | **Fire** with `data.temperature` **1200** |
+| Flame | **25%** (`0.25`) | **Fire** (duration copied from the flame when set) |
+
+Lava’s definition `duration` is **0.28** seconds.
+After the neighbor pass, lava sets `durationLeft` to `durationMax * random(0.5, 1.5)`, picks `variantIndex` **0–3**, refreshes color, and stays.
+`durationLeft` decreases by the same `dt` the mover uses for gravity.
+Fire’s own definition is Gas, density **25**, `duration` **1.28** seconds, `durationRandom` **1.03–2.53**, default temperature **1000**.
+
+A flammable neighbor on that same pass burns in place.
+Residue becomes Flame with Burnt Residue as the **0.25** output.
+See [Elements](/okf/world/elements.md) for duration expiry and `setDurationAtCell`.
+
 ## `api.patterns` (main and worker)
 
 | Method                                                                | Role                      |

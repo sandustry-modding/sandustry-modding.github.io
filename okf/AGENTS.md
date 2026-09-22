@@ -65,11 +65,10 @@ Tables, fenced code blocks, and headings are excluded.
 
 ## New findings
 
-When you learn something new about vanilla game behavior:
+Write each new vanilla fact into OKF before you finish the task that uncovered it.
+Sources: game source, a live probe, or the official Sandkit page.
+Mod behavior does not belong here.
 
-1. Pick the matching domain (`world`, `factory`, `player`, etc.).
-2. Add or update **one** concept file there.
-3. Note gaps in that domain's `gaps.md` when proof is missing.
-4. Log bundle-level moves in `docs/okf/log.md`.
-
-Do not create OKF pages for mod-only behavior.
+1. Put the fact in the matching concept file under `docs/okf/<domain>/`.
+2. When proof is missing, record the question in that domain's `gaps.md`.
+3. Add a line to `docs/okf/log.md`.
