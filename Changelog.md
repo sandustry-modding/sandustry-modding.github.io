@@ -14,6 +14,8 @@ https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.8.0
 ### Added
 
 - Missing Sandkit declarations: `cooldown.start`, `resources.refresh`, `player.inventory.hasById`, `items.getRegisteredIds`, `items.spriteMounts`, `signals.registerSenderType`, `signals.setOutputAtCell`, `signals.interactables`, `input.getMousePositionAtCell`, `input.getMousePositionAtWorld`
+- `CellXY` for cell payload objects (`cellX` / `cellY`).
+- `Size2` for `{ width; height }` pixel / UI sizes.
 
 ### Changed
 
@@ -21,6 +23,9 @@ https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.8.0
 - Catalog scans `src/worker/api/` as well as `src/sandkit/api/`.
 - Official HTML path qualification prefixes nested dotted signatures and skips return-handle docs.
 - Removed `scripts/api-gen/generated/api-gaps.md` (gaps stay in `api-catalog.json` and must be zero).
+- Move `Vector2` and `CellCoordinates` into `shared/geometry.d.ts`.
+- Re-export geometry types from `@sandustry-modding/types/shared` and `shared/player`.
+- Reuse `Vector2`, `Size2`, and `CellXY` on input, sound, structures, rendering, elements, hooks, pipes, maps, tech, and modinfo map points.
 
 ## 0.7.0 - 2026-09-16
 
