@@ -77,6 +77,7 @@
     - [shared](api/sandkit.api.shared.md)
       - [buffers](api/sandkit.api.shared.buffers.md)
     - [signals](api/sandkit.api.signals.md)
+      - [interactables](api/sandkit.api.signals.interactables.md)
       - [targets](api/sandkit.api.signals.targets.md)
     - [sound](api/sandkit.api.sound.md)
     - [sprites](api/sandkit.api.sprites.md)

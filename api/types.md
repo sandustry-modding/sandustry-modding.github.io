@@ -72,8 +72,9 @@ import type { ModInfo, BundlePatch } from "@sandustry-modding/types/configs";
 
 Edit `.d.ts` files under `src/`. Regenerate the API reference and JSON Schema after JSDoc or config-type changes.
 
-`npm run generate` merges `scripts/api-gen/overrides.json`, the official [Sandkit API](https://sandustry.com/sandkit.html) HTML, and `src/sandkit/api/` declarations.
-It writes `scripts/api-gen/generated/api-catalog.json`, refreshes `scripts/api-gen/generated/namespace-summaries.json`, and reports gaps in `scripts/api-gen/generated/api-gaps.md`.
+`npm run generate` merges `scripts/api-gen/overrides.json`, the official [Sandkit API](https://sandustry.com/sandkit.html) HTML, and `src/sandkit/api/` plus `src/worker/api/` declarations.
+It writes `scripts/api-gen/generated/api-catalog.json` and refreshes `scripts/api-gen/generated/namespace-summaries.json`.
+It fails when any official or expected member is missing from the declarations.
 Edit namespace descriptions and alias mappings in `scripts/api-gen/overrides.json`.
 
 `npm run scrape` walks the live `sandkit` object in a running Sandustry renderer (CDP `:9222`) and writes `scripts/api-gen/generated/runtime-api.json`.
@@ -88,7 +89,7 @@ Regenerate the API reference and JSON Schema from these declarations:
 ```bash
 npm run generate                  # catalog + API markdown + schemas on the docs site
 npm run scrape                    # live sandkit inventory from running Sandustry (CDP :9222)
-npm run generate -- --catalog     # overrides + official HTML + declarations → catalog + gaps
+npm run generate -- --catalog     # overrides + official HTML + declarations → catalog
 npm run generate -- --schemas     # JSON Schema only
 npm run docs:archive-sandkit      # Fetch official sandkit.html into official-api/ on the docs site
 ```

@@ -1615,7 +1615,7 @@ Main thread only.
 
 #### sandkit.api.cooldown.Cooldown :id=sandkit-api-cooldown-cooldown
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/cooldown.d.ts#L20" target="_blank" rel="noopener">cooldown.d.ts:20</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/cooldown.d.ts#L26" target="_blank" rel="noopener">cooldown.d.ts:26</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -1630,7 +1630,7 @@ Main thread only.
 
 </div>
 
-Cooldown state object passed to [check](?id=sandkit-api-cooldown-check) and [isReady](?id=sandkit-api-cooldown-isready).
+Cooldown state object passed to [start](?id=sandkit-api-cooldown-start) and [isReady](?id=sandkit-api-cooldown-isready).
 
 </div>
 
@@ -1638,9 +1638,49 @@ Cooldown state object passed to [check](?id=sandkit-api-cooldown-check) and [isR
 
 <div class="smt-member-card">
 
-#### sandkit.api.cooldown.check :id=sandkit-api-cooldown-check
+#### sandkit.api.cooldown.start :id=sandkit-api-cooldown-start
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/cooldown.d.ts#L11" target="_blank" rel="noopener">cooldown.d.ts:11</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.cooldown.start(cooldown: Cooldown, overrideTime?: number): boolean">
+
+```ts
+start(cooldown: Cooldown, overrideTime?: number): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| cooldown | <code>[`Cooldown`](?id=sandkit-api-cooldown-cooldown)</code> | Cooldown state object to check and update. |
+| overrideTime? | `number` | Optional timestamp (ms) instead of current game time. |
+
+<div class="smt-member-anchors">
+
+###### cooldown <!-- {docsify-ignore} -->
+
+###### overrideTime? <!-- {docsify-ignore} -->
+
+</div>
+
+Start the cooldown when ready and return true; otherwise return false.
+
+</div>
+
+<div class="smt-member-card" data-deprecated="true">
+
+#### ~~sandkit.api.cooldown.check~~ :id=sandkit-api-cooldown-check
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/cooldown.d.ts#L17" target="_blank" rel="noopener">cooldown.d.ts:17</a></p>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Use [start](api/sandkit.api.cooldown.md?id=start) instead.
+
+</div>
+</div>
 
 <div class="smt-member-sig" data-sig="sandkit.api.cooldown.check(cooldown: Cooldown, overrideTime?: number): boolean">
 
@@ -1663,15 +1703,13 @@ check(cooldown: Cooldown, overrideTime?: number): boolean
 
 </div>
 
-Starts the cooldown when ready and returns true; otherwise returns false.
-
 </div>
 
 <div class="smt-member-card">
 
 #### sandkit.api.cooldown.isReady :id=sandkit-api-cooldown-isready
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/cooldown.d.ts#L17" target="_blank" rel="noopener">cooldown.d.ts:17</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/cooldown.d.ts#L23" target="_blank" rel="noopener">cooldown.d.ts:23</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.cooldown.isReady(cooldown: Cooldown, overrideTime?: number): boolean">
 
@@ -1694,7 +1732,7 @@ isReady(cooldown: Cooldown, overrideTime?: number): boolean
 
 </div>
 
-Returns true when the cooldown has elapsed.
+Return true when the cooldown has elapsed.
 
 </div>
 
@@ -8216,7 +8254,7 @@ Main thread only.
 
 #### sandkit.api.input.InputBindingHandlers :id=sandkit-api-input-inputbindinghandlers
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L117" target="_blank" rel="noopener">input.d.ts:117</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L127" target="_blank" rel="noopener">input.d.ts:127</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -8239,7 +8277,7 @@ Handlers invoked when a binding is pressed or released.
 
 #### sandkit.api.input.InputBindingDefinition :id=sandkit-api-input-inputbindingdefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L125" target="_blank" rel="noopener">input.d.ts:125</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L135" target="_blank" rel="noopener">input.d.ts:135</a></p>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -8276,7 +8314,7 @@ Definition for a registered input binding.
 
 #### sandkit.api.input.BindingId :id=sandkit-api-input-bindingid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L96" target="_blank" rel="noopener">input.d.ts:96</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L106" target="_blank" rel="noopener">input.d.ts:106</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.BindingId = LooseString&lt;` ${KeyBinding} `&gt;">
 
@@ -8294,7 +8332,7 @@ Binding id. Vanilla [KeyBindingEnum](api/sandkit.enums.KeyBinding.md) names auto
 
 #### sandkit.api.input.KeyCode :id=sandkit-api-input-keycode
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L101" target="_blank" rel="noopener">input.d.ts:101</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L111" target="_blank" rel="noopener">input.d.ts:111</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.KeyCode = LooseString&lt;&quot;Shift&quot; | &quot;Alt&quot; | &quot;Control&quot; | &quot;Meta&quot; | &quot;ShiftLeft&quot; | &quot;ShiftRight&quot; | &quot;AltLeft&quot; | &quot;AltRight&quot; | &quot;ControlLeft&quot; | &quot;ControlRight&quot; | &quot;MetaLeft&quot; | &quot;MetaRight&quot;&gt;">
 
@@ -8364,14 +8402,14 @@ api.input.registerBinding("ExampleToggle", ["KeyO"], {
 
 <div class="smt-member-card">
 
-#### sandkit.api.input.getMouseCellPosition :id=sandkit-api-input-getmousecellposition
+#### sandkit.api.input.getMousePositionAtCell :id=sandkit-api-input-getmousepositionatcell
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L41" target="_blank" rel="noopener">input.d.ts:41</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.input.getMouseCellPosition(): object">
+<div class="smt-member-sig" data-sig="sandkit.api.input.getMousePositionAtCell(): object">
 
 ```ts
-getMouseCellPosition(): object
+getMousePositionAtCell(): object
 ```
 
 </div>
@@ -8382,11 +8420,58 @@ Cell `{ x, y }` under the cursor. x: number y: number
 
 </div>
 
+<div class="smt-member-card" data-deprecated="true">
+
+#### ~~sandkit.api.input.getMouseCellPosition~~ :id=sandkit-api-input-getmousecellposition
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L46" target="_blank" rel="noopener">input.d.ts:46</a></p>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Use [getMousePositionAtCell](api/sandkit.api.input.md?id=getmousepositionatcell) instead.
+
+</div>
+</div>
+
+<div class="smt-member-sig" data-sig="sandkit.api.input.getMouseCellPosition(): object">
+
+```ts
+getMouseCellPosition(): object
+```
+
+</div>
+
+Cell `{ x, y }` under the cursor. x: number y: number
+
+</div>
+
+<div class="smt-member-card">
+
+#### sandkit.api.input.getMousePositionAtWorld :id=sandkit-api-input-getmousepositionatworld
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L51" target="_blank" rel="noopener">input.d.ts:51</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.input.getMousePositionAtWorld(): object">
+
+```ts
+getMousePositionAtWorld(): object
+```
+
+</div>
+
+Return the mouse position in world pixels.
+
+World `{ x, y }` under the cursor. x: number y: number
+
+</div>
+
 <div class="smt-member-card">
 
 #### sandkit.api.input.getBoundKeys :id=sandkit-api-input-getboundkeys
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L50" target="_blank" rel="noopener">input.d.ts:50</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L60" target="_blank" rel="noopener">input.d.ts:60</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.getBoundKeys(bindingId: BindingId): KeyCode[]">
 
@@ -8416,7 +8501,7 @@ Return the keys currently bound to a binding id.
 
 #### sandkit.api.input.getDisplayKey :id=sandkit-api-input-getdisplaykey
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L58" target="_blank" rel="noopener">input.d.ts:58</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L68" target="_blank" rel="noopener">input.d.ts:68</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.getDisplayKey(bindingId: BindingId, defaultLabel?: string): string">
 
@@ -8449,7 +8534,7 @@ Human-readable key label for UI.
 
 #### sandkit.api.input.triggerBinding :id=sandkit-api-input-triggerbinding
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L64" target="_blank" rel="noopener">input.d.ts:64</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L74" target="_blank" rel="noopener">input.d.ts:74</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.triggerBinding(bindingId: BindingId): void">
 
@@ -8477,7 +8562,7 @@ Fire the binding down handler as if the key was pressed.
 
 #### sandkit.api.input.pressBinding :id=sandkit-api-input-pressbinding
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L70" target="_blank" rel="noopener">input.d.ts:70</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L80" target="_blank" rel="noopener">input.d.ts:80</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.pressBinding(bindingId: BindingId): void">
 
@@ -8505,7 +8590,7 @@ Fire the binding down handler without a matching release.
 
 #### sandkit.api.input.releaseBinding :id=sandkit-api-input-releasebinding
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L76" target="_blank" rel="noopener">input.d.ts:76</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L86" target="_blank" rel="noopener">input.d.ts:86</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.releaseBinding(bindingId: BindingId): void">
 
@@ -8533,7 +8618,7 @@ Fire the binding up handler.
 
 #### sandkit.api.input.resetMouseState :id=sandkit-api-input-resetmousestate
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L79" target="_blank" rel="noopener">input.d.ts:79</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L89" target="_blank" rel="noopener">input.d.ts:89</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.resetMouseState(): void">
 
@@ -8551,7 +8636,7 @@ Clear internal mouse button state.
 
 #### sandkit.api.input.isCtrlHeld :id=sandkit-api-input-isctrlheld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L85" target="_blank" rel="noopener">input.d.ts:85</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L95" target="_blank" rel="noopener">input.d.ts:95</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.isCtrlHeld(): boolean">
 
@@ -8571,7 +8656,7 @@ True when the Ctrl modifier is down.
 
 #### sandkit.api.input.isAltHeld :id=sandkit-api-input-isaltheld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L91" target="_blank" rel="noopener">input.d.ts:91</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L101" target="_blank" rel="noopener">input.d.ts:101</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.input.isAltHeld(): boolean">
 
@@ -8633,7 +8718,7 @@ Definition for a mod-registered inventory item.
 
 #### sandkit.api.items.ItemId :id=sandkit-api-items-itemid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L59" target="_blank" rel="noopener">items.d.ts:59</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L69" target="_blank" rel="noopener">items.d.ts:69</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ItemId = ItemId | LooseString&lt;never&gt;">
 
@@ -8652,7 +8737,7 @@ Built-in [ItemIdEnum](api/sandkit.enums.ItemId.md) values autocomplete; custom s
 
 #### sandkit.api.items.ItemType :id=sandkit-api-items-itemtype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L64" target="_blank" rel="noopener">items.d.ts:64</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L74" target="_blank" rel="noopener">items.d.ts:74</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ItemType = ItemType | TaggedNumber&lt;&quot;itemType&quot;&gt;">
 
@@ -8671,7 +8756,7 @@ Built-in [ItemTypeEnum](api/sandkit.enums.ItemType.md) values autocomplete.
 
 #### sandkit.api.items.ModItem :id=sandkit-api-items-moditem
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L66" target="_blank" rel="noopener">items.d.ts:66</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L76" target="_blank" rel="noopener">items.d.ts:76</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ModItem = unknown">
 
@@ -8682,6 +8767,27 @@ ModItem = unknown
 </div>
 
 Runtime item instance (not yet typed in declarations).
+
+</div>
+
+### Variables <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+#### sandkit.api.items.spriteMounts :id=sandkit-api-items-spritemounts
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L55" target="_blank" rel="noopener">items.d.ts:55</a></p>
+
+<div class="smt-member-sig" data-sig="const spriteMounts: Readonly&lt;Record&lt;string, string&gt;&gt;">
+
+```ts
+const spriteMounts: Readonly<Record<string, string>>
+```
+
+</div>
+
+Sprite mount id map for item display.
+Live keys include `onehand`, `backhand`, and `cryoblaster`.
 
 </div>
 
@@ -8814,9 +8920,30 @@ Creates a runtime item instance from an id.
 
 <div class="smt-member-card">
 
+#### sandkit.api.items.getRegisteredIds :id=sandkit-api-items-getregisteredids
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L50" target="_blank" rel="noopener">items.d.ts:50</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.items.getRegisteredIds(): (string | number | string &amp; object)[]">
+
+```ts
+getRegisteredIds(): (string | number | string & object)[]
+```
+
+</div>
+
+Return registered item ids.
+Mix of numeric vanilla [ItemId](?id=sandkit-api-items-itemid) values and string mod ids.
+
+(`string` &#124; `number` &#124; `string` & `object`)[]
+
+</div>
+
+<div class="smt-member-card">
+
 #### sandkit.api.items.getActive :id=sandkit-api-items-getactive
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L47" target="_blank" rel="noopener">items.d.ts:47</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L57" target="_blank" rel="noopener">items.d.ts:57</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.getActive(): ItemDefinition&lt;unknown, unknown&gt; | undefined">
 
@@ -8836,7 +8963,7 @@ Returns the item definition for the active hotbar slot.
 
 #### sandkit.api.items.isActiveById :id=sandkit-api-items-isactivebyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L53" target="_blank" rel="noopener">items.d.ts:53</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L63" target="_blank" rel="noopener">items.d.ts:63</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.isActiveById(itemId: ItemId, itemType?: ItemType): boolean">
 
@@ -10264,7 +10391,7 @@ Player building unlock helpers.
 
 #### sandkit.api.player.buildings.unlockById :id=sandkit-api-player-buildings-unlockbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L126" target="_blank" rel="noopener">player.d.ts:126</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L135" target="_blank" rel="noopener">player.d.ts:135</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.buildings.unlockById(structureId: string): void">
 
@@ -10292,7 +10419,7 @@ Unlock a structure type for building.
 
 #### ~~sandkit.api.player.buildings.unlockByType~~ :id=sandkit-api-player-buildings-unlockbytype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L132" target="_blank" rel="noopener">player.d.ts:132</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L141" target="_blank" rel="noopener">player.d.ts:141</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -10327,7 +10454,7 @@ unlockByType(structureId: string): void
 
 #### sandkit.api.player.buildings.removeById :id=sandkit-api-player-buildings-removebyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L140" target="_blank" rel="noopener">player.d.ts:140</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L149" target="_blank" rel="noopener">player.d.ts:149</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.buildings.removeById(structureId: string): void">
 
@@ -10361,9 +10488,37 @@ Player inventory helpers.
 
 <div class="smt-member-card">
 
+#### sandkit.api.player.inventory.hasById :id=sandkit-api-player-inventory-hasbyid
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L110" target="_blank" rel="noopener">player.d.ts:110</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.player.inventory.hasById(itemId: string | number): boolean">
+
+```ts
+hasById(itemId: string | number): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| itemId | `string` &#124; `number` | Registered item id or numeric [items.ItemId](api/sandkit.api.items.md?id=itemid). Live checks use numeric vanilla ids; string enum names may return false. |
+
+<div class="smt-member-anchors">
+
+###### itemId <!-- {docsify-ignore} -->
+
+</div>
+
+Return true when inventory contains the item id.
+
+</div>
+
+<div class="smt-member-card">
+
 #### sandkit.api.player.inventory.addById :id=sandkit-api-player-inventory-addbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L109" target="_blank" rel="noopener">player.d.ts:109</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L118" target="_blank" rel="noopener">player.d.ts:118</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.inventory.addById(itemId: string): void">
 
@@ -10391,7 +10546,7 @@ Add an item to inventory by item id.
 
 #### ~~sandkit.api.player.inventory.addFromId~~ :id=sandkit-api-player-inventory-addfromid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L115" target="_blank" rel="noopener">player.d.ts:115</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L124" target="_blank" rel="noopener">player.d.ts:124</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -11378,9 +11533,37 @@ Collect fluxite at the given cell.
 
 <div class="smt-member-card">
 
+#### sandkit.api.resources.refresh :id=sandkit-api-resources-refresh
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/resources.d.ts#L21" target="_blank" rel="noopener">resources.d.ts:21</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.resources.refresh(resourceId: string): void">
+
+```ts
+refresh(resourceId: string): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| resourceId | `string` | Resource display id (not limited to energy). |
+
+<div class="smt-member-anchors">
+
+###### resourceId <!-- {docsify-ignore} -->
+
+</div>
+
+Refresh a resource HUD display by id.
+
+</div>
+
+<div class="smt-member-card">
+
 #### sandkit.api.resources.updateEnergy :id=sandkit-api-resources-updateenergy
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/resources.d.ts#L27" target="_blank" rel="noopener">resources.d.ts:27</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/resources.d.ts#L32" target="_blank" rel="noopener">resources.d.ts:32</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.resources.updateEnergy(amount: number, options?: object): void">
 
@@ -11790,7 +11973,7 @@ Look up a named shared buffer without creating it.
 
 #### sandkit.api.signals.StructureType :id=sandkit-api-signals-structuretype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L52" target="_blank" rel="noopener">signals.d.ts:52</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L105" target="_blank" rel="noopener">signals.d.ts:105</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.signals.StructureType = unknown">
 
@@ -11808,7 +11991,7 @@ Structure type id or enum value.
 
 #### sandkit.api.signals.Structure :id=sandkit-api-signals-structure
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L54" target="_blank" rel="noopener">signals.d.ts:54</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L107" target="_blank" rel="noopener">signals.d.ts:107</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.signals.Structure = unknown">
 
@@ -11826,7 +12009,7 @@ Structure instance in the world.
 
 #### sandkit.api.signals.SignalTargetPayloadV1 :id=sandkit-api-signals-signaltargetpayloadv1
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L56" target="_blank" rel="noopener">signals.d.ts:56</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L109" target="_blank" rel="noopener">signals.d.ts:109</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.signals.SignalTargetPayloadV1 = unknown">
 
@@ -11837,6 +12020,137 @@ SignalTargetPayloadV1 = unknown
 </div>
 
 Payload delivered to a signal target handler.
+
+</div>
+
+### Functions <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+#### sandkit.api.signals.registerSenderType :id=sandkit-api-signals-registersendertype
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L84" target="_blank" rel="noopener">signals.d.ts:84</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.signals.registerSenderType(structureId: string, getOutput?: (structure: unknown) =&gt; boolean): void">
+
+```ts
+registerSenderType(structureId: string, getOutput?: (structure: unknown) => boolean): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| structureId | `string` | Structure type id. |
+| getOutput? | <code>(`structure`: `unknown`) =&gt; `boolean`</code> | Optional getter; return true when the sender should be on. |
+
+<div class="smt-member-anchors">
+
+###### structureId <!-- {docsify-ignore} -->
+
+###### getOutput? <!-- {docsify-ignore} -->
+
+</div>
+
+Register a structure type as a signal sender.
+
+##### Example
+
+```ts
+api.signals.registerSenderType("exampleSensor", (structure) => {
+  return structure.data.charge >= structure.data.threshold;
+});
+```
+
+</div>
+
+<div class="smt-member-card">
+
+#### sandkit.api.signals.setOutputAtCell :id=sandkit-api-signals-setoutputatcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L102" target="_blank" rel="noopener">signals.d.ts:102</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.signals.setOutputAtCell(cellX: number, cellY: number, on: boolean): void">
+
+```ts
+setOutputAtCell(cellX: number, cellY: number, on: boolean): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| cellX | `number` | Structure origin cell X. |
+| cellY | `number` | Structure origin cell Y. |
+| on | `boolean` | Desired output state. |
+
+<div class="smt-member-anchors">
+
+###### cellX <!-- {docsify-ignore} -->
+
+###### cellY <!-- {docsify-ignore} -->
+
+###### on <!-- {docsify-ignore} -->
+
+</div>
+
+Set sender output at a structure origin cell.
+
+##### Example
+
+```ts
+api.structures.forEachOfType("exampleSensor", (structure) => {
+  api.signals.setOutputAtCell(structure.x, structure.y, structure.data.active);
+});
+```
+
+</div>
+
+---
+
+## sandkit.api.signals.interactables
+
+Structure interact (click) handler registration.
+
+### Functions <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+#### sandkit.api.signals.interactables.register :id=sandkit-api-signals-interactables-register
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L66" target="_blank" rel="noopener">signals.d.ts:66</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.signals.interactables.register(structureTypeOrId: unknown, handler: (structure: unknown) =&gt; void): void">
+
+```ts
+register(structureTypeOrId: unknown, handler: (structure: unknown) => void): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| structureTypeOrId | `unknown` | Structure type id or enum value. |
+| handler | <code>(`structure`: `unknown`) =&gt; `void`</code> | Called with the structure instance. |
+
+<div class="smt-member-anchors">
+
+###### structureTypeOrId <!-- {docsify-ignore} -->
+
+###### handler <!-- {docsify-ignore} -->
+
+</div>
+
+Register a handler when the player interacts with a structure type.
+
+##### Example
+
+```ts
+api.signals.interactables.register("exampleLever", (structure) => {
+  structure.data.on = !structure.data.on;
+  api.structures.update(structure);
+});
+```
 
 </div>
 
@@ -32773,7 +33087,7 @@ https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json
 
 ### See
 
-[JSON Schema docs](https://sandustry-modding.github.io/SandustryTypes/#/schemas)
+[JSON Schema docs](https://sandustry-modding.github.io/#/types/schemas)
 
 ### Interfaces <!-- {docsify-ignore} -->
 
@@ -33622,150 +33936,606 @@ Async methods use `ipcRenderer.invoke` unless noted (`openDevTools`, `log`).
 
 </div>
 
-| Method | Signature | Description |
-| --- | --- | --- |
-| getPlatformSync() | <code>(): ElectronPlatform</code> | Return the active distribution channel. |
-| getModdingEnabledSync() | <code>(): boolean</code> | Return whether local modding is enabled for this build/session. |
-| getIsSteamDeckSync() | <code>(): boolean</code> | Return true on Steam Deck / gamescope hosts. |
-| getPreferredSystemLanguagesSync() | <code>(): string[]</code> | Return BCP-47 language tags preferred by the OS. |
-| onAppSuspend() | <code>(callback: ElectronIpcListener): void</code> | Register a callback for app suspend (sleep / Xbox quick suspend). |
-| onAppResume() | <code>(callback: ElectronIpcListener): void</code> | Register a callback for app resume. |
-| diagnostics() | <code>(): Promise&lt;JsonValueV1&gt;</code> | Return platform diagnostics JSON. |
-| checkLicense() | <code>(): Promise&lt;ElectronLicenseCheckResult&gt;</code> | Check the MS Store license. Always returns `{ valid: true }` on Steam when platform checks are unavailable. |
-| writeGameEvent() | <code>(eventName: string, dimensions?: Record&lt;string, string&gt;, measurements?: Record&lt;string, number&gt;): Promise&lt;boolean&gt;</code> | Send one telemetry event to the platform SDK when available. |
-| platformPrimeAchievements() | <code>(ids: string[]): Promise&lt;ElectronPrimeAchievementsResult&gt;</code> | Prime the MS Store achievement cache after sign-in. No-op success on Steam. |
-| platformShowReauthPrompt() | <code>(reason: string): Promise&lt;ElectronReauthPromptResult&gt;</code> | Show the native MS Store re-auth dialog. Resolves immediately with `{ dismissed: true }` on Steam. |
-| appQuit() | <code>(): Promise&lt;ElectronSuccessResult&gt;</code> | Quit the application. Works in fullscreen where `window.close()` is unreliable. |
-| openExternalBrowser() | <code>(url: string): Promise&lt;ElectronOpenUrlResult&gt;</code> | Open an external `https:` URL in the system browser. |
-| onXboxUserSignedOut() | <code>(callback: ElectronIpcListener): void</code> | Register a callback for Xbox user sign-out. MS Store only — never fires on Steam. |
-| onXboxLicenseLost() | <code>(callback: ElectronIpcListener): void</code> | Register a callback for Game Pass / Store license loss. MS Store only — never fires on Steam. |
-| onXboxUserSignedIn() | <code>(callback: ElectronIpcListener): void</code> | Register a callback for Xbox user sign-in. MS Store only — never fires on Steam. |
-| save() | <code>(id: string, name: string, data: JsonValueV1): Promise&lt;ElectronOperationResult&gt;</code> | Write one compressed save file (`.save`). |
-| saveSerialized() | <code>(id: string, name: string, dataJson: string, metadata?: JsonValueV1): Promise&lt;ElectronOperationResult&gt;</code> | Write one save from pre-serialized JSON and metadata. |
-| load() | <code>(id: string): Promise&lt;ElectronLoadResult&gt;</code> | Load one save slot by id. |
-| deleteSave() | <code>(id: string): Promise&lt;ElectronSuccessResult &#124; ElectronFailureResult&gt;</code> | Delete one save slot and its backup file. |
-| loadRaw() | <code>(name: string): Promise&lt;ElectronLoadResult &#124; null&gt;</code> | Load a raw save file by filename (including extension). |
-| exportSave() | <code>(id: string): Promise&lt;ElectronExportSaveResult&gt;</code> | Export one save slot as raw bytes for backup/sharing. |
-| importSave() | <code>(bytes: ArrayBuffer &#124; Uint8Array&lt;ArrayBufferLike&gt;): Promise&lt;ElectronImportSaveResult&gt;</code> | Import one save from raw exported bytes. |
-| getSaveFiles() | <code>(): Promise&lt;ElectronSaveFileMetadata[]&gt;</code> | List save slot metadata parsed from each `.save` header line. |
-| getSaveFolder() | <code>(): Promise&lt;string&gt;</code> | Return the absolute path to the active saves folder. |
-| getLastPlayedGameSync() | <code>(): string &#124; null</code> | Return the last-played save id JSON string. |
-| saveLastPlayedGame() | <code>(game: ElectronLastPlayedGame): Promise&lt;ElectronOperationResult&gt;</code> | Persist the last-played save id. |
-| clearLastPlayedGame() | <code>(): Promise&lt;ElectronOperationResult&gt;</code> | Clear the persisted last-played save id. |
-| saveExistsSync() | <code>(id: string): boolean</code> | Return whether a save file exists for the given id. |
-| getSettingsSync() | <code>(): string &#124; null</code> | Return the settings JSON string from disk. |
-| saveSettings() | <code>(settings: JsonValueV1): Promise&lt;ElectronOperationResult&gt;</code> | Persist renderer settings JSON to disk. |
-| setFullscreen() | <code>(shouldBeFullscreen: boolean): Promise&lt;ElectronOperationResult&gt;</code> | Enter or leave fullscreen mode. |
-| toggleFullscreen() | <code>(): Promise&lt;ElectronOperationResult&gt;</code> | Toggle fullscreen mode. |
-| openDevTools() | <code>(): void</code> | Open Chromium DevTools for the game window. IPC: `open-devtools` (`send`). |
-| isFilePatchingActiveSync() | <code>(): boolean</code> | Return true when the Steam patch protocol interceptor is active. |
-| log() | <code>(level: ElectronLogLevel, scope: string, message: string): void</code> | Append one line to the host log file (`logs/main.log`). Fire-and-forget — never awaits IPC completion. |
-| getSystemInfo() | <code>(): ElectronSystemInfo</code> | Return local process/runtime versions. Useful for bug reports and environment probes. |
-
-<div class="smt-member-anchors">
-
-###### getPlatformSync() <!-- {docsify-ignore} -->
-
-###### getModdingEnabledSync() <!-- {docsify-ignore} -->
-
-###### getIsSteamDeckSync() <!-- {docsify-ignore} -->
-
-###### getPreferredSystemLanguagesSync() <!-- {docsify-ignore} -->
-
-###### onAppSuspend() <!-- {docsify-ignore} -->
-
-###### onAppResume() <!-- {docsify-ignore} -->
-
-###### diagnostics() <!-- {docsify-ignore} -->
-
-###### checkLicense() <!-- {docsify-ignore} -->
-
-###### writeGameEvent() <!-- {docsify-ignore} -->
-
-###### platformPrimeAchievements() <!-- {docsify-ignore} -->
-
-###### platformShowReauthPrompt() <!-- {docsify-ignore} -->
-
-###### appQuit() <!-- {docsify-ignore} -->
-
-###### openExternalBrowser() <!-- {docsify-ignore} -->
-
-###### onXboxUserSignedOut() <!-- {docsify-ignore} -->
-
-###### onXboxLicenseLost() <!-- {docsify-ignore} -->
-
-###### onXboxUserSignedIn() <!-- {docsify-ignore} -->
-
-###### save() <!-- {docsify-ignore} -->
-
-###### saveSerialized() <!-- {docsify-ignore} -->
-
-###### load() <!-- {docsify-ignore} -->
-
-###### deleteSave() <!-- {docsify-ignore} -->
-
-###### loadRaw() <!-- {docsify-ignore} -->
-
-###### exportSave() <!-- {docsify-ignore} -->
-
-###### importSave() <!-- {docsify-ignore} -->
-
-###### getSaveFiles() <!-- {docsify-ignore} -->
-
-###### getSaveFolder() <!-- {docsify-ignore} -->
-
-###### getLastPlayedGameSync() <!-- {docsify-ignore} -->
-
-###### saveLastPlayedGame() <!-- {docsify-ignore} -->
-
-###### clearLastPlayedGame() <!-- {docsify-ignore} -->
-
-###### saveExistsSync() <!-- {docsify-ignore} -->
-
-###### getSettingsSync() <!-- {docsify-ignore} -->
-
-###### saveSettings() <!-- {docsify-ignore} -->
-
-###### setFullscreen() <!-- {docsify-ignore} -->
-
-###### toggleFullscreen() <!-- {docsify-ignore} -->
-
-###### openDevTools() <!-- {docsify-ignore} -->
-
-###### isFilePatchingActiveSync() <!-- {docsify-ignore} -->
-
-###### log() <!-- {docsify-ignore} -->
-
-###### getSystemInfo() <!-- {docsify-ignore} -->
 
 </div>
 
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getPlatformSync :id=electron-electronbridge-getplatformsync
+
+<div class="smt-member-sig" data-sig="getPlatformSync(): ElectronPlatform">
+
+```ts
+getPlatformSync(): ElectronPlatform
+```
+
 </div>
 
+Return the active distribution channel.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getModdingEnabledSync :id=electron-electronbridge-getmoddingenabledsync
+
+<div class="smt-member-sig" data-sig="getModdingEnabledSync(): boolean">
+
+```ts
+getModdingEnabledSync(): boolean
+```
+
+</div>
+
+Return whether local modding is enabled for this build/session.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getIsSteamDeckSync :id=electron-electronbridge-getissteamdecksync
+
+<div class="smt-member-sig" data-sig="getIsSteamDeckSync(): boolean">
+
+```ts
+getIsSteamDeckSync(): boolean
+```
+
+</div>
+
+Return true on Steam Deck / gamescope hosts.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getPreferredSystemLanguagesSync :id=electron-electronbridge-getpreferredsystemlanguagessync
+
+<div class="smt-member-sig" data-sig="getPreferredSystemLanguagesSync(): string[]">
+
+```ts
+getPreferredSystemLanguagesSync(): string[]
+```
+
+</div>
+
+Return BCP-47 language tags preferred by the OS.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.onAppSuspend :id=electron-electronbridge-onappsuspend
+
+<div class="smt-member-sig" data-sig="onAppSuspend(callback: ElectronIpcListener): void">
+
+```ts
+onAppSuspend(callback: ElectronIpcListener): void
+```
+
+</div>
+
+Register a callback for app suspend (sleep / Xbox quick suspend).
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.onAppResume :id=electron-electronbridge-onappresume
+
+<div class="smt-member-sig" data-sig="onAppResume(callback: ElectronIpcListener): void">
+
+```ts
+onAppResume(callback: ElectronIpcListener): void
+```
+
+</div>
+
+Register a callback for app resume.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.diagnostics :id=electron-electronbridge-diagnostics
+
+<div class="smt-member-sig" data-sig="diagnostics(): Promise&lt;JsonValueV1&gt;">
+
+```ts
+diagnostics(): Promise<JsonValueV1>
+```
+
+</div>
+
+Return platform diagnostics JSON.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.checkLicense :id=electron-electronbridge-checklicense
+
+<div class="smt-member-sig" data-sig="checkLicense(): Promise&lt;ElectronLicenseCheckResult&gt;">
+
+```ts
+checkLicense(): Promise<ElectronLicenseCheckResult>
+```
+
+</div>
+
+Check the MS Store license. Always returns `{ valid: true }` on Steam when platform checks are unavailable.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.writeGameEvent :id=electron-electronbridge-writegameevent
+
+<div class="smt-member-sig" data-sig="writeGameEvent(eventName: string, dimensions?: Record&lt;string, string&gt;, measurements?: Record&lt;string, number&gt;): Promise&lt;boolean&gt;">
+
+```ts
+writeGameEvent(eventName: string, dimensions?: Record<string, string>, measurements?: Record<string, number>): Promise<boolean>
+```
+
+</div>
+
+Send one telemetry event to the platform SDK when available.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.platformPrimeAchievements :id=electron-electronbridge-platformprimeachievements
+
+<div class="smt-member-sig" data-sig="platformPrimeAchievements(ids: string[]): Promise&lt;ElectronPrimeAchievementsResult&gt;">
+
+```ts
+platformPrimeAchievements(ids: string[]): Promise<ElectronPrimeAchievementsResult>
+```
+
+</div>
+
+Prime the MS Store achievement cache after sign-in. No-op success on Steam.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.platformShowReauthPrompt :id=electron-electronbridge-platformshowreauthprompt
+
+<div class="smt-member-sig" data-sig="platformShowReauthPrompt(reason: string): Promise&lt;ElectronReauthPromptResult&gt;">
+
+```ts
+platformShowReauthPrompt(reason: string): Promise<ElectronReauthPromptResult>
+```
+
+</div>
+
+Show the native MS Store re-auth dialog. Resolves immediately with `{ dismissed: true }` on Steam.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.appQuit :id=electron-electronbridge-appquit
+
+<div class="smt-member-sig" data-sig="appQuit(): Promise&lt;ElectronSuccessResult&gt;">
+
+```ts
+appQuit(): Promise<ElectronSuccessResult>
+```
+
+</div>
+
+Quit the application. Works in fullscreen where `window.close()` is unreliable.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.openExternalBrowser :id=electron-electronbridge-openexternalbrowser
+
+<div class="smt-member-sig" data-sig="openExternalBrowser(url: string): Promise&lt;ElectronOpenUrlResult&gt;">
+
+```ts
+openExternalBrowser(url: string): Promise<ElectronOpenUrlResult>
+```
+
+</div>
+
+Open an external `https:` URL in the system browser.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.onXboxUserSignedOut :id=electron-electronbridge-onxboxusersignedout
+
+<div class="smt-member-sig" data-sig="onXboxUserSignedOut(callback: ElectronIpcListener): void">
+
+```ts
+onXboxUserSignedOut(callback: ElectronIpcListener): void
+```
+
+</div>
+
+Register a callback for Xbox user sign-out. MS Store only — never fires on Steam.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.onXboxLicenseLost :id=electron-electronbridge-onxboxlicenselost
+
+<div class="smt-member-sig" data-sig="onXboxLicenseLost(callback: ElectronIpcListener): void">
+
+```ts
+onXboxLicenseLost(callback: ElectronIpcListener): void
+```
+
+</div>
+
+Register a callback for Game Pass / Store license loss. MS Store only — never fires on Steam.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.onXboxUserSignedIn :id=electron-electronbridge-onxboxusersignedin
+
+<div class="smt-member-sig" data-sig="onXboxUserSignedIn(callback: ElectronIpcListener): void">
+
+```ts
+onXboxUserSignedIn(callback: ElectronIpcListener): void
+```
+
+</div>
+
+Register a callback for Xbox user sign-in. MS Store only — never fires on Steam.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.save :id=electron-electronbridge-save
+
+<div class="smt-member-sig" data-sig="save(id: string, name: string, data: JsonValueV1): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+save(id: string, name: string, data: JsonValueV1): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Write one compressed save file (`.save`).
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.saveSerialized :id=electron-electronbridge-saveserialized
+
+<div class="smt-member-sig" data-sig="saveSerialized(id: string, name: string, dataJson: string, metadata?: JsonValueV1): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+saveSerialized(id: string, name: string, dataJson: string, metadata?: JsonValueV1): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Write one save from pre-serialized JSON and metadata.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.load :id=electron-electronbridge-load
+
+<div class="smt-member-sig" data-sig="load(id: string): Promise&lt;ElectronLoadResult&gt;">
+
+```ts
+load(id: string): Promise<ElectronLoadResult>
+```
+
+</div>
+
+Load one save slot by id.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.deleteSave :id=electron-electronbridge-deletesave
+
+<div class="smt-member-sig" data-sig="deleteSave(id: string): Promise&lt;ElectronSuccessResult | ElectronFailureResult&gt;">
+
+```ts
+deleteSave(id: string): Promise<ElectronSuccessResult | ElectronFailureResult>
+```
+
+</div>
+
+Delete one save slot and its backup file.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.loadRaw :id=electron-electronbridge-loadraw
+
+<div class="smt-member-sig" data-sig="loadRaw(name: string): Promise&lt;ElectronLoadResult | null&gt;">
+
+```ts
+loadRaw(name: string): Promise<ElectronLoadResult | null>
+```
+
+</div>
+
+Load a raw save file by filename (including extension).
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.exportSave :id=electron-electronbridge-exportsave
+
+<div class="smt-member-sig" data-sig="exportSave(id: string): Promise&lt;ElectronExportSaveResult&gt;">
+
+```ts
+exportSave(id: string): Promise<ElectronExportSaveResult>
+```
+
+</div>
+
+Export one save slot as raw bytes for backup/sharing.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.importSave :id=electron-electronbridge-importsave
+
+<div class="smt-member-sig" data-sig="importSave(bytes: ArrayBuffer | Uint8Array&lt;ArrayBufferLike&gt;): Promise&lt;ElectronImportSaveResult&gt;">
+
+```ts
+importSave(bytes: ArrayBuffer | Uint8Array<ArrayBufferLike>): Promise<ElectronImportSaveResult>
+```
+
+</div>
+
+Import one save from raw exported bytes.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getSaveFiles :id=electron-electronbridge-getsavefiles
+
+<div class="smt-member-sig" data-sig="getSaveFiles(): Promise&lt;ElectronSaveFileMetadata[]&gt;">
+
+```ts
+getSaveFiles(): Promise<ElectronSaveFileMetadata[]>
+```
+
+</div>
+
+List save slot metadata parsed from each `.save` header line.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getSaveFolder :id=electron-electronbridge-getsavefolder
+
+<div class="smt-member-sig" data-sig="getSaveFolder(): Promise&lt;string&gt;">
+
+```ts
+getSaveFolder(): Promise<string>
+```
+
+</div>
+
+Return the absolute path to the active saves folder.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getLastPlayedGameSync :id=electron-electronbridge-getlastplayedgamesync
+
+<div class="smt-member-sig" data-sig="getLastPlayedGameSync(): string | null">
+
+```ts
+getLastPlayedGameSync(): string | null
+```
+
+</div>
+
+Return the last-played save id JSON string.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.saveLastPlayedGame :id=electron-electronbridge-savelastplayedgame
+
+<div class="smt-member-sig" data-sig="saveLastPlayedGame(game: ElectronLastPlayedGame): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+saveLastPlayedGame(game: ElectronLastPlayedGame): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Persist the last-played save id.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.clearLastPlayedGame :id=electron-electronbridge-clearlastplayedgame
+
+<div class="smt-member-sig" data-sig="clearLastPlayedGame(): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+clearLastPlayedGame(): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Clear the persisted last-played save id.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.saveExistsSync :id=electron-electronbridge-saveexistssync
+
+<div class="smt-member-sig" data-sig="saveExistsSync(id: string): boolean">
+
+```ts
+saveExistsSync(id: string): boolean
+```
+
+</div>
+
+Return whether a save file exists for the given id.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getSettingsSync :id=electron-electronbridge-getsettingssync
+
+<div class="smt-member-sig" data-sig="getSettingsSync(): string | null">
+
+```ts
+getSettingsSync(): string | null
+```
+
+</div>
+
+Return the settings JSON string from disk.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.saveSettings :id=electron-electronbridge-savesettings
+
+<div class="smt-member-sig" data-sig="saveSettings(settings: JsonValueV1): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+saveSettings(settings: JsonValueV1): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Persist renderer settings JSON to disk.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.setFullscreen :id=electron-electronbridge-setfullscreen
+
+<div class="smt-member-sig" data-sig="setFullscreen(shouldBeFullscreen: boolean): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+setFullscreen(shouldBeFullscreen: boolean): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Enter or leave fullscreen mode.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.toggleFullscreen :id=electron-electronbridge-togglefullscreen
+
+<div class="smt-member-sig" data-sig="toggleFullscreen(): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+toggleFullscreen(): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Toggle fullscreen mode.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.openDevTools :id=electron-electronbridge-opendevtools
+
+<div class="smt-member-sig" data-sig="openDevTools(): void">
+
+```ts
+openDevTools(): void
+```
+
+</div>
+
+Open Chromium DevTools for the game window. IPC: `open-devtools` (`send`).
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.isFilePatchingActiveSync :id=electron-electronbridge-isfilepatchingactivesync
+
+<div class="smt-member-sig" data-sig="isFilePatchingActiveSync(): boolean">
+
+```ts
+isFilePatchingActiveSync(): boolean
+```
+
+</div>
+
+Return true when the Steam patch protocol interceptor is active.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.log :id=electron-electronbridge-log
+
+<div class="smt-member-sig" data-sig="log(level: ElectronLogLevel, scope: string, message: string): void">
+
+```ts
+log(level: ElectronLogLevel, scope: string, message: string): void
+```
+
+</div>
+
+Append one line to the host log file (`logs/main.log`). Fire-and-forget — never awaits IPC completion.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronBridge.getSystemInfo :id=electron-electronbridge-getsysteminfo
+
+<div class="smt-member-sig" data-sig="getSystemInfo(): ElectronSystemInfo">
+
+```ts
+getSystemInfo(): ElectronSystemInfo
+```
+
+</div>
+
+Return local process/runtime versions. Useful for bug reports and environment probes.
+
+</div>
 <div class="smt-member-card">
 
 #### electron.ElectronCustomMapsApi :id=electron-electroncustommapsapi
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/electron/custom-maps.d.ts#L11" target="_blank" rel="noopener">custom-maps.d.ts:11</a></p>
 
-| Method | Signature | Description |
-| --- | --- | --- |
-| save() | <code>(id: string, name: string, data: JsonValueV1): Promise&lt;ElectronOperationResult&gt;</code> | Write one custom map file (`.custommap`). |
-| load() | <code>(id: string): Promise&lt;JsonValueV1&gt;</code> | Load one custom map by id. |
-| list() | <code>(): Promise&lt;JsonValueV1[]&gt;</code> | List custom map metadata entries (newest first). |
-| delete() | <code>(id: string): Promise&lt;ElectronOperationResult&gt;</code> | Delete one custom map file. |
-
-<div class="smt-member-anchors">
-
-###### save() <!-- {docsify-ignore} -->
-
-###### load() <!-- {docsify-ignore} -->
-
-###### list() <!-- {docsify-ignore} -->
-
-###### delete() <!-- {docsify-ignore} -->
-
-</div>
 
 Custom map editor persistence helpers exposed as `electron.customMaps`.
 
@@ -33773,28 +34543,73 @@ Custom map editor persistence helpers exposed as `electron.customMaps`.
 
 <div class="smt-member-card">
 
+#### electron.ElectronCustomMapsApi.save :id=electron-electroncustommapsapi-save
+
+<div class="smt-member-sig" data-sig="save(id: string, name: string, data: JsonValueV1): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+save(id: string, name: string, data: JsonValueV1): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Write one custom map file (`.custommap`).
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronCustomMapsApi.load :id=electron-electroncustommapsapi-load
+
+<div class="smt-member-sig" data-sig="load(id: string): Promise&lt;JsonValueV1&gt;">
+
+```ts
+load(id: string): Promise<JsonValueV1>
+```
+
+</div>
+
+Load one custom map by id.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronCustomMapsApi.list :id=electron-electroncustommapsapi-list
+
+<div class="smt-member-sig" data-sig="list(): Promise&lt;JsonValueV1[]&gt;">
+
+```ts
+list(): Promise<JsonValueV1[]>
+```
+
+</div>
+
+List custom map metadata entries (newest first).
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronCustomMapsApi.delete :id=electron-electroncustommapsapi-delete
+
+<div class="smt-member-sig" data-sig="delete(id: string): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+delete(id: string): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Delete one custom map file.
+
+</div>
+<div class="smt-member-card">
+
 #### electron.ElectronLocalModsApi :id=electron-electronlocalmodsapi
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/electron/local-mods.d.ts#L14" target="_blank" rel="noopener">local-mods.d.ts:14</a></p>
 
-| Method | Signature | Description |
-| --- | --- | --- |
-| getFolder() | <code>(): Promise&lt;string&gt;</code> | Return the absolute path to the OS local-mods folder. |
-| openFolder() | <code>(): Promise&lt;ElectronOperationResult&gt;</code> | Open the local-mods folder in the OS file manager. |
-| list() | <code>(): Promise&lt;ElectronLocalModsListResult&gt;</code> | List installed local mod summaries. Steam only — MS Store returns `{ ok: false, errorCode: 'unsupported_platform' }`. |
-| upload() | <code>(modId: string): Promise&lt;ElectronLocalModsUploadResult&gt;</code> | Upload one local mod folder to Steam Workshop. |
-
-<div class="smt-member-anchors">
-
-###### getFolder() <!-- {docsify-ignore} -->
-
-###### openFolder() <!-- {docsify-ignore} -->
-
-###### list() <!-- {docsify-ignore} -->
-
-###### upload() <!-- {docsify-ignore} -->
-
-</div>
 
 Local developer mod folder helpers exposed as `electron.localMods`.
 
@@ -33802,25 +34617,73 @@ Local developer mod folder helpers exposed as `electron.localMods`.
 
 <div class="smt-member-card">
 
+#### electron.ElectronLocalModsApi.getFolder :id=electron-electronlocalmodsapi-getfolder
+
+<div class="smt-member-sig" data-sig="getFolder(): Promise&lt;string&gt;">
+
+```ts
+getFolder(): Promise<string>
+```
+
+</div>
+
+Return the absolute path to the OS local-mods folder.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronLocalModsApi.openFolder :id=electron-electronlocalmodsapi-openfolder
+
+<div class="smt-member-sig" data-sig="openFolder(): Promise&lt;ElectronOperationResult&gt;">
+
+```ts
+openFolder(): Promise<ElectronOperationResult>
+```
+
+</div>
+
+Open the local-mods folder in the OS file manager.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronLocalModsApi.list :id=electron-electronlocalmodsapi-list
+
+<div class="smt-member-sig" data-sig="list(): Promise&lt;ElectronLocalModsListResult&gt;">
+
+```ts
+list(): Promise<ElectronLocalModsListResult>
+```
+
+</div>
+
+List installed local mod summaries. Steam only — MS Store returns `{ ok: false, errorCode: 'unsupported_platform' }`.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronLocalModsApi.upload :id=electron-electronlocalmodsapi-upload
+
+<div class="smt-member-sig" data-sig="upload(modId: string): Promise&lt;ElectronLocalModsUploadResult&gt;">
+
+```ts
+upload(modId: string): Promise<ElectronLocalModsUploadResult>
+```
+
+</div>
+
+Upload one local mod folder to Steam Workshop.
+
+</div>
+<div class="smt-member-card">
+
 #### electron.ElectronMacRightMouseApi :id=electron-electronmacrightmouseapi
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/electron/mac-right-mouse.d.ts#L8" target="_blank" rel="noopener">mac-right-mouse.d.ts:8</a></p>
 
-| Method | Signature | Description |
-| --- | --- | --- |
-| watch() | <code>(active: boolean, probeScript?: string): void</code> | Enable or disable global right-button probing on macOS. |
-| onPos() | <code>(callback: (x: number, y: number) =&gt; void): void</code> | Register a callback for synthetic right-button position updates. |
-| onUp() | <code>(callback: () =&gt; void): void</code> | Register a callback for synthetic right-button release. |
-
-<div class="smt-member-anchors">
-
-###### watch() <!-- {docsify-ignore} -->
-
-###### onPos() <!-- {docsify-ignore} -->
-
-###### onUp() <!-- {docsify-ignore} -->
-
-</div>
 
 macOS right-button emulation helpers exposed as `electron.macRightMouse`.
 
@@ -33828,24 +34691,77 @@ macOS right-button emulation helpers exposed as `electron.macRightMouse`.
 
 <div class="smt-member-card">
 
+#### electron.ElectronMacRightMouseApi.watch :id=electron-electronmacrightmouseapi-watch
+
+<div class="smt-member-sig" data-sig="watch(active: boolean, probeScript?: string): void">
+
+```ts
+watch(active: boolean, probeScript?: string): void
+```
+
+</div>
+
+Enable or disable global right-button probing on macOS.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronMacRightMouseApi.onPos :id=electron-electronmacrightmouseapi-onpos
+
+<div class="smt-member-sig" data-sig="onPos(callback: (x: number, y: number) =&gt; void): void">
+
+```ts
+onPos(callback: (x: number, y: number) => void): void
+```
+
+</div>
+
+Register a callback for synthetic right-button position updates.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronMacRightMouseApi.onUp :id=electron-electronmacrightmouseapi-onup
+
+<div class="smt-member-sig" data-sig="onUp(callback: () =&gt; void): void">
+
+```ts
+onUp(callback: () => void): void
+```
+
+</div>
+
+Register a callback for synthetic right-button release.
+
+</div>
+<div class="smt-member-card">
+
 #### electron.ElectronPlatformOverlayApi :id=electron-electronplatformoverlayapi
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/electron/platform.d.ts#L11" target="_blank" rel="noopener">platform.d.ts:11</a></p>
 
-| Method | Signature | Description |
-| --- | --- | --- |
-| openUrl() | <code>(url: string): Promise&lt;unknown&gt;</code> | Open an `https:` URL in the platform overlay browser when available. |
-
-<div class="smt-member-anchors">
-
-###### openUrl() <!-- {docsify-ignore} -->
-
-</div>
 
 Platform overlay browser helpers exposed as `electron.platform.overlay`.
 
 </div>
 
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformOverlayApi.openUrl :id=electron-electronplatformoverlayapi-openurl
+
+<div class="smt-member-sig" data-sig="openUrl(url: string): Promise&lt;unknown&gt;">
+
+```ts
+openUrl(url: string): Promise<unknown>
+```
+
+</div>
+
+Open an `https:` URL in the platform overlay browser when available.
+
+</div>
 <div class="smt-member-card">
 
 #### electron.ElectronPlatformApi :id=electron-electronplatformapi
@@ -33865,53 +34781,202 @@ Platform overlay browser helpers exposed as `electron.platform.overlay`.
 
 </div>
 
-| Method | Signature | Description |
-| --- | --- | --- |
-| isInitialized() | <code>(): Promise&lt;boolean&gt;</code> | Return true when the platform integration finished startup. |
-| getPlayerName() | <code>(): Promise&lt;string&gt;</code> | Return the signed-in player display name. |
-| getPlayerId() | <code>(): Promise&lt;string&gt;</code> | Return the stable platform player id string. |
-| getAppId() | <code>(): Promise&lt;number&gt;</code> | Return the platform app id number. |
-| unlockAchievement() | <code>(achievementId: string): Promise&lt;unknown&gt;</code> | Unlock one platform achievement. |
-| isAchievementUnlocked() | <code>(achievementId: string): Promise&lt;unknown&gt;</code> | Return whether an achievement is already unlocked. |
-| clearAchievement() | <code>(achievementId: string): Promise&lt;unknown&gt;</code> | Clear one platform achievement (debug / QA). |
-| cloudSave() | <code>(fileName: string, data: JsonValueV1): Promise&lt;unknown&gt;</code> | Write one named blob to platform cloud storage. |
-| cloudLoad() | <code>(fileName: string): Promise&lt;unknown&gt;</code> | Read one named blob from platform cloud storage. |
-| cloudFileExists() | <code>(fileName: string): Promise&lt;unknown&gt;</code> | Return whether a cloud file key exists. |
-| cloudDelete() | <code>(fileName: string): Promise&lt;unknown&gt;</code> | Delete one named cloud file. |
-| cloudSync() | <code>(): Promise&lt;unknown&gt;</code> | Sync local saves with platform cloud storage. |
-
-<div class="smt-member-anchors">
-
-###### isInitialized() <!-- {docsify-ignore} -->
-
-###### getPlayerName() <!-- {docsify-ignore} -->
-
-###### getPlayerId() <!-- {docsify-ignore} -->
-
-###### getAppId() <!-- {docsify-ignore} -->
-
-###### unlockAchievement() <!-- {docsify-ignore} -->
-
-###### isAchievementUnlocked() <!-- {docsify-ignore} -->
-
-###### clearAchievement() <!-- {docsify-ignore} -->
-
-###### cloudSave() <!-- {docsify-ignore} -->
-
-###### cloudLoad() <!-- {docsify-ignore} -->
-
-###### cloudFileExists() <!-- {docsify-ignore} -->
-
-###### cloudDelete() <!-- {docsify-ignore} -->
-
-###### cloudSync() <!-- {docsify-ignore} -->
-
-</div>
 
 Cross-store platform helpers exposed as `electron.platform`.
 
 </div>
 
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.isInitialized :id=electron-electronplatformapi-isinitialized
+
+<div class="smt-member-sig" data-sig="isInitialized(): Promise&lt;boolean&gt;">
+
+```ts
+isInitialized(): Promise<boolean>
+```
+
+</div>
+
+Return true when the platform integration finished startup.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.getPlayerName :id=electron-electronplatformapi-getplayername
+
+<div class="smt-member-sig" data-sig="getPlayerName(): Promise&lt;string&gt;">
+
+```ts
+getPlayerName(): Promise<string>
+```
+
+</div>
+
+Return the signed-in player display name.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.getPlayerId :id=electron-electronplatformapi-getplayerid
+
+<div class="smt-member-sig" data-sig="getPlayerId(): Promise&lt;string&gt;">
+
+```ts
+getPlayerId(): Promise<string>
+```
+
+</div>
+
+Return the stable platform player id string.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.getAppId :id=electron-electronplatformapi-getappid
+
+<div class="smt-member-sig" data-sig="getAppId(): Promise&lt;number&gt;">
+
+```ts
+getAppId(): Promise<number>
+```
+
+</div>
+
+Return the platform app id number.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.unlockAchievement :id=electron-electronplatformapi-unlockachievement
+
+<div class="smt-member-sig" data-sig="unlockAchievement(achievementId: string): Promise&lt;unknown&gt;">
+
+```ts
+unlockAchievement(achievementId: string): Promise<unknown>
+```
+
+</div>
+
+Unlock one platform achievement.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.isAchievementUnlocked :id=electron-electronplatformapi-isachievementunlocked
+
+<div class="smt-member-sig" data-sig="isAchievementUnlocked(achievementId: string): Promise&lt;unknown&gt;">
+
+```ts
+isAchievementUnlocked(achievementId: string): Promise<unknown>
+```
+
+</div>
+
+Return whether an achievement is already unlocked.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.clearAchievement :id=electron-electronplatformapi-clearachievement
+
+<div class="smt-member-sig" data-sig="clearAchievement(achievementId: string): Promise&lt;unknown&gt;">
+
+```ts
+clearAchievement(achievementId: string): Promise<unknown>
+```
+
+</div>
+
+Clear one platform achievement (debug / QA).
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.cloudSave :id=electron-electronplatformapi-cloudsave
+
+<div class="smt-member-sig" data-sig="cloudSave(fileName: string, data: JsonValueV1): Promise&lt;unknown&gt;">
+
+```ts
+cloudSave(fileName: string, data: JsonValueV1): Promise<unknown>
+```
+
+</div>
+
+Write one named blob to platform cloud storage.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.cloudLoad :id=electron-electronplatformapi-cloudload
+
+<div class="smt-member-sig" data-sig="cloudLoad(fileName: string): Promise&lt;unknown&gt;">
+
+```ts
+cloudLoad(fileName: string): Promise<unknown>
+```
+
+</div>
+
+Read one named blob from platform cloud storage.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.cloudFileExists :id=electron-electronplatformapi-cloudfileexists
+
+<div class="smt-member-sig" data-sig="cloudFileExists(fileName: string): Promise&lt;unknown&gt;">
+
+```ts
+cloudFileExists(fileName: string): Promise<unknown>
+```
+
+</div>
+
+Return whether a cloud file key exists.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.cloudDelete :id=electron-electronplatformapi-clouddelete
+
+<div class="smt-member-sig" data-sig="cloudDelete(fileName: string): Promise&lt;unknown&gt;">
+
+```ts
+cloudDelete(fileName: string): Promise<unknown>
+```
+
+</div>
+
+Delete one named cloud file.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronPlatformApi.cloudSync :id=electron-electronplatformapi-cloudsync
+
+<div class="smt-member-sig" data-sig="cloudSync(): Promise&lt;unknown&gt;">
+
+```ts
+cloudSync(): Promise<unknown>
+```
+
+</div>
+
+Sync local saves with platform cloud storage.
+
+</div>
 <div class="smt-member-card">
 
 #### electron.ElectronSuccessResult :id=electron-electronsuccessresult
@@ -34335,39 +35400,6 @@ Result from [ElectronBridge.platformShowReauthPrompt](?id=electron-platformshowr
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/electron/workshop.d.ts#L12" target="_blank" rel="noopener">workshop.d.ts:12</a></p>
 
-| Method | Signature | Description |
-| --- | --- | --- |
-| subscribe() | <code>(itemId: string &#124; number): Promise&lt;unknown&gt;</code> | Subscribe to a Workshop item. |
-| unsubscribe() | <code>(itemId: string &#124; number): Promise&lt;unknown&gt;</code> | Unsubscribe from a Workshop item. |
-| installInfo() | <code>(itemId: string &#124; number): Promise&lt;unknown&gt;</code> | Return install state for a subscribed Workshop item. |
-| downloadInfo() | <code>(itemId: string &#124; number): Promise&lt;unknown&gt;</code> | Return download progress for a Workshop item. |
-| getState() | <code>(itemId: string &#124; number): Promise&lt;unknown&gt;</code> | Return the Steam Workshop item state flags. |
-| getSubscribedItems() | <code>(): Promise&lt;unknown&gt;</code> | Return all subscribed Workshop item ids. |
-| getItem() | <code>(itemId: string &#124; number): Promise&lt;unknown&gt;</code> | Fetch Workshop item metadata. |
-| download() | <code>(itemId: string &#124; number, highPriority?: boolean): Promise&lt;unknown&gt;</code> | Queue or prioritize a Workshop item download. |
-| getSandkitMods() | <code>(): Promise&lt;unknown&gt;</code> | Discover Sandkit Workshop mods installed for the current session. |
-
-<div class="smt-member-anchors">
-
-###### subscribe() <!-- {docsify-ignore} -->
-
-###### unsubscribe() <!-- {docsify-ignore} -->
-
-###### installInfo() <!-- {docsify-ignore} -->
-
-###### downloadInfo() <!-- {docsify-ignore} -->
-
-###### getState() <!-- {docsify-ignore} -->
-
-###### getSubscribedItems() <!-- {docsify-ignore} -->
-
-###### getItem() <!-- {docsify-ignore} -->
-
-###### download() <!-- {docsify-ignore} -->
-
-###### getSandkitMods() <!-- {docsify-ignore} -->
-
-</div>
 
 Steam Workshop helpers exposed as `electron.platform.workshop`.
 
@@ -34377,6 +35409,149 @@ Steam only — calls fail gracefully on MS Store.
 
 ### Type Aliases <!-- {docsify-ignore} -->
 
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.subscribe :id=electron-electronworkshopapi-subscribe
+
+<div class="smt-member-sig" data-sig="subscribe(itemId: string | number): Promise&lt;unknown&gt;">
+
+```ts
+subscribe(itemId: string | number): Promise<unknown>
+```
+
+</div>
+
+Subscribe to a Workshop item.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.unsubscribe :id=electron-electronworkshopapi-unsubscribe
+
+<div class="smt-member-sig" data-sig="unsubscribe(itemId: string | number): Promise&lt;unknown&gt;">
+
+```ts
+unsubscribe(itemId: string | number): Promise<unknown>
+```
+
+</div>
+
+Unsubscribe from a Workshop item.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.installInfo :id=electron-electronworkshopapi-installinfo
+
+<div class="smt-member-sig" data-sig="installInfo(itemId: string | number): Promise&lt;unknown&gt;">
+
+```ts
+installInfo(itemId: string | number): Promise<unknown>
+```
+
+</div>
+
+Return install state for a subscribed Workshop item.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.downloadInfo :id=electron-electronworkshopapi-downloadinfo
+
+<div class="smt-member-sig" data-sig="downloadInfo(itemId: string | number): Promise&lt;unknown&gt;">
+
+```ts
+downloadInfo(itemId: string | number): Promise<unknown>
+```
+
+</div>
+
+Return download progress for a Workshop item.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.getState :id=electron-electronworkshopapi-getstate
+
+<div class="smt-member-sig" data-sig="getState(itemId: string | number): Promise&lt;unknown&gt;">
+
+```ts
+getState(itemId: string | number): Promise<unknown>
+```
+
+</div>
+
+Return the Steam Workshop item state flags.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.getSubscribedItems :id=electron-electronworkshopapi-getsubscribeditems
+
+<div class="smt-member-sig" data-sig="getSubscribedItems(): Promise&lt;unknown&gt;">
+
+```ts
+getSubscribedItems(): Promise<unknown>
+```
+
+</div>
+
+Return all subscribed Workshop item ids.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.getItem :id=electron-electronworkshopapi-getitem
+
+<div class="smt-member-sig" data-sig="getItem(itemId: string | number): Promise&lt;unknown&gt;">
+
+```ts
+getItem(itemId: string | number): Promise<unknown>
+```
+
+</div>
+
+Fetch Workshop item metadata.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.download :id=electron-electronworkshopapi-download
+
+<div class="smt-member-sig" data-sig="download(itemId: string | number, highPriority?: boolean): Promise&lt;unknown&gt;">
+
+```ts
+download(itemId: string | number, highPriority?: boolean): Promise<unknown>
+```
+
+</div>
+
+Queue or prioritize a Workshop item download.
+
+</div>
+
+<div class="smt-member-card">
+
+#### electron.ElectronWorkshopApi.getSandkitMods :id=electron-electronworkshopapi-getsandkitmods
+
+<div class="smt-member-sig" data-sig="getSandkitMods(): Promise&lt;unknown&gt;">
+
+```ts
+getSandkitMods(): Promise<unknown>
+```
+
+</div>
+
+Discover Sandkit Workshop mods installed for the current session.
+
+</div>
 <div class="smt-member-card">
 
 #### electron.ElectronPlatform :id=electron-electronplatform
@@ -36949,8 +38124,9 @@ import type { ModInfo, BundlePatch } from "@sandustry-modding/types/configs";
 
 Edit `.d.ts` files under `src/`. Regenerate the API reference and JSON Schema after JSDoc or config-type changes.
 
-`npm run generate` merges `scripts/api-gen/overrides.json`, the official [Sandkit API](https://sandustry.com/sandkit.html) HTML, and `src/sandkit/api/` declarations.
-It writes `scripts/api-gen/generated/api-catalog.json`, refreshes `scripts/api-gen/generated/namespace-summaries.json`, and reports gaps in `scripts/api-gen/generated/api-gaps.md`.
+`npm run generate` merges `scripts/api-gen/overrides.json`, the official [Sandkit API](https://sandustry.com/sandkit.html) HTML, and `src/sandkit/api/` plus `src/worker/api/` declarations.
+It writes `scripts/api-gen/generated/api-catalog.json` and refreshes `scripts/api-gen/generated/namespace-summaries.json`.
+It fails when any official or expected member is missing from the declarations.
 Edit namespace descriptions and alias mappings in `scripts/api-gen/overrides.json`.
 
 `npm run scrape` walks the live `sandkit` object in a running Sandustry renderer (CDP `:9222`) and writes `scripts/api-gen/generated/runtime-api.json`.
@@ -36965,7 +38141,7 @@ Regenerate the API reference and JSON Schema from these declarations:
 ```bash
 npm run generate                  # catalog + API markdown + schemas on the docs site
 npm run scrape                    # live sandkit inventory from running Sandustry (CDP :9222)
-npm run generate -- --catalog     # overrides + official HTML + declarations → catalog + gaps
+npm run generate -- --catalog     # overrides + official HTML + declarations → catalog
 npm run generate -- --schemas     # JSON Schema only
 npm run docs:archive-sandkit      # Fetch official sandkit.html into official-api/ on the docs site
 ```

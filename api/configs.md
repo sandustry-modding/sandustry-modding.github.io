@@ -12,7 +12,7 @@ https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json
 
 ## See
 
-[JSON Schema docs](types/schemas.md)
+[JSON Schema docs](https://sandustry-modding.github.io/#/types/schemas)
 
 ## Interfaces <!-- {docsify-ignore} -->
 

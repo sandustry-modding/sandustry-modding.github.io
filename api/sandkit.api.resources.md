@@ -32,9 +32,37 @@ Collect fluxite at the given cell.
 
 <div class="smt-member-card">
 
+### sandkit.api.resources.refresh :id=refresh
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/resources.d.ts#L21" target="_blank" rel="noopener">resources.d.ts:21</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.resources.refresh(resourceId: string): void">
+
+```ts
+refresh(resourceId: string): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| resourceId | `string` | Resource display id (not limited to energy). |
+
+<div class="smt-member-anchors">
+
+##### resourceId <!-- {docsify-ignore} -->
+
+</div>
+
+Refresh a resource HUD display by id.
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.resources.updateEnergy :id=updateenergy
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/resources.d.ts#L27" target="_blank" rel="noopener">resources.d.ts:27</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/resources.d.ts#L32" target="_blank" rel="noopener">resources.d.ts:32</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.resources.updateEnergy(amount: number, options?: object): void">
 

@@ -9,18 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Standalone `/tools/` pages, including a `.save` metadata editor at `/tools/map/`.
-- Docs **OKF** tab opens a live graph viewer for the Open Knowledge Format bundle.
+- Missing Sandkit declarations: `cooldown.start`, `resources.refresh`, `player.inventory.hasById`, `items.getRegisteredIds`, `items.spriteMounts`, `signals.registerSenderType`, `signals.setOutputAtCell`, `signals.interactables`, `input.getMousePositionAtCell`, `input.getMousePositionAtWorld`
 
 ### Changed
 
-- The `/tools/map/` save editor is metadata-first.
-  Terrain paint is optional and collapsed.
-- The OKF graph viewer starts on domain indexes, groups nodes by domain, and keeps cross-domain links out of the layout so the map is readable.
-- The OKF viewer fills the viewport on small screens.
-  The detail panel resizes from the split edge.
+- API catalog generation fails when official or expected members are undeclared.
+- Catalog scans `src/worker/api/` as well as `src/sandkit/api/`.
+- Official HTML path qualification prefixes nested dotted signatures and skips return-handle docs.
+- Removed `scripts/api-gen/generated/api-gaps.md` (gaps stay in `api-catalog.json` and must be zero).
+
+## 0.7.0 - 2026-09-16
+
+https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.7.0
+
+### Changed
+
 - Generate writes API pages, schemas, and search assets into the sibling docs site clone (`../docs`).
 - This package no longer keeps a `docs/` tree.
+- `verify-package` runs the `tsc` CLI so TypeScript 7 still typechecks the packed tarball.
 
 ### Added
 

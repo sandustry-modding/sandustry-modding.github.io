@@ -7,13 +7,19 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "Changelog.Added",
-    "body": "- Standalone /tools/ pages, including a .save metadata editor at /tools/map/. - Docs OKF tab opens a live graph viewer for the Open Knowledge Format bundle.",
+    "body": "- Missing Sandkit declarations: cooldown.start, resources.refresh, player.inventory.hasById, items.getRegisteredIds, items.spriteMounts, signals.registerSenderType, signals.setOutputAtCell, signals.interactables, input.getMousePositionAtCell, input.getMousePositionAtWorld",
     "path": "/Changelog",
     "id": ""
   },
   {
     "title": "Changelog.Changed",
-    "body": "- The /tools/map/ save editor is metadata-first. Terrain paint is optional and collapsed. - The OKF graph viewer starts on domain indexes, groups nodes by domain, and keeps cross-domain links out of the layout so the map is readable. - The OKF viewer fills the viewport on small screens. The detail panel resizes from the split edge. - Generate writes API pages, schemas, and search assets into the sibling docs site clone (../docs). - This package no longer keeps a docs/ tree.",
+    "body": "- API catalog generation fails when official or expected members are undeclared. - Catalog scans src/worker/api/ as well as src/sandkit/api/. - Official HTML path qualification prefixes nested dotted signatures and skips return-handle docs. - Removed scripts/api-gen/generated/api-gaps.md (gaps stay in api-catalog.json and must be zero). https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.7.0",
+    "path": "/Changelog",
+    "id": ""
+  },
+  {
+    "title": "Changelog.Changed",
+    "body": "- Generate writes API pages, schemas, and search assets into the sibling docs site clone (../docs). - This package no longer keeps a docs/ tree. - verify-package runs the tsc CLI so TypeScript 7 still typechecks the packed tarball.",
     "path": "/Changelog",
     "id": ""
   },
@@ -277,39 +283,405 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "ElectronLocalModsApi",
-    "body": "Property Type Description --- --- --- localMods ElectronLocalModsApi Local developer mod folder helpers (electron.localMods). macRightMouse ElectronMacRightMouseApi macOS right-button emulation helpers (electron.macRightMouse). platform ElectronPlatformApi Cross-store platform helpers (electron.platform). customMaps ElectronCustomMapsApi Custom map editor persistence helpers (electron.customMaps). localMods macRightMouse platform customMaps Method Signature Description --- --- --- getPlatformSync() (): ElectronPlatform Return the active distribution channel. getModdingEnabledSync() (): boolean Return whether local modding is enabled for this build/session. getIsSteamDeckSync() (): boolean Return true on Steam Deck / gamescope hosts. getPreferredSystemLanguagesSync() (): string[] Return BCP-47 language tags preferred by the OS. onAppSuspend() (callback: ElectronIpcListener): void Register a callback for app suspend (sleep / Xbox quick suspend). onAppResume() (callback: ElectronIpcListener): void Register a callback for app resume. diagnostics() (): Promise&lt;JsonValueV1&gt; Return platform diagnostics JSON. checkLicense() (): Promise&lt;ElectronLicenseCheckResult&gt; Check the MS Store license. Always returns { valid: true } on Steam when platform checks are unavailable. writeGameEvent() (eventName: string, dimensions?: Record&lt;string, string&gt;, measurements?: Record&lt;string, number&gt;): Promise&lt;boolean&gt; Send one telemetry event to the platform SDK when available. platformPrimeAchievements() (ids: string[]): Promise&lt;ElectronPrimeAchievementsResult&gt; Prime the MS Store achievement cache after sign-in. No-op success on Steam. platformShowReauthPrompt() (reason: string): Promise&lt;ElectronReauthPromptResult&gt; Show the native MS Store re-auth dialog. Resolves immediately with { dismissed: true } on Steam. appQuit() (): Promise&lt;ElectronSuccessResult&gt; Quit the application. Works in fullscreen where window.close() is unreliable. openExternalBrowser() (url: string): Promise&lt;ElectronOpenUrlResult&gt; Open an external https: URL in the system browser. onXboxUserSignedOut() (callback: ElectronIpcListener): void Register a callback for Xbox user sign-out. MS Store only — never fires on Steam. onXboxLicenseLost() (callback: ElectronIpcListener): void Register a callback for Game Pass / Store license loss. MS Store only — never fires on Steam. onXboxUserSignedIn() (callback: ElectronIpcListener): void Register a callback for Xbox user sign-in. MS Store only — never fires on Steam. save() (id: string, name: string, data: JsonValueV1): Promise&lt;ElectronOperationResult&gt; Write one compressed save file (.save). saveSerialized() (id: string, name: string, dataJson: string, metadata?: JsonValueV1): Promise&lt;ElectronOperationResult&gt; Write one save from pre-serialized JSON and metadata. load() (id: string): Promise&lt;ElectronLoadResult&gt; Load one save slot by id. deleteSave() (id: string): Promise&lt;ElectronSuccessResult & 124; ElectronFailureResult&gt; Delete one save slot and its backup file. loadRaw() (name: string): Promise&lt;ElectronLoadResult & 124; null&gt; Load a raw save file by filename (including extension). exportSave() (id: string): Promise&lt;ElectronExportSaveResult&gt; Export one save slot as raw bytes for backup/sharing. importSave() (bytes: ArrayBuffer & 124; Uint8Array&lt;ArrayBufferLike&gt;): Promise&lt;ElectronImportSaveResult&gt; Import one save from raw exported bytes. getSaveFiles() (): Promise&lt;ElectronSaveFileMetadata[]&gt; List save slot metadata parsed from each .save header line. getSaveFolder() (): Promise&lt;string&gt; Return the absolute path to the active saves folder. getLastPlayedGameSync() (): string & 124; null Return the last-played save id JSON string. saveLastPlayedGame() (game: ElectronLastPlayedGame): Promise&lt;ElectronOperationResult&gt; Persist the last-played save id. clearLastPlayedGame() (): Promise&lt;ElectronOperationResult&gt; Clear the persisted last-played save id. saveExistsSync() (id: string): boolean Return whether a save file exists for the given id. getSettingsSync() (): string & 124; null Return the settings JSON string from disk. saveSettings() (settings: JsonValueV1): Promise&lt;ElectronOperationResult&gt; Persist renderer settings JSON to disk. setFullscreen() (shouldBeFullscreen: boolean): Promise&lt;ElectronOperationResult&gt; Enter or leave fullscreen mode. toggleFullscreen() (): Promise&lt;ElectronOperationResult&gt; Toggle fullscreen mode. openDevTools() (): void Open Chromium DevTools for the game window. IPC: open-devtools (send). isFilePatchingActiveSync() (): boolean Return true when the Steam patch protocol interceptor is active. log() (level: ElectronLogLevel, scope: string, message: string): void Append one line to the host log file (logs/main.log). Fire-and-forget — never awaits IPC completion. getSystemInfo() (): ElectronSystemInfo Return local process/runtime versions. Useful for bug reports and environment probes. getPlatformSync() getModdingEnabledSync() getIsSteamDeckSync() getPreferredSystemLanguagesSync() onAppSuspend() onAppResume() diagnostics() checkLicense() writeGameEvent() platformPrimeAchievements() platformShowReauthPrompt() appQuit() openExternalBrowser() onXboxUserSignedOut() onXboxLicenseLost() onXboxUserSignedIn() save() saveSerialized() load() deleteSave() loadRaw() exportSave() importSave() getSaveFiles() getSaveFolder() getLastPlayedGameSync() saveLastPlayedGame() clearLastPlayedGame() saveExistsSync() getSettingsSync() saveSettings() setFullscreen() toggleFullscreen() openDevTools() isFilePatchingActiveSync() log() getSystemInfo()",
+    "body": "Property Type Description --- --- --- localMods ElectronLocalModsApi Local developer mod folder helpers (electron.localMods). macRightMouse ElectronMacRightMouseApi macOS right-button emulation helpers (electron.macRightMouse). platform ElectronPlatformApi Cross-store platform helpers (electron.platform). customMaps ElectronCustomMapsApi Custom map editor persistence helpers (electron.customMaps). localMods macRightMouse platform customMaps",
     "path": "/api/electron",
     "id": "electronbridge"
   },
   {
-    "title": "(id: string, name: string, data: JsonValueV1): Promise&lt;ElectronOperationResult&gt;",
-    "body": "Method Signature Description --- --- --- save() (id: string, name: string, data: JsonValueV1): Promise&lt;ElectronOperationResult&gt; Write one custom map file (.custommap). load() (id: string): Promise&lt;JsonValueV1&gt; Load one custom map by id. list() (): Promise&lt;JsonValueV1[]&gt; List custom map metadata entries (newest first). delete() (id: string): Promise&lt;ElectronOperationResult&gt; Delete one custom map file. save() load() list() delete() Custom map editor persistence helpers exposed as electron.customMaps.",
+    "title": "getPlatformSync()",
+    "body": "Return the active distribution channel.",
+    "path": "/api/electron",
+    "id": "electronbridge-getplatformsync"
+  },
+  {
+    "title": "getModdingEnabledSync()",
+    "body": "Return whether local modding is enabled for this build/session.",
+    "path": "/api/electron",
+    "id": "electronbridge-getmoddingenabledsync"
+  },
+  {
+    "title": "getIsSteamDeckSync()",
+    "body": "Return true on Steam Deck / gamescope hosts.",
+    "path": "/api/electron",
+    "id": "electronbridge-getissteamdecksync"
+  },
+  {
+    "title": "getPreferredSystemLanguagesSync()",
+    "body": "Return BCP-47 language tags preferred by the OS.",
+    "path": "/api/electron",
+    "id": "electronbridge-getpreferredsystemlanguagessync"
+  },
+  {
+    "title": "onAppSuspend()",
+    "body": "Register a callback for app suspend (sleep / Xbox quick suspend).",
+    "path": "/api/electron",
+    "id": "electronbridge-onappsuspend"
+  },
+  {
+    "title": "onAppResume()",
+    "body": "Register a callback for app resume.",
+    "path": "/api/electron",
+    "id": "electronbridge-onappresume"
+  },
+  {
+    "title": "diagnostics()",
+    "body": "Return platform diagnostics JSON.",
+    "path": "/api/electron",
+    "id": "electronbridge-diagnostics"
+  },
+  {
+    "title": "checkLicense()",
+    "body": "Check the MS Store license. Always returns { valid: true } on Steam when platform checks are unavailable.",
+    "path": "/api/electron",
+    "id": "electronbridge-checklicense"
+  },
+  {
+    "title": "writeGameEvent()",
+    "body": "Send one telemetry event to the platform SDK when available.",
+    "path": "/api/electron",
+    "id": "electronbridge-writegameevent"
+  },
+  {
+    "title": "platformPrimeAchievements()",
+    "body": "Prime the MS Store achievement cache after sign-in. No-op success on Steam.",
+    "path": "/api/electron",
+    "id": "electronbridge-platformprimeachievements"
+  },
+  {
+    "title": "platformShowReauthPrompt()",
+    "body": "Show the native MS Store re-auth dialog. Resolves immediately with { dismissed: true } on Steam.",
+    "path": "/api/electron",
+    "id": "electronbridge-platformshowreauthprompt"
+  },
+  {
+    "title": "appQuit()",
+    "body": "Quit the application. Works in fullscreen where window.close() is unreliable.",
+    "path": "/api/electron",
+    "id": "electronbridge-appquit"
+  },
+  {
+    "title": "openExternalBrowser()",
+    "body": "Open an external https: URL in the system browser.",
+    "path": "/api/electron",
+    "id": "electronbridge-openexternalbrowser"
+  },
+  {
+    "title": "onXboxUserSignedOut()",
+    "body": "Register a callback for Xbox user sign-out. MS Store only — never fires on Steam.",
+    "path": "/api/electron",
+    "id": "electronbridge-onxboxusersignedout"
+  },
+  {
+    "title": "onXboxLicenseLost()",
+    "body": "Register a callback for Game Pass / Store license loss. MS Store only — never fires on Steam.",
+    "path": "/api/electron",
+    "id": "electronbridge-onxboxlicenselost"
+  },
+  {
+    "title": "onXboxUserSignedIn()",
+    "body": "Register a callback for Xbox user sign-in. MS Store only — never fires on Steam.",
+    "path": "/api/electron",
+    "id": "electronbridge-onxboxusersignedin"
+  },
+  {
+    "title": "save()",
+    "body": "Write one compressed save file (.save).",
+    "path": "/api/electron",
+    "id": "electronbridge-save"
+  },
+  {
+    "title": "saveSerialized()",
+    "body": "Write one save from pre-serialized JSON and metadata.",
+    "path": "/api/electron",
+    "id": "electronbridge-saveserialized"
+  },
+  {
+    "title": "load()",
+    "body": "Load one save slot by id.",
+    "path": "/api/electron",
+    "id": "electronbridge-load"
+  },
+  {
+    "title": "deleteSave()",
+    "body": "Delete one save slot and its backup file.",
+    "path": "/api/electron",
+    "id": "electronbridge-deletesave"
+  },
+  {
+    "title": "loadRaw()",
+    "body": "Load a raw save file by filename (including extension).",
+    "path": "/api/electron",
+    "id": "electronbridge-loadraw"
+  },
+  {
+    "title": "exportSave()",
+    "body": "Export one save slot as raw bytes for backup/sharing.",
+    "path": "/api/electron",
+    "id": "electronbridge-exportsave"
+  },
+  {
+    "title": "importSave()",
+    "body": "Import one save from raw exported bytes.",
+    "path": "/api/electron",
+    "id": "electronbridge-importsave"
+  },
+  {
+    "title": "getSaveFiles()",
+    "body": "List save slot metadata parsed from each .save header line.",
+    "path": "/api/electron",
+    "id": "electronbridge-getsavefiles"
+  },
+  {
+    "title": "getSaveFolder()",
+    "body": "Return the absolute path to the active saves folder.",
+    "path": "/api/electron",
+    "id": "electronbridge-getsavefolder"
+  },
+  {
+    "title": "getLastPlayedGameSync()",
+    "body": "Return the last-played save id JSON string.",
+    "path": "/api/electron",
+    "id": "electronbridge-getlastplayedgamesync"
+  },
+  {
+    "title": "saveLastPlayedGame()",
+    "body": "Persist the last-played save id.",
+    "path": "/api/electron",
+    "id": "electronbridge-savelastplayedgame"
+  },
+  {
+    "title": "clearLastPlayedGame()",
+    "body": "Clear the persisted last-played save id.",
+    "path": "/api/electron",
+    "id": "electronbridge-clearlastplayedgame"
+  },
+  {
+    "title": "saveExistsSync()",
+    "body": "Return whether a save file exists for the given id.",
+    "path": "/api/electron",
+    "id": "electronbridge-saveexistssync"
+  },
+  {
+    "title": "getSettingsSync()",
+    "body": "Return the settings JSON string from disk.",
+    "path": "/api/electron",
+    "id": "electronbridge-getsettingssync"
+  },
+  {
+    "title": "saveSettings()",
+    "body": "Persist renderer settings JSON to disk.",
+    "path": "/api/electron",
+    "id": "electronbridge-savesettings"
+  },
+  {
+    "title": "setFullscreen()",
+    "body": "Enter or leave fullscreen mode.",
+    "path": "/api/electron",
+    "id": "electronbridge-setfullscreen"
+  },
+  {
+    "title": "toggleFullscreen()",
+    "body": "Toggle fullscreen mode.",
+    "path": "/api/electron",
+    "id": "electronbridge-togglefullscreen"
+  },
+  {
+    "title": "openDevTools()",
+    "body": "Open Chromium DevTools for the game window. IPC: open-devtools (send).",
+    "path": "/api/electron",
+    "id": "electronbridge-opendevtools"
+  },
+  {
+    "title": "isFilePatchingActiveSync()",
+    "body": "Return true when the Steam patch protocol interceptor is active.",
+    "path": "/api/electron",
+    "id": "electronbridge-isfilepatchingactivesync"
+  },
+  {
+    "title": "log()",
+    "body": "Append one line to the host log file (logs/main.log). Fire-and-forget — never awaits IPC completion.",
+    "path": "/api/electron",
+    "id": "electronbridge-log"
+  },
+  {
+    "title": "getSystemInfo()",
+    "body": "Return local process/runtime versions. Useful for bug reports and environment probes.",
+    "path": "/api/electron",
+    "id": "electronbridge-getsysteminfo"
+  },
+  {
+    "title": "electron.ElectronCustomMapsApi",
+    "body": "Custom map editor persistence helpers exposed as electron.customMaps.",
     "path": "/api/electron",
     "id": "electroncustommapsapi"
   },
   {
-    "title": "(): Promise&lt;string&gt;",
-    "body": "Method Signature Description --- --- --- getFolder() (): Promise&lt;string&gt; Return the absolute path to the OS local-mods folder. openFolder() (): Promise&lt;ElectronOperationResult&gt; Open the local-mods folder in the OS file manager. list() (): Promise&lt;ElectronLocalModsListResult&gt; List installed local mod summaries. Steam only — MS Store returns { ok: false, errorCode: 'unsupported platform' }. upload() (modId: string): Promise&lt;ElectronLocalModsUploadResult&gt; Upload one local mod folder to Steam Workshop. getFolder() openFolder() list() upload() Local developer mod folder helpers exposed as electron.localMods.",
+    "title": "save()",
+    "body": "Write one custom map file (.custommap).",
+    "path": "/api/electron",
+    "id": "electroncustommapsapi-save"
+  },
+  {
+    "title": "load()",
+    "body": "Load one custom map by id.",
+    "path": "/api/electron",
+    "id": "electroncustommapsapi-load"
+  },
+  {
+    "title": "list()",
+    "body": "List custom map metadata entries (newest first).",
+    "path": "/api/electron",
+    "id": "electroncustommapsapi-list"
+  },
+  {
+    "title": "delete()",
+    "body": "Delete one custom map file.",
+    "path": "/api/electron",
+    "id": "electroncustommapsapi-delete"
+  },
+  {
+    "title": "electron.ElectronLocalModsApi",
+    "body": "Local developer mod folder helpers exposed as electron.localMods.",
     "path": "/api/electron",
     "id": "electronlocalmodsapi"
   },
   {
-    "title": "(active: boolean, probeScript?: string): void",
-    "body": "Method Signature Description --- --- --- watch() (active: boolean, probeScript?: string): void Enable or disable global right-button probing on macOS. onPos() (callback: (x: number, y: number) =&gt; void): void Register a callback for synthetic right-button position updates. onUp() (callback: () =&gt; void): void Register a callback for synthetic right-button release. watch() onPos() onUp() macOS right-button emulation helpers exposed as electron.macRightMouse.",
+    "title": "getFolder()",
+    "body": "Return the absolute path to the OS local-mods folder.",
+    "path": "/api/electron",
+    "id": "electronlocalmodsapi-getfolder"
+  },
+  {
+    "title": "openFolder()",
+    "body": "Open the local-mods folder in the OS file manager.",
+    "path": "/api/electron",
+    "id": "electronlocalmodsapi-openfolder"
+  },
+  {
+    "title": "list()",
+    "body": "List installed local mod summaries. Steam only — MS Store returns { ok: false, errorCode: 'unsupported platform' }.",
+    "path": "/api/electron",
+    "id": "electronlocalmodsapi-list"
+  },
+  {
+    "title": "upload()",
+    "body": "Upload one local mod folder to Steam Workshop.",
+    "path": "/api/electron",
+    "id": "electronlocalmodsapi-upload"
+  },
+  {
+    "title": "electron.ElectronMacRightMouseApi",
+    "body": "macOS right-button emulation helpers exposed as electron.macRightMouse.",
     "path": "/api/electron",
     "id": "electronmacrightmouseapi"
   },
   {
-    "title": "(url: string): Promise&lt;unknown&gt;",
-    "body": "Method Signature Description --- --- --- openUrl() (url: string): Promise&lt;unknown&gt; Open an https: URL in the platform overlay browser when available. openUrl() Platform overlay browser helpers exposed as electron.platform.overlay.",
+    "title": "watch()",
+    "body": "Enable or disable global right-button probing on macOS.",
+    "path": "/api/electron",
+    "id": "electronmacrightmouseapi-watch"
+  },
+  {
+    "title": "onPos()",
+    "body": "Register a callback for synthetic right-button position updates.",
+    "path": "/api/electron",
+    "id": "electronmacrightmouseapi-onpos"
+  },
+  {
+    "title": "onUp()",
+    "body": "Register a callback for synthetic right-button release.",
+    "path": "/api/electron",
+    "id": "electronmacrightmouseapi-onup"
+  },
+  {
+    "title": "electron.ElectronPlatformOverlayApi",
+    "body": "Platform overlay browser helpers exposed as electron.platform.overlay.",
     "path": "/api/electron",
     "id": "electronplatformoverlayapi"
   },
   {
+    "title": "openUrl()",
+    "body": "Open an https: URL in the platform overlay browser when available.",
+    "path": "/api/electron",
+    "id": "electronplatformoverlayapi-openurl"
+  },
+  {
     "title": "ElectronWorkshopApi",
-    "body": "Property Type Description --- --- --- workshop ElectronWorkshopApi Steam Workshop helpers (Steam only; MS Store calls fail gracefully). overlay ElectronPlatformOverlayApi Platform overlay browser helpers. workshop overlay Method Signature Description --- --- --- isInitialized() (): Promise&lt;boolean&gt; Return true when the platform integration finished startup. getPlayerName() (): Promise&lt;string&gt; Return the signed-in player display name. getPlayerId() (): Promise&lt;string&gt; Return the stable platform player id string. getAppId() (): Promise&lt;number&gt; Return the platform app id number. unlockAchievement() (achievementId: string): Promise&lt;unknown&gt; Unlock one platform achievement. isAchievementUnlocked() (achievementId: string): Promise&lt;unknown&gt; Return whether an achievement is already unlocked. clearAchievement() (achievementId: string): Promise&lt;unknown&gt; Clear one platform achievement (debug / QA). cloudSave() (fileName: string, data: JsonValueV1): Promise&lt;unknown&gt; Write one named blob to platform cloud storage. cloudLoad() (fileName: string): Promise&lt;unknown&gt; Read one named blob from platform cloud storage. cloudFileExists() (fileName: string): Promise&lt;unknown&gt; Return whether a cloud file key exists. cloudDelete() (fileName: string): Promise&lt;unknown&gt; Delete one named cloud file. cloudSync() (): Promise&lt;unknown&gt; Sync local saves with platform cloud storage. isInitialized() getPlayerName() getPlayerId() getAppId() unlockAchievement() isAchievementUnlocked() clearAchievement() cloudSave() cloudLoad() cloudFileExists() cloudDelete() cloudSync() Cross-store platform helpers exposed as electron.platform.",
+    "body": "Property Type Description --- --- --- workshop ElectronWorkshopApi Steam Workshop helpers (Steam only; MS Store calls fail gracefully). overlay ElectronPlatformOverlayApi Platform overlay browser helpers. workshop overlay Cross-store platform helpers exposed as electron.platform.",
     "path": "/api/electron",
     "id": "electronplatformapi"
+  },
+  {
+    "title": "isInitialized()",
+    "body": "Return true when the platform integration finished startup.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-isinitialized"
+  },
+  {
+    "title": "getPlayerName()",
+    "body": "Return the signed-in player display name.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-getplayername"
+  },
+  {
+    "title": "getPlayerId()",
+    "body": "Return the stable platform player id string.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-getplayerid"
+  },
+  {
+    "title": "getAppId()",
+    "body": "Return the platform app id number.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-getappid"
+  },
+  {
+    "title": "unlockAchievement()",
+    "body": "Unlock one platform achievement.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-unlockachievement"
+  },
+  {
+    "title": "isAchievementUnlocked()",
+    "body": "Return whether an achievement is already unlocked.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-isachievementunlocked"
+  },
+  {
+    "title": "clearAchievement()",
+    "body": "Clear one platform achievement (debug / QA).",
+    "path": "/api/electron",
+    "id": "electronplatformapi-clearachievement"
+  },
+  {
+    "title": "cloudSave()",
+    "body": "Write one named blob to platform cloud storage.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-cloudsave"
+  },
+  {
+    "title": "cloudLoad()",
+    "body": "Read one named blob from platform cloud storage.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-cloudload"
+  },
+  {
+    "title": "cloudFileExists()",
+    "body": "Return whether a cloud file key exists.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-cloudfileexists"
+  },
+  {
+    "title": "cloudDelete()",
+    "body": "Delete one named cloud file.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-clouddelete"
+  },
+  {
+    "title": "cloudSync()",
+    "body": "Sync local saves with platform cloud storage.",
+    "path": "/api/electron",
+    "id": "electronplatformapi-cloudsync"
   },
   {
     "title": "true",
@@ -408,10 +780,64 @@ window.SMT_SEARCH_INDEX = [
     "id": "electronreauthpromptresult"
   },
   {
-    "title": "(itemId: string &#124; number): Promise&lt;unknown&gt;",
-    "body": "Method Signature Description --- --- --- subscribe() (itemId: string & 124; number): Promise&lt;unknown&gt; Subscribe to a Workshop item. unsubscribe() (itemId: string & 124; number): Promise&lt;unknown&gt; Unsubscribe from a Workshop item. installInfo() (itemId: string & 124; number): Promise&lt;unknown&gt; Return install state for a subscribed Workshop item. downloadInfo() (itemId: string & 124; number): Promise&lt;unknown&gt; Return download progress for a Workshop item. getState() (itemId: string & 124; number): Promise&lt;unknown&gt; Return the Steam Workshop item state flags. getSubscribedItems() (): Promise&lt;unknown&gt; Return all subscribed Workshop item ids. getItem() (itemId: string & 124; number): Promise&lt;unknown&gt; Fetch Workshop item metadata. download() (itemId: string & 124; number, highPriority?: boolean): Promise&lt;unknown&gt; Queue or prioritize a Workshop item download. getSandkitMods() (): Promise&lt;unknown&gt; Discover Sandkit Workshop mods installed for the current session. subscribe() unsubscribe() installInfo() downloadInfo() getState() getSubscribedItems() getItem() download() getSandkitMods() Steam Workshop helpers exposed as electron.platform.workshop. Steam only — calls fail gracefully on MS Store.",
+    "title": "electron.ElectronWorkshopApi",
+    "body": "Steam Workshop helpers exposed as electron.platform.workshop. Steam only — calls fail gracefully on MS Store.",
     "path": "/api/electron",
     "id": "electronworkshopapi"
+  },
+  {
+    "title": "subscribe()",
+    "body": "Subscribe to a Workshop item.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-subscribe"
+  },
+  {
+    "title": "unsubscribe()",
+    "body": "Unsubscribe from a Workshop item.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-unsubscribe"
+  },
+  {
+    "title": "installInfo()",
+    "body": "Return install state for a subscribed Workshop item.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-installinfo"
+  },
+  {
+    "title": "downloadInfo()",
+    "body": "Return download progress for a Workshop item.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-downloadinfo"
+  },
+  {
+    "title": "getState()",
+    "body": "Return the Steam Workshop item state flags.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-getstate"
+  },
+  {
+    "title": "getSubscribedItems()",
+    "body": "Return all subscribed Workshop item ids.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-getsubscribeditems"
+  },
+  {
+    "title": "getItem()",
+    "body": "Fetch Workshop item metadata.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-getitem"
+  },
+  {
+    "title": "download()",
+    "body": "Queue or prioritize a Workshop item download.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-download"
+  },
+  {
+    "title": "getSandkitMods()",
+    "body": "Discover Sandkit Workshop mods installed for the current session.",
+    "path": "/api/electron",
+    "id": "electronworkshopapi-getsandkitmods"
   },
   {
     "title": "electron.ElectronPlatform",
@@ -859,19 +1285,26 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "number",
-    "body": "Property Type Description --- --- --- last number Timestamp when the cooldown was last triggered (game time). time number Cooldown duration in milliseconds. last time Cooldown state object passed to check and isReady.",
+    "body": "Property Type Description --- --- --- last number Timestamp when the cooldown was last triggered (game time). time number Cooldown duration in milliseconds. last time Cooldown state object passed to start and isReady.",
     "path": "/api/sandkit.api.cooldown",
     "id": "cooldown"
   },
   {
-    "title": "sandkit.api.cooldown.check()",
-    "body": "Argument Type Description --- --- --- cooldown Cooldown Cooldown state object to check and update. overrideTime? number Optional timestamp (ms) instead of current game time. cooldown overrideTime? Starts the cooldown when ready and returns true; otherwise returns false.",
+    "title": "sandkit.api.cooldown.start()",
+    "body": "Argument Type Description --- --- --- cooldown Cooldown Cooldown state object to check and update. overrideTime? number Optional timestamp (ms) instead of current game time. cooldown overrideTime? Start the cooldown when ready and return true; otherwise return false.",
     "path": "/api/sandkit.api.cooldown",
-    "id": "check"
+    "id": "start"
+  },
+  {
+    "title": "sandkit.api.cooldown.check",
+    "body": "Deprecated Use start instead. Argument Type Description --- --- --- cooldown Cooldown Cooldown state object to check and update. overrideTime? number Optional timestamp (ms) instead of current game time. cooldown overrideTime?",
+    "path": "/api/sandkit.api.cooldown",
+    "id": "check",
+    "deprecated": true
   },
   {
     "title": "sandkit.api.cooldown.isReady()",
-    "body": "Argument Type Description --- --- --- cooldown Cooldown Cooldown state object to check. overrideTime? number Optional timestamp (ms) instead of current game time. cooldown overrideTime? Returns true when the cooldown has elapsed.",
+    "body": "Argument Type Description --- --- --- cooldown Cooldown Cooldown state object to check. overrideTime? number Optional timestamp (ms) instead of current game time. cooldown overrideTime? Return true when the cooldown has elapsed.",
     "path": "/api/sandkit.api.cooldown",
     "id": "isready"
   },
@@ -2345,10 +2778,23 @@ window.SMT_SEARCH_INDEX = [
     "id": "registerbinding"
   },
   {
-    "title": "sandkit.api.input.getMouseCellPosition()",
+    "title": "sandkit.api.input.getMousePositionAtCell()",
     "body": "Return the mouse position in cell coordinates. Cell { x, y } under the cursor. x: number y: number",
     "path": "/api/sandkit.api.input",
-    "id": "getmousecellposition"
+    "id": "getmousepositionatcell"
+  },
+  {
+    "title": "sandkit.api.input.getMouseCellPosition",
+    "body": "Deprecated Use getMousePositionAtCell instead. Cell { x, y } under the cursor. x: number y: number",
+    "path": "/api/sandkit.api.input",
+    "id": "getmousecellposition",
+    "deprecated": true
+  },
+  {
+    "title": "sandkit.api.input.getMousePositionAtWorld()",
+    "body": "Return the mouse position in world pixels. World { x, y } under the cursor. x: number y: number",
+    "path": "/api/sandkit.api.input",
+    "id": "getmousepositionatworld"
   },
   {
     "title": "sandkit.api.input.getBoundKeys()",
@@ -2429,6 +2875,12 @@ window.SMT_SEARCH_INDEX = [
     "id": "moditem"
   },
   {
+    "title": "const",
+    "body": "Sprite mount id map for item display. Live keys include onehand, backhand, and cryoblaster.",
+    "path": "/api/sandkit.api.items",
+    "id": "spritemounts"
+  },
+  {
     "title": "sandkit.api.items.register()",
     "body": "Argument Type Description --- --- --- definition ItemDefinition Item id, handlers, and display metadata. definition Registers a new item definition.",
     "path": "/api/sandkit.api.items",
@@ -2451,6 +2903,12 @@ window.SMT_SEARCH_INDEX = [
     "body": "Argument Type Description --- --- --- itemId ItemId Registered item id. itemId Creates a runtime item instance from an id.",
     "path": "/api/sandkit.api.items",
     "id": "createfromid"
+  },
+  {
+    "title": "sandkit.api.items.getRegisteredIds()",
+    "body": "Return registered item ids. Mix of numeric vanilla ItemId values and string mod ids. (string & 124; number & 124; string & object)[]",
+    "path": "/api/sandkit.api.items",
+    "id": "getregisteredids"
   },
   {
     "title": "sandkit.api.items.getActive()",
@@ -2822,6 +3280,12 @@ window.SMT_SEARCH_INDEX = [
     "id": ""
   },
   {
+    "title": "sandkit.api.player.inventory.hasById()",
+    "body": "Argument Type Description --- --- --- itemId string & 124; number Registered item id or numeric items.ItemId. Live checks use numeric vanilla ids; string enum names may return false. itemId Return true when inventory contains the item id.",
+    "path": "/api/sandkit.api.player.inventory",
+    "id": "hasbyid"
+  },
+  {
     "title": "sandkit.api.player.inventory.addById()",
     "body": "Argument Type Description --- --- --- itemId string Registered item id string. itemId Add an item to inventory by item id.",
     "path": "/api/sandkit.api.player.inventory",
@@ -3156,6 +3620,12 @@ window.SMT_SEARCH_INDEX = [
     "id": "collectfluxiteatcell"
   },
   {
+    "title": "sandkit.api.resources.refresh()",
+    "body": "Argument Type Description --- --- --- resourceId string Resource display id (not limited to energy). resourceId Refresh a resource HUD display by id.",
+    "path": "/api/sandkit.api.resources",
+    "id": "refresh"
+  },
+  {
     "title": "sandkit.api.resources.updateEnergy()",
     "body": "Argument Type Description --- --- --- amount number Energy delta (positive or negative). options? When deferUi is true, skip immediate UI refresh. amount options? Update stored energy by amount with optional UI deferral. Example Official \\api.resources.adjustEnergy\\ (typed deprecated alias: updateEnergy)",
     "path": "/api/sandkit.api.resources",
@@ -3283,6 +3753,18 @@ window.SMT_SEARCH_INDEX = [
     "id": ""
   },
   {
+    "title": "sandkit.api.signals.interactables",
+    "body": "Structure interact (click) handler registration.",
+    "path": "/api/sandkit.api.signals.interactables",
+    "id": ""
+  },
+  {
+    "title": "sandkit.api.signals.interactables.register()",
+    "body": "Argument Type Description --- --- --- structureTypeOrId unknown Structure type id or enum value. handler (structure: unknown) =&gt; void Called with the structure instance. structureTypeOrId handler Register a handler when the player interacts with a structure type. Example",
+    "path": "/api/sandkit.api.signals.interactables",
+    "id": "register"
+  },
+  {
     "title": "sandkit.api.signals",
     "body": "",
     "path": "/api/sandkit.api.signals",
@@ -3305,6 +3787,18 @@ window.SMT_SEARCH_INDEX = [
     "body": "Payload delivered to a signal target handler.",
     "path": "/api/sandkit.api.signals",
     "id": "signaltargetpayloadv1"
+  },
+  {
+    "title": "sandkit.api.signals.registerSenderType()",
+    "body": "Argument Type Description --- --- --- structureId string Structure type id. getOutput? (structure: unknown) =&gt; boolean Optional getter; return true when the sender should be on. structureId getOutput? Register a structure type as a signal sender. Example",
+    "path": "/api/sandkit.api.signals",
+    "id": "registersendertype"
+  },
+  {
+    "title": "sandkit.api.signals.setOutputAtCell()",
+    "body": "Argument Type Description --- --- --- cellX number Structure origin cell X. cellY number Structure origin cell Y. on boolean Desired output state. cellX cellY on Set sender output at a structure origin cell. Example",
+    "path": "/api/sandkit.api.signals",
+    "id": "setoutputatcell"
   },
   {
     "title": "sandkit.api.signals.targets",
@@ -8518,7 +9012,7 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "Sandkit API types.Ambient types (preferred)",
-    "body": "Pull the host sandkit ambient into your project with a triple-slash reference. Put it at the top of main.js / worker.js, or in a small ambient .d.ts that your tsconfig / jsconfig includes: That works in .ts and .js (including checked JS with checkJs). Do not list @sandustry-modding/types under compilerOptions.types. That list only loads packages from node modules/@types (for example \"react\" or \"node\"). Deep declaration modules are also available, for example: - Main mod (main.js): use the ambient free name sandkit. Type aliases such as SandkitApi are global; do not import a value binding. - Worker mod (worker.js): type sandkit.api as WorkerSandkitApi. Worker and main APIs overlap but are not interchangeable. - Shared folder: not a runtime namespace. It holds domain shapes and API bases that main and worker modules extend. - Configs folder: modinfo.json and patches.json TypeScript types (@sandustry-modding/types/configs). Not part of the live sandkit object. JSON Schema: https://sandustry-modding.github.io/schemas/modinfo.json and https://sandustry-modding.github.io/schemas/patches.json - Electron folder: renderer preload bridge (@sandustry-modding/types/electron). Ambient electron on @sandustry-modding/types. Docs: Electron bridge. Edit .d.ts files under src/. Regenerate the API reference and JSON Schema after JSDoc or config-type changes. npm run generate merges scripts/api-gen/overrides.json, the official Sandkit API HTML, and src/sandkit/api/ declarations. It writes scripts/api-gen/generated/api-catalog.json, refreshes scripts/api-gen/generated/namespace-summaries.json, and reports gaps in scripts/api-gen/generated/api-gaps.md. Edit namespace descriptions and alias mappings in scripts/api-gen/overrides.json. npm run scrape walks the live sandkit object in a running Sandustry renderer (CDP :9222) and writes scripts/api-gen/generated/runtime-api.json. Start the game with the debug port open (F5 or npm run sandustry from the mod template), load a save, then run scrape from this repo. Guides and the docs site live in sandustry-modding.github.io. Clone that repo as ../docs (the mod template does this during npm run setup). Regenerate the API reference and JSON Schema from these declarations: Output lands in api/ and schemas/ on that clone. npm run generate overwrites those API pages in place. It does not delete api/. Browse namespaces from Search on the docs site. On an API namespace page the sidebar also lists that namespace and its children. The combined page is full.md. npm run docs runs that step, then serves the docs site. npm run docs:links fails when a markdown link does not resolve to a docs page or heading id. npm run validate fails when committed schemas on the docs site do not match src/configs/. npm run docs:archive-sandkit asks for a base file name, then writes official-api/ .md from https://sandustry.com/sandkit.html.",
+    "body": "Pull the host sandkit ambient into your project with a triple-slash reference. Put it at the top of main.js / worker.js, or in a small ambient .d.ts that your tsconfig / jsconfig includes: That works in .ts and .js (including checked JS with checkJs). Do not list @sandustry-modding/types under compilerOptions.types. That list only loads packages from node modules/@types (for example \"react\" or \"node\"). Deep declaration modules are also available, for example: - Main mod (main.js): use the ambient free name sandkit. Type aliases such as SandkitApi are global; do not import a value binding. - Worker mod (worker.js): type sandkit.api as WorkerSandkitApi. Worker and main APIs overlap but are not interchangeable. - Shared folder: not a runtime namespace. It holds domain shapes and API bases that main and worker modules extend. - Configs folder: modinfo.json and patches.json TypeScript types (@sandustry-modding/types/configs). Not part of the live sandkit object. JSON Schema: https://sandustry-modding.github.io/schemas/modinfo.json and https://sandustry-modding.github.io/schemas/patches.json - Electron folder: renderer preload bridge (@sandustry-modding/types/electron). Ambient electron on @sandustry-modding/types. Docs: Electron bridge. Edit .d.ts files under src/. Regenerate the API reference and JSON Schema after JSDoc or config-type changes. npm run generate merges scripts/api-gen/overrides.json, the official Sandkit API HTML, and src/sandkit/api/ plus src/worker/api/ declarations. It writes scripts/api-gen/generated/api-catalog.json and refreshes scripts/api-gen/generated/namespace-summaries.json. It fails when any official or expected member is missing from the declarations. Edit namespace descriptions and alias mappings in scripts/api-gen/overrides.json. npm run scrape walks the live sandkit object in a running Sandustry renderer (CDP :9222) and writes scripts/api-gen/generated/runtime-api.json. Start the game with the debug port open (F5 or npm run sandustry from the mod template), load a save, then run scrape from this repo. Guides and the docs site live in sandustry-modding.github.io. Clone that repo as ../docs (the mod template does this during npm run setup). Regenerate the API reference and JSON Schema from these declarations: Output lands in api/ and schemas/ on that clone. npm run generate overwrites those API pages in place. It does not delete api/. Browse namespaces from Search on the docs site. On an API namespace page the sidebar also lists that namespace and its children. The combined page is full.md. npm run docs runs that step, then serves the docs site. npm run docs:links fails when a markdown link does not resolve to a docs page or heading id. npm run validate fails when committed schemas on the docs site do not match src/configs/. npm run docs:archive-sandkit asks for a base file name, then writes official-api/ .md from https://sandustry.com/sandkit.html.",
     "path": "/api/types",
     "id": ""
   },
@@ -8574,102 +9068,6 @@ window.SMT_SEARCH_INDEX = [
     "title": "Electron bridge",
     "body": "The Electron bridge is the renderer-side API that talks to Sandustry's main process over IPC. It is not part of sandkit. The game exposes it as window.electron from the preload script (preload.js). Mod code can use the ambient free name electron (same object as window.electron). Most mods only use sandkit.api. Reach for electron when you need host integration that Sandkit does not wrap: - Writing to the host log file (electron.log) - Opening the local mods folder or uploading a dev build to Workshop - Reading distribution channel, Steam Deck detection, or OS language preferences at startup - Platform achievements, cloud saves, or Steam Workshop helpers (Steam builds) - Custom map editor file I/O (.custommap files on disk) The game itself uses the bridge for saves, settings, fullscreen, and platform licensing. Treat save and settings helpers as host internals unless you have a specific reason to call them from a mod. Install @sandustry-modding/types and load the ambient bindings: You can annotate with global types (ElectronBridge, ElectronLogLevel, ElectronPlatform) or import explicit shapes: Bundled mods from the mod template also receive const electron = globalThis.window?.electron at the top of main.js. That keeps bare electron. calls safe when the preload bridge is present. Methods fall into three groups. Sync (sendSync) — safe during early startup. Examples: getPlatformSync(), getSettingsSync(), saveExistsSync(). Async (invoke) — returns a Promise. Examples: save(), load(), platform.cloudSave(), localMods.list(). Fire-and-forget (send) — no return value; the main process handles the message later. Examples: log(), openDevTools(), macRightMouse.watch(). Each member in the generated reference lists its IPC channel in a IPC: line. The top-level object is ElectronBridge. Nested bags group related calls: Property Role Generated reference --- --- --- localMods Local dev mod folder and Steam upload ElectronLocalModsApi platform Steam / MS Store account, achievements, cloud, overlay ElectronPlatformApi platform.workshop Steam Workshop subscribe, download, and discovery ElectronWorkshopApi platform.overlay In-game overlay browser for https: URLs ElectronPlatformOverlayApi customMaps Custom map editor save / load / list / delete ElectronCustomMapsApi macRightMouse macOS right-click emulation probes ElectronMacRightMouseApi Area Examples Reference --- --- --- Startup probes getPlatformSync(), getModdingEnabledSync(), getIsSteamDeckSync() ElectronBridge App lifecycle onAppSuspend(), onAppResume(), appQuit() ElectronBridge Logging log(level, scope, message) → logs/main.log ElectronBridge · ElectronLogLevel Saves & settings save(), load(), getSaveFiles(), saveSettings() ElectronBridge · result types below Window setFullscreen(), toggleFullscreen(), openDevTools() ElectronBridge Platform (MS Store) checkLicense(), Xbox sign-in / license listeners ElectronBridge · ElectronLicenseCheckResult Environment getSystemInfo() (local, no IPC) ElectronSystemInfo Invoke handlers return small result objects instead of throwing for expected failures. Type Used for --- --- ElectronOperationResult Generic { success, path?, error? } from saves, settings, and window calls ElectronLoadResult Parsed save body or load error ElectronExportSaveResult Raw .save bytes for backup ElectronImportSaveResult Import from exported bytes ElectronLocalModsListResult Local mod summaries (ok, data, errorCode) ElectronLocalModsUploadResult Workshop upload from a local folder Primitive aliases: ElectronPlatform, ElectronLogLevel, ElectronIpcListener. getPlatformSync() returns \"steam\", \"msstore\", \"gog\", or another channel string. Some nested APIs are Steam-only. MS Store builds return { ok: false, errorCode: 'unsupported platform' } or no-op success where noted in the type docs. Xbox sign-in and license listeners never fire on Steam. File patching (isFilePatchingActiveSync()) is active on Steam when Workshop bundle patches are registered. Every interface, property, method, @param, and @returns note lives on one page: electron — generated API reference Declaration sources are split under src/electron/ in the npm package (bridge, platform, workshop, local-mods, and related modules). Deep imports are available, for example @sandustry-modding/types/electron/bridge. - configs — modinfo.json, patches.json, and workshop.json (mod files, not runtime APIs) - Sandkit API home — sandkit.api reference and modding guides - Changelog — package history including electron types in 0.6.0",
     "path": "/electron-bridge",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps",
-    "body": "Generated by npm run generate. Edit descriptions and expected members in scripts/api-gen/overrides.json. - Official source: https://sandustry.com/sandkit.html - Generated: 2026-09-07T00:17:37.615Z - Namespaces: 67 - Official methods (HTML): 268 - Declared methods (types): 472 - Open gaps: 28",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.source",
-    "body": "- source.isAvailable - source.getBankIndex - source.getSlotCount - source.getAction - source.activateSlot - source.clearSlot - source.dispose",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.local",
-    "body": "- local.get - local.set - local.remove",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.physics",
-    "body": "- physics.normal - physics.skip - physics.aggressiveSkip",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.items",
-    "body": "- items.getRegisteredIds - items.spriteMounts",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.signals",
-    "body": "- signals.registerSenderType — Register a signal sender structure type - signals.setOutputAtCell — Write signal output at a structure cell",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.worker",
-    "body": "- worker.getIndex - worker.getCount",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.cooldown",
-    "body": "- cooldown.start — Official name; types expose check and isReady",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.elements",
-    "body": "- elements.moveBetweenCells",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.input",
-    "body": "- input.getMousePositionAtWorld",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.main",
-    "body": "- main.emitEvent",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.overrideHandle",
-    "body": "- overrideHandle.remove",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.player",
-    "body": "- player.inventory.hasById — Test whether inventory contains an item id",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.resources",
-    "body": "- resources.refresh",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.structures",
-    "body": "- structures.processing.context.commit",
-    "path": "/generated/api-gaps",
-    "id": ""
-  },
-  {
-    "title": "API catalog gaps.visibilityHandle",
-    "body": "- visibilityHandle.restore",
-    "path": "/generated/api-gaps",
     "id": ""
   },
   {
@@ -8759,13 +9157,13 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "modinfo.json reference",
-    "body": "modinfo.json is the manifest for one mod folder. It tells the loader which scripts to run and which optional assets to apply. TypeScript types: configs: ModInfo. JSON Schema: schemas/modinfo.json. Author either modinfo.json or modinfo.ts. When both exist in the same folder, modinfo.ts wins in the mod template build. The game folder name is id , not name. Field Type Role ----- ---- ---- manifestVersion 1 Manifest schema version. Use 1. id string OS mods folder and Workshop identity (author.mod). name string Display name in Options → Mods. version string Mod version (for example 0.0.1). apiVersion number Sandkit API generation. Use 1. Field Type Role ----- ---- ---- entry string Main-thread script relative to the mod root (main.js). workerEntry string Simulation-worker script (worker.js). Required for worker hooks. At least one capability is required. See Worker mods for workerEntry. Field Type Role ----- ---- ---- description string Short description for Options and Workshop fallback text. author string Author display name. patches string Path to patches.json (default: patches.json at mod root). gameVersion object Declared compatible game version range (minimum, maximum). dependencies string[] Other mod ids that must load first. loadOrder number Sort key (lower loads earlier). configSchema object Options UI fields for player settings. Full field list: configs: ModInfo. Set gameVersion to declare compatibility: - Patch-only mods (bundle rewrites tied to old minified text): set maximum to the last tested game version. - Sandkit API mods (hooks, configOverrides, 0.5.5+): set minimum to \"0.5.5\" or higher. Mods can ship data without executable entry points: - configOverrides — merge into game config - shaderOverrides / textureOverrides — asset replacements - provides — register content ids for other mods - map — custom world map definition See configs for each shape. The mod template documents defineModInfo, modinfo.ts patch exports, and config schema UI. - Getting started - Patching with patches.json - JSON Schema for modinfo.json",
+    "body": "modinfo.json is the manifest for one mod folder. It tells the loader which scripts to run and which optional assets to apply. TypeScript types: configs: ModInfo. JSON Schema: schemas/modinfo.json. Author either modinfo.json or modinfo.ts. When both exist in the same folder, modinfo.ts wins in the mod template build. The game folder name is id , not name. Field Type Role ----- ---- ---- manifestVersion 1 Manifest schema version. Use 1. id string OS mods folder and Workshop identity (author.mod). name string Display name in Options → Mods. version string Mod version (for example 0.0.1). apiVersion number Sandkit API generation. Use 1. Field Type Role ----- ---- ---- entry string Main-thread script relative to the mod root (main.js). workerEntry string Simulation-worker script (worker.js). Required for worker hooks. At least one capability is required. See Worker mods for workerEntry. Field Type Role ----- ---- ---- description string Short description for Options and Workshop fallback text. author string Author display name. patches string Path to patches.json (default: patches.json at mod root). gameVersion object Declared compatible game version range (minimum, maximum). dependencies string[] Other mod ids that must load first. loadOrder number Sort key (lower loads earlier). configSchema object Options UI fields for player settings. Full field list: configs: ModInfo. Set gameVersion to declare compatibility: - Patch-only mods (bundle rewrites tied to old minified text): set maximum to the last tested game version. - Sandkit API mods (hooks, configOverrides, 0.5.5+): set minimum to \"0.5.5\" or higher. Mods can ship data without executable entry points: - configOverrides — merge into game config - shaderOverrides / textureOverrides — asset replacements - provides — register content ids for other mods - map — custom world map definition See configs for each shape. defineModInfo and modinfo.ts: modinfo.ts. - Getting started - Patching with patches.json - JSON Schema for modinfo.json",
     "path": "/modinfo.json",
     "id": ""
   },
   {
-    "title": "Mod manifest (`modinfo.json` / `modinfo.ts`)",
-    "body": "Manifest for one mod. Use either JSON or TypeScript. The build supports both. When both modinfo.json and modinfo.ts exist in the same folder, modinfo.ts wins . Author modinfo.json with $schema for IDE validation: Import it from main.ts: Use defineModInfo in modinfo.ts: Or import JSON through the helper: Patch exports can live on modinfo.ts (export { patches } from \"./patches\"). The build writes modinfo.json into dist/ / (and build/ / on npm run build) without $schema. The game folder name is id , not the repo folder and not name . Shapes: @sandustry-modding/types/configs (ModInfo), via modkit/modinfo.ts. Settings UI: configSchema. Bundle rewrites: Patches. Layout: repository README. Canonical starter: src/template/modinfo.json. Settings showcase: settings. Field Type Role ----------------- -------- --------------------------------------------------------------------------------------- manifestVersion 1 Manifest schema. Use 1. id string OS mods folder and Workshop identity. Use author.mod (for example author.template). name string Display name in Options → Mods and the loader. version string Mod version (for example 0.0.1). Steam changenotes match this to CHANGELOG.md. apiVersion number Sandkit API generation. Use 1. The build fails if id or name is missing or blank. Field Type Default / notes ------------------ ------------------------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- entry string Main-thread script. Default in types is main.js. Set \"main.js\". workerEntry string Worker script. If the folder has worker.ts, the build sets \"worker.js\" when this field is omitted. description string Loader / Workshop fallback when workshop/workshop.md is missing. author string Author label. dependencies string[] Other mods by id . Empty list is fine. loadOrder number Load order hint. Lower sorts earlier in host analysis. Entry eval may still follow save/session order. gameVersion ModGameVersion Optional minimum and maximum strings (0.5.5+). Set minimum: \"0.5.5\" when the mod needs new hooks or APIs. Use Steam Workshop Link to Game Version to cap patch mods at 0.5.2. configSchema object Options → Mods fields. Max 64. See configSchema. configOverrides Record Paths under config/. shaderOverrides ShaderOverrides Maps shader IDs to relative .glsl paths (for example sky → shaders/sky.glsl). textureOverrides sheets or path strings Paths under assets/. A sheet needs path, frameWidth, frames, intervalMs. provides ModProvide[] Asset provider bundles. Each entry has kind, id, and textureOverrides (same shape as top-level textureOverrides). map ModMapDefinition Custom map under map/ (blueprints, width, height, spawn, optional unstuck / deployment / bounds / lighting / parallax / colour maps). See Patches. Prefer patches.json at the mod root. patches.ts still works for typed helpers or debugPatches. src/template/modinfo.json is the starter JSON manifest. Use the id field in code when you need the mod id. Do not hard-code a second copy of the id string. workshop/workshop.json is not part of the manifest. It uses schemaVersion: 1 and publishedFileId. See Builds.",
+    "title": "Mod manifest (`modinfo.ts`)",
+    "body": "Use modinfo.ts when the mod template should write modinfo.json. When both files exist, modinfo.ts wins . Field list, JSON example, and $schema: modinfo.json. Settings fields: configSchema. Or wrap an existing JSON file: Patch exports can live on modinfo.ts (export { patches } from \"./patches\"). See patches.ts. The build writes modinfo.json into dist/ / without $schema. The game folder name is id. Shapes: @sandustry-modding/types/configs (ModInfo), via modkit/modinfo.ts. Starter file: src/template/modinfo.json.",
     "path": "/modinfo",
     "id": ""
   },
@@ -10212,67 +10610,31 @@ window.SMT_SEARCH_INDEX = [
   },
   {
     "title": "Patching with patches.json",
-    "body": "patches.json applies exact (or regex) rewrites to Sandustry JavaScript bundles at mod load. Types: configs: BundlePatch. JSON Schema: schemas/patches.json. On 0.5.5+ , prefer the public Sandkit API (api.hooks, configOverrides, register) before you rewrite game bundles. Use a patch only when the public API cannot do the job. Patches break when the game updates. Minified find strings move. Re-test every patch after a game update. The loader applies patches.json at mod load (once per process). Renderer hot reload does not re-apply them. Stop and start the game. Save reload is not enough. Ship a bare array at the mod root: For IDE validation, point $schema at the published URL or bind the schema by file path in your editor. The game loads a bare array without $schema. Wrapped document form (editors only): Unwrap to a bare array before shipping, or map the schema by path in VS Code. file value Bundle ------------ ------ js/bundle.js Main renderer bundle js/simulation-worker.js Simulation workers js/manager-worker.js Manager worker js/utility-worker.js Utility worker Pair main and worker patches with the same atomicGroup id when both must succeed or fail together. Operation Effect --------- ------ replace Replace the matched substring insertBefore Insert code before the match insertAfter Insert code after the match delete Remove the matched substring Set expectedMatches so a failed find fails fast. Patch code runs outside the game bundle IIFE. Put shared runtime helpers on globalThis when patch code must call them. Declare compatibility in modinfo.json: - Patch-only mods: cap gameVersion.maximum at the last tested release. - API mods: set gameVersion.minimum to \"0.5.5\" or higher. The mod template documents patches.ts, definePatches, and debugPatches. When both patches.json and patches.ts exist, patches.ts wins . - The mod lifecycle - configs: patches - Example patches.json",
+    "body": "patches.json applies exact (or regex) rewrites to Sandustry JavaScript bundles at mod load. Types: configs: BundlePatch. JSON Schema: schemas/patches.json. On 0.5.5+ , prefer the public Sandkit API (api.hooks, configOverrides, register) before you rewrite game bundles. Use a patch only when the public API cannot do the job. Patches break when the game updates. Minified find strings move. Re-test every patch after a game update. The loader applies patches.json at mod load (once per process). Renderer hot reload does not re-apply them. Stop and start the game. Save reload is not enough. Ship a bare array at the mod root: For IDE validation, point $schema at the published URL or bind the schema by file path in your editor. The game loads a bare array without $schema. Wrapped document form (editors only): Unwrap to a bare array before shipping, or map the schema by path in VS Code. file value Bundle ------------ ------ js/bundle.js Main renderer bundle js/simulation-worker.js Simulation workers js/manager-worker.js Manager worker js/utility-worker.js Utility worker Pair main and worker patches with the same atomicGroup id when both must succeed or fail together. Operation Effect --------- ------ replace Replace the matched substring insertBefore Insert code before the match insertAfter Insert code after the match delete Remove the matched substring Set expectedMatches so a failed find fails fast. Patch code runs outside the game bundle IIFE. Put shared runtime helpers on globalThis when patch code must call them. Declare compatibility in modinfo.json: - Patch-only mods: cap gameVersion.maximum at the last tested release. - API mods: set gameVersion.minimum to \"0.5.5\" or higher. patches.ts, definePatches, and debugPatches: patches.ts. - The mod lifecycle - configs: patches - Example patches.json",
     "path": "/patches.json",
     "id": ""
   },
   {
-    "title": "Patch definitions",
-    "body": "On 0.5.5+ , prefer the public Sandkit API (local copy). Use api.hooks , configOverrides , and register APIs before you rewrite game bundles. patches.json breaks when the game updates. Minified find strings move. Re-test every patch after a game update. Set gameVersion in the manifest to declare compatibility (Mod manifest): - Patch-only mods (bundle rewrites tied to old minified text): set maximum: \"0.5.2\" , or use Steam Workshop Link to Game Version with the same cap. - New API mods (hooks, configOverrides, 0.5.5 Sandkit): set minimum: \"0.5.5\" . Patches are exact (or regex) rewrites of Sandustry JavaScript under js/. The loader applies patches.json at mod load (Steam: once per process). Renderer hot reload does not re-apply them. Stop and start the game (F5). Save reload is not enough. Use a patch only when the public API cannot do the job. Keep each find / code string small. Set expectedMatches. Patch code runs outside the game bundle IIFE. Put shared runtime helpers on globalThis when patch code must call them. Types: @sandustry-modding/types/configs (BundlePatch), via modkit/patches.ts. Manifest: Mod manifest. Canonical multi-file example: collector-element/patches.json. For IDE validation of generated patches.json, use schema URL https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json (configured in this repo's .vscode/settings.json). Runtime output stays a bare JSON array. Use patches.json at the mod root (bare array). IDE validation uses .vscode/settings.json and PATCHES JSON SCHEMA. patches.ts (definePatches) still works when you need typed helpers or debugPatches. When both patch files exist, patches.ts wins . Manifest modinfo.ts patch exports also win over patches.json. Export When it is written -------------- ---------------------------------------------------------------------------------------- patches Always (patches.json) debugPatches Dev / --debug only. From patches.ts / modinfo.ts only. Merged after patches. Release (npm run build, npm run dev:release) omits debugPatches. Dev (npm run dev) includes both. The browser bundle stubs @modkit/patches so patch payloads stay out of main.js. scripts/lib/build-patches.js checks each patch before it writes JSON: - id is a non-empty string and unique in the written list - file matches js/ .js (one folder, .js only) - operation is insertBefore, replace, or wrap - expectedMatches is an integer - exactly one of find (non-empty string) or regex ({ pattern, flags? }) - replace / insertBefore need non-empty code - wrap needs before and after strings The game loader also fails the mod if the live match count is not expectedMatches. Do not edit dist/ /patches.json by hand. Change the export and rebuild. Field Role ------------------ --------------------------------------------------------------------------------------------------------- id Unique patch id (required) file Target under js/ (required). Typical: js/bundle.js, js/simulation-worker.js, js/utility-worker.js find Exact substring (required unless regex) regex { pattern, flags? } instead of find expectedMatches Required match count operation replace, insertBefore, or wrap code Body for replace and insertBefore before / after Required for wrap atomicGroup Optional name. Every patch in the group must apply, or none do Match with exact find when the text is stable. Use regex only when a literal match is not stable.",
+    "title": "Patch definitions (`patches.ts`)",
+    "body": "patches.ts is the mod template source for patches.json. When both files exist, patches.ts wins . Manifest modinfo.ts patch exports also win over a root patches.json. File format, operations, and target bundles: patches.json. Export When it is written --- --- patches Always (patches.json) debugPatches Dev / --debug only. Merged after patches. Release (npm run build, npm run dev:release) omits debugPatches. Dev (npm run dev) includes both. The browser bundle stubs @modkit/patches so patch payloads stay out of main.js. scripts/lib/build-patches.js checks each patch before it writes JSON: - id is a non-empty string and unique in the written list - file matches js/ .js - operation is insertBefore, replace, or wrap - expectedMatches is an integer - exactly one of find or regex ({ pattern, flags? }) - replace / insertBefore need non-empty code - wrap needs before and after strings Do not edit dist/ /patches.json by hand. Change the export and rebuild. Or keep the list in patches.ts and re-export it from modinfo.ts: Types: @sandustry-modding/types/configs (BundlePatch). Example: collector-element/patches.json.",
     "path": "/patches",
     "id": ""
   },
   {
-    "title": "Patch definitions.`insertBefore`",
-    "body": "Insert code immediately before each match.",
-    "path": "/patches",
-    "id": ""
-  },
-  {
-    "title": "Patch definitions.`replace`",
-    "body": "Replace each match with code. The collector sample replaces a Gold / liquidGold type check with a collector-value check on three files, one atomicGroup: Copy find from the extracted bundle in sandustry/source/. Do not reuse old minified snippets after a game update.",
-    "path": "/patches",
-    "id": ""
-  },
-  {
-    "title": "Patch definitions.`wrap`",
-    "body": "Wrap each match as before + match + after. Use this when you must keep the original text and add a prefix and suffix. Or keep the list in patches.ts and re-export:",
-    "path": "/patches",
-    "id": ""
-  },
-  {
-    "title": "Sandkit API types",
+    "title": "SandustryTypes",
     "body": "TypeScript declarations and community docs for the live Sandustry sandkit modding API. Package name: @sandustry-modding/types. Originally a fork of flamableassassin/sandustry-modding-types. The docs site ships API reference pages, modding guides, and JSON Schema for modinfo.json / patches.json. Folder layout mirrors runtime shape so you can jump from code to the matching .d.ts path. Path Runtime object ------------------------------- ----------------------------------------------------------------------- src/sandkit/api/ sandkit.api (main thread) src/sandkit/engine/api/ sandkit.engine.api src/sandkit/engine/state.d.ts sandkit.engine.state / sandkit.state src/sandkit/enums/ sandkit.enums src/sandkit/react.d.ts sandkit.react src/sandkit/index.d.ts Composed Sandkit root type src/global.d.ts Ambient sandkit free variable and type aliases src/worker/ Worker-thread sandkit.api (see WorkerSandkitApi) src/shared/ Internal base shapes reused by main and worker declarations src/configs/ modinfo.json / patches.json TypeScript types (not a runtime object) src/electron/ Renderer preload bridge (window.electron; not a runtime sandkit object) At runtime, every API bag is a plain object with function properties — not a TypeScript namespace. MCP checks on a live game session show: - sandkit.api, sandkit.api.ui, sandkit.api.ui.overlays, and sandkit.engine.api.game are all typeof \"object\" with Object.prototype - Nested keys hold functions or further plain objects Declaration files use export namespace because it is the usual .d.ts pattern for nested object APIs. It matches how you call the API (sandkit.api.ui.update) and supports export import when main and worker share base shapes under shared/. interface or type object literals would also work for runtime shape, but they do not support the export import re-export style used across main, worker, and shared modules.",
     "path": "/types/README",
     "id": ""
   },
   {
-    "title": "Sandkit API types.Ambient types (preferred)",
-    "body": "Pull the host sandkit ambient into your project with a triple-slash reference. Put it at the top of main.js / worker.js, or in a small ambient .d.ts that your tsconfig / jsconfig includes: That works in .ts and .js (including checked JS with checkJs). Do not list @sandustry-modding/types under compilerOptions.types. That list only loads packages from node modules/@types (for example \"react\" or \"node\"). Deep declaration modules are also available, for example: - Main mod (main.js): use the ambient free name sandkit. Type aliases such as SandkitApi are global; do not import a value binding. - Worker mod (worker.js): type sandkit.api as WorkerSandkitApi. Worker and main APIs overlap but are not interchangeable. - Shared folder: not a runtime namespace. It holds domain shapes and API bases that main and worker modules extend. - Configs folder: modinfo.json and patches.json TypeScript types (@sandustry-modding/types/configs). Not part of the live sandkit object. JSON Schema: https://sandustry-modding.github.io/schemas/modinfo.json and https://sandustry-modding.github.io/schemas/patches.json - Electron folder: renderer preload bridge (@sandustry-modding/types/electron). Ambient electron on @sandustry-modding/types. Docs: Electron bridge. Edit .d.ts files under src/. Regenerate the API reference and JSON Schema after JSDoc or config-type changes. npm run generate merges scripts/api-gen/overrides.json, the official Sandkit API HTML, and src/sandkit/api/ declarations. It writes scripts/api-gen/generated/api-catalog.json, refreshes scripts/api-gen/generated/namespace-summaries.json, and reports gaps in scripts/api-gen/generated/api-gaps.md. Edit namespace descriptions and alias mappings in scripts/api-gen/overrides.json. npm run scrape walks the live sandkit object in a running Sandustry renderer (CDP :9222) and writes scripts/api-gen/generated/runtime-api.json. Start the game with the debug port open (F5 or npm run sandustry from the mod template), load a save, then run scrape from this repo. Guides and this docs site live in sandustry-modding.github.io. Clone that repo as ../docs (the mod template does this during npm run setup). Regenerate the API reference and JSON Schema from these declarations: Output lands in api/ and schemas/ on that clone. npm run generate overwrites those API pages in place. It does not delete api/. Browse the full collapsible API tree below, or use Search to filter namespaces and jump to members. On the Types tab, the full tree also appears in the left sidebar (below Install, Search, and related links). Expand sandkit → api → main or worker to browse namespaces. The combined page is full.md. npm run docs runs that step, then serves the docs site. npm run docs:links fails when a markdown link does not resolve to a docs page or heading id. npm run validate fails when committed schemas on the docs site do not match src/configs/. npm run docs:archive-sandkit asks for a base file name, then writes official-api/ .md from https://sandustry.com/sandkit.html.",
+    "title": "SandustryTypes.Ambient types (preferred)",
+    "body": "Pull the host sandkit ambient into your project with a triple-slash reference. Put it at the top of main.js / worker.js, or in a small ambient .d.ts that your tsconfig / jsconfig includes: That works in .ts and .js (including checked JS with checkJs). Do not list @sandustry-modding/types under compilerOptions.types. That list only loads packages from node modules/@types (for example \"react\" or \"node\"). Deep declaration modules are also available, for example: - Main mod (main.js): use the ambient free name sandkit. Type aliases such as SandkitApi are global; do not import a value binding. - Worker mod (worker.js): type sandkit.api as WorkerSandkitApi. Worker and main APIs overlap but are not interchangeable. - Shared folder: not a runtime namespace. It holds domain shapes and API bases that main and worker modules extend. - Configs folder: modinfo.json and patches.json TypeScript types (@sandustry-modding/types/configs). Not part of the live sandkit object. JSON Schema: https://sandustry-modding.github.io/schemas/modinfo.json and https://sandustry-modding.github.io/schemas/patches.json - Electron folder: renderer preload bridge (@sandustry-modding/types/electron). Ambient electron on @sandustry-modding/types. Docs: Electron bridge. Edit .d.ts files under src/. Regenerate the API reference and JSON Schema after JSDoc or config-type changes. npm run generate merges scripts/api-gen/overrides.json, the official Sandkit API HTML, and src/sandkit/api/ plus src/worker/api/ declarations. It writes scripts/api-gen/generated/api-catalog.json and refreshes scripts/api-gen/generated/namespace-summaries.json. It fails when any official or expected member is missing from the declarations. Edit namespace descriptions and alias mappings in scripts/api-gen/overrides.json. npm run scrape walks the live sandkit object in a running Sandustry renderer (CDP :9222) and writes scripts/api-gen/generated/runtime-api.json. Start the game with the debug port open (F5 or npm run sandustry from the mod template), load a save, then run scrape from this repo. Guides and the docs site live in sandustry-modding.github.io. Clone that repo as ../docs (the mod template does this during npm run setup). Regenerate the API reference and JSON Schema from these declarations: Output lands in api/ and schemas/ on that clone. npm run generate overwrites those API pages in place. It does not delete api/. Browse namespaces from Search on the docs site. On an API namespace page the sidebar also lists that namespace and its children. The combined page is full.md. npm run docs runs that step, then serves the docs site. npm run docs:links fails when a markdown link does not resolve to a docs page or heading id. npm run validate fails when committed schemas on the docs site do not match src/configs/. npm run docs:archive-sandkit asks for a base file name, then writes official-api/ .md from https://sandustry.com/sandkit.html.",
     "path": "/types/README",
     "id": ""
   },
   {
-    "title": "JSON Schema files",
-    "body": "Generated from @sandustry-modding/types/configs (ModInfo, BundlePatchesFile, and WorkshopJson in src/configs/). Prefer the official Sandkit docs when a schema and the game disagree. After GitHub Pages publishes docs/, use these raw schema URLs: File Schema URL ---- ---------- modinfo.json https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json patches.json https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json workshop.json https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json Point $schema at the URL for the file you edit.",
-    "path": "/types/schemas",
-    "id": ""
-  },
-  {
-    "title": "`modinfo.json`",
-    "body": "",
-    "path": "/types/schemas",
-    "id": ""
-  },
-  {
-    "title": "`patches.json`",
-    "body": "The game loads a bare array . For inline $schema, wrap the list (editors only — unwrap to a bare array before shipping, or map the schema by path): A bare [ ... ] array also validates. You can instead bind the schema by path (for example VS Code json.schemas) and keep the game array form in the file.",
-    "path": "/types/schemas",
-    "id": ""
-  },
-  {
-    "title": "`workshop.json`",
-    "body": "Created by the in-game publisher or npm run publish after the first Steam Workshop upload. Do not hand-edit publishedFileId. Import the same shapes from the npm package: See configs for the full type reference. From the package repo root: npm run validate fails when committed schemas do not match the TypeScript defs.",
+    "title": "JSON Schema",
+    "body": "Generated from @sandustry-modding/types/configs (ModInfo, BundlePatchesFile, and WorkshopJson). Prefer the official Sandkit docs when a schema and the game disagree. File Schema URL --- --- modinfo.json https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json patches.json https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json workshop.json https://sandustry-modding.github.io/SandustryTypes/schemas/workshop.json Point $schema at the URL for the file you edit. Field lists and examples: modinfo.json and patches.json. patches.json ships as a bare array. Bind the schema by path in the editor when you need to keep that array form. workshop.json is written by the in-game publisher or npm run publish. Do not hand-edit publishedFileId. Member reference: Config types. From the types package: npm run validate fails when committed schemas do not match the TypeScript defs.",
     "path": "/types/schemas",
     "id": ""
   },

@@ -42,7 +42,7 @@ Definition for a mod-registered inventory item.
 
 ### sandkit.api.items.ItemId :id=itemid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L59" target="_blank" rel="noopener">items.d.ts:59</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L69" target="_blank" rel="noopener">items.d.ts:69</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ItemId = ItemId | LooseString&lt;never&gt;">
 
@@ -61,7 +61,7 @@ Built-in [ItemIdEnum](api/sandkit.enums.ItemId.md) values autocomplete; custom s
 
 ### sandkit.api.items.ItemType :id=itemtype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L64" target="_blank" rel="noopener">items.d.ts:64</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L74" target="_blank" rel="noopener">items.d.ts:74</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ItemType = ItemType | TaggedNumber&lt;&quot;itemType&quot;&gt;">
 
@@ -80,7 +80,7 @@ Built-in [ItemTypeEnum](api/sandkit.enums.ItemType.md) values autocomplete.
 
 ### sandkit.api.items.ModItem :id=moditem
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L66" target="_blank" rel="noopener">items.d.ts:66</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L76" target="_blank" rel="noopener">items.d.ts:76</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ModItem = unknown">
 
@@ -91,6 +91,27 @@ ModItem = unknown
 </div>
 
 Runtime item instance (not yet typed in declarations).
+
+</div>
+
+## Variables <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.items.spriteMounts :id=spritemounts
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L55" target="_blank" rel="noopener">items.d.ts:55</a></p>
+
+<div class="smt-member-sig" data-sig="const spriteMounts: Readonly&lt;Record&lt;string, string&gt;&gt;">
+
+```ts
+const spriteMounts: Readonly<Record<string, string>>
+```
+
+</div>
+
+Sprite mount id map for item display.
+Live keys include `onehand`, `backhand`, and `cryoblaster`.
 
 </div>
 
@@ -223,9 +244,30 @@ Creates a runtime item instance from an id.
 
 <div class="smt-member-card">
 
+### sandkit.api.items.getRegisteredIds :id=getregisteredids
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L50" target="_blank" rel="noopener">items.d.ts:50</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.items.getRegisteredIds(): (string | number | string &amp; object)[]">
+
+```ts
+getRegisteredIds(): (string | number | string & object)[]
+```
+
+</div>
+
+Return registered item ids.
+Mix of numeric vanilla [ItemId](?id=itemid) values and string mod ids.
+
+(`string` &#124; `number` &#124; `string` & `object`)[]
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.items.getActive :id=getactive
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L47" target="_blank" rel="noopener">items.d.ts:47</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L57" target="_blank" rel="noopener">items.d.ts:57</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.getActive(): ItemDefinition&lt;unknown, unknown&gt; | undefined">
 
@@ -245,7 +287,7 @@ Returns the item definition for the active hotbar slot.
 
 ### sandkit.api.items.isActiveById :id=isactivebyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L53" target="_blank" rel="noopener">items.d.ts:53</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L63" target="_blank" rel="noopener">items.d.ts:63</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.isActiveById(itemId: ItemId, itemType?: ItemType): boolean">
 

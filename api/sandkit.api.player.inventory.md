@@ -6,9 +6,37 @@ Player inventory helpers.
 
 <div class="smt-member-card">
 
+### sandkit.api.player.inventory.hasById :id=hasbyid
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L110" target="_blank" rel="noopener">player.d.ts:110</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.player.inventory.hasById(itemId: string | number): boolean">
+
+```ts
+hasById(itemId: string | number): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| itemId | `string` &#124; `number` | Registered item id or numeric [items.ItemId](api/sandkit.api.items.md?id=itemid). Live checks use numeric vanilla ids; string enum names may return false. |
+
+<div class="smt-member-anchors">
+
+##### itemId <!-- {docsify-ignore} -->
+
+</div>
+
+Return true when inventory contains the item id.
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.player.inventory.addById :id=addbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L109" target="_blank" rel="noopener">player.d.ts:109</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L118" target="_blank" rel="noopener">player.d.ts:118</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.inventory.addById(itemId: string): void">
 
@@ -36,7 +64,7 @@ Add an item to inventory by item id.
 
 ### ~~sandkit.api.player.inventory.addFromId~~ :id=addfromid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L115" target="_blank" rel="noopener">player.d.ts:115</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L124" target="_blank" rel="noopener">player.d.ts:124</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
