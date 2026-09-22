@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 0.8.0 - 2026-09-22
+
+https://github.com/sandustry-modding/SandustryTypes/releases/tag/v0.8.0
+
 ### Added
 
 - Missing Sandkit declarations: `cooldown.start`, `resources.refresh`, `player.inventory.hasById`, `items.getRegisteredIds`, `items.spriteMounts`, `signals.registerSenderType`, `signals.setOutputAtCell`, `signals.interactables`, `input.getMousePositionAtCell`, `input.getMousePositionAtWorld`
