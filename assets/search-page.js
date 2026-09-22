@@ -4,7 +4,6 @@
 (function () {
   var MAX_RESULTS = 80;
   var SEARCH_HASH = "#/types/search";
-  var hotkeysBound = false;
 
   function queryApi() {
     return window.SMT_SEARCH_QUERY;
@@ -128,7 +127,7 @@
       '<div class="smt-search-field">' +
       '<input id="smt-search-input" type="search" name="q" autocomplete="off" spellcheck="false" placeholder="sandkit.api.player, unlockById, grid …" />' +
       "</div>" +
-      '<p class="smt-search-hint">Match the runtime path. Press <kbd>/</kbd> from any page. <kbd>Ctrl</kbd>+<kbd>K</kbd> also opens search.</p>' +
+      '<p class="smt-search-hint">Match the runtime path.</p>' +
       '<div class="smt-search-scopes" role="group" aria-label="Filter by area"></div>' +
       "</form>" +
       '<p class="smt-search-status" aria-live="polite"></p>' +
@@ -395,37 +394,11 @@
     });
   }
 
-  function bindHotkeys() {
-    if (hotkeysBound) return;
-    hotkeysBound = true;
+  window.smtDocsifySearchPlugin = function (hook) {
     document.addEventListener("smt-docs-settings", function () {
       if (typeof window.smtRefreshSearch === "function") window.smtRefreshSearch();
     });
-    document.addEventListener("keydown", function (e) {
-      var tag = (e.target && e.target.tagName) || "";
-      var typing = /input|textarea|select/i.test(tag) || (e.target && e.target.isContentEditable);
-      if (e.key === "/" && !typing) {
-        e.preventDefault();
-        if (!parseRoute()) window.location.hash = "/types/search";
-        else {
-          var field = document.getElementById("smt-search-input");
-          if (field) field.focus();
-        }
-      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        if (!parseRoute()) window.location.hash = "/types/search";
-        else {
-          var fieldK = document.getElementById("smt-search-input");
-          if (fieldK) fieldK.focus();
-        }
-      }
-    });
-  }
-
-  window.smtDocsifySearchPlugin = function (hook) {
-    bindHotkeys();
     hook.doneEach(function () {
-      bindHotkeys();
       if (!parseRoute()) return;
       var root = document.getElementById("smt-search-root");
       if (root) mount(root);
