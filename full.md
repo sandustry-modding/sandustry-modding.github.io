@@ -25148,8 +25148,7 @@ Remove queued items by key.
 `sandkit.engine.api.shadows` — shadow map refresh for regions.
 
 **Internal API.** Prefer [sandkit.api](api/sandkit.api.md) when a public method exists.
-Methods use loose stubs; signatures may take game state as the first argument.
-Engine methods pass game state as the first argument (args[0]); remaining entries are method-specific.
+Methods take [SandkitState](api/sandkit.engine.md?id=sandkitstate) as the first argument.
 
 ### Functions <!-- {docsify-ignore} -->
 
@@ -25157,27 +25156,33 @@ Engine methods pass game state as the first argument (args[0]); remaining entrie
 
 #### sandkit.engine.api.shadows.refresh :id=sandkit-engine-api-shadows-refresh
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/engine/api/shadows.d.ts#L15" target="_blank" rel="noopener">shadows.d.ts:15</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/engine/api/shadows.d.ts#L19" target="_blank" rel="noopener">shadows.d.ts:19</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.engine.api.shadows.refresh(...args: unknown[]): unknown">
+<div class="smt-member-sig" data-sig="sandkit.engine.api.shadows.refresh(state: SandkitState, cellX: number, cellY: number): void">
 
 ```ts
-refresh(...args: unknown[]): unknown
+refresh(state: SandkitState, cellX: number, cellY: number): void
 ```
 
 </div>
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| args | <code>...`unknown`[]</code> | Game state first, then method-specific arguments. |
+| state | <code>[`SandkitState`](api/sandkit.engine.md?id=sandkitstate)</code> | Live game state (`sandkit.engine.state`). |
+| cellX | `number` | Grid column of the target cell. |
+| cellY | `number` | Grid row of the target cell. |
 
 <div class="smt-member-anchors">
 
-###### args <!-- {docsify-ignore} -->
+###### state <!-- {docsify-ignore} -->
+
+###### cellX <!-- {docsify-ignore} -->
+
+###### cellY <!-- {docsify-ignore} -->
 
 </div>
 
-Refresh shadows for the whole visible area.
+Recompute the shadow value at one world cell.
 
 </div>
 
@@ -25185,27 +25190,36 @@ Refresh shadows for the whole visible area.
 
 #### sandkit.engine.api.shadows.refreshRadius :id=sandkit-engine-api-shadows-refreshradius
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/engine/api/shadows.d.ts#L20" target="_blank" rel="noopener">shadows.d.ts:20</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/engine/api/shadows.d.ts#L29" target="_blank" rel="noopener">shadows.d.ts:29</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.engine.api.shadows.refreshRadius(...args: unknown[]): unknown">
+<div class="smt-member-sig" data-sig="sandkit.engine.api.shadows.refreshRadius(state: SandkitState, cellX: number, cellY: number, radius?: number): void">
 
 ```ts
-refreshRadius(...args: unknown[]): unknown
+refreshRadius(state: SandkitState, cellX: number, cellY: number, radius?: number): void
 ```
 
 </div>
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| args | <code>...`unknown`[]</code> | Game state first, then method-specific arguments. |
+| state | <code>[`SandkitState`](api/sandkit.engine.md?id=sandkitstate)</code> | Live game state (`sandkit.engine.state`). |
+| cellX | `number` | Grid column at the center of the region. |
+| cellY | `number` | Grid row at the center of the region. |
+| radius? | `number` | Half-width of the square in cells (default `8`). |
 
 <div class="smt-member-anchors">
 
-###### args <!-- {docsify-ignore} -->
+###### state <!-- {docsify-ignore} -->
+
+###### cellX <!-- {docsify-ignore} -->
+
+###### cellY <!-- {docsify-ignore} -->
+
+###### radius? <!-- {docsify-ignore} -->
 
 </div>
 
-Refresh shadows within a circular radius.
+Recompute shadows in a square neighborhood around a cell.
 
 </div>
 
@@ -25213,27 +25227,42 @@ Refresh shadows within a circular radius.
 
 #### sandkit.engine.api.shadows.refreshRect :id=sandkit-engine-api-shadows-refreshrect
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/engine/api/shadows.d.ts#L25" target="_blank" rel="noopener">shadows.d.ts:25</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/engine/api/shadows.d.ts#L46" target="_blank" rel="noopener">shadows.d.ts:46</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.engine.api.shadows.refreshRect(...args: unknown[]): unknown">
+<div class="smt-member-sig" data-sig="sandkit.engine.api.shadows.refreshRect(state: SandkitState, minCellX: number, minCellY: number, maxCellX: number, maxCellY: number, padding?: number): void">
 
 ```ts
-refreshRect(...args: unknown[]): unknown
+refreshRect(state: SandkitState, minCellX: number, minCellY: number, maxCellX: number, maxCellY: number, padding?: number): void
 ```
 
 </div>
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| args | <code>...`unknown`[]</code> | Game state first, then method-specific arguments. |
+| state | <code>[`SandkitState`](api/sandkit.engine.md?id=sandkitstate)</code> | Live game state (`sandkit.engine.state`). |
+| minCellX | `number` | Inclusive minimum column. |
+| minCellY | `number` | Inclusive minimum row. |
+| maxCellX | `number` | Inclusive maximum column. |
+| maxCellY | `number` | Inclusive maximum row. |
+| padding? | `number` | Extra cells expanded on each side before refresh (default `8`). |
 
 <div class="smt-member-anchors">
 
-###### args <!-- {docsify-ignore} -->
+###### state <!-- {docsify-ignore} -->
+
+###### minCellX <!-- {docsify-ignore} -->
+
+###### minCellY <!-- {docsify-ignore} -->
+
+###### maxCellX <!-- {docsify-ignore} -->
+
+###### maxCellY <!-- {docsify-ignore} -->
+
+###### padding? <!-- {docsify-ignore} -->
 
 </div>
 
-Refresh shadows within a rectangle.
+Recompute shadows in an axis-aligned rectangle of cells.
 
 </div>
 
@@ -36853,7 +36882,7 @@ Package name: `@sandustry-modding/types`.
 
 Originally a fork of [flamableassassin/sandustry-modding-types](https://github.com/flamableassassin/sandustry-modding-types/).
 
-The [docs site](https://sandustry-modding.github.io/SandustryTypes/) ships API reference pages, modding guides, and JSON Schema for `modinfo.json` / `patches.json`.
+The [docs site](https://sandustry-modding.github.io/) ships API reference pages, modding guides, and JSON Schema for `modinfo.json` / `patches.json`.
 Folder layout mirrors runtime shape so you can jump from code to the matching `.d.ts` path.
 
 ### Runtime map
@@ -36913,15 +36942,15 @@ import type { ModInfo, BundlePatch } from "@sandustry-modding/types/configs";
 - **Main mod (`main.js`):** use the ambient free name `sandkit`. Type aliases such as `SandkitApi` are global; do not import a value binding.
 - **Worker mod (`worker.js`):** type `sandkit.api` as `WorkerSandkitApi`. Worker and main APIs overlap but are not interchangeable.
 - **Shared folder:** not a runtime namespace. It holds domain shapes and API bases that main and worker modules extend.
-- **Configs folder:** `modinfo.json` and `patches.json` TypeScript types (`@sandustry-modding/types/configs`). Not part of the live `sandkit` object. JSON Schema: https://sandustry-modding.github.io/SandustryTypes/schemas/modinfo.json and https://sandustry-modding.github.io/SandustryTypes/schemas/patches.json
-- **Electron folder:** renderer preload bridge (`@sandustry-modding/types/electron`). Ambient `electron` on `@sandustry-modding/types`. Docs: [Electron bridge](https://sandustry-modding.github.io/SandustryTypes/#/electron-bridge).
+- **Configs folder:** `modinfo.json` and `patches.json` TypeScript types (`@sandustry-modding/types/configs`). Not part of the live `sandkit` object. JSON Schema: https://sandustry-modding.github.io/schemas/modinfo.json and https://sandustry-modding.github.io/schemas/patches.json
+- **Electron folder:** renderer preload bridge (`@sandustry-modding/types/electron`). Ambient `electron` on `@sandustry-modding/types`. Docs: [Electron bridge](https://sandustry-modding.github.io/#/electron-bridge).
 
 ### Maintaining types
 
 Edit `.d.ts` files under `src/`. Regenerate the API reference and JSON Schema after JSDoc or config-type changes.
 
 `npm run generate` merges `scripts/api-gen/overrides.json`, the official [Sandkit API](https://sandustry.com/sandkit.html) HTML, and `src/sandkit/api/` declarations.
-It writes `scripts/api-gen/generated/api-catalog.json`, refreshes `scripts/api-gen/generated/namespace-summaries.json`, and reports gaps in `docs/generated/api-gaps.md`.
+It writes `scripts/api-gen/generated/api-catalog.json`, refreshes `scripts/api-gen/generated/namespace-summaries.json`, and reports gaps in `scripts/api-gen/generated/api-gaps.md`.
 Edit namespace descriptions and alias mappings in `scripts/api-gen/overrides.json`.
 
 `npm run scrape` walks the live `sandkit` object in a running Sandustry renderer (CDP `:9222`) and writes `scripts/api-gen/generated/runtime-api.json`.
@@ -36929,28 +36958,28 @@ Start the game with the debug port open (F5 or `npm run sandustry` from the mod 
 
 ### Docs site
 
-Guides live under `docs/guides/` (setup, Workshop, and Sandkit domain pages).
+Guides and the docs site live in [sandustry-modding.github.io](https://github.com/sandustry-modding/sandustry-modding.github.io).
+Clone that repo as `../docs` (the mod template does this during `npm run setup`).
 Regenerate the API reference and JSON Schema from these declarations:
 
 ```bash
-npm run generate                  # catalog + API markdown + docs/schemas/*.json
+npm run generate                  # catalog + API markdown + schemas on the docs site
 npm run scrape                    # live sandkit inventory from running Sandustry (CDP :9222)
 npm run generate -- --catalog     # overrides + official HTML + declarations → catalog + gaps
 npm run generate -- --schemas     # JSON Schema only
-npm run docs:archive-sandkit      # Fetch official sandkit.html into docs/official-api/
+npm run docs:archive-sandkit      # Fetch official sandkit.html into official-api/ on the docs site
 ```
 
-Output lands in `docs/api/` and `docs/schemas/`.
+Output lands in `api/` and `schemas/` on that clone.
 `npm run generate` overwrites those API pages in place.
-It does not delete `docs/api/`.
+It does not delete `api/`.
 Browse namespaces from Search on the docs site.
-`npm run generate` writes `docs/_sidebar.md` for direct pages.
 On an API namespace page the sidebar also lists that namespace and its children.
-The combined page is `docs/full.md`.
+The combined page is `full.md`.
 `npm run docs` runs that step, then serves the docs site.
 `npm run docs:links` fails when a markdown link does not resolve to a docs page or heading id.
-`npm run validate` fails when committed schemas do not match `src/configs/`.
+`npm run validate` fails when committed schemas on the docs site do not match `src/configs/`.
 
-`npm run docs:archive-sandkit` asks for a base file name, then writes `docs/official-api/<name>.md` from https://sandustry.com/sandkit.html.
+`npm run docs:archive-sandkit` asks for a base file name, then writes `official-api/<name>.md` from https://sandustry.com/sandkit.html.
 
 ---

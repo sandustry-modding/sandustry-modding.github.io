@@ -49,7 +49,7 @@ Order after `?db_load=` / Continue:
 6. `await foliage.generate()`.
 7. Nested loop over **every cell** (`height` then `width`): `getCellId`, write map raster, optional authorization stamp.
    Empty cells still pay this cost.
-8. If packed `shadow.data` length is not `shadowMap.data.length`, full `shadows.refresh`.
+8. If packed `shadow.data` length is not `shadowMap.data.length`, rebuild the full shadow map (internal path, not per-cell `shadows.refresh`).
    Else `data.set`.
 9. `await SI` — **Compiling shaders…** overlay until warmup finishes.
    `SI` is **null** when `sessionStorage.splashShown` is set **and** the URL has no `db_load`.

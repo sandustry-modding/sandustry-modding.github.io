@@ -179,7 +179,8 @@ See [Background layers](/okf/world/background-layers.md).
     pixi.filter.uniformGroup.uniforms.uDrawUndergroundFog = false;
   }
 
-  eng.shadows.refresh(st);
+  const { width, height } = st.store.world.size;
+  eng.shadows.refreshRect(st, 0, 0, width - 1, height - 1, 0);
   const saveId = eng.game.save(st, "Void", "YOUR_SAVE_ID");
   return { ok: true, saveId, prefabs: eng.prefabData?.getAll?.(st)?.length ?? 0 };
 };
@@ -288,7 +289,7 @@ Pick a **weapon or tool** hotbar slot — not a mod item or structure belt slot.
   }
   sk.api.player.setPositionAtWorld(cx * 4, floorY * 4 - (p.height || 30) - 4);
 
-  eng.shadows.refresh(st);
+  eng.shadows.refreshRect(st, cx - 12, floorY, cx + 12, floorY + 1);
   sk.api.grid.redrawAroundCell(cx, floorY, 40);
   const saveId = eng.game.save(st, "Void", "YOUR_SAVE_ID");
   return {

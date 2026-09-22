@@ -52,7 +52,14 @@ Player cell probe: byte **0**.
 | `data`            | `Uint8Array`, 3840 |
 | `width`, `height` | 3840               |
 
-Engine: `shadows.refresh`, `refreshRadius`, `refreshRect`.
+Engine (`sandkit.engine.api.shadows`, state-first):
+
+| Method | Args after state |
+| --- | --- |
+| `refresh` | `cellX`, `cellY` |
+| `refreshRadius` | `cellX`, `cellY`, `radius?` (default 8; square neighborhood) |
+| `refreshRect` | `minCellX`, `minCellY`, `maxCellX`, `maxCellY`, `padding?` (default 8) |
+
 Terrain ops honor `skipShadow` in terrains API.
 
 `__debug.config.debug.overrideTerrainShadow` / `terrainShadowValue` — F3 debug flags.
