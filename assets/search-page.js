@@ -130,10 +130,6 @@
       "</div>" +
       '<p class="smt-search-hint">Match the runtime path. Press <kbd>/</kbd> from any page. <kbd>Ctrl</kbd>+<kbd>K</kbd> also opens search.</p>' +
       '<div class="smt-search-scopes" role="group" aria-label="Filter by area"></div>' +
-      '<label class="smt-search-settings-row">' +
-      '<input id="smt-hide-deprecated" type="checkbox" />' +
-      "<span>Hide deprecated APIs</span>" +
-      "</label>" +
       "</form>" +
       '<p class="smt-search-status" aria-live="polite"></p>' +
       '<div class="smt-search-browse" hidden></div>' +
@@ -145,7 +141,6 @@
     var browse = root.querySelector(".smt-search-browse");
     var scopes = root.querySelector(".smt-search-scopes");
     var form = root.querySelector(".smt-search-form");
-    var hideBox = root.querySelector("#smt-hide-deprecated");
     var selected = -1;
     var timer = null;
 
@@ -388,13 +383,6 @@
       render();
       input.focus();
     });
-
-    if (hideBox && window.smtDocsSettings) {
-      hideBox.checked = window.smtDocsSettings.hideDeprecated();
-      hideBox.addEventListener("change", function () {
-        window.smtDocsSettings.setHideDeprecated(hideBox.checked);
-      });
-    }
 
     scopeButtons(route.scope);
     input.value = route.q;

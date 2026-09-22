@@ -203,6 +203,9 @@
     filterSidebar(section);
     markSidebarPage(routePath());
     markApiSplit();
+    if (global.smtDocsSettings && typeof global.smtDocsSettings.mountSidebarToggle === "function") {
+      global.smtDocsSettings.mountSidebarToggle();
+    }
     markNavbar(section);
     restoreScroll();
   }

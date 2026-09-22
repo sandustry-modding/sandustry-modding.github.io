@@ -52,12 +52,63 @@
 
   applyClass(hideDeprecated());
 
+  var TOGGLE_ID = "smt-sidebar-hide-deprecated-li";
+
+  function removeSidebarToggle() {
+    var existing = document.getElementById(TOGGLE_ID);
+    if (existing) existing.remove();
+  }
+
+  function mountSidebarToggle() {
+    var firstApi = document.querySelector(
+      ".sidebar-nav > ul > li.group.smt-sidebar-section-current > ul > li.group.smt-sidebar-api-split",
+    );
+    if (!firstApi) {
+      removeSidebarToggle();
+      return;
+    }
+
+    var existing = document.getElementById(TOGGLE_ID);
+    if (existing) {
+      if (existing.nextElementSibling === firstApi) {
+        firstApi.classList.remove("smt-sidebar-api-split");
+        existing.classList.add("smt-sidebar-api-split");
+        var box = existing.querySelector("input");
+        if (box) box.checked = hideDeprecated();
+        return;
+      }
+      existing.remove();
+    }
+
+    var li = document.createElement("li");
+    li.id = TOGGLE_ID;
+    li.className = "smt-sidebar-deprecated-toggle smt-sidebar-api-split";
+    li.innerHTML =
+      '<label class="smt-sidebar-settings-row">' +
+      '<input id="smt-hide-deprecated" type="checkbox" />' +
+      "<span>Hide deprecated APIs</span>" +
+      "</label>";
+    firstApi.classList.remove("smt-sidebar-api-split");
+    firstApi.parentNode.insertBefore(li, firstApi);
+
+    var input = li.querySelector("input");
+    if (!input) return;
+    input.checked = hideDeprecated();
+    input.addEventListener("change", function () {
+      setHideDeprecated(input.checked);
+    });
+  }
+
   global.smtDocsSettings = {
     hideDeprecated: hideDeprecated,
     setHideDeprecated: setHideDeprecated,
+    mountSidebarToggle: mountSidebarToggle,
   };
 
   global.smtDocsifyDocsSettingsPlugin = function (hook) {
-    hook.doneEach(revealTargetCard);
+    hook.doneEach(function () {
+      revealTargetCard();
+      mountSidebarToggle();
+    });
   };
 })(window);

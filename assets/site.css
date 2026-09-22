@@ -192,6 +192,35 @@ html {
   border-top: 1px solid color-mix(in srgb, var(--theme-color) 35%, var(--sidebar-border-color));
 }
 
+.sidebar-nav li.smt-sidebar-deprecated-toggle {
+  list-style: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar-nav .smt-sidebar-settings-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.15rem 0 0.45rem;
+  color: var(--smt-muted-text, var(--sidebar-link-color));
+  font-size: 0.8rem;
+  line-height: 1.35;
+  cursor: pointer;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.sidebar-nav .smt-sidebar-settings-row input {
+  flex: 0 0 auto;
+  margin: 0.12rem 0 0;
+  accent-color: var(--theme-color);
+}
+
 nav.app-nav {
   position: fixed;
   z-index: 20;
@@ -729,23 +758,6 @@ body:has(.sidebar.show) .sidebar-toggle .smt-sidebar-toggle-icon {
   flex-wrap: wrap;
   gap: 0.4rem;
   margin: 0 0 0.75rem;
-}
-
-.smt-search-page .smt-search-settings-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
-  margin: 0 0 1rem;
-  color: var(--smt-muted-text);
-  font-size: 0.85rem;
-  line-height: 1.35;
-  cursor: pointer;
-}
-
-.smt-search-page .smt-search-settings-row input {
-  flex: 0 0 auto;
-  margin: 0.15rem 0 0;
-  accent-color: var(--theme-color);
 }
 
 .smt-search-page .smt-search-scope {
