@@ -1,12 +1,20 @@
 # sandkit.api.upgrades
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.upgrades.UpgradeDefinition :id=upgradedefinition
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/upgrades.d.ts#L53" target="_blank" rel="noopener">upgrades.d.ts:53</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.upgrades.UpgradeDefinition = object">
+
+```ts
+UpgradeDefinition = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -42,6 +50,14 @@ Upgrade definition registered for an item.
 ### sandkit.api.upgrades.UpgradeCategoryDefinition :id=upgradecategorydefinition
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/upgrades.d.ts#L69" target="_blank" rel="noopener">upgrades.d.ts:69</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.upgrades.UpgradeCategoryDefinition = object">
+
+```ts
+UpgradeCategoryDefinition = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

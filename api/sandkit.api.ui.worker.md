@@ -8,13 +8,39 @@ Main thread adds richer UI APIs on top of this shape.
 
  Base namespace reused by main and worker declarations.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.LocalizedText :id=localizedtext
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/ui.d.ts#L22" target="_blank" rel="noopener">ui.d.ts:22</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.LocalizedText = string | I18nTextKey | I18nTranslatable">
+
+```ts
+LocalizedText = string | I18nTextKey | I18nTranslatable
+```
+
+</div>
+
+Plain text, translation key object, or i18n translatable value.
+
+</div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.ui.I18nTextKey :id=i18ntextkey
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/ui.d.ts#L25" target="_blank" rel="noopener">ui.d.ts:25</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.I18nTextKey = object">
+
+```ts
+I18nTextKey = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -38,6 +64,14 @@ Translation key with optional parameter substitution.
 ### sandkit.api.ui.I18nTranslatable :id=i18ntranslatable
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/ui.d.ts#L33" target="_blank" rel="noopener">ui.d.ts:33</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.I18nTranslatable = object">
+
+```ts
+I18nTranslatable = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -65,12 +99,20 @@ Value returned by `sandkit.api.i18n.translatable`.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/ui.d.ts#L40" target="_blank" rel="noopener">ui.d.ts:40</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.ui.ToastOptions = object">
+
+```ts
+ToastOptions = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | cooldown? | <code>number</code> | Minimum ms before the same toast can show again. |
 | cooldownKey? | <code>string</code> | Dedupe key paired with [ToastOptions.cooldown](?id=cooldown). Defaults to the message string or `message.key`. |
 | duration? | <code>number &#124; false</code> | Auto-dismiss delay in ms. Default `5000`. Set `false` to keep the toast until another toast replaces it. |
-| variant? | <code>string &amp; object &#124; &quot;danger&quot; &#124; &quot;hint&quot; &#124; &quot;hole&quot;</code> | Visual style applied to the toast body. |
+| variant? | <code>&quot;danger&quot; &#124; &quot;hint&quot; &#124; &quot;hole&quot; &#124; string &amp; object</code> | Visual style applied to the toast body. |
 
 <div class="smt-member-anchors">
 
@@ -85,26 +127,6 @@ Value returned by `sandkit.api.i18n.translatable`.
 </div>
 
 Cooldown, style, and auto-dismiss options for [toast](?id=toast).
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.LocalizedText :id=localizedtext
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/ui.d.ts#L22" target="_blank" rel="noopener">ui.d.ts:22</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.ui.LocalizedText = string | I18nTextKey | I18nTranslatable">
-
-```ts
-LocalizedText = string | I18nTextKey | I18nTranslatable
-```
-
-</div>
-
-Plain text, translation key object, or i18n translatable value.
 
 </div>
 

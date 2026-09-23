@@ -1,12 +1,39 @@
 # sandkit.api.tech
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.tech.TechGridId :id=techgridid
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L134" target="_blank" rel="noopener">tech.d.ts:134</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.tech.TechGridId = Tech | LooseString&lt;never&gt; | TaggedNumber&lt;&quot;tech&quot;&gt;">
+
+```ts
+TechGridId = Tech | LooseString<never> | TaggedNumber<"tech">
+```
+
+</div>
+
+Tech grid node id.
+Built-in [TechEnum](api/sandkit.enums.Tech.md) values autocomplete; custom string ids and tagged handles are allowed.
+
+</div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.tech.TechDefinition :id=techdefinition
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L137" target="_blank" rel="noopener">tech.d.ts:137</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.tech.TechDefinition = object">
+
+```ts
+TechDefinition = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -58,24 +85,15 @@ Tech definition shape.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L166" target="_blank" rel="noopener">tech.d.ts:166</a></p>
 
-| Property | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | Horizontal component. |
-| y | <code>number</code> | Vertical component. |
+<div class="smt-member-sig" data-sig="sandkit.api.tech.TechGridPosition = Vector2">
 
-<div class="smt-member-anchors">
-
-##### x <!-- {docsify-ignore} -->
-
-##### y <!-- {docsify-ignore} -->
+```ts
+TechGridPosition = Vector2
+```
 
 </div>
 
 Position on the tech grid.
-
-#### Extends
-
-- [`Vector2`](api/shared.player.md?id=vector2)
 
 </div>
 
@@ -84,6 +102,14 @@ Position on the tech grid.
 ### sandkit.api.tech.ConservatoryUnlocks :id=conservatoryunlocks
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L169" target="_blank" rel="noopener">tech.d.ts:169</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.tech.ConservatoryUnlocks = object">
+
+```ts
+ConservatoryUnlocks = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -99,27 +125,6 @@ Position on the tech grid.
 </div>
 
 Unlock payload for [conservatory.appendUnlock](api/sandkit.api.tech.conservatory.md?id=appendunlock).
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.tech.TechGridId :id=techgridid
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L134" target="_blank" rel="noopener">tech.d.ts:134</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.tech.TechGridId = Tech | LooseString&lt;never&gt; | TaggedNumber&lt;&quot;tech&quot;&gt;">
-
-```ts
-TechGridId = Tech | LooseString<never> | TaggedNumber<"tech">
-```
-
-</div>
-
-Tech grid node id.
-Built-in [TechEnum](api/sandkit.enums.Tech.md) values autocomplete; custom string ids and tagged handles are allowed.
 
 </div>
 
@@ -281,10 +286,10 @@ addDefinition(techId: TechGridId, definition: TechDefinition): void
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/tech.d.ts#L80" target="_blank" rel="noopener">tech.d.ts:80</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.tech.registerNode(techId: TechGridId, definition: TechDefinition, options: object): TechGridPosition">
+<div class="smt-member-sig" data-sig="sandkit.api.tech.registerNode(techId: TechGridId, definition: TechDefinition, options: object): Vector2">
 
 ```ts
-registerNode(techId: TechGridId, definition: TechDefinition, options: object): TechGridPosition
+registerNode(techId: TechGridId, definition: TechDefinition, options: object): Vector2
 ```
 
 </div>
@@ -307,7 +312,7 @@ registerNode(techId: TechGridId, definition: TechDefinition, options: object): T
 
 Register a tech node on the grid with parent and position options.
 
-[`TechGridPosition`](?id=techgridposition)
+[`Vector2`](api/shared.player.md?id=vector2)
 
 #### Example
 

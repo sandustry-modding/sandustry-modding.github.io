@@ -4,13 +4,21 @@
 
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.grid.GridMutationWriter :id=gridmutationwriter
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L150" target="_blank" rel="noopener">grid.d.ts:150</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriter = object">
+
+```ts
+GridMutationWriter = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -34,6 +42,14 @@ Deferred element and terrain mutations passed to [mutate](?id=mutate).
 ### sandkit.api.grid.GridMutationWriterElements :id=gridmutationwriterelements
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L158" target="_blank" rel="noopener">grid.d.ts:158</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriterElements = object">
+
+```ts
+GridMutationWriterElements = object
+```
+
+</div>
 
 | Method | Signature | Description |
 | --- | --- | --- |
@@ -61,6 +77,14 @@ Element writers available on [GridMutationWriter.elements](?id=elements).
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L205" target="_blank" rel="noopener">grid.d.ts:205</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriterTerrains = object">
+
+```ts
+GridMutationWriterTerrains = object
+```
+
+</div>
+
 | Method | Signature | Description |
 | --- | --- | --- |
 | createAtCell() | <code>(...args: number, number, [TerrainRef, TerrainMutationOptions]): void</code> | Create terrain at a cell inside a [mutate](?id=mutate) callback. |
@@ -83,9 +107,35 @@ Terrain writers available on [GridMutationWriter.terrains](?id=terrains).
 
 <div class="smt-member-card">
 
+### sandkit.api.grid.CellId :id=cellid
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L71" target="_blank" rel="noopener">grid.d.ts:71</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.CellId = CellId">
+
+```ts
+CellId = CellId
+```
+
+</div>
+
+Packed cell id from [getCellIdAtCell](?id=getcellidatcell).
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.grid.GridDimensions :id=griddimensions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L74" target="_blank" rel="noopener">grid.d.ts:74</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.GridDimensions = object">
+
+```ts
+GridDimensions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -109,6 +159,14 @@ World grid width and height in cells.
 ### sandkit.api.grid.ExcavateOptions :id=excavateoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L82" target="_blank" rel="noopener">grid.d.ts:82</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.ExcavateOptions = object">
+
+```ts
+ExcavateOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -139,26 +197,6 @@ World grid width and height in cells.
 </div>
 
 Flags that control how [excavateAtCell](?id=excavateatcell) resolves damage and drops.
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.CellId :id=cellid
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L71" target="_blank" rel="noopener">grid.d.ts:71</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.CellId = CellId">
-
-```ts
-CellId = CellId
-```
-
-</div>
-
-Packed cell id from [getCellIdAtCell](?id=getcellidatcell).
 
 </div>
 

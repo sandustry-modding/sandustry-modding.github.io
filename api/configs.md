@@ -14,13 +14,21 @@ https://sandustry-modding.github.io/schemas/workshop.json
 
 [JSON Schema docs](https://sandustry-modding.github.io/#/types/schemas)
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### configs.ConfigSchemaNumber :id=configschemanumber
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L136" target="_blank" rel="noopener">modinfo.d.ts:136</a></p>
+
+<div class="smt-member-sig" data-sig="configs.ConfigSchemaNumber = object">
+
+```ts
+ConfigSchemaNumber = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -66,6 +74,14 @@ Number setting in `modinfo.json` `configSchema`.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L176" target="_blank" rel="noopener">modinfo.d.ts:176</a></p>
 
+<div class="smt-member-sig" data-sig="configs.ConfigSchemaBoolean = object">
+
+```ts
+ConfigSchemaBoolean = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | type | <code>&quot;boolean&quot;</code> | Discriminator. Must be `"boolean"`. |
@@ -101,6 +117,14 @@ Boolean setting in `modinfo.json` `configSchema`.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L204" target="_blank" rel="noopener">modinfo.d.ts:204</a></p>
 
+<div class="smt-member-sig" data-sig="configs.ConfigSchemaChoiceOption = object">
+
+```ts
+ConfigSchemaChoiceOption = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | value | <code>string</code> | Stored value written when the player picks this option. |
@@ -126,6 +150,14 @@ One option inside a [ConfigSchemaChoice](?id=configschemachoice).
 ### configs.ConfigSchemaChoice :id=configschemachoice
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L220" target="_blank" rel="noopener">modinfo.d.ts:220</a></p>
+
+<div class="smt-member-sig" data-sig="configs.ConfigSchemaChoice = object">
+
+```ts
+ConfigSchemaChoice = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -161,9 +193,37 @@ Choice setting in `modinfo.json` `configSchema`.
 
 <div class="smt-member-card">
 
+### configs.ConfigSchemaEntry :id=configschemaentry
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L257" target="_blank" rel="noopener">modinfo.d.ts:257</a></p>
+
+<div class="smt-member-sig" data-sig="configs.ConfigSchemaEntry = ConfigSchemaNumber | ConfigSchemaBoolean | ConfigSchemaChoice">
+
+```ts
+ConfigSchemaEntry = ConfigSchemaNumber | ConfigSchemaBoolean | ConfigSchemaChoice
+```
+
+</div>
+
+One entry under `modinfo.json` `configSchema`.
+
+Keys of `configSchema` are setting ids read via `api.settings.get`.
+
+</div>
+
+<div class="smt-member-card">
+
 ### configs.TextureOverride :id=textureoverride
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L263" target="_blank" rel="noopener">modinfo.d.ts:263</a></p>
+
+<div class="smt-member-sig" data-sig="configs.TextureOverride = object">
+
+```ts
+TextureOverride = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -194,6 +254,14 @@ Animated (or static) texture replacement for a vanilla asset id.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L286" target="_blank" rel="noopener">modinfo.d.ts:286</a></p>
 
+<div class="smt-member-sig" data-sig="configs.ModProvide = object">
+
+```ts
+ModProvide = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | kind | <code>string</code> | Kind of provided content (for example `"structureTextures"`). |
@@ -219,6 +287,14 @@ Optional content pack exposed by this mod for other mods or the game to consume.
 ### configs.ModMapBlueprints :id=modmapblueprints
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L307" target="_blank" rel="noopener">modinfo.d.ts:307</a></p>
+
+<div class="smt-member-sig" data-sig="configs.ModMapBlueprints = object">
+
+```ts
+ModMapBlueprints = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -263,26 +339,17 @@ Paths are relative to the mod root.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L347" target="_blank" rel="noopener">modinfo.d.ts:347</a></p>
 
-| Property | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | Horizontal component. |
-| y | <code>number</code> | Vertical component. |
+<div class="smt-member-sig" data-sig="configs.ModMapPoint = Vector2">
 
-<div class="smt-member-anchors">
-
-##### x <!-- {docsify-ignore} -->
-
-##### y <!-- {docsify-ignore} -->
+```ts
+ModMapPoint = Vector2
+```
 
 </div>
 
 World-pixel spawn or unstuck point.
 
 Same shape as [Vector2](api/shared.player.md?id=vector2).
-
-#### Extends
-
-- [`Vector2`](api/shared.player.md?id=vector2)
 
 </div>
 
@@ -291,6 +358,14 @@ Same shape as [Vector2](api/shared.player.md?id=vector2).
 ### configs.ModMapTopBounds :id=modmaptopbounds
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L353" target="_blank" rel="noopener">modinfo.d.ts:353</a></p>
+
+<div class="smt-member-sig" data-sig="configs.ModMapTopBounds = object">
+
+```ts
+ModMapTopBounds = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -314,6 +389,14 @@ Vertical camera / travel bounds for the custom map.
 ### configs.ModMapDepthLight :id=modmapdepthlight
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L368" target="_blank" rel="noopener">modinfo.d.ts:368</a></p>
+
+<div class="smt-member-sig" data-sig="configs.ModMapDepthLight = object">
+
+```ts
+ModMapDepthLight = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -344,6 +427,14 @@ Depth-based light sizing for the custom map.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L391" target="_blank" rel="noopener">modinfo.d.ts:391</a></p>
 
+<div class="smt-member-sig" data-sig="configs.ModMapParallax = object">
+
+```ts
+ModMapParallax = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | widthScale? | <code>number</code> | Horizontal scale of the parallax layer. |
@@ -367,6 +458,14 @@ Parallax background tuning for the custom map.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L406" target="_blank" rel="noopener">modinfo.d.ts:406</a></p>
 
+<div class="smt-member-sig" data-sig="configs.ModMapColorMappingLayers = object">
+
+```ts
+ModMapColorMappingLayers = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | background? | <code>string</code> | Background terrain id for this blueprint RGB. |
@@ -386,9 +485,35 @@ Color-map cell that paints both background and foreground terrain.
 
 <div class="smt-member-card">
 
+### configs.ModMapColorMapping :id=modmapcolormapping
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L421" target="_blank" rel="noopener">modinfo.d.ts:421</a></p>
+
+<div class="smt-member-sig" data-sig="configs.ModMapColorMapping = string | ModMapColorMappingLayers">
+
+```ts
+ModMapColorMapping = string | ModMapColorMappingLayers
+```
+
+</div>
+
+One `map.colorMappings` value: a single terrain id, or layered background/foreground ids.
+
+</div>
+
+<div class="smt-member-card">
+
 ### configs.ModMapDefinition :id=modmapdefinition
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L427" target="_blank" rel="noopener">modinfo.d.ts:427</a></p>
+
+<div class="smt-member-sig" data-sig="configs.ModMapDefinition = object">
+
+```ts
+ModMapDefinition = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -437,6 +562,14 @@ Custom map pack block in `modinfo.json`.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L474" target="_blank" rel="noopener">modinfo.d.ts:474</a></p>
 
+<div class="smt-member-sig" data-sig="configs.ModGameVersion = object">
+
+```ts
+ModGameVersion = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | minimum? | <code>string</code> | Lowest supported game version string. |
@@ -460,6 +593,14 @@ Compatible game version range for the mod.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L497" target="_blank" rel="noopener">modinfo.d.ts:497</a></p>
 
+<div class="smt-member-sig" data-sig="configs.ModInfo = object">
+
+```ts
+ModInfo = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | $schema? | <code>string</code> | Optional JSON Schema URL for editors (for example VS Code). Not read by the game loader. |
@@ -479,7 +620,7 @@ Compatible game version range for the mod.
 | configSchema? | <code>Record&lt;string, ConfigSchemaEntry&gt;</code> | Player-facing settings schema. Keys are setting ids; values define type and UI. Read at runtime with `api.settings.get`. |
 | configOverrides? | <code>Record&lt;string, string&gt;</code> | Paths to JSON config overrides keyed by vanilla config id (for example `"drill"`). |
 | shaderOverrides? | <code>Record&lt;string, string&gt;</code> | Paths to GLSL shader replacements keyed by shader id (for example `"sky"`). |
-| textureOverrides? | <code>Record&lt;string, string &#124; TextureOverride&gt;</code> | Texture replacements keyed by vanilla texture id. A string value is a path; an object adds spritesheet frame metadata. |
+| textureOverrides? | <code>Record&lt;string, TextureOverride &#124; string&gt;</code> | Texture replacements keyed by vanilla texture id. A string value is a path; an object adds spritesheet frame metadata. |
 | provides? | <code>ModProvide[]</code> | Optional content this mod publishes for others to consume. |
 | map? | <code>ModMapDefinition</code> | Embedded custom map pack definition for this mod. |
 
@@ -541,9 +682,68 @@ At least one capability is required: [entry](?id=entry), [workerEntry](?id=worke
 
 <div class="smt-member-card">
 
+### configs.PatchTargetFile :id=patchtargetfile
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L23" target="_blank" rel="noopener">patches.d.ts:23</a></p>
+
+<div class="smt-member-sig" data-sig="configs.PatchTargetFile = &quot;js/bundle.js&quot; | &quot;js/simulation-worker.js&quot; | &quot;js/manager-worker.js&quot; | &quot;js/utility-worker.js&quot; | string &amp; object">
+
+```ts
+PatchTargetFile = "js/bundle.js" | "js/simulation-worker.js" | "js/manager-worker.js" | "js/utility-worker.js" | string & object
+```
+
+</div>
+
+Known compiled bundle paths the loader can patch.
+
+| Value | Role |
+| --- | --- |
+| `js/bundle.js` | Main renderer |
+| `js/manager-worker.js` | Manager worker |
+| `js/simulation-worker.js` | Simulation workers |
+| `js/utility-worker.js` | Utility worker |
+
+</div>
+
+<div class="smt-member-card">
+
+### configs.PatchOperation :id=patchoperation
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L42" target="_blank" rel="noopener">patches.d.ts:42</a></p>
+
+<div class="smt-member-sig" data-sig="configs.PatchOperation = &quot;replace&quot; | &quot;remove&quot; | &quot;insertBefore&quot; | &quot;insertAfter&quot; | &quot;wrap&quot;">
+
+```ts
+PatchOperation = "replace" | "remove" | "insertBefore" | "insertAfter" | "wrap"
+```
+
+</div>
+
+Supported patch operations.
+
+| Value | Behaviour |
+| --- | --- |
+| `replace` | Replace the matched text with [BundlePatch.code](?id=code) / [BundlePatch.replace](?id=replace) |
+| `remove` | Delete the matched text |
+| `insertBefore` | Insert [BundlePatch.code](?id=code) before the match |
+| `insertAfter` | Insert [BundlePatch.code](?id=code) after the match |
+| `wrap` | Surround the match with [BundlePatch.before](?id=before) and [BundlePatch.after](?id=after) |
+
+</div>
+
+<div class="smt-member-card">
+
 ### configs.BundlePatchRegex :id=bundlepatchregex
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L48" target="_blank" rel="noopener">patches.d.ts:48</a></p>
+
+<div class="smt-member-sig" data-sig="configs.BundlePatchRegex = object">
+
+```ts
+BundlePatchRegex = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -567,6 +767,14 @@ Regex finder when the target is not a plain [BundlePatch.find](?id=find) string.
 ### configs.BundlePatch :id=bundlepatch
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L100" target="_blank" rel="noopener">patches.d.ts:100</a></p>
+
+<div class="smt-member-sig" data-sig="configs.BundlePatch = object">
+
+```ts
+BundlePatch = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -661,6 +869,14 @@ or duplicated match fails loudly. When several patches must succeed together
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L181" target="_blank" rel="noopener">patches.d.ts:181</a></p>
 
+<div class="smt-member-sig" data-sig="configs.BundlePatchesDocument = object">
+
+```ts
+BundlePatchesDocument = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | $schema? | <code>string</code> | Optional JSON Schema URL for editors (for example VS Code). Not read by the game loader. |
@@ -683,9 +899,36 @@ shipped mods. Use this object shape only when your editor needs inline `$schema`
 
 <div class="smt-member-card">
 
+### configs.BundlePatchesFile :id=bundlepatchesfile
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L198" target="_blank" rel="noopener">patches.d.ts:198</a></p>
+
+<div class="smt-member-sig" data-sig="configs.BundlePatchesFile = BundlePatch[] | BundlePatchesDocument">
+
+```ts
+BundlePatchesFile = BundlePatch[] | BundlePatchesDocument
+```
+
+</div>
+
+Root shape of `patches.json`: a bare [BundlePatch](?id=bundlepatch) array (game format),
+or a [BundlePatchesDocument](?id=bundlepatchesdocument) object when the file includes `$schema`.
+
+</div>
+
+<div class="smt-member-card">
+
 ### configs.WorkshopJson :id=workshopjson
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/workshop.d.ts#L21" target="_blank" rel="noopener">workshop.d.ts:21</a></p>
+
+<div class="smt-member-sig" data-sig="configs.WorkshopJson = object">
+
+```ts
+WorkshopJson = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -712,115 +955,5 @@ Links a local mod folder to its Steam Workshop item.
   "publishedFileId": "1234567890"
 }
 ```
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### configs.ConfigSchemaEntry :id=configschemaentry
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L257" target="_blank" rel="noopener">modinfo.d.ts:257</a></p>
-
-<div class="smt-member-sig" data-sig="configs.ConfigSchemaEntry = ConfigSchemaNumber | ConfigSchemaBoolean | ConfigSchemaChoice">
-
-```ts
-ConfigSchemaEntry = ConfigSchemaNumber | ConfigSchemaBoolean | ConfigSchemaChoice
-```
-
-</div>
-
-One entry under `modinfo.json` `configSchema`.
-
-Keys of `configSchema` are setting ids read via `api.settings.get`.
-
-</div>
-
-<div class="smt-member-card">
-
-### configs.ModMapColorMapping :id=modmapcolormapping
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/modinfo.d.ts#L421" target="_blank" rel="noopener">modinfo.d.ts:421</a></p>
-
-<div class="smt-member-sig" data-sig="configs.ModMapColorMapping = string | ModMapColorMappingLayers">
-
-```ts
-ModMapColorMapping = string | ModMapColorMappingLayers
-```
-
-</div>
-
-One `map.colorMappings` value: a single terrain id, or layered background/foreground ids.
-
-</div>
-
-<div class="smt-member-card">
-
-### configs.PatchTargetFile :id=patchtargetfile
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L23" target="_blank" rel="noopener">patches.d.ts:23</a></p>
-
-<div class="smt-member-sig" data-sig="configs.PatchTargetFile = &quot;js/bundle.js&quot; | &quot;js/simulation-worker.js&quot; | &quot;js/manager-worker.js&quot; | &quot;js/utility-worker.js&quot; | string &amp; object">
-
-```ts
-PatchTargetFile = "js/bundle.js" | "js/simulation-worker.js" | "js/manager-worker.js" | "js/utility-worker.js" | string & object
-```
-
-</div>
-
-Known compiled bundle paths the loader can patch.
-
-| Value | Role |
-| --- | --- |
-| `js/bundle.js` | Main renderer |
-| `js/manager-worker.js` | Manager worker |
-| `js/simulation-worker.js` | Simulation workers |
-| `js/utility-worker.js` | Utility worker |
-
-</div>
-
-<div class="smt-member-card">
-
-### configs.PatchOperation :id=patchoperation
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L42" target="_blank" rel="noopener">patches.d.ts:42</a></p>
-
-<div class="smt-member-sig" data-sig="configs.PatchOperation = &quot;replace&quot; | &quot;remove&quot; | &quot;insertBefore&quot; | &quot;insertAfter&quot; | &quot;wrap&quot;">
-
-```ts
-PatchOperation = "replace" | "remove" | "insertBefore" | "insertAfter" | "wrap"
-```
-
-</div>
-
-Supported patch operations.
-
-| Value | Behaviour |
-| --- | --- |
-| `replace` | Replace the matched text with [BundlePatch.code](?id=code) / [BundlePatch.replace](?id=replace) |
-| `remove` | Delete the matched text |
-| `insertBefore` | Insert [BundlePatch.code](?id=code) before the match |
-| `insertAfter` | Insert [BundlePatch.code](?id=code) after the match |
-| `wrap` | Surround the match with [BundlePatch.before](?id=before) and [BundlePatch.after](?id=after) |
-
-</div>
-
-<div class="smt-member-card">
-
-### configs.BundlePatchesFile :id=bundlepatchesfile
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/configs/patches.d.ts#L198" target="_blank" rel="noopener">patches.d.ts:198</a></p>
-
-<div class="smt-member-sig" data-sig="configs.BundlePatchesFile = BundlePatch[] | BundlePatchesDocument">
-
-```ts
-BundlePatchesFile = BundlePatch[] | BundlePatchesDocument
-```
-
-</div>
-
-Root shape of `patches.json`: a bare [BundlePatch](?id=bundlepatch) array (game format),
-or a [BundlePatchesDocument](?id=bundlepatchesdocument) object when the file includes `$schema`.
 
 </div>

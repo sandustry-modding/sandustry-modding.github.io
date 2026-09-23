@@ -3,13 +3,21 @@
 `sandkit.api.excavation` — register custom excavation tool dig profiles.
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.excavation.ExcavationProfileDefinitionV1 :id=excavationprofiledefinitionv1
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/excavation.d.ts#L48" target="_blank" rel="noopener">excavation.d.ts:48</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.excavation.ExcavationProfileDefinitionV1 = object">
+
+```ts
+ExcavationProfileDefinitionV1 = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -39,6 +47,14 @@ Excavation tool profile definition.
 ### sandkit.api.excavation.ExcavationProfileOptions :id=excavationprofileoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/excavation.d.ts#L60" target="_blank" rel="noopener">excavation.d.ts:60</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.excavation.ExcavationProfileOptions = object">
+
+```ts
+ExcavationProfileOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -77,6 +93,14 @@ Options attached to an excavation profile definition.
 ### sandkit.api.excavation.ExcavationTerrainRule :id=excavationterrainrule
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/excavation.d.ts#L72" target="_blank" rel="noopener">excavation.d.ts:72</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.excavation.ExcavationTerrainRule = object">
+
+```ts
+ExcavationTerrainRule = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

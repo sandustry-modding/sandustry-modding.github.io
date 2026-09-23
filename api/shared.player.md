@@ -1,12 +1,144 @@
 # shared.player
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### shared.player.CellCoordinates :id=cellcoordinates
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/geometry.d.ts#L18" target="_blank" rel="noopener">geometry.d.ts:18</a></p>
+
+<div class="smt-member-sig" data-sig="shared.player.CellCoordinates = [number, number]">
+
+```ts
+CellCoordinates = [number, number]
+```
+
+</div>
+
+Grid cell position as `[cellX, cellY]`.
+
+Cell coordinates match `sandkit.api.*AtCell` helpers: column first, then row.
+Prefer this tuple for rest-parameter cell APIs.
+
+</div>
+
+<div class="smt-member-card">
+
+### shared.player.Vector2 :id=vector2
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/geometry.d.ts#L27" target="_blank" rel="noopener">geometry.d.ts:27</a></p>
+
+<div class="smt-member-sig" data-sig="shared.player.Vector2 = object">
+
+```ts
+Vector2 = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| x | <code>number</code> | Horizontal component. |
+| y | <code>number</code> | Vertical component. |
+
+<div class="smt-member-anchors">
+
+##### x <!-- {docsify-ignore} -->
+
+##### y <!-- {docsify-ignore} -->
+
+</div>
+
+2D vector in world or cell space.
+
+World positions use pixels.
+Cell helpers may return pixel or cell units depending on the API.
+Prefer this object for returns, options, and `{ x, y }` payloads.
+
+</div>
+
+<div class="smt-member-card">
+
+### shared.player.CellXY :id=cellxy
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/geometry.d.ts#L40" target="_blank" rel="noopener">geometry.d.ts:40</a></p>
+
+<div class="smt-member-sig" data-sig="shared.player.CellXY = object">
+
+```ts
+CellXY = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| cellX | <code>number</code> | Cell column. |
+| cellY | <code>number</code> | Cell row. |
+
+<div class="smt-member-anchors">
+
+##### cellX <!-- {docsify-ignore} -->
+
+##### cellY <!-- {docsify-ignore} -->
+
+</div>
+
+Grid cell position as an object.
+
+Prefer this for event and hook payloads.
+Prefer [CellCoordinates](?id=cellcoordinates) for `...AtCell` rest args.
+
+</div>
+
+<div class="smt-member-card">
+
+### shared.player.Size2 :id=size2
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/geometry.d.ts#L53" target="_blank" rel="noopener">geometry.d.ts:53</a></p>
+
+<div class="smt-member-sig" data-sig="shared.player.Size2 = object">
+
+```ts
+Size2 = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| width | <code>number</code> | Horizontal size. |
+| height | <code>number</code> | Vertical size. |
+
+<div class="smt-member-anchors">
+
+##### width <!-- {docsify-ignore} -->
+
+##### height <!-- {docsify-ignore} -->
+
+</div>
+
+2D size in pixels or UI units.
+
+Do not use for grid extents.
+Grid size uses `widthCells` / `heightCells` on `GridDimensions`.
+
+</div>
 
 <div class="smt-member-card">
 
 ### shared.player.Player :id=player
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/player.d.ts#L25" target="_blank" rel="noopener">player.d.ts:25</a></p>
+
+<div class="smt-member-sig" data-sig="shared.player.Player = object">
+
+```ts
+Player = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -81,6 +213,14 @@ Reflects `sandkit.engine.state` / store player fields exposed to mods.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/player.d.ts#L137" target="_blank" rel="noopener">player.d.ts:137</a></p>
 
+<div class="smt-member-sig" data-sig="shared.player.InventoryItem = object">
+
+```ts
+InventoryItem = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | id | <code>number</code> |  |
@@ -110,141 +250,5 @@ Reflects `sandkit.engine.state` / store player fields exposed to mods.
 </div>
 
 One hotbar or inventory item entry.
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### shared.player.CellCoordinates :id=cellcoordinates
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/geometry.d.ts#L18" target="_blank" rel="noopener">geometry.d.ts:18</a></p>
-
-<div class="smt-member-sig" data-sig="shared.player.CellCoordinates = [number, number]">
-
-```ts
-CellCoordinates = [number, number]
-```
-
-</div>
-
-Grid cell position as `[cellX, cellY]`.
-
-Cell coordinates match `sandkit.api.*AtCell` helpers: column first, then row.
-Prefer this tuple for rest-parameter cell APIs.
-
-</div>
-
-<div class="smt-member-card">
-
-### shared.player.Vector2 :id=vector2
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/geometry.d.ts#L27" target="_blank" rel="noopener">geometry.d.ts:27</a></p>
-
-<div class="smt-member-sig" data-sig="shared.player.Vector2 = object">
-
-```ts
-Vector2 = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | Horizontal component. |
-| y | <code>number</code> | Vertical component. |
-
-<div class="smt-member-anchors">
-
-##### x <!-- {docsify-ignore} -->
-
-##### y <!-- {docsify-ignore} -->
-
-</div>
-
-2D vector in world or cell space.
-
-World positions use pixels.
-Cell helpers may return pixel or cell units depending on the API.
-Prefer this object for returns, options, and `{ x, y }` payloads.
-
-#### Extended by
-
-- [`TechGridPosition`](api/sandkit.api.tech.md?id=techgridposition)
-- [`ModMapPoint`](api/configs.md?id=modmappoint)
-
-</div>
-
-<div class="smt-member-card">
-
-### shared.player.CellXY :id=cellxy
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/geometry.d.ts#L40" target="_blank" rel="noopener">geometry.d.ts:40</a></p>
-
-<div class="smt-member-sig" data-sig="shared.player.CellXY = object">
-
-```ts
-CellXY = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| cellX | <code>number</code> | Cell column. |
-| cellY | <code>number</code> | Cell row. |
-
-<div class="smt-member-anchors">
-
-##### cellX <!-- {docsify-ignore} -->
-
-##### cellY <!-- {docsify-ignore} -->
-
-</div>
-
-Grid cell position as an object.
-
-Prefer this for event and hook payloads.
-Prefer [CellCoordinates](?id=cellcoordinates) for `...AtCell` rest args.
-
-#### Extended by
-
-- [`ArtifactLocation`](api/sandkit.api.maps.md?id=artifactlocation)
-- [`PipeVentCell`](api/sandkit.api.pipes.md?id=pipeventcell)
-
-</div>
-
-<div class="smt-member-card">
-
-### shared.player.Size2 :id=size2
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/geometry.d.ts#L53" target="_blank" rel="noopener">geometry.d.ts:53</a></p>
-
-<div class="smt-member-sig" data-sig="shared.player.Size2 = object">
-
-```ts
-Size2 = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| width | <code>number</code> | Horizontal size. |
-| height | <code>number</code> | Vertical size. |
-
-<div class="smt-member-anchors">
-
-##### width <!-- {docsify-ignore} -->
-
-##### height <!-- {docsify-ignore} -->
-
-</div>
-
-2D size in pixels or UI units.
-
-Do not use for grid extents.
-Grid size uses `widthCells` / `heightCells` on `GridDimensions`.
 
 </div>

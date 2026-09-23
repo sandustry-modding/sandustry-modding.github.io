@@ -3,13 +3,21 @@
 `sandkit.api.effects` — visual effects, particles, and lasers at world positions.
 Main thread only. Temporary lights live under [lights.temporary](api/sandkit.api.lights.temporary.md).
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.effects.LaserEffectOptions :id=lasereffectoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L115" target="_blank" rel="noopener">effects.d.ts:115</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.LaserEffectOptions = object">
+
+```ts
+LaserEffectOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -40,6 +48,14 @@ Options for laser beam effects.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L127" target="_blank" rel="noopener">effects.d.ts:127</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.effects.LaserEffectHandle = object">
+
+```ts
+LaserEffectHandle = object
+```
+
+</div>
+
 | Method | Signature | Description |
 | --- | --- | --- |
 | destroy() | <code>(): void</code> | Removes the laser from the scene. |
@@ -59,6 +75,14 @@ Handle returned by createLaserAtWorld.
 ### sandkit.api.effects.DistortionEffectOptions :id=distortioneffectoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L133" target="_blank" rel="noopener">effects.d.ts:133</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.DistortionEffectOptions = object">
+
+```ts
+DistortionEffectOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -92,6 +116,14 @@ Options for distortion wave effects.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/effects.d.ts#L48" target="_blank" rel="noopener">effects.d.ts:48</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.effects.EffectOptions = object">
+
+```ts
+EffectOptions = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | duration? | <code>number</code> |  |
@@ -117,6 +149,14 @@ Generic duration and radius options for world effects.
 ### sandkit.api.effects.TemporaryLightOptions :id=temporarylightoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/effects.d.ts#L54" target="_blank" rel="noopener">effects.d.ts:54</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.TemporaryLightOptions = object">
+
+```ts
+TemporaryLightOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -170,6 +210,14 @@ Options for [createLightAtWorld](?id=createlightatworld).
 ### sandkit.api.effects.ParticleEffectOptions :id=particleeffectoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/effects.d.ts#L71" target="_blank" rel="noopener">effects.d.ts:71</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.ParticleEffectOptions = object">
+
+```ts
+ParticleEffectOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

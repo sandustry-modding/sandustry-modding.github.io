@@ -3,66 +3,6 @@
 `sandkit.api.input` — key bindings, mouse position, and modifier keys.
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.input.InputBindingHandlers :id=inputbindinghandlers
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L128" target="_blank" rel="noopener">input.d.ts:128</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| down? | <code>() =&gt; void</code> | Called when the binding is pressed. |
-| up? | <code>() =&gt; void</code> | Called when the binding is released. |
-
-<div class="smt-member-anchors">
-
-##### down? <!-- {docsify-ignore} -->
-
-##### up? <!-- {docsify-ignore} -->
-
-</div>
-
-Handlers invoked when a binding is pressed or released.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.input.InputBindingDefinition :id=inputbindingdefinition
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L136" target="_blank" rel="noopener">input.d.ts:136</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| displayName | <code>string</code> | Display name shown in settings. |
-| displayNameKey? | <code>string</code> | i18n key for the display name (overrides displayName when set). |
-| category | <code>string</code> | Settings category for grouping. |
-| handlers | <code>InputBindingHandlers</code> | Press and release handlers. |
-
-<div class="smt-member-anchors">
-
-##### displayName <!-- {docsify-ignore} -->
-
-##### displayNameKey? <!-- {docsify-ignore} -->
-
-##### category <!-- {docsify-ignore} -->
-
-##### handlers <!-- {docsify-ignore} -->
-
-</div>
-
-Definition for a registered input binding.
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
-
-</div>
-
 ## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
@@ -98,6 +38,80 @@ KeyCode = LooseString<"Shift" | "Alt" | "Control" | "Meta" | "ShiftLeft" | "Shif
 </div>
 
 KeyboardEvent.code, a modifier alias (`Shift`), or a chord (`Control+KeyC`).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.input.InputBindingHandlers :id=inputbindinghandlers
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L128" target="_blank" rel="noopener">input.d.ts:128</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.input.InputBindingHandlers = object">
+
+```ts
+InputBindingHandlers = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| down? | <code>() =&gt; void</code> | Called when the binding is pressed. |
+| up? | <code>() =&gt; void</code> | Called when the binding is released. |
+
+<div class="smt-member-anchors">
+
+##### down? <!-- {docsify-ignore} -->
+
+##### up? <!-- {docsify-ignore} -->
+
+</div>
+
+Handlers invoked when a binding is pressed or released.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.input.InputBindingDefinition :id=inputbindingdefinition
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/input.d.ts#L136" target="_blank" rel="noopener">input.d.ts:136</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.input.InputBindingDefinition = object">
+
+```ts
+InputBindingDefinition = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| displayName | <code>string</code> | Display name shown in settings. |
+| displayNameKey? | <code>string</code> | i18n key for the display name (overrides displayName when set). |
+| category | <code>string</code> | Settings category for grouping. |
+| handlers | <code>InputBindingHandlers</code> | Press and release handlers. |
+
+<div class="smt-member-anchors">
+
+##### displayName <!-- {docsify-ignore} -->
+
+##### displayNameKey? <!-- {docsify-ignore} -->
+
+##### category <!-- {docsify-ignore} -->
+
+##### handlers <!-- {docsify-ignore} -->
+
+</div>
+
+Definition for a registered input binding.
+
+#### Indexable
+
+```ts
+[key: string]: unknown
+```
 
 </div>
 

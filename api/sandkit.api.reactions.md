@@ -1,12 +1,20 @@
 # sandkit.api.reactions
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.reactions.ContactRecipeDefinitionV1 :id=contactrecipedefinitionv1
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/reactions.d.ts#L29" target="_blank" rel="noopener">reactions.d.ts:29</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.reactions.ContactRecipeDefinitionV1 = object">
+
+```ts
+ContactRecipeDefinitionV1 = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

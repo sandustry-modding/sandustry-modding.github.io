@@ -1,12 +1,20 @@
 # sandkit.api.sound
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.sound.SoundHandle :id=soundhandle
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L79" target="_blank" rel="noopener">sound.d.ts:79</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.sound.SoundHandle = object">
+
+```ts
+SoundHandle = object
+```
+
+</div>
 
 | Method | Signature | Description |
 | --- | --- | --- |
@@ -27,6 +35,14 @@ Handle returned from a play call.
 ### sandkit.api.sound.SoundLayer :id=soundlayer
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L85" target="_blank" rel="noopener">sound.d.ts:85</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.sound.SoundLayer = object">
+
+```ts
+SoundLayer = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -62,6 +78,14 @@ One layer in a layered sound.
 ### sandkit.api.sound.SoundOptions :id=soundoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L98" target="_blank" rel="noopener">sound.d.ts:98</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.sound.SoundOptions = object">
+
+```ts
+SoundOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -103,6 +127,14 @@ Options passed to sound play helpers.
 ### sandkit.api.sound.SoundLayersOptions :id=soundlayersoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sound.d.ts#L115" target="_blank" rel="noopener">sound.d.ts:115</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.sound.SoundLayersOptions = object">
+
+```ts
+SoundLayersOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

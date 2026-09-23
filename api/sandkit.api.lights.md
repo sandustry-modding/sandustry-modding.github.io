@@ -3,13 +3,21 @@
 `sandkit.api.lights` — temporary lights and persistent world lights.
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.lights.TemporaryLightHandle :id=temporarylighthandle
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/lights.d.ts#L122" target="_blank" rel="noopener">lights.d.ts:122</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.lights.TemporaryLightHandle = object">
+
+```ts
+TemporaryLightHandle = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -27,40 +35,6 @@ Main thread only.
 Handle returned from [temporary.createAtWorld](api/sandkit.api.lights.temporary.md?id=createatworld).
 
 </div>
-
-<div class="smt-member-card">
-
-### sandkit.api.lights.PersistentLightOptions :id=persistentlightoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/lights.d.ts#L136" target="_blank" rel="noopener">lights.d.ts:136</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| brightness? | <code>number</code> | Light brightness multiplier. |
-| size? | <code>number</code> | Light radius in pixels. |
-| color? | <code>[number, number, number, number]</code> | RGBA color components. |
-
-<div class="smt-member-anchors">
-
-##### brightness? <!-- {docsify-ignore} -->
-
-##### size? <!-- {docsify-ignore} -->
-
-##### color? <!-- {docsify-ignore} -->
-
-</div>
-
-Options for persistent world lights.
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
@@ -82,9 +56,43 @@ Options for temporary lights.
 
 <div class="smt-member-card">
 
+### sandkit.api.lights.PersistentLightOptions :id=persistentlightoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/lights.d.ts#L136" target="_blank" rel="noopener">lights.d.ts:136</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.lights.PersistentLightOptions = object">
+
+```ts
+PersistentLightOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| brightness? | <code>number</code> | Light brightness multiplier. |
+| size? | <code>number</code> | Light radius in pixels. |
+| color? | <code>[number, number, number, number]</code> | RGBA color components. |
+
+<div class="smt-member-anchors">
+
+##### brightness? <!-- {docsify-ignore} -->
+
+##### size? <!-- {docsify-ignore} -->
+
+##### color? <!-- {docsify-ignore} -->
+
+</div>
+
+Options for persistent world lights.
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.lights.PersistentLightHandle :id=persistentlighthandle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/lights.d.ts#L147" target="_blank" rel="noopener">lights.d.ts:147</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/lights.d.ts#L146" target="_blank" rel="noopener">lights.d.ts:146</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.lights.PersistentLightHandle = unknown">
 

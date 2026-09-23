@@ -1,6 +1,6 @@
 # sandkit.api.terrains
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
@@ -8,31 +8,25 @@
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/terrains.d.ts#L53" target="_blank" rel="noopener">terrains.d.ts:53</a></p>
 
-| Property | Type | Description |
-| --- | --- | --- |
-| interactions? | <code>readonly Interaction[]</code> | Tooltip interactions shown for this terrain. |
+<div class="smt-member-sig" data-sig="sandkit.api.terrains.TerrainDefinition = Omit&lt;TerrainDefinition, &quot;interactions&quot;&gt; &amp; object">
 
-<div class="smt-member-anchors">
-
-##### interactions? <!-- {docsify-ignore} -->
+```ts
+TerrainDefinition = Omit<TerrainDefinition, "interactions"> & object
+```
 
 </div>
 
 Terrain definition shape with typed element interactions.
 
-#### Extends
+#### Type Declaration
 
-- `Omit`\<[`TerrainDefinition`](api/sandkit.api.terrains.worker.md?id=terraindefinition), `"interactions"`\>
-
-#### Indexable
+##### interactions?
 
 ```ts
-[key: string]: unknown
+optional interactions?: readonly Interaction[]
 ```
 
-```ts
-[key: number]: unknown
-```
+Tooltip interactions shown for this terrain.
 
 </div>
 

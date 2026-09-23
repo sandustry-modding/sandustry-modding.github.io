@@ -1,12 +1,38 @@
 # sandkit.api.sprites
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.sprites.LoadedSprite :id=loadedsprite
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L50" target="_blank" rel="noopener">sprites.d.ts:50</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.sprites.LoadedSprite = unknown">
+
+```ts
+LoadedSprite = unknown
+```
+
+</div>
+
+Loaded sprite handle (runtime texture or display object).
+
+</div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.sprites.SpriteLoadOptions :id=spriteloadoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L44" target="_blank" rel="noopener">sprites.d.ts:44</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L53" target="_blank" rel="noopener">sprites.d.ts:53</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.sprites.SpriteLoadOptions = object">
+
+```ts
+SpriteLoadOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -19,32 +45,6 @@
 </div>
 
 Options for [load](?id=load) and [loadFromMod](?id=loadfrommod).
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.sprites.LoadedSprite :id=loadedsprite
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L41" target="_blank" rel="noopener">sprites.d.ts:41</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.sprites.LoadedSprite = unknown">
-
-```ts
-LoadedSprite = unknown
-```
-
-</div>
-
-Loaded sprite handle (runtime texture or display object).
 
 </div>
 
@@ -152,9 +152,36 @@ Return a loaded sprite by id.
 
 <div class="smt-member-card">
 
-### sandkit.api.sprites.hideAllPlayerModSprites :id=hideallplayermodsprites
+### sandkit.api.sprites.hideAllForPlayer :id=hideallforplayer
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L33" target="_blank" rel="noopener">sprites.d.ts:33</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.sprites.hideAllForPlayer(): void">
+
+```ts
+hideAllForPlayer(): void
+```
+
+</div>
+
+Hide all player mod-attached sprites.
+
+</div>
+
+<div class="smt-member-card" data-deprecated="true">
+
+### ~~sandkit.api.sprites.hideAllPlayerModSprites~~ :id=hideallplayermodsprites
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L37" target="_blank" rel="noopener">sprites.d.ts:37</a></p>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Use [hideAllForPlayer](api/sandkit.api.sprites.md?id=hideallforplayer) instead.
+
+</div>
+</div>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sprites.hideAllPlayerModSprites(): void">
 
@@ -164,15 +191,50 @@ hideAllPlayerModSprites(): void
 
 </div>
 
-Hide all player mod-attached sprites.
-
 </div>
 
 <div class="smt-member-card">
 
-### sandkit.api.sprites.rotatePlayerModSprites :id=rotateplayermodsprites
+### sandkit.api.sprites.rotateAllForPlayer :id=rotateallforplayer
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L38" target="_blank" rel="noopener">sprites.d.ts:38</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L42" target="_blank" rel="noopener">sprites.d.ts:42</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.sprites.rotateAllForPlayer(angleRadians: number): void">
+
+```ts
+rotateAllForPlayer(angleRadians: number): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| angleRadians | `number` | Rotation in radians. |
+
+<div class="smt-member-anchors">
+
+##### angleRadians <!-- {docsify-ignore} -->
+
+</div>
+
+Rotate all player mod-attached sprites by angle.
+
+</div>
+
+<div class="smt-member-card" data-deprecated="true">
+
+### ~~sandkit.api.sprites.rotatePlayerModSprites~~ :id=rotateplayermodsprites
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/sprites.d.ts#L47" target="_blank" rel="noopener">sprites.d.ts:47</a></p>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Use [rotateAllForPlayer](api/sandkit.api.sprites.md?id=rotateallforplayer) instead.
+
+</div>
+</div>
 
 <div class="smt-member-sig" data-sig="sandkit.api.sprites.rotatePlayerModSprites(angle: number): void">
 
@@ -191,7 +253,5 @@ rotatePlayerModSprites(angle: number): void
 ##### angle <!-- {docsify-ignore} -->
 
 </div>
-
-Rotate all player mod-attached sprites by angle.
 
 </div>

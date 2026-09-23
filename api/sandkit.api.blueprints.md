@@ -4,13 +4,21 @@ Structure blueprint serialize and localize helpers.
 
 Available as `sandkit.api.blueprints`.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.blueprints.BlueprintStructure :id=blueprintstructure
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/blueprints.d.ts#L31" target="_blank" rel="noopener">blueprints.d.ts:31</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.blueprints.BlueprintStructure = object">
+
+```ts
+BlueprintStructure = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

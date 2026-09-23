@@ -7,13 +7,94 @@ Main thread only.
 
 - [MatterType](api/sandkit.api.elements.MatterType.md)
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.ElementType :id=elementtype
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L20" target="_blank" rel="noopener">elements.d.ts:20</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementType = ElementType | TaggedNumber&lt;&quot;elementType&quot;&gt;">
+
+```ts
+ElementType = ElementType | TaggedNumber<"elementType">
+```
+
+</div>
+
+Numeric element type handle.
+Built-in [ElementTypeEnum](api/sandkit.enums.ElementType.md) values autocomplete; [getTypeById](?id=gettypebyid) returns a tagged handle.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.ElementId :id=elementid
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L26" target="_blank" rel="noopener">elements.d.ts:26</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementId = LooseString&lt;never&gt;">
+
+```ts
+ElementId = LooseString<never>
+```
+
+</div>
+
+Mod or built-in element string id.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.ElementRef :id=elementref
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L32" target="_blank" rel="noopener">elements.d.ts:32</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementRef = ElementType | ElementId">
+
+```ts
+ElementRef = ElementType | ElementId
+```
+
+</div>
+
+Type handle or string id accepted by lookup helpers.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.ElementColorVariant :id=elementcolorvariant
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L50" target="_blank" rel="noopener">elements.d.ts:50</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementColorVariant = readonly [number, number, number] | readonly [number, number, number, number]">
+
+```ts
+ElementColorVariant = readonly [number, number, number] | readonly [number, number, number, number]
+```
+
+</div>
+
+Palette entry: RGB, or RGBA when alpha is set.
+
+</div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.elements.InteractionStructureMetadata :id=interactionstructuremetadata
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L78" target="_blank" rel="noopener">elements.d.ts:78</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L55" target="_blank" rel="noopener">elements.d.ts:55</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionStructureMetadata = object">
+
+```ts
+InteractionStructureMetadata = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -34,7 +115,424 @@ Main thread only.
 
 </div>
 
-Optional tooltip metadata on structure interactions.
+Tooltip metadata shared by structure and custom interaction kinds.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.InteractionDestroyer :id=interactiondestroyer
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L67" target="_blank" rel="noopener">elements.d.ts:67</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionDestroyer = object">
+
+```ts
+InteractionDestroyer = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| kind | <code>&quot;destroyer&quot;</code> |  |
+| items | <code>readonly string[]</code> | Item ids removed by this interaction (for example `"drill"`). |
+
+<div class="smt-member-anchors">
+
+##### kind <!-- {docsify-ignore} -->
+
+##### items <!-- {docsify-ignore} -->
+
+</div>
+
+Interaction that destroys specific items.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.InteractionStructure :id=interactionstructure
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L74" target="_blank" rel="noopener">elements.d.ts:74</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionStructure = InteractionStructureMetadata &amp; object">
+
+```ts
+InteractionStructure = InteractionStructureMetadata & object
+```
+
+</div>
+
+Interaction that affects specific structures.
+
+#### Type Declaration
+
+##### kind
+
+```ts
+kind: "structure"
+```
+
+##### structures
+
+```ts
+structures: readonly string[]
+```
+
+Structure ids shown in the interaction tooltip.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.InteractionEntity :id=interactionentity
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L81" target="_blank" rel="noopener">elements.d.ts:81</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionEntity = object">
+
+```ts
+InteractionEntity = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| kind | <code>&quot;entity&quot;</code> |  |
+| entities | <code>readonly string[]</code> | Entity type ids referenced by the interaction. |
+
+<div class="smt-member-anchors">
+
+##### kind <!-- {docsify-ignore} -->
+
+##### entities <!-- {docsify-ignore} -->
+
+</div>
+
+Interaction that affects specific entities.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.InteractionFlammable :id=interactionflammable
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L88" target="_blank" rel="noopener">elements.d.ts:88</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionFlammable = object">
+
+```ts
+InteractionFlammable = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| kind | <code>&quot;flammable&quot;</code> |  |
+
+<div class="smt-member-anchors">
+
+##### kind <!-- {docsify-ignore} -->
+
+</div>
+
+Interaction that marks the element as flammable.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.InteractionMeltable :id=interactionmeltable
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L90" target="_blank" rel="noopener">elements.d.ts:90</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionMeltable = object">
+
+```ts
+InteractionMeltable = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| kind | <code>&quot;meltable&quot;</code> |  |
+
+<div class="smt-member-anchors">
+
+##### kind <!-- {docsify-ignore} -->
+
+</div>
+
+Interaction that marks the element as meltable.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.InteractionFreezable :id=interactionfreezable
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L92" target="_blank" rel="noopener">elements.d.ts:92</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionFreezable = object">
+
+```ts
+InteractionFreezable = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| kind | <code>&quot;freezable&quot;</code> |  |
+
+<div class="smt-member-anchors">
+
+##### kind <!-- {docsify-ignore} -->
+
+</div>
+
+Interaction that marks the element as freezable.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.InteractionCustom :id=interactioncustom
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L94" target="_blank" rel="noopener">elements.d.ts:94</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionCustom = InteractionStructureMetadata &amp; object">
+
+```ts
+InteractionCustom = InteractionStructureMetadata & object
+```
+
+</div>
+
+Interaction handled by custom mod logic and tooltip text.
+
+#### Type Declaration
+
+##### kind
+
+```ts
+kind: "custom"
+```
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.Interaction :id=interaction
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L97" target="_blank" rel="noopener">elements.d.ts:97</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.Interaction = InteractionDestroyer | InteractionStructure | InteractionEntity | InteractionFlammable | InteractionMeltable | InteractionFreezable | InteractionCustom">
+
+```ts
+Interaction = InteractionDestroyer | InteractionStructure | InteractionEntity | InteractionFlammable | InteractionMeltable | InteractionFreezable | InteractionCustom
+```
+
+</div>
+
+Union of element interaction kinds for tool and structure logic.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.ElementFlammable :id=elementflammable
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L110" target="_blank" rel="noopener">elements.d.ts:110</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementFlammable = object">
+
+```ts
+ElementFlammable = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| outputElementId? | <code>string</code> | Element id written in place of the burned cell. |
+| outputChance? | <code>number</code> | Chance that the output is written (0–1). |
+| fireInheritsDuration? | <code>boolean</code> | When true, spawned fire copies this cell's remaining duration. |
+| duration? | <code>number &#124; readonly number[]</code> | Fire lifetime seconds, or `[min, max]`. |
+
+<div class="smt-member-anchors">
+
+##### outputElementId? <!-- {docsify-ignore} -->
+
+##### outputChance? <!-- {docsify-ignore} -->
+
+##### fireInheritsDuration? <!-- {docsify-ignore} -->
+
+##### duration? <!-- {docsify-ignore} -->
+
+</div>
+
+Burn product when fire or flame consumes this element.
+Residue may omit this object and keep only `kind: "flammable"` in interactions.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.ElementCollectable :id=elementcollectable
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L122" target="_blank" rel="noopener">elements.d.ts:122</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementCollectable = object">
+
+```ts
+ElementCollectable = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| value? | <code>number</code> |  |
+
+<div class="smt-member-anchors">
+
+##### value? <!-- {docsify-ignore} -->
+
+</div>
+
+Collector gold for this element.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.ElementMix :id=elementmix
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L127" target="_blank" rel="noopener">elements.d.ts:127</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementMix = object">
+
+```ts
+ElementMix = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| elementType? | <code>ElementType</code> |  |
+| result? | <code>ElementType</code> |  |
+
+<div class="smt-member-anchors">
+
+##### elementType? <!-- {docsify-ignore} -->
+
+##### result? <!-- {docsify-ignore} -->
+
+</div>
+
+Contact mix row: this type plus `elementType` becomes `result`.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.elements.ElementDefinition :id=elementdefinition
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L137" target="_blank" rel="noopener">elements.d.ts:137</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementDefinition = object">
+
+```ts
+ElementDefinition = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> |  |
+| nameKey | <code>string</code> |  |
+| name? | <code>string</code> | Plain display name when not using [nameKey](?id=namekey). |
+| descriptionKey? | <code>string</code> | Lexicon description i18n key. |
+| description? | <code>string</code> | Plain lexicon copy when not using [descriptionKey](?id=descriptionkey). |
+| defaultDataFields? | <code>{ Index Signature: \[`key`: `string`\]: `number` }</code> |  |
+| colors | <code>{ variantFromDataField1: object; variantFromDataField1.rangeMin: rangeMin?: number; variantFromDataField1.rangeMax: rangeMax?: number; variantFromDataField1.invert: invert?: boolean; variantFromDataField1.useGradient: useGradient?: boolean; variants: ElementColorVariant[] }</code> |  |
+| density | <code>number</code> |  |
+| matterType | <code>MatterType</code> |  |
+| metaColor? | <code>number</code> | UI/meta color as 0xRRGGBB. |
+| isGrabbable? | <code>boolean</code> | When true, the grabber can pick up this element. |
+| isTransportable? | <code>boolean</code> | When true, conveyors can move this element. |
+| hidden? | <code>boolean</code> | Hide from some picker and lexicon lists. |
+| duration? | <code>number</code> | Lifetime in **seconds** (copied to `durationMax` / `durationLeft`). Lava is `0.28`; Fire is `1.28`. |
+| durationRandom? | <code>{ min: number; max: number }</code> | Random extra lifetime seconds (`min` / `max`). |
+| horizontalSpeed? | <code>number</code> | Sideways motion (Lava uses `0.1`). |
+| showInFilterPicker? | <code>boolean</code> | When false, the element is omitted from the filter picker. |
+| materialId? | <code>number</code> | Render / sim material index on live snapshots. |
+| flammable? | <code>ElementFlammable</code> | Burn output when this element is flammable. |
+| collectable? | <code>ElementCollectable</code> | Collector gold. |
+| mixes? | <code>readonly ElementMix[]</code> | Contact mix partners. |
+| interactions? | <code>readonly Interaction[]</code> | Tooltip interaction kinds. |
+| getExtraProps? | <code>{ Returns: object; data: JsonObjectV1 }</code> |  |
+
+<div class="smt-member-anchors">
+
+##### id <!-- {docsify-ignore} -->
+
+##### nameKey <!-- {docsify-ignore} -->
+
+##### name? <!-- {docsify-ignore} -->
+
+##### descriptionKey? <!-- {docsify-ignore} -->
+
+##### description? <!-- {docsify-ignore} -->
+
+##### defaultDataFields? <!-- {docsify-ignore} -->
+
+##### colors <!-- {docsify-ignore} -->
+
+##### density <!-- {docsify-ignore} -->
+
+##### matterType <!-- {docsify-ignore} -->
+
+##### metaColor? <!-- {docsify-ignore} -->
+
+##### isGrabbable? <!-- {docsify-ignore} -->
+
+##### isTransportable? <!-- {docsify-ignore} -->
+
+##### hidden? <!-- {docsify-ignore} -->
+
+##### duration? <!-- {docsify-ignore} -->
+
+##### durationRandom? <!-- {docsify-ignore} -->
+
+##### horizontalSpeed? <!-- {docsify-ignore} -->
+
+##### showInFilterPicker? <!-- {docsify-ignore} -->
+
+##### materialId? <!-- {docsify-ignore} -->
+
+##### flammable? <!-- {docsify-ignore} -->
+
+##### collectable? <!-- {docsify-ignore} -->
+
+##### mixes? <!-- {docsify-ignore} -->
+
+##### interactions? <!-- {docsify-ignore} -->
+
+##### getExtraProps? <!-- {docsify-ignore} -->
+
+</div>
+
+Mod-registered element definition snapshot.
+Pass to `register` / `updateDefinition`.
+`getDefinitionByType` may omit `id` on builtins.
 
 </div>
 
@@ -42,7 +540,15 @@ Optional tooltip metadata on structure interactions.
 
 ### sandkit.api.elements.ElementCreateOptions :id=elementcreateoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L80" target="_blank" rel="noopener">elements.d.ts:80</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L194" target="_blank" rel="noopener">elements.d.ts:194</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementCreateOptions = object">
+
+```ts
+ElementCreateOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -83,7 +589,15 @@ Options for [createAtCell](?id=createatcell), replace, and related create helper
 
 ### sandkit.api.elements.ElementRemovalOptions :id=elementremovaloptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L116" target="_blank" rel="noopener">elements.d.ts:116</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L230" target="_blank" rel="noopener">elements.d.ts:230</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementRemovalOptions = object">
+
+```ts
+ElementRemovalOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -99,349 +613,13 @@ Options for element removal helpers.
 
 </div>
 
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.InteractionDestroyer :id=interactiondestroyer
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L90" target="_blank" rel="noopener">elements.d.ts:90</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionDestroyer = object">
-
-```ts
-InteractionDestroyer = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| kind | <code>&quot;destroyer&quot;</code> |  |
-| items | <code>readonly string[]</code> | Item ids removed by this interaction (for example `"drill"`). |
-
-<div class="smt-member-anchors">
-
-##### kind <!-- {docsify-ignore} -->
-
-##### items <!-- {docsify-ignore} -->
-
-</div>
-
-Interaction that destroys specific items.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.InteractionStructure :id=interactionstructure
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L97" target="_blank" rel="noopener">elements.d.ts:97</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionStructure = InteractionStructureMetadata &amp; object">
-
-```ts
-InteractionStructure = InteractionStructureMetadata & object
-```
-
-</div>
-
-Interaction that affects specific structures.
-
-#### Type Declaration
-
-##### kind
-
-```ts
-kind: "structure"
-```
-
-##### structures
-
-```ts
-structures: readonly string[]
-```
-
-Structure ids shown in the interaction tooltip.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.InteractionEntity :id=interactionentity
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L104" target="_blank" rel="noopener">elements.d.ts:104</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionEntity = object">
-
-```ts
-InteractionEntity = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| kind | <code>&quot;entity&quot;</code> |  |
-| entities | <code>readonly string[]</code> | Entity type ids referenced by the interaction. |
-
-<div class="smt-member-anchors">
-
-##### kind <!-- {docsify-ignore} -->
-
-##### entities <!-- {docsify-ignore} -->
-
-</div>
-
-Interaction that affects specific entities.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.InteractionFlammable :id=interactionflammable
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L111" target="_blank" rel="noopener">elements.d.ts:111</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionFlammable = object">
-
-```ts
-InteractionFlammable = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| kind | <code>&quot;flammable&quot;</code> |  |
-
-<div class="smt-member-anchors">
-
-##### kind <!-- {docsify-ignore} -->
-
-</div>
-
-Interaction that marks the element as flammable.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.InteractionMeltable :id=interactionmeltable
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L113" target="_blank" rel="noopener">elements.d.ts:113</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionMeltable = object">
-
-```ts
-InteractionMeltable = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| kind | <code>&quot;meltable&quot;</code> |  |
-
-<div class="smt-member-anchors">
-
-##### kind <!-- {docsify-ignore} -->
-
-</div>
-
-Interaction that marks the element as meltable.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.InteractionFreezable :id=interactionfreezable
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L115" target="_blank" rel="noopener">elements.d.ts:115</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionFreezable = object">
-
-```ts
-InteractionFreezable = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| kind | <code>&quot;freezable&quot;</code> |  |
-
-<div class="smt-member-anchors">
-
-##### kind <!-- {docsify-ignore} -->
-
-</div>
-
-Interaction that marks the element as freezable.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.InteractionCustom :id=interactioncustom
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L117" target="_blank" rel="noopener">elements.d.ts:117</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.InteractionCustom = InteractionStructureMetadata &amp; object">
-
-```ts
-InteractionCustom = InteractionStructureMetadata & object
-```
-
-</div>
-
-Interaction handled by custom mod logic and tooltip text.
-
-#### Type Declaration
-
-##### kind
-
-```ts
-kind: "custom"
-```
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.Interaction :id=interaction
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L120" target="_blank" rel="noopener">elements.d.ts:120</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.Interaction = InteractionDestroyer | InteractionStructure | InteractionEntity | InteractionFlammable | InteractionMeltable | InteractionFreezable | InteractionCustom">
-
-```ts
-Interaction = InteractionDestroyer | InteractionStructure | InteractionEntity | InteractionFlammable | InteractionMeltable | InteractionFreezable | InteractionCustom
-```
-
-</div>
-
-Union of element interaction kinds for tool and structure logic.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.ElementType :id=elementtype
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L19" target="_blank" rel="noopener">elements.d.ts:19</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementType = ElementType | TaggedNumber&lt;&quot;elementType&quot;&gt;">
-
-```ts
-ElementType = ElementType | TaggedNumber<"elementType">
-```
-
-</div>
-
-Numeric element type handle.
-Built-in [ElementTypeEnum](api/sandkit.enums.ElementType.md) values autocomplete; [getTypeById](?id=gettypebyid) returns a tagged handle.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.ElementId :id=elementid
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L25" target="_blank" rel="noopener">elements.d.ts:25</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementId = LooseString&lt;never&gt;">
-
-```ts
-ElementId = LooseString<never>
-```
-
-</div>
-
-Mod or built-in element string id.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.ElementRef :id=elementref
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L31" target="_blank" rel="noopener">elements.d.ts:31</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementRef = ElementType | ElementId">
-
-```ts
-ElementRef = ElementType | ElementId
-```
-
-</div>
-
-Type handle or string id accepted by lookup helpers.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.elements.ElementDefinition :id=elementdefinition
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L52" target="_blank" rel="noopener">elements.d.ts:52</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.elements.ElementDefinition = object">
-
-```ts
-ElementDefinition = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| id | <code>string</code> |  |
-| nameKey | <code>string</code> |  |
-| defaultDataFields? | <code>{ Index Signature: \[`key`: `string`\]: `number` }</code> |  |
-| colors | <code>{ variantFromDataField1: object; variantFromDataField1.rangeMin: rangeMin?: number; variantFromDataField1.rangeMax: rangeMax?: number; variantFromDataField1.invert: invert?: boolean; variantFromDataField1.useGradient: useGradient?: boolean; variants: [number, number, number][] }</code> |  |
-| density | <code>number</code> |  |
-| matterType | <code>MatterType</code> |  |
-| metaColor? | <code>number</code> | UI/meta color as 0xRRGGBB. |
-| isGrabbable? | <code>boolean</code> | When true, the grabber can pick up this element. |
-| isTransportable? | <code>boolean</code> | When true, conveyors can move this element. |
-| getExtraProps? | <code>{ Returns: object; data: Record&lt;PropertyKey, any&gt; }</code> |  |
-
-<div class="smt-member-anchors">
-
-##### id <!-- {docsify-ignore} -->
-
-##### nameKey <!-- {docsify-ignore} -->
-
-##### defaultDataFields? <!-- {docsify-ignore} -->
-
-##### colors <!-- {docsify-ignore} -->
-
-##### density <!-- {docsify-ignore} -->
-
-##### matterType <!-- {docsify-ignore} -->
-
-##### metaColor? <!-- {docsify-ignore} -->
-
-##### isGrabbable? <!-- {docsify-ignore} -->
-
-##### isTransportable? <!-- {docsify-ignore} -->
-
-##### getExtraProps? <!-- {docsify-ignore} -->
-
-</div>
-
-Mod-registered element definition snapshot.
-
-</div>
-
 ## Functions <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.elements.getRegisteredTypes :id=getregisteredtypes
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L133" target="_blank" rel="noopener">elements.d.ts:133</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L100" target="_blank" rel="noopener">elements.d.ts:100</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getRegisteredTypes(): ElementType[]">
 
@@ -461,7 +639,7 @@ Returns all registered element type ids.
 
 ### sandkit.api.elements.register :id=register
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L142" target="_blank" rel="noopener">elements.d.ts:142</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L109" target="_blank" rel="noopener">elements.d.ts:109</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.register(definition: ElementDefinition): object">
 
@@ -491,7 +669,7 @@ Object with the assigned `elementType`. elementType: ElementType
 
 ### sandkit.api.elements.updateDefinition :id=updatedefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L158" target="_blank" rel="noopener">elements.d.ts:158</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L125" target="_blank" rel="noopener">elements.d.ts:125</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.updateDefinition(elementTypeOrId: ElementRef, partial: Partial&lt;ElementDefinition&gt;): void">
 
@@ -530,7 +708,7 @@ api.elements.updateDefinition("exampleElement", {
 
 ### sandkit.api.elements.addInteractionInfo :id=addinteractioninfo
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L170" target="_blank" rel="noopener">elements.d.ts:170</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L137" target="_blank" rel="noopener">elements.d.ts:137</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.addInteractionInfo(elementTypeOrId: ElementRef, interaction: Interaction): void">
 
@@ -561,7 +739,7 @@ Adds an interaction entry to an element definition.
 
 ### sandkit.api.elements.getNameByType :id=getnamebytype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L178" target="_blank" rel="noopener">elements.d.ts:178</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L145" target="_blank" rel="noopener">elements.d.ts:145</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getNameByType(elementType: ElementType): string">
 
@@ -589,7 +767,7 @@ Returns the display name for an element type.
 
 ### sandkit.api.elements.findFreeCellInStructure :id=findfreecellinstructure
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L189" target="_blank" rel="noopener">elements.d.ts:189</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L156" target="_blank" rel="noopener">elements.d.ts:156</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.findFreeCellInStructure(structureCellX: number, structureCellY: number, structureSizeCells: number): Vector2 | null">
 
@@ -625,7 +803,7 @@ Finds a free cell inside a structure footprint, or null.
 
 ### sandkit.api.elements.createAtCell :id=createatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L218" target="_blank" rel="noopener">elements.d.ts:218</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L185" target="_blank" rel="noopener">elements.d.ts:185</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.createAtCell(...args: number, number, [ElementRef, ElementCreateOptions]): void">
 
@@ -671,7 +849,7 @@ api.elements.createAtCell(cellX, cellY, "steam", {
 
 ### ~~sandkit.api.elements.createAtCellWhenIdle~~ :id=createatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L226" target="_blank" rel="noopener">elements.d.ts:226</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L193" target="_blank" rel="noopener">elements.d.ts:193</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -706,7 +884,7 @@ createAtCellWhenIdle(...args: number, number, [ElementRef, ElementCreateOptions]
 
 ### sandkit.api.elements.replaceAtCell :id=replaceatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L239" target="_blank" rel="noopener">elements.d.ts:239</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L206" target="_blank" rel="noopener">elements.d.ts:206</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.replaceAtCell(...args: number, number, [ElementRef, ElementCreateOptions]): void">
 
@@ -734,7 +912,7 @@ Replace the element at a cell. Main-entry writes are deferred; reads see the old
 
 ### ~~sandkit.api.elements.replaceAtCellWhenIdle~~ :id=replaceatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L247" target="_blank" rel="noopener">elements.d.ts:247</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L214" target="_blank" rel="noopener">elements.d.ts:214</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -769,7 +947,7 @@ replaceAtCellWhenIdle(...args: number, number, [ElementRef, ElementCreateOptions
 
 ### sandkit.api.elements.removeAtCell :id=removeatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L259" target="_blank" rel="noopener">elements.d.ts:259</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L226" target="_blank" rel="noopener">elements.d.ts:226</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.removeAtCell(...args: number, number, [ElementRemovalOptions]): void">
 
@@ -797,7 +975,7 @@ Remove the element at a cell. Main-entry writes are deferred; reads see the old 
 
 ### ~~sandkit.api.elements.removeAtCellWhenIdle~~ :id=removeatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L267" target="_blank" rel="noopener">elements.d.ts:267</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L234" target="_blank" rel="noopener">elements.d.ts:234</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -832,7 +1010,7 @@ removeAtCellWhenIdle(...args: number, number, [ElementRemovalOptions]): void
 
 ### sandkit.api.elements.teleportBetweenCells :id=teleportbetweencells
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L280" target="_blank" rel="noopener">elements.d.ts:280</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L247" target="_blank" rel="noopener">elements.d.ts:247</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.teleportBetweenCells(fromCellX: number, fromCellY: number, toCellX: number, toCellY: number): void">
 
@@ -869,7 +1047,7 @@ Move an element between cells. Main-entry writes are deferred; reads see the old
 
 ### ~~sandkit.api.elements.teleportBetweenCellsWhenIdle~~ :id=teleportbetweencellswhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L291" target="_blank" rel="noopener">elements.d.ts:291</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L258" target="_blank" rel="noopener">elements.d.ts:258</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -913,7 +1091,7 @@ teleportBetweenCellsWhenIdle(fromCellX: number, fromCellY: number, toCellX: numb
 
 ### sandkit.api.elements.setVelocityAtCell :id=setvelocityatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L311" target="_blank" rel="noopener">elements.d.ts:311</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L278" target="_blank" rel="noopener">elements.d.ts:278</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.setVelocityAtCell(...args: number, number, [Vector2]): void">
 
@@ -947,7 +1125,7 @@ api.elements.setVelocityAtCell(cellX, cellY, { x: 0, y: -120 });
 
 ### ~~sandkit.api.elements.setVelocityAtCellWhenIdle~~ :id=setvelocityatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L317" target="_blank" rel="noopener">elements.d.ts:317</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L284" target="_blank" rel="noopener">elements.d.ts:284</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -982,7 +1160,7 @@ setVelocityAtCellWhenIdle(...args: number, number, [Vector2]): void
 
 ### sandkit.api.elements.addParticleVelocityAtCell :id=addparticlevelocityatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L338" target="_blank" rel="noopener">elements.d.ts:338</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L305" target="_blank" rel="noopener">elements.d.ts:305</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.addParticleVelocityAtCell(...args: number, number, [Vector2, number]): void">
 
@@ -1021,7 +1199,7 @@ api.elements.addParticleVelocityAtCell(
 
 ### ~~sandkit.api.elements.addParticleVelocityAtCellWhenIdle~~ :id=addparticlevelocityatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L346" target="_blank" rel="noopener">elements.d.ts:346</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L313" target="_blank" rel="noopener">elements.d.ts:313</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -1056,7 +1234,7 @@ addParticleVelocityAtCellWhenIdle(...args: number, number, [Vector2, number]): v
 
 ### sandkit.api.elements.convertToParticleAtCell :id=converttoparticleatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L367" target="_blank" rel="noopener">elements.d.ts:367</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L334" target="_blank" rel="noopener">elements.d.ts:334</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.convertToParticleAtCell(...args: number, number, [Vector2]): void">
 
@@ -1094,7 +1272,7 @@ api.elements.convertToParticleAtCell(
 
 ### ~~sandkit.api.elements.convertToParticleAtCellWhenIdle~~ :id=converttoparticleatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L373" target="_blank" rel="noopener">elements.d.ts:373</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L340" target="_blank" rel="noopener">elements.d.ts:340</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -1129,7 +1307,7 @@ convertToParticleAtCellWhenIdle(...args: number, number, [Vector2]): void
 
 ### sandkit.api.elements.convertFromParticleAtCell :id=convertfromparticleatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L384" target="_blank" rel="noopener">elements.d.ts:384</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L351" target="_blank" rel="noopener">elements.d.ts:351</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.convertFromParticleAtCell(...args: CellCoordinates): void">
 
@@ -1157,7 +1335,7 @@ Convert a particle back to a solid element. Main-entry writes are deferred; read
 
 ### ~~sandkit.api.elements.convertFromParticleAtCellWhenIdle~~ :id=convertfromparticleatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L390" target="_blank" rel="noopener">elements.d.ts:390</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L357" target="_blank" rel="noopener">elements.d.ts:357</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -1192,7 +1370,7 @@ convertFromParticleAtCellWhenIdle(...args: CellCoordinates): void
 
 ### sandkit.api.elements.setDataFieldAtCell :id=setdatafieldatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L401" target="_blank" rel="noopener">elements.d.ts:401</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L368" target="_blank" rel="noopener">elements.d.ts:368</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.setDataFieldAtCell(...args: [number, number, 1 | 2 | 3 | 4, number]): void">
 
@@ -1220,7 +1398,7 @@ Set a data field on the element at a cell. Main-entry writes are deferred; reads
 
 ### ~~sandkit.api.elements.setDataFieldAtCellWhenIdle~~ :id=setdatafieldatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L409" target="_blank" rel="noopener">elements.d.ts:409</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L376" target="_blank" rel="noopener">elements.d.ts:376</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -1255,7 +1433,7 @@ setDataFieldAtCellWhenIdle(...args: [number, number, 1 | 2 | 3 | 4, number]): vo
 
 ### sandkit.api.elements.refreshColorAtCell :id=refreshcoloratcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L420" target="_blank" rel="noopener">elements.d.ts:420</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L387" target="_blank" rel="noopener">elements.d.ts:387</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.refreshColorAtCell(...args: CellCoordinates): void">
 
@@ -1283,7 +1461,7 @@ Refresh the rendered color at a cell. Main-entry writes are deferred; reads see 
 
 ### ~~sandkit.api.elements.refreshColorAtCellWhenIdle~~ :id=refreshcoloratcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L426" target="_blank" rel="noopener">elements.d.ts:426</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L393" target="_blank" rel="noopener">elements.d.ts:393</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -1318,7 +1496,7 @@ refreshColorAtCellWhenIdle(...args: CellCoordinates): void
 
 ### sandkit.api.elements.setPhysicsAtCell :id=setphysicsatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L436" target="_blank" rel="noopener">elements.d.ts:436</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L403" target="_blank" rel="noopener">elements.d.ts:403</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.setPhysicsAtCell(...args: [number, number, number]): void">
 
@@ -1346,7 +1524,7 @@ Set the physics skip mode at a cell. Main-entry writes are deferred; reads see t
 
 ### ~~sandkit.api.elements.setPhysicsAtCellWhenIdle~~ :id=setphysicsatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L442" target="_blank" rel="noopener">elements.d.ts:442</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L409" target="_blank" rel="noopener">elements.d.ts:409</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -1381,7 +1559,7 @@ setPhysicsAtCellWhenIdle(...args: [number, number, number]): void
 
 ### sandkit.api.elements.setDurationAtCell :id=setdurationatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L465" target="_blank" rel="noopener">elements.d.ts:465</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L432" target="_blank" rel="noopener">elements.d.ts:432</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.setDurationAtCell(...args: [number, number, number, object]): void">
 
@@ -1422,7 +1600,7 @@ api.elements.setDurationAtCell(
 
 ### ~~sandkit.api.elements.setDurationAtCellWhenIdle~~ :id=setdurationatcellwhenidle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L473" target="_blank" rel="noopener">elements.d.ts:473</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/elements.d.ts#L440" target="_blank" rel="noopener">elements.d.ts:440</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -1457,7 +1635,7 @@ setDurationAtCellWhenIdle(...args: [number, number, number, object]): void
 
 ### sandkit.api.elements.getIdByType :id=getidbytype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L127" target="_blank" rel="noopener">elements.d.ts:127</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L241" target="_blank" rel="noopener">elements.d.ts:241</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getIdByType(elementType: ElementType): string &amp; object">
 
@@ -1487,7 +1665,7 @@ Return the mod string id for a numeric element type.
 
 ### sandkit.api.elements.getTypeById :id=gettypebyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L135" target="_blank" rel="noopener">elements.d.ts:135</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L249" target="_blank" rel="noopener">elements.d.ts:249</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getTypeById(elementId: string &amp; object): ElementType">
 
@@ -1517,7 +1695,7 @@ Resolve a mod element string id to a type handle.
 
 ### ~~sandkit.api.elements.getTypeFromId~~ :id=gettypefromid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L141" target="_blank" rel="noopener">elements.d.ts:141</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L255" target="_blank" rel="noopener">elements.d.ts:255</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -1554,7 +1732,7 @@ getTypeFromId(elementId: string & object): ElementType
 
 ### sandkit.api.elements.getDefinitionByType :id=getdefinitionbytype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L149" target="_blank" rel="noopener">elements.d.ts:149</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L263" target="_blank" rel="noopener">elements.d.ts:263</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getDefinitionByType(elementType: ElementType): ElementDefinition | undefined">
 
@@ -1584,7 +1762,7 @@ Look up the definition for a type handle.
 
 ### sandkit.api.elements.getTypeAtCell :id=gettypeatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L158" target="_blank" rel="noopener">elements.d.ts:158</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L272" target="_blank" rel="noopener">elements.d.ts:272</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getTypeAtCell(...args: CellCoordinates): ElementType | null">
 
@@ -1614,7 +1792,7 @@ Return the raw element type at a cell (may differ from resolved type).
 
 ### sandkit.api.elements.getResolvedTypeAtCell :id=getresolvedtypeatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L167" target="_blank" rel="noopener">elements.d.ts:167</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L281" target="_blank" rel="noopener">elements.d.ts:281</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getResolvedTypeAtCell(...args: CellCoordinates): ElementType | null">
 
@@ -1644,7 +1822,7 @@ Return the resolved element type after overlays and particles.
 
 ### sandkit.api.elements.getResolvedTypeFromCellId :id=getresolvedtypefromcellid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L175" target="_blank" rel="noopener">elements.d.ts:175</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L289" target="_blank" rel="noopener">elements.d.ts:289</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getResolvedTypeFromCellId(cellId: CellId): ElementType | null">
 
@@ -1674,7 +1852,7 @@ Return the resolved element type from a packed cell id.
 
 ### sandkit.api.elements.getInfoAtCell :id=getinfoatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L184" target="_blank" rel="noopener">elements.d.ts:184</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L298" target="_blank" rel="noopener">elements.d.ts:298</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getInfoAtCell(...args: CellCoordinates): { elementType: ElementType; isParticle: boolean; cellId: CellId; elementIndex: number; } | null">
 
@@ -1704,7 +1882,7 @@ Return element index, particle flag, and ids at a cell.
 
 ### sandkit.api.elements.getMatterTypeAtCell :id=getmattertypeatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L195" target="_blank" rel="noopener">elements.d.ts:195</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L309" target="_blank" rel="noopener">elements.d.ts:309</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getMatterTypeAtCell(...args: CellCoordinates): MatterType | null">
 
@@ -1734,7 +1912,7 @@ Return the matter category at a cell, or null when empty.
 
 ### sandkit.api.elements.isTypeAtCell :id=istypeatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L205" target="_blank" rel="noopener">elements.d.ts:205</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L319" target="_blank" rel="noopener">elements.d.ts:319</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.isTypeAtCell(...args: number, number, [ElementRef]): boolean">
 
@@ -1762,7 +1940,7 @@ Return true when the cell holds the given element type or id.
 
 ### sandkit.api.elements.isFreeFallingAtCell :id=isfreefallingatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L214" target="_blank" rel="noopener">elements.d.ts:214</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L328" target="_blank" rel="noopener">elements.d.ts:328</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.isFreeFallingAtCell(...args: CellCoordinates): boolean">
 
@@ -1790,7 +1968,7 @@ Return true when the element at the cell is falling.
 
 ### sandkit.api.elements.getVelocityAtCell :id=getvelocityatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L223" target="_blank" rel="noopener">elements.d.ts:223</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L337" target="_blank" rel="noopener">elements.d.ts:337</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getVelocityAtCell(...args: CellCoordinates): Vector2 | null">
 
@@ -1820,7 +1998,7 @@ Return per-cell velocity for moving elements.
 
 ### sandkit.api.elements.getDataFieldAtCell :id=getdatafieldatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L233" target="_blank" rel="noopener">elements.d.ts:233</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/elements.d.ts#L347" target="_blank" rel="noopener">elements.d.ts:347</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.elements.getDataFieldAtCell(...args: [number, number, 1 | 2 | 3 | 4]): number | null">
 

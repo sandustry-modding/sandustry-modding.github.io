@@ -6,13 +6,21 @@ Worker-thread `sandkit.api.events` — subscribe to and emit worker-scoped event
 
  Worker-only surface; do not use main-thread [sandkit.api.events](api/sandkit.md?id=events).
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.events.EventGuard :id=eventguard
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L68" target="_blank" rel="noopener">events.d.ts:68</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.events.EventGuard = object">
+
+```ts
+EventGuard = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -33,9 +41,37 @@ Guard filter for worker events.
 
 <div class="smt-member-card">
 
+### sandkit.api.events.EventOnOptions :id=eventonoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L76" target="_blank" rel="noopener">events.d.ts:76</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.events.EventOnOptions&lt;K *extends* EventId&gt; = K *extends* &quot;element:moved&quot; ? object : K *extends* &quot;terrain:updated&quot; | &quot;terrain:update&quot; ? object : object">
+
+```ts
+sandkit.api.events.EventOnOptions<K *extends* EventId> = K *extends* "element:moved" ? object : K *extends* "terrain:updated" | "terrain:update" ? object : object
+```
+
+</div>
+
+Options for [on](?id=on).
+
+`K` *extends* [`EventId`](?id=eventid)
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.events.EventEmitOptions :id=eventemitoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L83" target="_blank" rel="noopener">events.d.ts:83</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.events.EventEmitOptions = object">
+
+```ts
+EventEmitOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -57,28 +93,24 @@ Options for [emit](?id=emit).
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L88" target="_blank" rel="noopener">events.d.ts:88</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.events.EventPayloadMap = object">
+
+```ts
+EventPayloadMap = object
+```
+
+</div>
+
 <h4 class="smt-hook-heading" id="element-moved"><code>element:moved</code></h4>
 
 ```ts
-{
-  cellId: CellId;
-  elementIndex: number;
-  elementType: ElementType;
-  source: Vector2;
-  destination: Vector2;
-}
+InterceptHookMap["element:move"]
 ```
 
 <h4 class="smt-hook-heading" id="terrain-updated"><code>terrain:updated</code></h4>
 
 ```ts
-{
-  cellId: CellId;
-  x: number;
-  y: number;
-  dt: number;
-  runOrder: number;
-}
+InterceptHookMap["cell:process"]
 ```
 
 <h4 class="smt-hook-heading" id="terrain-update"><code>terrain:update</code></h4>
@@ -93,13 +125,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{
-  cellId: CellId;
-  x: number;
-  y: number;
-  dt: number;
-  runOrder: number;
-}
+EventPayloadMap["terrain:updated"]
 ```
 
 <h4 class="smt-hook-heading" id="worker-update-post"><code>worker:update:post</code></h4>
@@ -120,32 +146,10 @@ Deprecated alias.
 </div>
 
 ```ts
-{ dt: number }
+EventPayloadMap["worker:update:post"]
 ```
 
 Known worker event payloads. Unlisted ids still use `unknown`.
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.events.EventOnOptions :id=eventonoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/events.d.ts#L76" target="_blank" rel="noopener">events.d.ts:76</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.events.EventOnOptions&lt;K *extends* EventId&gt; = K *extends* &quot;element:moved&quot; ? object : K *extends* &quot;terrain:updated&quot; | &quot;terrain:update&quot; ? object : object">
-
-```ts
-sandkit.api.events.EventOnOptions<K *extends* EventId> = K *extends* "element:moved" ? object : K *extends* "terrain:updated" | "terrain:update" ? object : object
-```
-
-</div>
-
-Options for [on](?id=on).
-
-`K` *extends* [`EventId`](?id=eventid)
 
 </div>
 

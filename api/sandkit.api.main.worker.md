@@ -15,20 +15,20 @@ larger `sandkit.api` surface; do not assume parity.
 
 ### sandkit.api.main.emitEvent :id=emitevent
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/main.d.ts#L15" target="_blank" rel="noopener">main.d.ts:15</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/main.d.ts#L17" target="_blank" rel="noopener">main.d.ts:17</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.main.emitEvent&lt;Payload = any&gt;(eventId: string, payload: Payload): void">
+<div class="smt-member-sig" data-sig="sandkit.api.main.emitEvent&lt;K *extends* EventId&gt;(eventId: K, payload: EventPayload&lt;K&gt;): void">
 
 ```ts
-sandkit.api.main.emitEvent<Payload = any>(eventId: string, payload: Payload): void
+sandkit.api.main.emitEvent<K *extends* EventId>(eventId: K, payload: EventPayload<K>): void
 ```
 
 </div>
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| eventId | `string` | Registered event name. |
-| payload | `Payload` | Serializable payload passed to main-thread listeners. |
+| eventId | `K` | Main-thread event name (known ids or a custom string). |
+| payload | <code>[`EventPayload`](api/sandkit.api.events.md?id=eventpayload)&lt;`K`&gt;</code> | Payload for that event. Custom ids use `unknown`. |
 
 <div class="smt-member-anchors">
 
@@ -38,8 +38,8 @@ sandkit.api.main.emitEvent<Payload = any>(eventId: string, payload: Payload): vo
 
 </div>
 
-Emit a custom event on the main thread.
+Emit an event on the main thread (`sandkit.api.events`).
 
-`Payload` = `any`
+`K` *extends* [`EventId`](api/sandkit.api.events.md?id=eventid)
 
 </div>

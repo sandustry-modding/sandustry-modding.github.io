@@ -1,12 +1,20 @@
 # sandkit.api.processing
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.processing.WeightedRecipeOutput :id=weightedrecipeoutput
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/processing.d.ts#L30" target="_blank" rel="noopener">processing.d.ts:30</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.processing.WeightedRecipeOutput = object">
+
+```ts
+WeightedRecipeOutput = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -30,6 +38,14 @@ Weighted element output entry shared by machine recipes.
 ### sandkit.api.processing.PlanterBoxRecipeDefinitionV1 :id=planterboxrecipedefinitionv1
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/processing.d.ts#L38" target="_blank" rel="noopener">processing.d.ts:38</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.processing.PlanterBoxRecipeDefinitionV1 = object">
+
+```ts
+PlanterBoxRecipeDefinitionV1 = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -57,6 +73,14 @@ Planter box grower recipe definition.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/processing.d.ts#L48" target="_blank" rel="noopener">processing.d.ts:48</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.processing.ShakerRecipeDefinitionV1 = object">
+
+```ts
+ShakerRecipeDefinitionV1 = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | input | <code>ElementType</code> | Input element type dropped on the shaker. |
@@ -82,6 +106,14 @@ Shaker recipe definition.
 ### sandkit.api.processing.KineticPressRecipeDefinitionV1 :id=kineticpressrecipedefinitionv1
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/processing.d.ts#L58" target="_blank" rel="noopener">processing.d.ts:58</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.processing.KineticPressRecipeDefinitionV1 = object">
+
+```ts
+KineticPressRecipeDefinitionV1 = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

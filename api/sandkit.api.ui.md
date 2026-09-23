@@ -1,503 +1,5 @@
 # sandkit.api.ui
 
-## Interfaces <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.SelectChoice :id=selectchoice
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L440" target="_blank" rel="noopener">ui.d.ts:440</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| label | <code>LocalizedText</code> | Display label for the choice. |
-| value | <code>T</code> | Value returned when the player picks this choice. |
-
-<div class="smt-member-anchors">
-
-##### label <!-- {docsify-ignore} -->
-
-##### value <!-- {docsify-ignore} -->
-
-</div>
-
-One choice in [select](?id=select).
-
-`T` = `string`
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.SelectDialogOptions :id=selectdialogoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L448" target="_blank" rel="noopener">ui.d.ts:448</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| message? | <code>LocalizedText</code> | Optional dialog body text. |
-| title? | <code>LocalizedText</code> | Optional dialog title. |
-| defaultValue? | <code>T</code> | Value selected when the dialog opens. |
-| buttonLabel? | <code>LocalizedText</code> | Confirm button label. |
-
-<div class="smt-member-anchors">
-
-##### message? <!-- {docsify-ignore} -->
-
-##### title? <!-- {docsify-ignore} -->
-
-##### defaultValue? <!-- {docsify-ignore} -->
-
-##### buttonLabel? <!-- {docsify-ignore} -->
-
-</div>
-
-Dialog options for [select](?id=select).
-
-`T` = `string`
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.RegionMountOptions :id=regionmountoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L460" target="_blank" rel="noopener">ui.d.ts:460</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| placement? | <code>&quot;raised&quot; &#124; &quot;docked&quot;</code> | `"docked"` sits on the hotbar. `"raised"` sits above panels such as Filter Config. |
-| order? | <code>number</code> | Draw order within the region. |
-| render | <code>() =&gt; ReactNode</code> | Function that returns React content. |
-
-<div class="smt-member-anchors">
-
-##### placement? <!-- {docsify-ignore} -->
-
-##### order? <!-- {docsify-ignore} -->
-
-##### render <!-- {docsify-ignore} -->
-
-</div>
-
-Options for [regions.mount](api/sandkit.api.ui.regions.md?id=mount).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.RegionMountUpdateOptions :id=regionmountupdateoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L473" target="_blank" rel="noopener">ui.d.ts:473</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| placement? | <code>&quot;raised&quot; &#124; &quot;docked&quot;</code> | `"docked"` sits on the hotbar. `"raised"` sits above panels such as Filter Config. |
-| order? | <code>number</code> | Draw order within the region. |
-| render? | <code>() =&gt; ReactNode</code> | Function that returns React content. |
-
-<div class="smt-member-anchors">
-
-##### placement? <!-- {docsify-ignore} -->
-
-##### order? <!-- {docsify-ignore} -->
-
-##### render? <!-- {docsify-ignore} -->
-
-</div>
-
-Partial options for [RegionMountHandle](?id=regionmounthandle).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.RegionMountHandle :id=regionmounthandle
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L486" target="_blank" rel="noopener">ui.d.ts:486</a></p>
-
-| Method | Signature | Description |
-| --- | --- | --- |
-| update() | <code>(options: RegionMountUpdateOptions): void</code> | Update placement, order, or render for this mount. |
-| unmount() | <code>(): void</code> | Remove this mount from the region. |
-
-<div class="smt-member-anchors">
-
-##### update() <!-- {docsify-ignore} -->
-
-##### unmount() <!-- {docsify-ignore} -->
-
-</div>
-
-Handle returned from [regions.mount](api/sandkit.api.ui.regions.md?id=mount).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.VisibilityHandle :id=visibilityhandle
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L505" target="_blank" rel="noopener">ui.d.ts:505</a></p>
-
-| Method | Signature | Description |
-| --- | --- | --- |
-| restore() | <code>(): void</code> | Show the region again. |
-
-<div class="smt-member-anchors">
-
-##### restore() <!-- {docsify-ignore} -->
-
-</div>
-
-Handle returned from [regions.setVisible](api/sandkit.api.ui.regions.md?id=setvisible).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.OverrideHandle :id=overridehandle
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L511" target="_blank" rel="noopener">ui.d.ts:511</a></p>
-
-| Method | Signature | Description |
-| --- | --- | --- |
-| remove() | <code>(): void</code> | Drop this wrapper. |
-
-<div class="smt-member-anchors">
-
-##### remove() <!-- {docsify-ignore} -->
-
-</div>
-
-Handle returned from [overrides.register](api/sandkit.api.ui.overrides.md?id=register).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.HotbarBankSourceOptions :id=hotbarbanksourceoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L517" target="_blank" rel="noopener">ui.d.ts:517</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| bankOffset | <code>number</code> | Bank index offset for this source. |
-| minimumBankCount? | <code>number</code> | Minimum number of banks to keep available. |
-
-<div class="smt-member-anchors">
-
-##### bankOffset <!-- {docsify-ignore} -->
-
-##### minimumBankCount? <!-- {docsify-ignore} -->
-
-</div>
-
-Options for [hotbar.createBankSource](api/sandkit.api.ui.hotbar.md?id=createbanksource).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.HotbarBankSource :id=hotbarbanksource
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L525" target="_blank" rel="noopener">ui.d.ts:525</a></p>
-
-| Method | Signature | Description |
-| --- | --- | --- |
-| isAvailable() | <code>(): boolean</code> | Return true when this bank source can show slots. |
-| getBankIndex() | <code>(): number</code> | Return the bank index for this source. |
-| getSlotCount() | <code>(): number</code> | Return the number of slots in this bank. |
-| getAction() | <code>(slotIndex: number): AssetRef</code> | Return the action in a slot. |
-| activateSlot() | <code>(slotIndex: number): void</code> | Activate a slot in this bank. |
-| clearSlot() | <code>(slotIndex: number): void</code> | Clear a slot in this bank. |
-| dispose() | <code>(): void</code> | Release this bank source. |
-
-<div class="smt-member-anchors">
-
-##### isAvailable() <!-- {docsify-ignore} -->
-
-##### getBankIndex() <!-- {docsify-ignore} -->
-
-##### getSlotCount() <!-- {docsify-ignore} -->
-
-##### getAction() <!-- {docsify-ignore} -->
-
-##### activateSlot() <!-- {docsify-ignore} -->
-
-##### clearSlot() <!-- {docsify-ignore} -->
-
-##### dispose() <!-- {docsify-ignore} -->
-
-</div>
-
-Hotbar bank source used by [components.ActionSlot](api/sandkit.api.ui.components.md?id=actionslot).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.HotbarState :id=hotbarstate
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L552" target="_blank" rel="noopener">ui.d.ts:552</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| bankCount | <code>number</code> | Number of hotbar banks. |
-| activeBankIndex | <code>number</code> | Active bank index. |
-| activeSlotIndex | <code>number</code> | Active slot index. |
-
-<div class="smt-member-anchors">
-
-##### bankCount <!-- {docsify-ignore} -->
-
-##### activeBankIndex <!-- {docsify-ignore} -->
-
-##### activeSlotIndex <!-- {docsify-ignore} -->
-
-</div>
-
-State returned from [hotbar.useHotbar](api/sandkit.api.ui.hotbar.md?id=usehotbar).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.ActionSlotProps :id=actionslotprops
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L562" target="_blank" rel="noopener">ui.d.ts:562</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| source | <code>HotbarBankSource</code> | Bank source from [hotbar.createBankSource](api/sandkit.api.ui.hotbar.md?id=createbanksource). |
-| slotIndex | <code>number</code> | Slot index in the bank. |
-| action? | <code>AssetRef</code> | Action shown in the slot. |
-| keyLabel? | <code>string</code> | Optional key label drawn on the slot. |
-| active? | <code>boolean</code> | When true, draw the slot as selected. |
-| onSelect? | <code>() =&gt; void</code> | Called when the player selects the slot. |
-| onClear? | <code>() =&gt; void</code> | Called when the player clears the slot. |
-
-<div class="smt-member-anchors">
-
-##### source <!-- {docsify-ignore} -->
-
-##### slotIndex <!-- {docsify-ignore} -->
-
-##### action? <!-- {docsify-ignore} -->
-
-##### keyLabel? <!-- {docsify-ignore} -->
-
-##### active? <!-- {docsify-ignore} -->
-
-##### onSelect? <!-- {docsify-ignore} -->
-
-##### onClear? <!-- {docsify-ignore} -->
-
-</div>
-
-Props for [components.ActionSlot](api/sandkit.api.ui.components.md?id=actionslot).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.PanelProps :id=panelprops
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L580" target="_blank" rel="noopener">ui.d.ts:580</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| title? | <code>LocalizedText</code> | Optional panel title. |
-| children? | <code>ReactNode</code> | Panel body. |
-| className? | <code>string</code> | Extra class names. |
-| style? | <code>CSSProperties</code> | Inline style. |
-
-<div class="smt-member-anchors">
-
-##### title? <!-- {docsify-ignore} -->
-
-##### children? <!-- {docsify-ignore} -->
-
-##### className? <!-- {docsify-ignore} -->
-
-##### style? <!-- {docsify-ignore} -->
-
-</div>
-
-Props for [components.Panel](api/sandkit.api.ui.components.md?id=panel).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.ButtonProps :id=buttonprops
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L592" target="_blank" rel="noopener">ui.d.ts:592</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| children? | <code>ReactNode</code> | Button label or content. |
-| active? | <code>boolean</code> | When true, draw the button as selected. |
-| border? | <code>boolean</code> | When false, hide the button border. |
-| disabled? | <code>boolean</code> | When true, ignore clicks. |
-| small? | <code>boolean</code> | When true, use the small button size. |
-| variant? | <code>&quot;danger&quot; &#124; &quot;primary&quot;</code> | Visual style. |
-| className? | <code>string</code> | Extra class names. |
-| style? | <code>CSSProperties</code> | Inline style. |
-| onClick? | <code>() =&gt; void</code> | Click handler. |
-
-<div class="smt-member-anchors">
-
-##### children? <!-- {docsify-ignore} -->
-
-##### active? <!-- {docsify-ignore} -->
-
-##### border? <!-- {docsify-ignore} -->
-
-##### disabled? <!-- {docsify-ignore} -->
-
-##### small? <!-- {docsify-ignore} -->
-
-##### variant? <!-- {docsify-ignore} -->
-
-##### className? <!-- {docsify-ignore} -->
-
-##### style? <!-- {docsify-ignore} -->
-
-##### onClick? <!-- {docsify-ignore} -->
-
-</div>
-
-Props for [components.Button](api/sandkit.api.ui.components.md?id=button).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.TooltipMessageData :id=tooltipmessagedata
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L614" target="_blank" rel="noopener">ui.d.ts:614</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| type | <code>&quot;message&quot;</code> | Discriminator for tooltip renderer selection. |
-| text | <code>LocalizedText</code> | Message body as localized text. |
-
-<div class="smt-member-anchors">
-
-##### type <!-- {docsify-ignore} -->
-
-##### text <!-- {docsify-ignore} -->
-
-</div>
-
-Message tooltip with localized body text.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.Focusable :id=focusable
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L622" target="_blank" rel="noopener">ui.d.ts:622</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| ref | <code>RefObject&lt;T&gt;</code> | Ref to attach to the focusable element. |
-| focused | <code>boolean</code> | True when the element has controller focus. |
-| focus | <code>() =&gt; void</code> | Move controller focus to this element. |
-
-<div class="smt-member-anchors">
-
-##### ref <!-- {docsify-ignore} -->
-
-##### focused <!-- {docsify-ignore} -->
-
-##### focus <!-- {docsify-ignore} -->
-
-</div>
-
-Focusable element state from useFocusable.
-
-`T` *extends* `HTMLElement` = `HTMLDivElement`
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.FocusOptions :id=focusoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L632" target="_blank" rel="noopener">ui.d.ts:632</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| id | <code>string</code> | Unique id within the focus scope. |
-| scope | <code>string</code> | Focus scope id this element belongs to. |
-| onActivate | <code>(element?: HTMLElement) =&gt; void</code> | Called when the element is activated (A button / Enter). |
-| onFocus? | <code>optional onFocus?: () =&gt; void</code> | Called when the element receives focus. |
-| disabled? | <code>optional disabled?: boolean</code> | When true, skip this element during navigation. |
-| x? | <code>optional x?: number</code> | Optional grid column for spatial navigation. |
-| y? | <code>optional y?: number</code> | Optional grid row for spatial navigation. |
-| neighbors? | <code>optional neighbors?: Partial&lt;Record&lt;&quot;left&quot; &#124; &quot;right&quot; &#124; &quot;up&quot; &#124; &quot;down&quot;, string&gt;&gt;</code> | Neighbor ids for directional navigation. |
-| scrollIntoView? | <code>optional scrollIntoView?: boolean</code> | When true, scroll the element into view on focus. |
-
-<div class="smt-member-anchors">
-
-##### id <!-- {docsify-ignore} -->
-
-##### scope <!-- {docsify-ignore} -->
-
-##### onActivate <!-- {docsify-ignore} -->
-
-##### onFocus? <!-- {docsify-ignore} -->
-
-##### disabled? <!-- {docsify-ignore} -->
-
-##### x? <!-- {docsify-ignore} -->
-
-##### y? <!-- {docsify-ignore} -->
-
-##### neighbors? <!-- {docsify-ignore} -->
-
-##### scrollIntoView? <!-- {docsify-ignore} -->
-
-</div>
-
-Options for useFocusable registration.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.ui.FocusScopeOptions :id=focusscopeoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L654" target="_blank" rel="noopener">ui.d.ts:654</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| id | <code>string</code> | Unique scope id. |
-| active | <code>boolean</code> | When true, this scope can receive focus. |
-| priority? | <code>optional priority?: number</code> | Higher values take focus before lower values. |
-| defaultId? | <code>optional defaultId?: string</code> | Default focusable id in this scope. |
-| onBack? | <code>optional onBack?: () =&gt; boolean &#124; void</code> | Called on back. Return true when the scope handled back. |
-
-<div class="smt-member-anchors">
-
-##### id <!-- {docsify-ignore} -->
-
-##### active <!-- {docsify-ignore} -->
-
-##### priority? <!-- {docsify-ignore} -->
-
-##### defaultId? <!-- {docsify-ignore} -->
-
-##### onBack? <!-- {docsify-ignore} -->
-
-</div>
-
-Options for [navigation.useFocusScope](api/sandkit.api.ui.navigation.md?id=usefocusscope).
-
-</div>
-
 ## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
@@ -570,6 +72,638 @@ TooltipData = TooltipMessageData
 </div>
 
 Tooltip payload shown near the cursor or UI target.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.SelectChoice :id=selectchoice
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L440" target="_blank" rel="noopener">ui.d.ts:440</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.SelectChoice&lt;T = string&gt; = object">
+
+```ts
+sandkit.api.ui.SelectChoice<T = string> = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| label | <code>LocalizedText</code> | Display label for the choice. |
+| value | <code>T</code> | Value returned when the player picks this choice. |
+
+<div class="smt-member-anchors">
+
+##### label <!-- {docsify-ignore} -->
+
+##### value <!-- {docsify-ignore} -->
+
+</div>
+
+One choice in [select](?id=select).
+
+`T` = `string`
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.SelectDialogOptions :id=selectdialogoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L448" target="_blank" rel="noopener">ui.d.ts:448</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.SelectDialogOptions&lt;T = string&gt; = object">
+
+```ts
+sandkit.api.ui.SelectDialogOptions<T = string> = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| message? | <code>LocalizedText</code> | Optional dialog body text. |
+| title? | <code>LocalizedText</code> | Optional dialog title. |
+| defaultValue? | <code>T</code> | Value selected when the dialog opens. |
+| buttonLabel? | <code>LocalizedText</code> | Confirm button label. |
+
+<div class="smt-member-anchors">
+
+##### message? <!-- {docsify-ignore} -->
+
+##### title? <!-- {docsify-ignore} -->
+
+##### defaultValue? <!-- {docsify-ignore} -->
+
+##### buttonLabel? <!-- {docsify-ignore} -->
+
+</div>
+
+Dialog options for [select](?id=select).
+
+`T` = `string`
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.RegionMountOptions :id=regionmountoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L460" target="_blank" rel="noopener">ui.d.ts:460</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.RegionMountOptions = object">
+
+```ts
+RegionMountOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| placement? | <code>&quot;raised&quot; &#124; &quot;docked&quot;</code> | `"docked"` sits on the hotbar. `"raised"` sits above panels such as Filter Config. |
+| order? | <code>number</code> | Draw order within the region. |
+| render | <code>() =&gt; ReactNode</code> | Function that returns React content. |
+
+<div class="smt-member-anchors">
+
+##### placement? <!-- {docsify-ignore} -->
+
+##### order? <!-- {docsify-ignore} -->
+
+##### render <!-- {docsify-ignore} -->
+
+</div>
+
+Options for [regions.mount](api/sandkit.api.ui.regions.md?id=mount).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.RegionMountUpdateOptions :id=regionmountupdateoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L473" target="_blank" rel="noopener">ui.d.ts:473</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.RegionMountUpdateOptions = object">
+
+```ts
+RegionMountUpdateOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| placement? | <code>&quot;raised&quot; &#124; &quot;docked&quot;</code> | `"docked"` sits on the hotbar. `"raised"` sits above panels such as Filter Config. |
+| order? | <code>number</code> | Draw order within the region. |
+| render? | <code>() =&gt; ReactNode</code> | Function that returns React content. |
+
+<div class="smt-member-anchors">
+
+##### placement? <!-- {docsify-ignore} -->
+
+##### order? <!-- {docsify-ignore} -->
+
+##### render? <!-- {docsify-ignore} -->
+
+</div>
+
+Partial options for [RegionMountHandle](?id=regionmounthandle).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.RegionMountHandle :id=regionmounthandle
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L486" target="_blank" rel="noopener">ui.d.ts:486</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.RegionMountHandle = object">
+
+```ts
+RegionMountHandle = object
+```
+
+</div>
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| update() | <code>(options: RegionMountUpdateOptions): void</code> | Update placement, order, or render for this mount. |
+| unmount() | <code>(): void</code> | Remove this mount from the region. |
+
+<div class="smt-member-anchors">
+
+##### update() <!-- {docsify-ignore} -->
+
+##### unmount() <!-- {docsify-ignore} -->
+
+</div>
+
+Handle returned from [regions.mount](api/sandkit.api.ui.regions.md?id=mount).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.VisibilityHandle :id=visibilityhandle
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L505" target="_blank" rel="noopener">ui.d.ts:505</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.VisibilityHandle = object">
+
+```ts
+VisibilityHandle = object
+```
+
+</div>
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| restore() | <code>(): void</code> | Show the region again. |
+
+<div class="smt-member-anchors">
+
+##### restore() <!-- {docsify-ignore} -->
+
+</div>
+
+Handle returned from [regions.setVisible](api/sandkit.api.ui.regions.md?id=setvisible).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.OverrideHandle :id=overridehandle
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L511" target="_blank" rel="noopener">ui.d.ts:511</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.OverrideHandle = object">
+
+```ts
+OverrideHandle = object
+```
+
+</div>
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| remove() | <code>(): void</code> | Drop this wrapper. |
+
+<div class="smt-member-anchors">
+
+##### remove() <!-- {docsify-ignore} -->
+
+</div>
+
+Handle returned from [overrides.register](api/sandkit.api.ui.overrides.md?id=register).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.HotbarBankSourceOptions :id=hotbarbanksourceoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L517" target="_blank" rel="noopener">ui.d.ts:517</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.HotbarBankSourceOptions = object">
+
+```ts
+HotbarBankSourceOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| bankOffset | <code>number</code> | Bank index offset for this source. |
+| minimumBankCount? | <code>number</code> | Minimum number of banks to keep available. |
+
+<div class="smt-member-anchors">
+
+##### bankOffset <!-- {docsify-ignore} -->
+
+##### minimumBankCount? <!-- {docsify-ignore} -->
+
+</div>
+
+Options for [hotbar.createBankSource](api/sandkit.api.ui.hotbar.md?id=createbanksource).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.HotbarBankSource :id=hotbarbanksource
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L525" target="_blank" rel="noopener">ui.d.ts:525</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.HotbarBankSource = object">
+
+```ts
+HotbarBankSource = object
+```
+
+</div>
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| isAvailable() | <code>(): boolean</code> | Return true when this bank source can show slots. |
+| getBankIndex() | <code>(): number</code> | Return the bank index for this source. |
+| getSlotCount() | <code>(): number</code> | Return the number of slots in this bank. |
+| getAction() | <code>(slotIndex: number): AssetRef</code> | Return the action in a slot. |
+| activateSlot() | <code>(slotIndex: number): void</code> | Activate a slot in this bank. |
+| clearSlot() | <code>(slotIndex: number): void</code> | Clear a slot in this bank. |
+| dispose() | <code>(): void</code> | Release this bank source. |
+
+<div class="smt-member-anchors">
+
+##### isAvailable() <!-- {docsify-ignore} -->
+
+##### getBankIndex() <!-- {docsify-ignore} -->
+
+##### getSlotCount() <!-- {docsify-ignore} -->
+
+##### getAction() <!-- {docsify-ignore} -->
+
+##### activateSlot() <!-- {docsify-ignore} -->
+
+##### clearSlot() <!-- {docsify-ignore} -->
+
+##### dispose() <!-- {docsify-ignore} -->
+
+</div>
+
+Hotbar bank source used by [components.ActionSlot](api/sandkit.api.ui.components.md?id=actionslot).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.HotbarState :id=hotbarstate
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L552" target="_blank" rel="noopener">ui.d.ts:552</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.HotbarState = object">
+
+```ts
+HotbarState = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| bankCount | <code>number</code> | Number of hotbar banks. |
+| activeBankIndex | <code>number</code> | Active bank index. |
+| activeSlotIndex | <code>number</code> | Active slot index. |
+
+<div class="smt-member-anchors">
+
+##### bankCount <!-- {docsify-ignore} -->
+
+##### activeBankIndex <!-- {docsify-ignore} -->
+
+##### activeSlotIndex <!-- {docsify-ignore} -->
+
+</div>
+
+State returned from [hotbar.useHotbar](api/sandkit.api.ui.hotbar.md?id=usehotbar).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.ActionSlotProps :id=actionslotprops
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L562" target="_blank" rel="noopener">ui.d.ts:562</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.ActionSlotProps = object">
+
+```ts
+ActionSlotProps = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| source | <code>HotbarBankSource</code> | Bank source from [hotbar.createBankSource](api/sandkit.api.ui.hotbar.md?id=createbanksource). |
+| slotIndex | <code>number</code> | Slot index in the bank. |
+| action? | <code>Action</code> | shown in the slot. |
+| keyLabel? | <code>string</code> | Optional key label drawn on the slot. |
+| active? | <code>boolean</code> | When true, draw the slot as selected. |
+| onSelect? | <code>() =&gt; void</code> | Called when the player selects the slot. |
+| onClear? | <code>() =&gt; void</code> | Called when the player clears the slot. |
+
+<div class="smt-member-anchors">
+
+##### source <!-- {docsify-ignore} -->
+
+##### slotIndex <!-- {docsify-ignore} -->
+
+##### action? <!-- {docsify-ignore} -->
+
+##### keyLabel? <!-- {docsify-ignore} -->
+
+##### active? <!-- {docsify-ignore} -->
+
+##### onSelect? <!-- {docsify-ignore} -->
+
+##### onClear? <!-- {docsify-ignore} -->
+
+</div>
+
+Props for [components.ActionSlot](api/sandkit.api.ui.components.md?id=actionslot).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.PanelProps :id=panelprops
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L580" target="_blank" rel="noopener">ui.d.ts:580</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.PanelProps = object">
+
+```ts
+PanelProps = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| title? | <code>LocalizedText</code> | Optional panel title. |
+| children? | <code>ReactNode</code> | Panel body. |
+| className? | <code>string</code> | Extra class names. |
+| style? | <code>CSSProperties</code> | Inline style. |
+
+<div class="smt-member-anchors">
+
+##### title? <!-- {docsify-ignore} -->
+
+##### children? <!-- {docsify-ignore} -->
+
+##### className? <!-- {docsify-ignore} -->
+
+##### style? <!-- {docsify-ignore} -->
+
+</div>
+
+Props for [components.Panel](api/sandkit.api.ui.components.md?id=panel).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.ButtonProps :id=buttonprops
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L592" target="_blank" rel="noopener">ui.d.ts:592</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.ButtonProps = object">
+
+```ts
+ButtonProps = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| children? | <code>ReactNode</code> | Button label or content. |
+| active? | <code>boolean</code> | When true, draw the button as selected. |
+| border? | <code>boolean</code> | When false, hide the button border. |
+| disabled? | <code>boolean</code> | When true, ignore clicks. |
+| small? | <code>boolean</code> | When true, use the small button size. |
+| variant? | <code>&quot;primary&quot; &#124; &quot;danger&quot;</code> | Visual style. |
+| className? | <code>string</code> | Extra class names. |
+| style? | <code>CSSProperties</code> | Inline style. |
+| onClick? | <code>() =&gt; void</code> | Click handler. |
+
+<div class="smt-member-anchors">
+
+##### children? <!-- {docsify-ignore} -->
+
+##### active? <!-- {docsify-ignore} -->
+
+##### border? <!-- {docsify-ignore} -->
+
+##### disabled? <!-- {docsify-ignore} -->
+
+##### small? <!-- {docsify-ignore} -->
+
+##### variant? <!-- {docsify-ignore} -->
+
+##### className? <!-- {docsify-ignore} -->
+
+##### style? <!-- {docsify-ignore} -->
+
+##### onClick? <!-- {docsify-ignore} -->
+
+</div>
+
+Props for [components.Button](api/sandkit.api.ui.components.md?id=button).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.TooltipMessageData :id=tooltipmessagedata
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L614" target="_blank" rel="noopener">ui.d.ts:614</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.TooltipMessageData = object">
+
+```ts
+TooltipMessageData = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| type | <code>&quot;message&quot;</code> | Discriminator for tooltip renderer selection. |
+| text | <code>LocalizedText</code> | Message body as localized text. |
+
+<div class="smt-member-anchors">
+
+##### type <!-- {docsify-ignore} -->
+
+##### text <!-- {docsify-ignore} -->
+
+</div>
+
+Message tooltip with localized body text.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.Focusable :id=focusable
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L622" target="_blank" rel="noopener">ui.d.ts:622</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.Focusable&lt;T *extends* HTMLElement = HTMLDivElement&gt; = object">
+
+```ts
+sandkit.api.ui.Focusable<T *extends* HTMLElement = HTMLDivElement> = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| ref | <code>RefObject&lt;T&gt;</code> | Ref to attach to the focusable element. |
+| focused | <code>boolean</code> | True when the element has controller focus. |
+| focus | <code>() =&gt; void</code> | Move controller focus to this element. |
+
+<div class="smt-member-anchors">
+
+##### ref <!-- {docsify-ignore} -->
+
+##### focused <!-- {docsify-ignore} -->
+
+##### focus <!-- {docsify-ignore} -->
+
+</div>
+
+Focusable element state from useFocusable.
+
+`T` *extends* `HTMLElement` = `HTMLDivElement`
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.FocusOptions :id=focusoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L632" target="_blank" rel="noopener">ui.d.ts:632</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.FocusOptions = object">
+
+```ts
+FocusOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> | Unique id within the focus scope. |
+| scope | <code>string</code> | Focus scope id this element belongs to. |
+| onActivate | <code>(element?: HTMLElement) =&gt; void</code> | Called when the element is activated (A button / Enter). |
+| onFocus? | <code>optional onFocus?: () =&gt; void</code> | Called when the element receives focus. |
+| disabled? | <code>optional disabled?: boolean</code> | When true, skip this element during navigation. |
+| x? | <code>optional x?: number</code> | Optional grid column for spatial navigation. |
+| y? | <code>optional y?: number</code> | Optional grid row for spatial navigation. |
+| neighbors? | <code>optional neighbors?: Partial&lt;Record&lt;&quot;left&quot; &#124; &quot;right&quot; &#124; &quot;up&quot; &#124; &quot;down&quot;, string&gt;&gt;</code> | Neighbor ids for directional navigation. |
+| scrollIntoView? | <code>optional scrollIntoView?: boolean</code> | When true, scroll the element into view on focus. |
+
+<div class="smt-member-anchors">
+
+##### id <!-- {docsify-ignore} -->
+
+##### scope <!-- {docsify-ignore} -->
+
+##### onActivate <!-- {docsify-ignore} -->
+
+##### onFocus? <!-- {docsify-ignore} -->
+
+##### disabled? <!-- {docsify-ignore} -->
+
+##### x? <!-- {docsify-ignore} -->
+
+##### y? <!-- {docsify-ignore} -->
+
+##### neighbors? <!-- {docsify-ignore} -->
+
+##### scrollIntoView? <!-- {docsify-ignore} -->
+
+</div>
+
+Options for useFocusable registration.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.FocusScopeOptions :id=focusscopeoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L654" target="_blank" rel="noopener">ui.d.ts:654</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.FocusScopeOptions = object">
+
+```ts
+FocusScopeOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> | Unique scope id. |
+| active | <code>boolean</code> | When true, this scope can receive focus. |
+| priority? | <code>optional priority?: number</code> | Higher values take focus before lower values. |
+| defaultId? | <code>optional defaultId?: string</code> | Default focusable id in this scope. |
+| onBack? | <code>optional onBack?: () =&gt; boolean &#124; void</code> | Called on back. Return true when the scope handled back. |
+
+<div class="smt-member-anchors">
+
+##### id <!-- {docsify-ignore} -->
+
+##### active <!-- {docsify-ignore} -->
+
+##### priority? <!-- {docsify-ignore} -->
+
+##### defaultId? <!-- {docsify-ignore} -->
+
+##### onBack? <!-- {docsify-ignore} -->
+
+</div>
+
+Options for [navigation.useFocusScope](api/sandkit.api.ui.navigation.md?id=usefocusscope).
 
 </div>
 

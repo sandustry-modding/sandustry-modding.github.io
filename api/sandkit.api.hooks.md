@@ -3,13 +3,21 @@
 `sandkit.api.hooks` — intercept and modify internal game hook points.
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.hooks.HookContext :id=hookcontext
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L400" target="_blank" rel="noopener">hooks.d.ts:400</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.HookContext = object">
+
+```ts
+HookContext = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -41,6 +49,14 @@ Context passed to intercept hook callbacks.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L408" target="_blank" rel="noopener">hooks.d.ts:408</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.HookOptions = object">
+
+```ts
+HookOptions = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | priority? | <code>number</code> | Run this hook before others with lower priority. |
@@ -53,10 +69,216 @@ Context passed to intercept hook callbacks.
 
 Options shared by intercept and modify hooks.
 
-#### Indexable
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.InterceptHookFilterMap :id=intercepthookfiltermap
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L414" target="_blank" rel="noopener">hooks.d.ts:414</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookFilterMap = object">
 
 ```ts
-[key: string]: unknown
+InterceptHookFilterMap = object
+```
+
+</div>
+
+<h4 class="smt-hook-heading" id="item-use"><code>item:use</code></h4>
+
+```ts
+{ itemIds: string[] }
+```
+
+<h4 class="smt-hook-heading" id="entity-update"><code>entity:update</code></h4>
+
+```ts
+{ entityTypes: string[] }
+```
+
+<h4 class="smt-hook-heading" id="building-place"><code>building:place</code></h4>
+
+```ts
+{ structureTypes: string[] }
+```
+
+<h4 class="smt-hook-heading" id="projectile-fire-overStructure"><code>projectile:fire:overStructure</code></h4>
+
+```ts
+{ projectileTypes: string[] }
+```
+
+<h4 class="smt-hook-heading" id="projectile-hit"><code>projectile:hit</code></h4>
+
+```ts
+{ projectileTypes: string[] }
+```
+
+Extra filters for [intercept](?id=intercept), keyed by hook id. Other ids use [HookOptions](?id=hookoptions) only.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.ModifyHookFilterMap :id=modifyhookfiltermap
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L423" target="_blank" rel="noopener">hooks.d.ts:423</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookFilterMap = object">
+
+```ts
+ModifyHookFilterMap = object
+```
+
+</div>
+
+<h4 class="smt-hook-heading" id="weapon-reload-prepare"><code>weapon:reload:prepare</code></h4>
+
+```ts
+{ weaponIds: string[] }
+```
+
+<h4 class="smt-hook-heading" id="projectile-travel-prepare"><code>projectile:travel:prepare</code></h4>
+
+```ts
+{ projectileTypes: string[] }
+```
+
+<h4 class="smt-hook-heading" id="projectile-impact-prepare"><code>projectile:impact:prepare</code></h4>
+
+```ts
+{ projectileTypes: string[] }
+```
+
+<h4 class="smt-hook-heading" id="trigger-schedule-prepare"><code>trigger:schedule:prepare</code></h4>
+
+```ts
+{ triggerIds: string[] }
+```
+
+<h4 class="smt-hook-heading" id="resource-collection-prepare"><code>resource:collection:prepare</code></h4>
+
+```ts
+{ resourceIds: string[] }
+```
+
+<h4 class="smt-hook-heading" id="resource-delivery-prepare"><code>resource:delivery:prepare</code></h4>
+
+```ts
+{ resourceIds: string[] }
+```
+
+<h4 class="smt-hook-heading" id="resource-balance-prepare"><code>resource:balance:prepare</code></h4>
+
+```ts
+{ resourceIds: string[] }
+```
+
+Extra filters for [modify](?id=modify), keyed by hook id. Other ids use [HookOptions](?id=hookoptions) only.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.InterceptHookOptions :id=intercepthookoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L434" target="_blank" rel="noopener">hooks.d.ts:434</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookOptions&lt;K *extends* InterceptHookId&gt; = HookOptions &amp; K *extends* keyof InterceptHookFilterMap ? InterceptHookFilterMap[K] : object">
+
+```ts
+sandkit.api.hooks.InterceptHookOptions<K *extends* InterceptHookId> = HookOptions & K *extends* keyof InterceptHookFilterMap ? InterceptHookFilterMap[K] : object
+```
+
+</div>
+
+Options for [intercept](?id=intercept).
+
+`K` *extends* [`InterceptHookId`](?id=intercepthookid)
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.ModifyHookOptions :id=modifyhookoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L438" target="_blank" rel="noopener">hooks.d.ts:438</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookOptions&lt;K *extends* ModifyHookId&gt; = HookOptions &amp; K *extends* keyof ModifyHookFilterMap ? ModifyHookFilterMap[K] : object">
+
+```ts
+sandkit.api.hooks.ModifyHookOptions<K *extends* ModifyHookId> = HookOptions & K *extends* keyof ModifyHookFilterMap ? ModifyHookFilterMap[K] : object
+```
+
+</div>
+
+Options for [modify](?id=modify).
+
+`K` *extends* [`ModifyHookId`](?id=modifyhookid)
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.InterceptHookId :id=intercepthookid
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L442" target="_blank" rel="noopener">hooks.d.ts:442</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookId = LooseString&lt;&quot;item:use&quot; | &quot;teleport:effect:create&quot; | &quot;teleport:effect&quot; | &quot;action:start&quot; | &quot;action:intercept&quot; | &quot;input:keyDown&quot; | &quot;input:keydown&quot; | &quot;input:keyUp&quot; | &quot;input:keyup&quot; | &quot;placePoints:suppress&quot; | &quot;placePoints:isSuppressed&quot; | &quot;placePoints:directionalArrows:suppress&quot; | &quot;placePoints:directionalArrows:isSuppressed&quot; | &quot;entity:update&quot; | &quot;building:place&quot; | &quot;building:clearShape&quot; | &quot;input:scroll&quot; | &quot;input:boostDown&quot; | &quot;input:boost-down&quot; | &quot;input:descendDown&quot; | &quot;input:descend-down&quot; | &quot;input:escape&quot; | &quot;interactable:suppressHover&quot; | &quot;fire:element:ignite&quot; | &quot;projectile:fire:overStructure&quot; | &quot;projectile:hit&quot; | &quot;player:position:commit&quot; | &quot;progression:purchase&quot;&gt;">
+
+```ts
+InterceptHookId = LooseString<"item:use" | "teleport:effect:create" | "teleport:effect" | "action:start" | "action:intercept" | "input:keyDown" | "input:keydown" | "input:keyUp" | "input:keyup" | "placePoints:suppress" | "placePoints:isSuppressed" | "placePoints:directionalArrows:suppress" | "placePoints:directionalArrows:isSuppressed" | "entity:update" | "building:place" | "building:clearShape" | "input:scroll" | "input:boostDown" | "input:boost-down" | "input:descendDown" | "input:descend-down" | "input:escape" | "interactable:suppressHover" | "fire:element:ignite" | "projectile:fire:overStructure" | "projectile:hit" | "player:position:commit" | "progression:purchase">
+```
+
+</div>
+
+Known main-thread intercept hook ids plus custom strings.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.ModifyHookId :id=modifyhookid
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L474" target="_blank" rel="noopener">hooks.d.ts:474</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookId = LooseString&lt;&quot;excavation:prepare&quot; | &quot;locator:scan:prepare&quot; | &quot;vacuum:prepare&quot; | &quot;vacuum:element:prepare&quot; | &quot;player:movement:prepare&quot; | &quot;player:movement&quot; | &quot;building:placementLimit:prepare&quot; | &quot;building:placementLimit&quot; | &quot;building:placement-limit&quot; | &quot;fluxEmanator:processing:prepare&quot; | &quot;fluxEmanator:processing&quot; | &quot;flux-emanator:processing&quot; | &quot;render:pipes:prepare&quot; | &quot;render:pipes&quot; | &quot;structures:moved:prepare&quot; | &quot;structures:removed:prepare&quot; | &quot;weapon:reload:prepare&quot; | &quot;projectile:travel:prepare&quot; | &quot;projectile:impact:prepare&quot; | &quot;player:collision:prepare&quot; | &quot;trigger:schedule:prepare&quot; | &quot;progression:cost:prepare&quot; | &quot;resource:collection:prepare&quot; | &quot;resource:delivery:prepare&quot; | &quot;resource:balance:prepare&quot; | &quot;gold:removal:prepare&quot; | &quot;gold:removal:settle&quot;&gt;">
+
+```ts
+ModifyHookId = LooseString<"excavation:prepare" | "locator:scan:prepare" | "vacuum:prepare" | "vacuum:element:prepare" | "player:movement:prepare" | "player:movement" | "building:placementLimit:prepare" | "building:placementLimit" | "building:placement-limit" | "fluxEmanator:processing:prepare" | "fluxEmanator:processing" | "flux-emanator:processing" | "render:pipes:prepare" | "render:pipes" | "structures:moved:prepare" | "structures:removed:prepare" | "weapon:reload:prepare" | "projectile:travel:prepare" | "projectile:impact:prepare" | "player:collision:prepare" | "trigger:schedule:prepare" | "progression:cost:prepare" | "resource:collection:prepare" | "resource:delivery:prepare" | "resource:balance:prepare" | "gold:removal:prepare" | "gold:removal:settle">
+```
+
+</div>
+
+Known main-thread modify hook ids plus custom strings.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.ItemUseStats :id=itemusestats
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L509" target="_blank" rel="noopener">hooks.d.ts:509</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ItemUseStats = object &amp; Record&lt;string, unknown&gt;">
+
+```ts
+ItemUseStats = object & Record<string, unknown>
+```
+
+</div>
+
+Per-use stats copied into [InterceptHookMap](?id=intercepthookmap) `"item:use"`.
+`energyCost` is the field shown in official Sandkit.
+Extra keys depend on the item definition.
+
+#### Type Declaration
+
+##### energyCost?
+
+```ts
+optional energyCost?: number
 ```
 
 </div>
@@ -65,7 +287,15 @@ Options shared by intercept and modify hooks.
 
 ### sandkit.api.hooks.InputKeyInterceptArgs :id=inputkeyinterceptargs
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L510" target="_blank" rel="noopener">hooks.d.ts:510</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L514" target="_blank" rel="noopener">hooks.d.ts:514</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.InputKeyInterceptArgs = object">
+
+```ts
+InputKeyInterceptArgs = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -91,7 +321,15 @@ Keyboard intercept payload for [InterceptHookMap](?id=intercepthookmap) `"input:
 
 ### sandkit.api.hooks.TeleportEffectZone :id=teleporteffectzone
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L517" target="_blank" rel="noopener">hooks.d.ts:517</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L521" target="_blank" rel="noopener">hooks.d.ts:521</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.TeleportEffectZone = object">
+
+```ts
+TeleportEffectZone = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -129,7 +367,15 @@ Teleport zone snapshot on [InterceptHookMap](?id=intercepthookmap) `"teleport:ef
 
 ### sandkit.api.hooks.ProjectileTravelResult :id=projectiletravelresult
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L527" target="_blank" rel="noopener">hooks.d.ts:527</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L531" target="_blank" rel="noopener">hooks.d.ts:531</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ProjectileTravelResult = object">
+
+```ts
+ProjectileTravelResult = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -170,7 +416,15 @@ Projectile travel hit from [InterceptHookMap](?id=intercepthookmap) `"projectile
 
 ### sandkit.api.hooks.ProgressionPurchaseCost :id=progressionpurchasecost
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L539" target="_blank" rel="noopener">hooks.d.ts:539</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L543" target="_blank" rel="noopener">hooks.d.ts:543</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ProgressionPurchaseCost = object">
+
+```ts
+ProgressionPurchaseCost = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -193,7 +447,15 @@ One currency line on [InterceptHookMap](?id=intercepthookmap) `"progression:purc
 
 ### sandkit.api.hooks.StructureCellRef :id=structurecellref
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L545" target="_blank" rel="noopener">hooks.d.ts:545</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L549" target="_blank" rel="noopener">hooks.d.ts:549</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.StructureCellRef = object">
+
+```ts
+StructureCellRef = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -216,7 +478,15 @@ Cell origin used on structure move and remove payloads.
 
 ### sandkit.api.hooks.StructureMoveRecord :id=structuremoverecord
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L551" target="_blank" rel="noopener">hooks.d.ts:551</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L555" target="_blank" rel="noopener">hooks.d.ts:555</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.StructureMoveRecord = object">
+
+```ts
+StructureMoveRecord = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -239,7 +509,15 @@ Successful move row on [ModifierHookMap](?id=modifierhookmap) `"structures:moved
 
 ### sandkit.api.hooks.StructureMoveFailure :id=structuremovefailure
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L557" target="_blank" rel="noopener">hooks.d.ts:557</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L561" target="_blank" rel="noopener">hooks.d.ts:561</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.StructureMoveFailure = object">
+
+```ts
+StructureMoveFailure = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -259,19 +537,21 @@ Successful move row on [ModifierHookMap](?id=modifierhookmap) `"structures:moved
 
 Failed place row on structure move and by-move remove payloads.
 
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
-
 </div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.hooks.InterceptHookMap :id=intercepthookmap
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L565" target="_blank" rel="noopener">hooks.d.ts:565</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L568" target="_blank" rel="noopener">hooks.d.ts:568</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookMap = object">
+
+```ts
+InterceptHookMap = object
+```
+
+</div>
 
 <h4 class="smt-hook-heading" id="item-use"><code>item:use</code></h4>
 
@@ -309,13 +589,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{
-  zone: TeleportEffectZone;
-  originX: number;
-  originY: number;
-  destX: number;
-  destY: number;
-}
+InterceptHookMap["teleport:effect:create"]
 ```
 
 <h4 class="smt-hook-heading" id="action-start"><code>action:start</code></h4>
@@ -336,7 +610,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{ action: { id: string | number; type: number; } | null }
+InterceptHookMap["action:start"]
 ```
 
 <h4 class="smt-hook-heading" id="input-keyDown"><code>input:keyDown</code></h4>
@@ -357,7 +631,7 @@ Deprecated alias.
 </div>
 
 ```ts
-InputKeyInterceptArgs
+InterceptHookMap["input:keyDown"]
 ```
 
 <h4 class="smt-hook-heading" id="input-keyUp"><code>input:keyUp</code></h4>
@@ -378,7 +652,7 @@ Deprecated alias.
 </div>
 
 ```ts
-InputKeyInterceptArgs
+InterceptHookMap["input:keyUp"]
 ```
 
 <h4 class="smt-hook-heading" id="placePoints-suppress"><code>placePoints:suppress</code></h4>
@@ -399,7 +673,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{ type: StructureRef }
+InterceptHookMap["placePoints:suppress"]
 ```
 
 <h4 class="smt-hook-heading" id="placePoints-directionalArrows-suppress"><code>placePoints:directionalArrows:suppress</code></h4>
@@ -424,11 +698,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{
-  type: StructureRef;
-  x: number;
-  y: number;
-}
+InterceptHookMap["placePoints:directionalArrows:suppress"]
 ```
 
 <h4 class="smt-hook-heading" id="entity-update"><code>entity:update</code></h4>
@@ -455,7 +725,7 @@ Deprecated alias.
 
 ```ts
 {
-  structureId: string;
+  structureId: StructureRef;
   x: number;
   y: number;
   data: StructureData;
@@ -492,7 +762,7 @@ Deprecated alias.
 </div>
 
 ```ts
-Record<string, never>
+InterceptHookMap["input:boostDown"]
 ```
 
 <h4 class="smt-hook-heading" id="input-descendDown"><code>input:descendDown</code></h4>
@@ -513,7 +783,7 @@ Deprecated alias.
 </div>
 
 ```ts
-Record<string, never>
+InterceptHookMap["input:descendDown"]
 ```
 
 <h4 class="smt-hook-heading" id="input-escape"><code>input:escape</code></h4>
@@ -584,14 +854,22 @@ Intercept hook argument shapes keyed by hook id.
 
 ### sandkit.api.hooks.ModifierHookMap :id=modifierhookmap
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L662" target="_blank" rel="noopener">hooks.d.ts:662</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L665" target="_blank" rel="noopener">hooks.d.ts:665</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifierHookMap = object">
+
+```ts
+ModifierHookMap = object
+```
+
+</div>
 
 <h4 class="smt-hook-heading" id="excavation-prepare"><code>excavation:prepare</code></h4>
 
 ```ts
 {
   sourceId: string;
-  sourceKind: "structure" | "tool" | "projectile" | "drone";
+  sourceKind: "tool" | "projectile" | "structure" | "drone";
   originCellX: number;
   originCellY: number;
   consumedVoid: boolean;
@@ -614,7 +892,7 @@ Intercept hook argument shapes keyed by hook id.
   innerTint: [number, number, number];
   noTargetToast: string;
   noTargetToastKey: string;
-  triangulationLensOverride: boolean | null;
+  triangulationLensOverride: true | false | null;
 }
 ```
 
@@ -668,15 +946,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{
-  horizontalMaxSpeed: number;
-  verticalMaxSpeed: number;
-  horizontalAcceleration: number;
-  verticalAcceleration: number;
-  verticalDeceleration: number;
-  kickstartVelocity: number;
-  fallbackKickstartVelocity: number;
-}
+ModifierHookMap["player:movement:prepare"]
 ```
 
 <h4 class="smt-hook-heading" id="building-placementLimit-prepare"><code>building:placementLimit:prepare</code></h4>
@@ -701,11 +971,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{
-  structureType: StructureRef;
-  currentCount: number;
-  maxCount: number | null;
-}
+ModifierHookMap["building:placementLimit:prepare"]
 ```
 
 <h4 class="smt-hook-heading" id="building-placement-limit"><code>building:placement-limit</code></h4>
@@ -720,11 +986,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{
-  structureType: StructureRef;
-  currentCount: number;
-  maxCount: number | null;
-}
+ModifierHookMap["building:placementLimit:prepare"]
 ```
 
 <h4 class="smt-hook-heading" id="fluxEmanator-processing-prepare"><code>fluxEmanator:processing:prepare</code></h4>
@@ -745,7 +1007,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{ speedMultiplier: number }
+ModifierHookMap["fluxEmanator:processing:prepare"]
 ```
 
 <h4 class="smt-hook-heading" id="flux-emanator-processing"><code>flux-emanator:processing</code></h4>
@@ -760,13 +1022,13 @@ Deprecated alias.
 </div>
 
 ```ts
-{ speedMultiplier: number }
+ModifierHookMap["fluxEmanator:processing:prepare"]
 ```
 
 <h4 class="smt-hook-heading" id="render-pipes-prepare"><code>render:pipes:prepare</code></h4>
 
 ```ts
-{ layer: "background" | "foreground" }
+{ layer: "foreground" | "background" }
 ```
 
 <h4 class="smt-hook-heading" id="render-pipes"><code>render:pipes</code></h4>
@@ -781,7 +1043,7 @@ Deprecated alias.
 </div>
 
 ```ts
-{ layer: "background" | "foreground" }
+ModifierHookMap["render:pipes:prepare"]
 ```
 
 <h4 class="smt-hook-heading" id="structures-moved-prepare"><code>structures:moved:prepare</code></h4>
@@ -880,7 +1142,7 @@ Deprecated alias.
   cellX: number;
   cellY: number;
   amount: number;
-  feedback: "silent" | "default" | "reduced";
+  feedback: "default" | "reduced" | "silent";
 }
 ```
 
@@ -897,7 +1159,7 @@ Deprecated alias.
   targetCellY: number;
   mode: "world" | "collection";
   amount: number;
-  feedback: "silent" | "default";
+  feedback: "default" | "silent";
 }
 ```
 
@@ -933,123 +1195,11 @@ Modify hook argument shapes keyed by hook id.
 
 </div>
 
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.hooks.InterceptHookOptions :id=intercepthookoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L415" target="_blank" rel="noopener">hooks.d.ts:415</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookOptions&lt;K *extends* InterceptHookId&gt; = HookOptions &amp; K *extends* &quot;item:use&quot; ? object : K *extends* &quot;entity:update&quot; ? object : K *extends* &quot;building:place&quot; ? object : K *extends* &quot;projectile:fire:overStructure&quot; | &quot;projectile:hit&quot; ? object : Record&lt;string, unknown&gt;">
-
-```ts
-sandkit.api.hooks.InterceptHookOptions<K *extends* InterceptHookId> = HookOptions & K *extends* "item:use" ? object : K *extends* "entity:update" ? object : K *extends* "building:place" ? object : K *extends* "projectile:fire:overStructure" | "projectile:hit" ? object : Record<string, unknown>
-```
-
-</div>
-
-Options for [intercept](?id=intercept).
-
-`K` *extends* [`InterceptHookId`](?id=intercepthookid)
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.hooks.ModifyHookOptions :id=modifyhookoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L427" target="_blank" rel="noopener">hooks.d.ts:427</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookOptions = HookOptions &amp; { weaponIds?: string[]; priority?: number; } | { projectileTypes?: string[]; priority?: number; } | { triggerIds?: string[]; priority?: number; } | { resourceIds?: string[]; priority?: number; } | Record&lt;string, unknown&gt;">
-
-```ts
-ModifyHookOptions = HookOptions & { weaponIds?: string[]; priority?: number; } | { projectileTypes?: string[]; priority?: number; } | { triggerIds?: string[]; priority?: number; } | { resourceIds?: string[]; priority?: number; } | Record<string, unknown>
-```
-
-</div>
-
-Options for [modify](?id=modify).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.hooks.InterceptHookId :id=intercepthookid
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L437" target="_blank" rel="noopener">hooks.d.ts:437</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookId = LooseString&lt;&quot;item:use&quot; | &quot;teleport:effect:create&quot; | &quot;teleport:effect&quot; | &quot;action:start&quot; | &quot;action:intercept&quot; | &quot;input:keyDown&quot; | &quot;input:keydown&quot; | &quot;input:keyUp&quot; | &quot;input:keyup&quot; | &quot;placePoints:suppress&quot; | &quot;placePoints:isSuppressed&quot; | &quot;placePoints:directionalArrows:suppress&quot; | &quot;placePoints:directionalArrows:isSuppressed&quot; | &quot;entity:update&quot; | &quot;building:place&quot; | &quot;building:clearShape&quot; | &quot;input:scroll&quot; | &quot;input:boostDown&quot; | &quot;input:boost-down&quot; | &quot;input:descendDown&quot; | &quot;input:descend-down&quot; | &quot;input:escape&quot; | &quot;interactable:suppressHover&quot; | &quot;fire:element:ignite&quot; | &quot;projectile:fire:overStructure&quot; | &quot;projectile:hit&quot; | &quot;player:position:commit&quot; | &quot;progression:purchase&quot;&gt;">
-
-```ts
-InterceptHookId = LooseString<"item:use" | "teleport:effect:create" | "teleport:effect" | "action:start" | "action:intercept" | "input:keyDown" | "input:keydown" | "input:keyUp" | "input:keyup" | "placePoints:suppress" | "placePoints:isSuppressed" | "placePoints:directionalArrows:suppress" | "placePoints:directionalArrows:isSuppressed" | "entity:update" | "building:place" | "building:clearShape" | "input:scroll" | "input:boostDown" | "input:boost-down" | "input:descendDown" | "input:descend-down" | "input:escape" | "interactable:suppressHover" | "fire:element:ignite" | "projectile:fire:overStructure" | "projectile:hit" | "player:position:commit" | "progression:purchase">
-```
-
-</div>
-
-Known main-thread intercept hook ids plus custom strings.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.hooks.ModifyHookId :id=modifyhookid
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L469" target="_blank" rel="noopener">hooks.d.ts:469</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookId = LooseString&lt;&quot;excavation:prepare&quot; | &quot;locator:scan:prepare&quot; | &quot;vacuum:prepare&quot; | &quot;vacuum:element:prepare&quot; | &quot;player:movement:prepare&quot; | &quot;player:movement&quot; | &quot;building:placementLimit:prepare&quot; | &quot;building:placementLimit&quot; | &quot;building:placement-limit&quot; | &quot;fluxEmanator:processing:prepare&quot; | &quot;fluxEmanator:processing&quot; | &quot;flux-emanator:processing&quot; | &quot;render:pipes:prepare&quot; | &quot;render:pipes&quot; | &quot;structures:moved:prepare&quot; | &quot;structures:removed:prepare&quot; | &quot;weapon:reload:prepare&quot; | &quot;projectile:travel:prepare&quot; | &quot;projectile:impact:prepare&quot; | &quot;player:collision:prepare&quot; | &quot;trigger:schedule:prepare&quot; | &quot;progression:cost:prepare&quot; | &quot;resource:collection:prepare&quot; | &quot;resource:delivery:prepare&quot; | &quot;resource:balance:prepare&quot; | &quot;gold:removal:prepare&quot; | &quot;gold:removal:settle&quot;&gt;">
-
-```ts
-ModifyHookId = LooseString<"excavation:prepare" | "locator:scan:prepare" | "vacuum:prepare" | "vacuum:element:prepare" | "player:movement:prepare" | "player:movement" | "building:placementLimit:prepare" | "building:placementLimit" | "building:placement-limit" | "fluxEmanator:processing:prepare" | "fluxEmanator:processing" | "flux-emanator:processing" | "render:pipes:prepare" | "render:pipes" | "structures:moved:prepare" | "structures:removed:prepare" | "weapon:reload:prepare" | "projectile:travel:prepare" | "projectile:impact:prepare" | "player:collision:prepare" | "trigger:schedule:prepare" | "progression:cost:prepare" | "resource:collection:prepare" | "resource:delivery:prepare" | "resource:balance:prepare" | "gold:removal:prepare" | "gold:removal:settle">
-```
-
-</div>
-
-Known main-thread modify hook ids plus custom strings.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.hooks.ItemUseStats :id=itemusestats
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L504" target="_blank" rel="noopener">hooks.d.ts:504</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.hooks.ItemUseStats = object">
-
-```ts
-ItemUseStats = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| energyCost? | <code>number</code> |  |
-
-<div class="smt-member-anchors">
-
-##### energyCost? <!-- {docsify-ignore} -->
-
-</div>
-
-Per-use stats copied into [InterceptHookMap](?id=intercepthookmap) `"item:use"`.
-`energyCost` is the field shown in official Sandkit.
-Extra keys depend on the item definition.
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
-
-</div>
-
 <div class="smt-member-card">
 
 ### sandkit.api.hooks.InterceptHookArgs :id=intercepthookargs
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L811" target="_blank" rel="noopener">hooks.d.ts:811</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L814" target="_blank" rel="noopener">hooks.d.ts:814</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookArgs&lt;K *extends* InterceptHookId&gt; = K *extends* keyof InterceptHookMap ? InterceptHookMap[K] : unknown">
 
@@ -1069,7 +1219,7 @@ Intercept hook args for a given hook id.
 
 ### sandkit.api.hooks.ModifyHookArgs :id=modifyhookargs
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L816" target="_blank" rel="noopener">hooks.d.ts:816</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L819" target="_blank" rel="noopener">hooks.d.ts:819</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookArgs&lt;K *extends* ModifyHookId&gt; = K *extends* keyof ModifierHookMap ? ModifierHookMap[K] : unknown">
 
@@ -1314,10 +1464,10 @@ api.hooks.intercept("progression:purchase", (args, context) => {
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/hooks.d.ts#L393" target="_blank" rel="noopener">hooks.d.ts:393</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.hooks.modify&lt;K *extends* ModifyHookId&gt;(hookId: K, callback: (args: ModifyHookArgs&lt;K&gt;) =&gt; void, options?: ModifyHookOptions): () =&gt; void">
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.modify&lt;K *extends* ModifyHookId&gt;(hookId: K, callback: (args: ModifyHookArgs&lt;K&gt;) =&gt; void, options?: ModifyHookOptions&lt;K&gt;): () =&gt; void">
 
 ```ts
-sandkit.api.hooks.modify<K *extends* ModifyHookId>(hookId: K, callback: (args: ModifyHookArgs<K>) => void, options?: ModifyHookOptions): () => void
+sandkit.api.hooks.modify<K *extends* ModifyHookId>(hookId: K, callback: (args: ModifyHookArgs<K>) => void, options?: ModifyHookOptions<K>): () => void
 ```
 
 </div>
@@ -1326,7 +1476,7 @@ sandkit.api.hooks.modify<K *extends* ModifyHookId>(hookId: K, callback: (args: M
 | --- | --- | --- |
 | hookId | `K` | Registered hook identifier. |
 | callback | <code>(`args`: [`ModifyHookArgs`](?id=modifyhookargs)&lt;`K`&gt;) =&gt; `void`</code> | Called with hook arguments; may mutate hook payload. |
-| options? | <code>[`ModifyHookOptions`](?id=modifyhookoptions)</code> | Optional priority and filter options. |
+| options? | <code>[`ModifyHookOptions`](?id=modifyhookoptions)&lt;`K`&gt;</code> | Optional priority and filter options. |
 
 <div class="smt-member-anchors">
 

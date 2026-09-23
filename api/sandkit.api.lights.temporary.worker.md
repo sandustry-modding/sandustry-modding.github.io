@@ -2,31 +2,6 @@
 
 Short-lived visual effect lights.
 
-## Interfaces <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.lights.temporary.TemporaryLightHandle :id=temporarylighthandle
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/lights.d.ts#L18" target="_blank" rel="noopener">lights.d.ts:18</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| lightId | <code>number &#124; null</code> | Runtime light id, or null when the pool is full. |
-| ~~index?~~ | <code>number &#124; null</code> | Deprecated alias. |
-
-<div class="smt-member-anchors">
-
-##### lightId <!-- {docsify-ignore} -->
-
-##### ~~index?~~ <!-- {docsify-ignore} -->
-
-</div>
-
-Handle returned by [createAtWorld](?id=createatworld).
-
-</div>
-
 ## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
@@ -44,6 +19,37 @@ TemporaryLightOptions = TemporaryLightOptions
 </div>
 
 Options for [createAtWorld](?id=createatworld).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.lights.temporary.TemporaryLightHandle :id=temporarylighthandle
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/lights.d.ts#L18" target="_blank" rel="noopener">lights.d.ts:18</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.lights.temporary.TemporaryLightHandle = object">
+
+```ts
+TemporaryLightHandle = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| lightId | <code>number &#124; null</code> | Runtime light id, or null when the pool is full. |
+| ~~index?~~ | <code>number &#124; null</code> | Deprecated alias. |
+
+<div class="smt-member-anchors">
+
+##### lightId <!-- {docsify-ignore} -->
+
+##### ~~index?~~ <!-- {docsify-ignore} -->
+
+</div>
+
+Handle returned by [createAtWorld](?id=createatworld).
 
 </div>
 

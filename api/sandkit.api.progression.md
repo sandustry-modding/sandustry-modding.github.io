@@ -1,12 +1,20 @@
 # sandkit.api.progression
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.progression.ProgressionCompletionRequestV1 :id=progressioncompletionrequestv1
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/progression.d.ts#L25" target="_blank" rel="noopener">progression.d.ts:25</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.progression.ProgressionCompletionRequestV1 = object">
+
+```ts
+ProgressionCompletionRequestV1 = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

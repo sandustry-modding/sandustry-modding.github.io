@@ -3,13 +3,63 @@
 `sandkit.api.energy` — structure energy networks, storage, and consumption.
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.energy.EnergyNetworkNode :id=energynetworknode
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/energy.d.ts#L75" target="_blank" rel="noopener">energy.d.ts:75</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.energy.EnergyNetworkNode = object">
+
+```ts
+EnergyNetworkNode = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> |  |
+| cellX? | <code>number</code> |  |
+| cellY? | <code>number</code> |  |
+| x? | <code>number</code> |  |
+| y? | <code>number</code> |  |
+
+<div class="smt-member-anchors">
+
+##### type <!-- {docsify-ignore} -->
+
+##### cellX? <!-- {docsify-ignore} -->
+
+##### cellY? <!-- {docsify-ignore} -->
+
+##### x? <!-- {docsify-ignore} -->
+
+##### y? <!-- {docsify-ignore} -->
+
+</div>
+
+One node from [getNetworkAtCell](?id=getnetworkatcell).
+Official docs use `cellX` / `cellY`.
+The 0.5.6 engine object uses `x` / `y` for the same cell.
+
+</div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.energy.EnergyRegisterTypeOptions :id=energyregistertypeoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/energy.d.ts#L75" target="_blank" rel="noopener">energy.d.ts:75</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/energy.d.ts#L84" target="_blank" rel="noopener">energy.d.ts:84</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.energy.EnergyRegisterTypeOptions = object">
+
+```ts
+EnergyRegisterTypeOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -26,19 +76,21 @@ Main thread only.
 
 Options for [registerType](?id=registertype).
 
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
-
 </div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.energy.EnergyAddOptions :id=energyaddoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/energy.d.ts#L84" target="_blank" rel="noopener">energy.d.ts:84</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/energy.d.ts#L92" target="_blank" rel="noopener">energy.d.ts:92</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.energy.EnergyAddOptions = object">
+
+```ts
+EnergyAddOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -51,12 +103,6 @@ Options for [registerType](?id=registertype).
 </div>
 
 Options for [addAtCell](?id=addatcell).
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
 
 </div>
 
@@ -189,10 +235,10 @@ Consumes energy from networks other than the one at the cell.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/energy.d.ts#L62" target="_blank" rel="noopener">energy.d.ts:62</a></p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.energy.getNetworkAtCell(...args: CellCoordinates): object[]">
+<div class="smt-member-sig" data-sig="sandkit.api.energy.getNetworkAtCell(...args: CellCoordinates): EnergyNetworkNode[]">
 
 ```ts
-getNetworkAtCell(...args: CellCoordinates): object[]
+getNetworkAtCell(...args: CellCoordinates): EnergyNetworkNode[]
 ```
 
 </div>
@@ -209,7 +255,7 @@ getNetworkAtCell(...args: CellCoordinates): object[]
 
 Returns energy network nodes connected at the cell.
 
-`object`[]
+[`EnergyNetworkNode`](?id=energynetworknode)[]
 
 #### Example
 
@@ -226,7 +272,7 @@ for (const entry of network) {
 
 ### sandkit.api.energy.getNetworkFreeCapacityAtCell :id=getnetworkfreecapacityatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/energy.d.ts#L72" target="_blank" rel="noopener">energy.d.ts:72</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/energy.d.ts#L68" target="_blank" rel="noopener">energy.d.ts:68</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.energy.getNetworkFreeCapacityAtCell(...args: CellCoordinates): number">
 

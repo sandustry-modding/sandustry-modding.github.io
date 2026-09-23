@@ -4,7 +4,7 @@ Pipe network queries and enablement at grid cells.
 
 Available as `sandkit.api.pipes`.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
@@ -12,30 +12,15 @@ Available as `sandkit.api.pipes`.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/pipes.d.ts#L48" target="_blank" rel="noopener">pipes.d.ts:48</a></p>
 
-| Property | Type | Description |
-| --- | --- | --- |
-| cellX | <code>number</code> | Cell column. |
-| cellY | <code>number</code> | Cell row. |
+<div class="smt-member-sig" data-sig="sandkit.api.pipes.PipeVentCell = CellXY &amp; object">
 
-<div class="smt-member-anchors">
-
-##### cellX <!-- {docsify-ignore} -->
-
-##### cellY <!-- {docsify-ignore} -->
+```ts
+PipeVentCell = CellXY & object
+```
 
 </div>
 
 Connected vent cell position.
-
-#### Extends
-
-- [`CellXY`](api/shared.player.md?id=cellxy)
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
 
 </div>
 

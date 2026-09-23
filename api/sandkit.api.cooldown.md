@@ -3,13 +3,21 @@
 `sandkit.api.cooldown` — reusable cooldown timers for abilities and items.
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.cooldown.Cooldown :id=cooldown
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/cooldown.d.ts#L26" target="_blank" rel="noopener">cooldown.d.ts:26</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.cooldown.Cooldown = object">
+
+```ts
+Cooldown = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

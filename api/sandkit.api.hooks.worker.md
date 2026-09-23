@@ -6,13 +6,21 @@ Worker-thread `sandkit.api.hooks` — intercept and modify simulation hook point
 
  Worker-only surface; do not use main-thread [sandkit.api.hooks](api/sandkit.md?id=hooks).
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.hooks.HookContext :id=hookcontext
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L113" target="_blank" rel="noopener">hooks.d.ts:113</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.HookContext = object">
+
+```ts
+HookContext = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -44,10 +52,18 @@ Context passed to intercept hook callbacks.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L121" target="_blank" rel="noopener">hooks.d.ts:121</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.HookGuard = object">
+
+```ts
+HookGuard = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | elementType? | <code>ElementType</code> | Required for element-scoped intercept hooks and optional on emit. |
-| terrainType? | <code>number</code> | Required for terrain-scoped event guards; optional on emit. |
+| terrainType? | <code>TerrainType</code> | Required for terrain-scoped event guards; optional on emit. |
 
 <div class="smt-member-anchors">
 
@@ -60,285 +76,6 @@ Context passed to intercept hook callbacks.
 Guard filter for worker hook registration.
 
 </div>
-
-<div class="smt-member-card">
-
-### sandkit.api.hooks.ModifyHookOptions :id=modifyhookoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L137" target="_blank" rel="noopener">hooks.d.ts:137</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| guard? | <code>HookGuard</code> |  |
-| priority? | <code>number</code> |  |
-
-<div class="smt-member-anchors">
-
-##### guard? <!-- {docsify-ignore} -->
-
-##### priority? <!-- {docsify-ignore} -->
-
-</div>
-
-Options for [modify](?id=modify).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.hooks.ElementSimData :id=elementsimdata
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L176" target="_blank" rel="noopener">hooks.d.ts:176</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| type | <code>Uint8Array</code> |  |
-| x | <code>Uint16Array</code> |  |
-| y | <code>Uint16Array</code> |  |
-| velocityX | <code>Float32Array</code> |  |
-| velocityY | <code>Float32Array</code> |  |
-| minVelocityX | <code>Float32Array</code> |  |
-| minVelocityY | <code>Float32Array</code> |  |
-| thresholdX | <code>Float32Array</code> |  |
-| thresholdY | <code>Float32Array</code> |  |
-| hasBeenUpdated | <code>Uint8Array</code> |  |
-| isFreeFalling | <code>Uint8Array</code> |  |
-| density | <code>Float32Array</code> |  |
-| variantIndex | <code>Uint8Array</code> |  |
-| durationMax | <code>Float32Array</code> |  |
-| durationLeft | <code>Float32Array</code> |  |
-| skipPhysics | <code>Uint8Array</code> |  |
-| movesYAxis | <code>Uint16Array</code> |  |
-| movesYAxisCount | <code>Uint16Array</code> |  |
-| lastSideChecked | <code>Int16Array</code> |  |
-| linkedElementIndex | <code>Uint32Array</code> |  |
-| hasDuration | <code>Uint8Array</code> |  |
-| dataField1 | <code>Uint16Array</code> |  |
-| dataField2 | <code>Int16Array</code> |  |
-| dataField3 | <code>Uint16Array</code> |  |
-| dataField4 | <code>Float32Array</code> |  |
-
-<div class="smt-member-anchors">
-
-##### type <!-- {docsify-ignore} -->
-
-##### x <!-- {docsify-ignore} -->
-
-##### y <!-- {docsify-ignore} -->
-
-##### velocityX <!-- {docsify-ignore} -->
-
-##### velocityY <!-- {docsify-ignore} -->
-
-##### minVelocityX <!-- {docsify-ignore} -->
-
-##### minVelocityY <!-- {docsify-ignore} -->
-
-##### thresholdX <!-- {docsify-ignore} -->
-
-##### thresholdY <!-- {docsify-ignore} -->
-
-##### hasBeenUpdated <!-- {docsify-ignore} -->
-
-##### isFreeFalling <!-- {docsify-ignore} -->
-
-##### density <!-- {docsify-ignore} -->
-
-##### variantIndex <!-- {docsify-ignore} -->
-
-##### durationMax <!-- {docsify-ignore} -->
-
-##### durationLeft <!-- {docsify-ignore} -->
-
-##### skipPhysics <!-- {docsify-ignore} -->
-
-##### movesYAxis <!-- {docsify-ignore} -->
-
-##### movesYAxisCount <!-- {docsify-ignore} -->
-
-##### lastSideChecked <!-- {docsify-ignore} -->
-
-##### linkedElementIndex <!-- {docsify-ignore} -->
-
-##### hasDuration <!-- {docsify-ignore} -->
-
-##### dataField1 <!-- {docsify-ignore} -->
-
-##### dataField2 <!-- {docsify-ignore} -->
-
-##### dataField3 <!-- {docsify-ignore} -->
-
-##### dataField4 <!-- {docsify-ignore} -->
-
-</div>
-
-Shared `elementData` SOA passed to [InterceptHookMap](?id=intercepthookmap) `"element:update"`.
-Index with `elementIndex`.
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.hooks.InterceptHookMap :id=intercepthookmap
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L206" target="_blank" rel="noopener">hooks.d.ts:206</a></p>
-
-<h4 class="smt-hook-heading" id="cell-process"><code>cell:process</code></h4>
-
-```ts
-{
-  cellId: CellId;
-  x: number;
-  y: number;
-  dt: number;
-  runOrder: number;
-}
-```
-
-<h4 class="smt-hook-heading" id="element-update"><code>element:update</code></h4>
-
-```ts
-{
-  cellId: CellId;
-  x: number;
-  y: number;
-  dt: number;
-  elementIndex: number;
-  elementData: ElementSimData;
-  elementType: ElementType;
-  matterType: MatterType;
-  matterConfig: unknown;
-}
-```
-
-<h4 class="smt-hook-heading" id="element-move"><code>element:move</code></h4>
-
-```ts
-{
-  cellId: CellId;
-  elementIndex: number;
-  elementType: ElementType;
-  source: Vector2;
-  destination: Vector2;
-}
-```
-
-<h4 class="smt-hook-heading" id="element-move-blocked"><code>element:move:blocked</code></h4>
-
-```ts
-{
-  cellId: CellId;
-  elementIndex: number;
-  elementType: ElementType;
-  position: Vector2;
-  collidedAt: Vector2;
-  velocity: Vector2;
-  collidedWith: ElementBlockedCollider;
-  collidedElementType: ElementType;
-  collidedCellId: CellId;
-  direction: ElementBlockedDirection;
-  linkedElementType: ElementType;
-}
-```
-
-<h4 class="smt-hook-heading" id="element-blocked"><code>element:blocked</code></h4>
-
-<div class="smt-member-deprecated">
-<span class="smt-member-deprecated-label">Deprecated</span>
-<div class="smt-member-deprecated-note" markdown="1">
-
-Deprecated alias.
-
-</div>
-</div>
-
-```ts
-{
-  cellId: CellId;
-  elementIndex: number;
-  elementType: ElementType;
-  position: Vector2;
-  collidedAt: Vector2;
-  velocity: Vector2;
-  collidedWith: ElementBlockedCollider;
-  collidedElementType: ElementType;
-  collidedCellId: CellId;
-  direction: ElementBlockedDirection;
-  linkedElementType: ElementType;
-}
-```
-
-<h4 class="smt-hook-heading" id="element-duration-expire"><code>element:duration:expire</code></h4>
-
-```ts
-{
-  elementIndex: number;
-  elementType: ElementType;
-  x: number;
-  y: number;
-}
-```
-
-<h4 class="smt-hook-heading" id="element-duration"><code>element:duration</code></h4>
-
-<div class="smt-member-deprecated">
-<span class="smt-member-deprecated-label">Deprecated</span>
-<div class="smt-member-deprecated-note" markdown="1">
-
-Deprecated alias.
-
-</div>
-</div>
-
-```ts
-{
-  elementIndex: number;
-  elementType: ElementType;
-  x: number;
-  y: number;
-}
-```
-
-<h4 class="smt-hook-heading" id="fire-element-burn"><code>fire:element:burn</code></h4>
-
-```ts
-{ elementType: ElementType }
-```
-
-<h4 class="smt-hook-heading" id="fire-terrain-burn"><code>fire:terrain:burn</code></h4>
-
-```ts
-{
-  terrainType: TerrainType;
-  sourceElementType: ElementType;
-  sourceX: number;
-  sourceY: number;
-  wasUndamaged: boolean;
-}
-```
-
-<h4 class="smt-hook-heading" id="shaker-elementOn"><code>shaker:elementOn</code></h4>
-
-```ts
-{
-  cellId: CellId;
-  elementIndex: number;
-  elementType: ElementType;
-  structureType: StructureType;
-}
-```
-
-Intercept hook argument shapes keyed by hook id.
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
@@ -357,6 +94,37 @@ sandkit.api.hooks.InterceptHookOptions<K *extends* InterceptHookId> = K *extends
 Options for [intercept](?id=intercept).
 
 `K` *extends* [`InterceptHookId`](?id=intercepthookid)
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.ModifyHookOptions :id=modifyhookoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L137" target="_blank" rel="noopener">hooks.d.ts:137</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookOptions = object">
+
+```ts
+ModifyHookOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| guard? | <code>HookGuard</code> |  |
+| priority? | <code>number</code> |  |
+
+<div class="smt-member-anchors">
+
+##### guard? <!-- {docsify-ignore} -->
+
+##### priority? <!-- {docsify-ignore} -->
+
+</div>
+
+Options for [modify](?id=modify).
 
 </div>
 
@@ -470,9 +238,256 @@ Blocked-move direction on [InterceptHookMap](?id=intercepthookmap) `"element:mov
 
 <div class="smt-member-card">
 
+### sandkit.api.hooks.ElementSimData :id=elementsimdata
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L176" target="_blank" rel="noopener">hooks.d.ts:176</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.ElementSimData = object">
+
+```ts
+ElementSimData = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| type | <code>Uint8Array</code> |  |
+| x | <code>Uint16Array</code> |  |
+| y | <code>Uint16Array</code> |  |
+| velocityX | <code>Float32Array</code> |  |
+| velocityY | <code>Float32Array</code> |  |
+| minVelocityX | <code>Float32Array</code> |  |
+| minVelocityY | <code>Float32Array</code> |  |
+| thresholdX | <code>Float32Array</code> |  |
+| thresholdY | <code>Float32Array</code> |  |
+| hasBeenUpdated | <code>Uint8Array</code> |  |
+| isFreeFalling | <code>Uint8Array</code> |  |
+| density | <code>Float32Array</code> |  |
+| variantIndex | <code>Uint8Array</code> |  |
+| durationMax | <code>Float32Array</code> |  |
+| durationLeft | <code>Float32Array</code> |  |
+| skipPhysics | <code>Uint8Array</code> |  |
+| movesYAxis | <code>Uint16Array</code> |  |
+| movesYAxisCount | <code>Uint16Array</code> |  |
+| lastSideChecked | <code>Int16Array</code> |  |
+| linkedElementIndex | <code>Uint32Array</code> |  |
+| hasDuration | <code>Uint8Array</code> |  |
+| dataField1 | <code>Uint16Array</code> |  |
+| dataField2 | <code>Int16Array</code> |  |
+| dataField3 | <code>Uint16Array</code> |  |
+| dataField4 | <code>Float32Array</code> |  |
+
+<div class="smt-member-anchors">
+
+##### type <!-- {docsify-ignore} -->
+
+##### x <!-- {docsify-ignore} -->
+
+##### y <!-- {docsify-ignore} -->
+
+##### velocityX <!-- {docsify-ignore} -->
+
+##### velocityY <!-- {docsify-ignore} -->
+
+##### minVelocityX <!-- {docsify-ignore} -->
+
+##### minVelocityY <!-- {docsify-ignore} -->
+
+##### thresholdX <!-- {docsify-ignore} -->
+
+##### thresholdY <!-- {docsify-ignore} -->
+
+##### hasBeenUpdated <!-- {docsify-ignore} -->
+
+##### isFreeFalling <!-- {docsify-ignore} -->
+
+##### density <!-- {docsify-ignore} -->
+
+##### variantIndex <!-- {docsify-ignore} -->
+
+##### durationMax <!-- {docsify-ignore} -->
+
+##### durationLeft <!-- {docsify-ignore} -->
+
+##### skipPhysics <!-- {docsify-ignore} -->
+
+##### movesYAxis <!-- {docsify-ignore} -->
+
+##### movesYAxisCount <!-- {docsify-ignore} -->
+
+##### lastSideChecked <!-- {docsify-ignore} -->
+
+##### linkedElementIndex <!-- {docsify-ignore} -->
+
+##### hasDuration <!-- {docsify-ignore} -->
+
+##### dataField1 <!-- {docsify-ignore} -->
+
+##### dataField2 <!-- {docsify-ignore} -->
+
+##### dataField3 <!-- {docsify-ignore} -->
+
+##### dataField4 <!-- {docsify-ignore} -->
+
+</div>
+
+Shared `elementData` SOA passed to [InterceptHookMap](?id=intercepthookmap) `"element:update"`.
+Index with `elementIndex`.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.hooks.InterceptHookMap :id=intercepthookmap
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L205" target="_blank" rel="noopener">hooks.d.ts:205</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookMap = object">
+
+```ts
+InterceptHookMap = object
+```
+
+</div>
+
+<h4 class="smt-hook-heading" id="cell-process"><code>cell:process</code></h4>
+
+```ts
+{
+  cellId: CellId;
+  x: number;
+  y: number;
+  dt: number;
+  runOrder: number;
+}
+```
+
+<h4 class="smt-hook-heading" id="element-update"><code>element:update</code></h4>
+
+```ts
+{
+  cellId: CellId;
+  x: number;
+  y: number;
+  dt: number;
+  elementIndex: number;
+  elementData: ElementSimData;
+  elementType: ElementType;
+  matterType: MatterType;
+  matterConfig: unknown;
+}
+```
+
+<h4 class="smt-hook-heading" id="element-move"><code>element:move</code></h4>
+
+```ts
+{
+  cellId: CellId;
+  elementIndex: number;
+  elementType: ElementType;
+  source: Vector2;
+  destination: Vector2;
+}
+```
+
+<h4 class="smt-hook-heading" id="element-move-blocked"><code>element:move:blocked</code></h4>
+
+```ts
+{
+  cellId: CellId;
+  elementIndex: number;
+  elementType: ElementType;
+  position: Vector2;
+  collidedAt: Vector2;
+  velocity: Vector2;
+  collidedWith: ElementBlockedCollider;
+  collidedElementType: ElementType;
+  collidedCellId: CellId;
+  direction: ElementBlockedDirection;
+  linkedElementType: ElementType;
+}
+```
+
+<h4 class="smt-hook-heading" id="element-blocked"><code>element:blocked</code></h4>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Deprecated alias.
+
+</div>
+</div>
+
+```ts
+InterceptHookMap["element:move:blocked"]
+```
+
+<h4 class="smt-hook-heading" id="element-duration-expire"><code>element:duration:expire</code></h4>
+
+```ts
+{
+  elementIndex: number;
+  elementType: ElementType;
+  x: number;
+  y: number;
+}
+```
+
+<h4 class="smt-hook-heading" id="element-duration"><code>element:duration</code></h4>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Deprecated alias.
+
+</div>
+</div>
+
+```ts
+InterceptHookMap["element:duration:expire"]
+```
+
+<h4 class="smt-hook-heading" id="fire-element-burn"><code>fire:element:burn</code></h4>
+
+```ts
+{ elementType: ElementType }
+```
+
+<h4 class="smt-hook-heading" id="fire-terrain-burn"><code>fire:terrain:burn</code></h4>
+
+```ts
+{
+  terrainType: TerrainType;
+  sourceElementType: ElementType;
+  sourceX: number;
+  sourceY: number;
+  wasUndamaged: boolean;
+}
+```
+
+<h4 class="smt-hook-heading" id="shaker-elementOn"><code>shaker:elementOn</code></h4>
+
+```ts
+{
+  cellId: CellId;
+  elementIndex: number;
+  elementType: ElementType;
+  structureType: StructureType;
+}
+```
+
+Intercept hook argument shapes keyed by hook id.
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.hooks.ModifyHookMap :id=modifyhookmap
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L272" target="_blank" rel="noopener">hooks.d.ts:272</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L271" target="_blank" rel="noopener">hooks.d.ts:271</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookMap = Record&lt;string, unknown&gt;">
 
@@ -490,7 +505,7 @@ Modify hook argument shapes keyed by hook id. Unlisted ids use `unknown`.
 
 ### sandkit.api.hooks.InterceptHookArgs :id=intercepthookargs
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L275" target="_blank" rel="noopener">hooks.d.ts:275</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L274" target="_blank" rel="noopener">hooks.d.ts:274</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.hooks.InterceptHookArgs&lt;K *extends* InterceptHookId&gt; = K *extends* keyof InterceptHookMap ? InterceptHookMap[K] : unknown">
 
@@ -510,7 +525,7 @@ Intercept hook args for a given hook id.
 
 ### sandkit.api.hooks.ModifyHookArgs :id=modifyhookargs
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L280" target="_blank" rel="noopener">hooks.d.ts:280</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/hooks.d.ts#L279" target="_blank" rel="noopener">hooks.d.ts:279</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.hooks.ModifyHookArgs&lt;K *extends* ModifyHookId&gt; = K *extends* keyof ModifyHookMap ? ModifyHookMap[K] : unknown">
 

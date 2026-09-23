@@ -1,6 +1,6 @@
 # shared.jsonvalue
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
@@ -8,19 +8,23 @@
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/jsonvalue.d.ts#L15" target="_blank" rel="noopener">jsonvalue.d.ts:15</a></p>
 
-JSON object with string keys and [JsonValueV1](?id=jsonvaluev1) values.
-
-Use for open-ended config bags and serialized mod data.
-
-#### Indexable
+<div class="smt-member-sig" data-sig="shared.jsonvalue.JsonObjectV1 = object">
 
 ```ts
-[key: string]: JsonValueV1
+JsonObjectV1 = object
 ```
 
 </div>
 
-## Type Aliases <!-- {docsify-ignore} -->
+JSON object with string keys and [JsonValueV1](?id=jsonvaluev1) values.
+
+Use for open-ended config bags and serialized mod data.
+
+#### Index Signature
+
+\[`key`: `string`\]: [`JsonValueV1`](?id=jsonvaluev1)
+
+</div>
 
 <div class="smt-member-card">
 

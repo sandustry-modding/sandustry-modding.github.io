@@ -1,12 +1,20 @@
 # sandkit.api.triggers
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.triggers.MainTriggerDefinition :id=maintriggerdefinition
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/triggers.d.ts#L27" target="_blank" rel="noopener">triggers.d.ts:27</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.triggers.MainTriggerDefinition = object">
+
+```ts
+MainTriggerDefinition = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

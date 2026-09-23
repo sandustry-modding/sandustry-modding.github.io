@@ -4,13 +4,21 @@ Game session start helpers.
 
 Available as `sandkit.api.game`.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.game.GameStartOptions :id=gamestartoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/game.d.ts#L22" target="_blank" rel="noopener">game.d.ts:22</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.game.GameStartOptions = object">
+
+```ts
+GameStartOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

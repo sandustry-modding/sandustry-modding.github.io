@@ -3,13 +3,39 @@
 `sandkit.api.i18n` — translations, locales, and display strings for mods.
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.i18n.Locale :id=locale
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/i18n.d.ts#L204" target="_blank" rel="noopener">i18n.d.ts:204</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.i18n.Locale = LooseString&lt;&quot;en&quot;&gt;">
+
+```ts
+Locale = LooseString<"en">
+```
+
+</div>
+
+Locale code. `"en"` autocompletes; any locale string is allowed.
+
+</div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.i18n.I18nNumberFormatOptions :id=i18nnumberformatoptions
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/i18n.d.ts#L207" target="_blank" rel="noopener">i18n.d.ts:207</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.i18n.I18nNumberFormatOptions = object">
+
+```ts
+I18nNumberFormatOptions = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -34,26 +60,6 @@ Number format options for [formatNumber](?id=formatnumber).
 ```ts
 [key: string]: unknown
 ```
-
-</div>
-
-## Type Aliases <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.i18n.Locale :id=locale
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/i18n.d.ts#L204" target="_blank" rel="noopener">i18n.d.ts:204</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.i18n.Locale = LooseString&lt;&quot;en&quot;&gt;">
-
-```ts
-Locale = LooseString<"en">
-```
-
-</div>
-
-Locale code. `"en"` autocompletes; any locale string is allowed.
 
 </div>
 

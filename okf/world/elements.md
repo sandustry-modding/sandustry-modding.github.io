@@ -83,7 +83,7 @@ Worker `createAtCell` / `replaceAtCell` / etc. apply immediately (no `*WhenIdle`
 
 Public TypeScript (`@sandustry-modding/types` shared `elements.d.ts`).
 Pass to `register` / `updateDefinition`.
-`getDefinitionByType` returns the live snapshot (may include extra keys below).
+`getDefinitionByType` returns the live snapshot.
 
 | Field                | Role                                                                                                                                                                   |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -96,12 +96,26 @@ Pass to `register` / `updateDefinition`.
 | `defaultDataFields?` | Spawn defaults for `field1`…`field4` → `elementData.dataField1`…`4`. Override per place with `createAtCell` `dataFields` / `getDataFieldAtCell` / `setDataFieldAtCell` |
 | `colors`             | See **colors** below                                                                                                                                                   |
 | `getExtraProps?`     | See **getExtraProps** below                                                                                                                                            |
+| `name?`              | Plain display name when `nameKey` is omitted                                                                                                                            |
+| `descriptionKey?` / `description?` | Lexicon copy                                                                                                                                                |
+| `metaColor?`         | RGB packed as `0xRRGGBB`                                                                                                                                                |
+| `hidden?`            | Hide from some UI                                                                                                                                                       |
+| `duration?` / `durationRandom?` | Lifetime **seconds**. See **Duration and expiry** below. Lava is **0.28**; Fire is **1.28** with `durationRandom` **1.03–2.53**                       |
+| `horizontalSpeed?`   | Sideways motion (example: Lava `0.1`)                                                                                                                                   |
+| `showInFilterPicker?` | Official `updateDefinition` example sets this `false` to hide from the filter picker                                                                                   |
+| `materialId?`        | Render / sim material index on live snapshots                                                                                                                           |
+| `flammable?`         | Burn output id, chance, fire duration. Builtins may omit this object                                                                                                    |
+| `collectable.value?` | Collector gold                                                                                                                                                          |
+| `mixes?`             | Contact mix `{ elementType, result }`                                                                                                                                   |
+| `interactions?`      | Tooltip kinds (`flammable`, `freezable`, …). Residue is `kind: "flammable"` only; engine fire writes Burnt Residue at 25% — see [Sim crafting](/okf/world/sim-crafting.md) |
+
+`variants` may be `[r,g,b]` or `[r,g,b,a]`.
 
 ### `colors`
 
 | Key                      | Role                                                                                                |
 | ------------------------ | --------------------------------------------------------------------------------------------------- |
-| `variants`               | Palette of `[r,g,b]` (types) or live `[r,g,b,a]` tuples. Spawn picks a random `variantIndex` (0–3). |
+| `variants`               | Palette of `[r,g,b]` or `[r,g,b,a]` tuples. Spawn picks a random `variantIndex` (0–3). |
 | `variantFromDataField1?` | Map per-cell `dataField1` onto `variants` for draw / `refreshColorAtCell`                           |
 
 `variantFromDataField1` options (engine color path):
@@ -130,21 +144,6 @@ Builtin `data` keys that write `dataField*`:
 | Seedling | `seedlings`, `grows`, `runway` | `dataField1`, `2`, `3` |
 
 Matter-type `getExtraProps` on the physics table (Liquid axis counters, Particle velocity bag) is separate from element definitions.
-
-## Live extras (beyond public TypeScript)
-
-| Key                              | Role                                                                                                                                                                |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `descriptionKey` / `description` | Lexicon copy                                                                                                                                                        |
-| `metaColor`                      | RGB packed as `0xRRGGBB`                                                                                                                                            |
-| `materialId`                     | Render / sim material index                                                                                                                                         |
-| `hidden`                         | Hide from some UI                                                                                                                                                   |
-| `duration` / `durationRandom`    | Lifetime **seconds**. See **Duration and expiry** below. Lava is **0.28**; Fire is **1.28** with `durationRandom` **1.03–2.53** |
-| `horizontalSpeed`                | Sideways motion (example: Lava `0.1`)                                                                                                                               |
-| `flammable`                      | Burn output id, chance, fire duration. Builtins may omit this object                                                                                                |
-| `collectable.value`              | Collector gold                                                                                                                                                      |
-| `mixes`                          | Contact mix `{ elementType, result }`                                                                                                                               |
-| `interactions`                   | Tooltip kinds (`flammable`, `freezable`, …). Residue is `kind: "flammable"` only; engine fire writes Burnt Residue at 25% — see [Sim crafting](/okf/world/sim-crafting.md) |
 
 ### Duration and expiry
 

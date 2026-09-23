@@ -1,6 +1,6 @@
 # sandkit.api.maps
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
@@ -8,32 +8,22 @@
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L42" target="_blank" rel="noopener">maps.d.ts:42</a></p>
 
-| Property | Type | Description |
-| --- | --- | --- |
-| name | <code>string</code> |  |
-| cellX | <code>number</code> | Cell column. |
-| cellY | <code>number</code> | Cell row. |
+<div class="smt-member-sig" data-sig="sandkit.api.maps.ArtifactLocation = CellXY &amp; object">
 
-<div class="smt-member-anchors">
-
-##### name <!-- {docsify-ignore} -->
-
-##### cellX <!-- {docsify-ignore} -->
-
-##### cellY <!-- {docsify-ignore} -->
+```ts
+ArtifactLocation = CellXY & object
+```
 
 </div>
 
 Artifact location entry from [getArtifactLocations](?id=getartifactlocations).
 
-#### Extends
+#### Type Declaration
 
-- [`CellXY`](api/shared.player.md?id=cellxy)
-
-#### Indexable
+##### name
 
 ```ts
-[key: string]: unknown
+name: string
 ```
 
 </div>
@@ -42,7 +32,15 @@ Artifact location entry from [getArtifactLocations](?id=getartifactlocations).
 
 ### sandkit.api.maps.AvailableMapV1 :id=availablemapv1
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L48" target="_blank" rel="noopener">maps.d.ts:48</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/maps.d.ts#L47" target="_blank" rel="noopener">maps.d.ts:47</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.maps.AvailableMapV1 = object">
+
+```ts
+AvailableMapV1 = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

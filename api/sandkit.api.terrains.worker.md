@@ -9,13 +9,21 @@ Worker-entry mutations are immediate. Main thread defers matching helpers in
 
  Base namespace reused by main and worker declarations.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.terrains.TerrainDefinition :id=terraindefinition
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/terrains.d.ts#L19" target="_blank" rel="noopener">terrains.d.ts:19</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.terrains.TerrainDefinition = object">
+
+```ts
+TerrainDefinition = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -67,6 +75,14 @@ Terrain definition shape for register and [getDefinitionByType](?id=getdefinitio
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/terrains.d.ts#L48" target="_blank" rel="noopener">terrains.d.ts:48</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.terrains.TerrainDataAtCell = object">
+
+```ts
+TerrainDataAtCell = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | cellType | <code>TerrainType</code> | Numeric terrain cell type. |
@@ -93,6 +109,14 @@ Terrain cell data returned by [getDataAtCell](?id=getdataatcell).
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/terrains.d.ts#L217" target="_blank" rel="noopener">terrains.d.ts:217</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.terrains.TerrainMutationOptions = object">
+
+```ts
+TerrainMutationOptions = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
 | skipShadow? | <code>boolean</code> | Skip shadow updates around the changed cell. |
@@ -106,8 +130,6 @@ Terrain cell data returned by [getDataAtCell](?id=getdataatcell).
 Options for terrain create, replace, or remove calls.
 
 </div>
-
-## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 

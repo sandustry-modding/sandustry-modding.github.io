@@ -4,66 +4,6 @@ World pickups — spawn, collect, and query pickup instances.
 
 Available as `sandkit.api.pickups`.
 
-## Interfaces <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.pickups.WorldItemLight :id=worlditemlight
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/pickups.d.ts#L20" target="_blank" rel="noopener">pickups.d.ts:20</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| brightness? | <code>number</code> | Light brightness multiplier. Default 1. |
-| size? | <code>number</code> | Light radius in world pixels. Default 100. |
-| color? | <code>[number, number, number] &#124; [number, number, number, number]</code> | RGB or RGBA color components in 0–1 range. |
-
-<div class="smt-member-anchors">
-
-##### brightness? <!-- {docsify-ignore} -->
-
-##### size? <!-- {docsify-ignore} -->
-
-##### color? <!-- {docsify-ignore} -->
-
-</div>
-
-Optional point light attached when spawning a pickup.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.pickups.WorldItem :id=worlditem
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/pickups.d.ts#L30" target="_blank" rel="noopener">pickups.d.ts:30</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| id | <code>number</code> |  |
-| x | <code>number</code> |  |
-| y | <code>number</code> |  |
-| type | <code>PickupType</code> |  |
-| data | <code>Record&lt;string, unknown&gt;</code> |  |
-
-<div class="smt-member-anchors">
-
-##### id <!-- {docsify-ignore} -->
-
-##### x <!-- {docsify-ignore} -->
-
-##### y <!-- {docsify-ignore} -->
-
-##### type <!-- {docsify-ignore} -->
-
-##### data <!-- {docsify-ignore} -->
-
-</div>
-
-Active world pickup instance.
-
-</div>
-
 ## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
@@ -106,6 +46,80 @@ WorldItemType = PickupType
 ```
 
 </div>
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.pickups.WorldItemLight :id=worlditemlight
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/pickups.d.ts#L20" target="_blank" rel="noopener">pickups.d.ts:20</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.pickups.WorldItemLight = object">
+
+```ts
+WorldItemLight = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| brightness? | <code>number</code> | Light brightness multiplier. Default 1. |
+| size? | <code>number</code> | Light radius in world pixels. Default 100. |
+| color? | <code>[number, number, number] &#124; [number, number, number, number]</code> | RGB or RGBA color components in 0–1 range. |
+
+<div class="smt-member-anchors">
+
+##### brightness? <!-- {docsify-ignore} -->
+
+##### size? <!-- {docsify-ignore} -->
+
+##### color? <!-- {docsify-ignore} -->
+
+</div>
+
+Optional point light attached when spawning a pickup.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.pickups.WorldItem :id=worlditem
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/pickups.d.ts#L30" target="_blank" rel="noopener">pickups.d.ts:30</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.pickups.WorldItem = object">
+
+```ts
+WorldItem = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| id | <code>number</code> |  |
+| x | <code>number</code> |  |
+| y | <code>number</code> |  |
+| type | <code>PickupType</code> |  |
+| data | <code>Record&lt;string, unknown&gt;</code> |  |
+
+<div class="smt-member-anchors">
+
+##### id <!-- {docsify-ignore} -->
+
+##### x <!-- {docsify-ignore} -->
+
+##### y <!-- {docsify-ignore} -->
+
+##### type <!-- {docsify-ignore} -->
+
+##### data <!-- {docsify-ignore} -->
+
+</div>
+
+Active world pickup instance.
 
 </div>
 

@@ -6,13 +6,21 @@ Shared `sandkit.api.maps` base — active custom map metadata.
 
  Base namespace reused by main and worker declarations.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.maps.ActiveMapV1 :id=activemapv1
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/maps.d.ts#L18" target="_blank" rel="noopener">maps.d.ts:18</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.maps.ActiveMapV1 = object">
+
+```ts
+ActiveMapV1 = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |

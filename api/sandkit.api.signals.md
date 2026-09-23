@@ -1,33 +1,5 @@
 # sandkit.api.signals
 
-## Interfaces <!-- {docsify-ignore} -->
-
-<div class="smt-member-card">
-
-### sandkit.api.signals.SignalTargetPayloadV1 :id=signaltargetpayloadv1
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L111" target="_blank" rel="noopener">signals.d.ts:111</a></p>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| combined | <code>boolean</code> |  |
-| inputCount | <code>number</code> |  |
-| onCount | <code>number</code> |  |
-
-<div class="smt-member-anchors">
-
-##### combined <!-- {docsify-ignore} -->
-
-##### inputCount <!-- {docsify-ignore} -->
-
-##### onCount <!-- {docsify-ignore} -->
-
-</div>
-
-Payload delivered to a signal target handler.
-
-</div>
-
 ## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
@@ -63,6 +35,40 @@ Structure = Structure
 </div>
 
 Live structure instance.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.signals.SignalTargetPayloadV1 :id=signaltargetpayloadv1
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/signals.d.ts#L111" target="_blank" rel="noopener">signals.d.ts:111</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.signals.SignalTargetPayloadV1 = object">
+
+```ts
+SignalTargetPayloadV1 = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| combined | <code>boolean</code> |  |
+| inputCount | <code>number</code> |  |
+| onCount | <code>number</code> |  |
+
+<div class="smt-member-anchors">
+
+##### combined <!-- {docsify-ignore} -->
+
+##### inputCount <!-- {docsify-ignore} -->
+
+##### onCount <!-- {docsify-ignore} -->
+
+</div>
+
+Payload delivered to a signal target handler.
 
 </div>
 

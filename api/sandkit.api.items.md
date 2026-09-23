@@ -3,7 +3,7 @@
 `sandkit.api.items` — register custom inventory items and query active items.
 Main thread only.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
@@ -11,12 +11,29 @@ Main thread only.
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L10" target="_blank" rel="noopener">items.d.ts:10</a></p>
 
+<div class="smt-member-sig" data-sig="sandkit.api.items.ItemDefinition&lt;State = unknown, Action = unknown&gt; = object">
+
+```ts
+sandkit.api.items.ItemDefinition<State = unknown, Action = unknown> = object
+```
+
+</div>
+
 | Property | Type | Description |
 | --- | --- | --- |
+| id | <code>ItemId</code> | Registered item id. |
+| name? | <code>string</code> | Plain display name (when not using [nameKey](?id=namekey)). |
+| nameKey? | <code>string</code> | Display name translation key. |
 | handleAction? | <code>(state: State, action: Action) =&gt; unknown</code> | Handles item use actions. |
 | afterRender? | <code>(state: State) =&gt; void</code> | Called after the item is rendered each frame. |
 
 <div class="smt-member-anchors">
+
+##### id <!-- {docsify-ignore} -->
+
+##### name? <!-- {docsify-ignore} -->
+
+##### nameKey? <!-- {docsify-ignore} -->
 
 ##### handleAction? <!-- {docsify-ignore} -->
 
@@ -36,13 +53,11 @@ Definition for a mod-registered inventory item.
 
 </div>
 
-## Type Aliases <!-- {docsify-ignore} -->
-
 <div class="smt-member-card">
 
 ### sandkit.api.items.ItemId :id=itemid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L69" target="_blank" rel="noopener">items.d.ts:69</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L80" target="_blank" rel="noopener">items.d.ts:80</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ItemId = ItemId | LooseString&lt;never&gt;">
 
@@ -61,7 +76,7 @@ Built-in [ItemIdEnum](api/sandkit.enums.ItemId.md) values autocomplete; custom s
 
 ### sandkit.api.items.ItemType :id=itemtype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L74" target="_blank" rel="noopener">items.d.ts:74</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L85" target="_blank" rel="noopener">items.d.ts:85</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ItemType = ItemType | TaggedNumber&lt;&quot;itemType&quot;&gt;">
 
@@ -80,7 +95,7 @@ Built-in [ItemTypeEnum](api/sandkit.enums.ItemType.md) values autocomplete.
 
 ### sandkit.api.items.ModItem :id=moditem
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L76" target="_blank" rel="noopener">items.d.ts:76</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L87" target="_blank" rel="noopener">items.d.ts:87</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.ModItem = unknown">
 
@@ -100,7 +115,7 @@ Runtime item instance (not yet typed in declarations).
 
 ### sandkit.api.items.spriteMounts :id=spritemounts
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L55" target="_blank" rel="noopener">items.d.ts:55</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L66" target="_blank" rel="noopener">items.d.ts:66</a></p>
 
 <div class="smt-member-sig" data-sig="const spriteMounts: Readonly&lt;Record&lt;string, string&gt;&gt;">
 
@@ -121,7 +136,7 @@ Live keys include `onehand`, `backhand`, and `cryoblaster`.
 
 ### sandkit.api.items.register :id=register
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L22" target="_blank" rel="noopener">items.d.ts:22</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L28" target="_blank" rel="noopener">items.d.ts:28</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.register(definition: ItemDefinition): void">
 
@@ -149,7 +164,7 @@ Registers a new item definition.
 
 ### sandkit.api.items.updateDefinition :id=updatedefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L35" target="_blank" rel="noopener">items.d.ts:35</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L41" target="_blank" rel="noopener">items.d.ts:41</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.updateDefinition(itemId: ItemId, partial: Partial&lt;ItemDefinition&gt;): void">
 
@@ -188,7 +203,7 @@ api.items.updateDefinition("exampleTool", {
 
 ### sandkit.api.items.getDefinitionById :id=getdefinitionbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L40" target="_blank" rel="noopener">items.d.ts:40</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L46" target="_blank" rel="noopener">items.d.ts:46</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.getDefinitionById(itemId: ItemId): ItemDefinition&lt;unknown, unknown&gt; | undefined">
 
@@ -216,9 +231,46 @@ Returns the item definition for an id, or undefined.
 
 <div class="smt-member-card">
 
-### sandkit.api.items.createFromId :id=createfromid
+### sandkit.api.items.createById :id=createbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L45" target="_blank" rel="noopener">items.d.ts:45</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L51" target="_blank" rel="noopener">items.d.ts:51</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.items.createById(itemId: ItemId): unknown">
+
+```ts
+createById(itemId: ItemId): unknown
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| itemId | <code>[`ItemId`](?id=itemid)</code> | Registered item id. |
+
+<div class="smt-member-anchors">
+
+##### itemId <!-- {docsify-ignore} -->
+
+</div>
+
+Creates a runtime item instance from an id.
+
+</div>
+
+<div class="smt-member-card" data-deprecated="true">
+
+### ~~sandkit.api.items.createFromId~~ :id=createfromid
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L56" target="_blank" rel="noopener">items.d.ts:56</a></p>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Use [createById](api/sandkit.api.items.md?id=createbyid) instead.
+
+</div>
+</div>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.createFromId(itemId: ItemId): unknown">
 
@@ -238,15 +290,13 @@ createFromId(itemId: ItemId): unknown
 
 </div>
 
-Creates a runtime item instance from an id.
-
 </div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.items.getRegisteredIds :id=getregisteredids
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L50" target="_blank" rel="noopener">items.d.ts:50</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L61" target="_blank" rel="noopener">items.d.ts:61</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.getRegisteredIds(): (string | number | string &amp; object)[]">
 
@@ -267,7 +317,7 @@ Mix of numeric vanilla [ItemId](?id=itemid) values and string mod ids.
 
 ### sandkit.api.items.getActive :id=getactive
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L57" target="_blank" rel="noopener">items.d.ts:57</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L68" target="_blank" rel="noopener">items.d.ts:68</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.getActive(): ItemDefinition&lt;unknown, unknown&gt; | undefined">
 
@@ -287,7 +337,7 @@ Returns the item definition for the active hotbar slot.
 
 ### sandkit.api.items.isActiveById :id=isactivebyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L63" target="_blank" rel="noopener">items.d.ts:63</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/items.d.ts#L74" target="_blank" rel="noopener">items.d.ts:74</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.items.isActiveById(itemId: ItemId, itemType?: ItemType): boolean">
 

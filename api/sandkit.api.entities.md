@@ -4,13 +4,21 @@ Entity spawn, capture, and lifecycle helpers.
 
 Available as `sandkit.api.entities`.
 
-## Interfaces <!-- {docsify-ignore} -->
+## Type Aliases <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.entities.Entity :id=entity
 
 <p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/entities.d.ts#L70" target="_blank" rel="noopener">entities.d.ts:70</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.entities.Entity = object">
+
+```ts
+Entity = object
+```
+
+</div>
 
 | Property | Type | Description |
 | --- | --- | --- |
