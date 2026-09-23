@@ -1,3 +1,7 @@
+## 2026-09-23 SandustryTypes type paths (no src/shared/api)
+
+- World concept type lines now point at `src/worker/api/*.d.ts` instead of removed `src/shared/api/*.d.ts` — [Elements](/okf/world/elements.md), [Maps](/okf/world/maps.md), [Terrains](/okf/world/terrains.md).
+
 ## 2026-09-23 element definition fields on public types
 
 - `ElementDefinition` now includes duration, flammable, interactions, collectable, mixes, and related snapshot keys — [Elements](/okf/world/elements.md).

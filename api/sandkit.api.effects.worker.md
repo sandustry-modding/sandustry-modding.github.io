@@ -8,6 +8,44 @@ Temporary lights live under [lights.temporary](api/sandkit.api.lights.temporary.
 
  Worker-only surface; main thread exposes additional effect helpers.
 
+## Type Aliases <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.effects.EffectOptions :id=effectoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/effects.d.ts#L12" target="_blank" rel="noopener">effects.d.ts:12</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.EffectOptions = EffectOptions">
+
+```ts
+EffectOptions = EffectOptions
+```
+
+</div>
+
+Options for generic screen effects.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.effects.ParticleEffectOptions :id=particleeffectoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/effects.d.ts#L14" target="_blank" rel="noopener">effects.d.ts:14</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.ParticleEffectOptions = ParticleEffectOptions">
+
+```ts
+ParticleEffectOptions = ParticleEffectOptions
+```
+
+</div>
+
+Options for particle effects.
+
+</div>
+
 ## Functions <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
@@ -88,5 +126,47 @@ createEffectAtWorld(effectId: string, worldX: number, worldY: number, options?: 
 ##### options? <!-- {docsify-ignore} -->
 
 </div>
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.effects.createParticlesAtWorld :id=createparticlesatworld
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/effects.d.ts#L56" target="_blank" rel="noopener">effects.d.ts:56</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.createParticlesAtWorld(worldX: number, worldY: number, options?: ParticleEffectOptions): void">
+
+```ts
+createParticlesAtWorld(worldX: number, worldY: number, options?: ParticleEffectOptions): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| worldX | `number` | World x position in pixels. |
+| worldY | `number` | World y position in pixels. |
+| options? | <code>[`ParticleEffectOptions`](api/sandkit.api.effects.md?id=particleeffectoptions)</code> | Count, velocity, colour, and lifetime settings. |
+
+<div class="smt-member-anchors">
+
+##### worldX <!-- {docsify-ignore} -->
+
+##### worldY <!-- {docsify-ignore} -->
+
+##### options? <!-- {docsify-ignore} -->
+
+</div>
+
+Emit particles at world coordinates.
+
+#### Example
+
+**Worker entry**
+
+```ts
+api.effects.createParticlesAtWorld(worldX, worldY, { count: 8 });
+```
 
 </div>

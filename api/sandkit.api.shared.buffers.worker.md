@@ -8,7 +8,7 @@ Named shared memory buffers for worker threads.
 
 ### sandkit.api.shared.buffers.require :id=require
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/shared.d.ts#L36" target="_blank" rel="noopener">shared.d.ts:36</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/shared.d.ts#L35" target="_blank" rel="noopener">shared.d.ts:35</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.shared.buffers.require(key: string, config: object): SharedArray">
 
@@ -34,7 +34,7 @@ require(key: string, config: object): SharedArray
 Attach to a named shared buffer on this worker.
 
 The buffer must already exist on the main thread with the same
-[SharedArrayType](api/sandkit.api.shared.md?id=sharedarraytype) and length as `config`.
+[SharedArrayType](api/sandkit.api.shared.worker.md?id=sharedarraytype) and length as `config`.
 
 [`SharedArray`](api/sandkit.api.shared.md?id=sharedarray)
 
@@ -46,5 +46,35 @@ const counts = api.shared.buffers.require("counts", {
   length: 4,
 });
 ```
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.shared.buffers.get :id=get
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/worker/api/shared.d.ts#L47" target="_blank" rel="noopener">shared.d.ts:47</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.shared.buffers.get(key: string): SharedArray | undefined">
+
+```ts
+get(key: string): SharedArray | undefined
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| key | `string` | Buffer name shared across threads. |
+
+<div class="smt-member-anchors">
+
+##### key <!-- {docsify-ignore} -->
+
+</div>
+
+Read an existing buffer without validating type or length.
+
+[`SharedArray`](api/sandkit.api.shared.md?id=sharedarray) &#124; `undefined` The typed array, or `undefined` when the buffer does not exist.
 
 </div>

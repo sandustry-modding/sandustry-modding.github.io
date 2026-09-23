@@ -20,8 +20,8 @@ register(structureTypeOrId: StructureRef, apply: (structure: Structure, payload:
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structureTypeOrId | <code>[`StructureRef`](api/sandkit.api.structures.worker.md?id=structureref)</code> | Structure type id or enum value. |
-| apply | <code>(`structure`: [`Structure`](api/sandkit.api.structures.worker.md?id=structure), `payload`: [`SignalTargetPayloadV1`](api/sandkit.api.signals.md?id=signaltargetpayloadv1)) =&gt; `void`</code> | Called when a signal reaches a matching structure. |
+| structureTypeOrId | <code>[`StructureRef`](api/sandkit.api.structures.md?id=structureref)</code> | Structure type id or enum value. |
+| apply | <code>(`structure`: [`Structure`](api/sandkit.api.structures.md?id=structure), `payload`: [`SignalTargetPayloadV1`](api/sandkit.api.signals.md?id=signaltargetpayloadv1)) =&gt; `void`</code> | Called when a signal reaches a matching structure. |
 
 <div class="smt-member-anchors">
 

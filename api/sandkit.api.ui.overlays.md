@@ -12,7 +12,7 @@ Use [regions](api/sandkit.api.ui.regions.md) instead.
 
 ### ~~sandkit.api.ui.overlays.register~~ :id=register
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L353" target="_blank" rel="noopener">ui.d.ts:353</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L387" target="_blank" rel="noopener">ui.d.ts:387</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -55,7 +55,7 @@ Register a render function in an overlay slot.
 
 ### ~~sandkit.api.ui.overlays.unregister~~ :id=unregister
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L361" target="_blank" rel="noopener">ui.d.ts:361</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L395" target="_blank" rel="noopener">ui.d.ts:395</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -95,7 +95,7 @@ Remove an overlay from a slot.
 
 ### ~~sandkit.api.ui.overlays.update~~ :id=update
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L368" target="_blank" rel="noopener">ui.d.ts:368</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L402" target="_blank" rel="noopener">ui.d.ts:402</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>

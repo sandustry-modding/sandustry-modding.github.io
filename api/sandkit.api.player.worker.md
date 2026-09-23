@@ -2,9 +2,9 @@
 
 **`Internal`**
 
-Shared `sandkit.api.player` base — player position and collision queries.
+Worker-thread `sandkit.api.player` — position and collision queries.
 
- Base namespace reused by main and worker declarations.
+ Worker subset; main thread exposes movement, inventory, and buildings.
 
 ## Functions <!-- {docsify-ignore} -->
 
@@ -12,7 +12,7 @@ Shared `sandkit.api.player` base — player position and collision queries.
 
 ### sandkit.api.player.getPositionAtWorld :id=getpositionatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/player.d.ts#L15" target="_blank" rel="noopener">player.d.ts:15</a></p>
+<p class="smt-member-defined">Defined in: worker/api/player.d.ts:10</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.getPositionAtWorld(): Vector2">
 
@@ -24,7 +24,7 @@ getPositionAtWorld(): Vector2
 
 Return the player center position in world pixels.
 
-[`Vector2`](api/shared.player.md?id=vector2) World position as `{ x, y }` in pixels.
+[`Vector2`](api/shared.player.md?id=vector2)
 
 </div>
 
@@ -32,7 +32,7 @@ Return the player center position in world pixels.
 
 ### ~~sandkit.api.player.getWorldPosition~~ :id=getworldposition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/player.d.ts#L21" target="_blank" rel="noopener">player.d.ts:21</a></p>
+<p class="smt-member-defined">Defined in: worker/api/player.d.ts:16</p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -59,7 +59,7 @@ getWorldPosition(): Vector2
 
 ### sandkit.api.player.isCollidingWithCell :id=iscollidingwithcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/player.d.ts#L31" target="_blank" rel="noopener">player.d.ts:31</a></p>
+<p class="smt-member-defined">Defined in: worker/api/player.d.ts:19</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.isCollidingWithCell(...args: CellCoordinates): boolean">
 
@@ -81,15 +81,13 @@ isCollidingWithCell(...args: CellCoordinates): boolean
 
 Return true when the player hitbox overlaps the cell.
 
-True when the player overlaps the cell.
-
 </div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.player.isWithinRadiusOfCell :id=iswithinradiusofcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/player.d.ts#L42" target="_blank" rel="noopener">player.d.ts:42</a></p>
+<p class="smt-member-defined">Defined in: worker/api/player.d.ts:22</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.isWithinRadiusOfCell(...args: [number, number, number]): boolean">
 
@@ -109,8 +107,6 @@ isWithinRadiusOfCell(...args: [number, number, number]): boolean
 
 </div>
 
-Return true when the player is within `radius` cells of the point.
-
-True when the player is inside the radius.
+Return true when the player is within radius cells of the point.
 
 </div>

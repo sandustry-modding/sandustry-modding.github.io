@@ -25,7 +25,7 @@ sources:
 Terrain uses numeric **cell types** (same id space as `CellType` and damaged-ground transitions).
 
 Official: [sandkit.html — api.terrains](https://sandustry.com/sandkit.html).
-Types: `@sandustry-modding/types` `src/shared/api/terrains.d.ts`, `src/sandkit/api/terrains.d.ts`.
+Types: `@sandustry-modding/types` `src/sandkit/api/terrains.d.ts`, `src/worker/api/terrains.d.ts`.
 
 ## Shared queries and mutations
 

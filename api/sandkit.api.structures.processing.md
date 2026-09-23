@@ -6,9 +6,72 @@ Per-structure processing enablement and registration.
 
 <div class="smt-member-card">
 
+### sandkit.api.structures.processing.isEnabledAtCell :id=isenabledatcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/structures.d.ts#L513" target="_blank" rel="noopener">structures.d.ts:513</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.structures.processing.isEnabledAtCell(...args: CellCoordinates): boolean">
+
+```ts
+isEnabledAtCell(...args: CellCoordinates): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Return true when processing is enabled at a cell.
+
+</div>
+
+<div class="smt-member-card" data-deprecated="true">
+
+### ~~sandkit.api.structures.processing.isEnabledAt~~ :id=isenabledat
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/structures.d.ts#L519" target="_blank" rel="noopener">structures.d.ts:519</a></p>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Use [isEnabledAtCell](api/sandkit.api.structures.processing.md?id=isenabledatcell) instead.
+
+</div>
+</div>
+
+<div class="smt-member-sig" data-sig="sandkit.api.structures.processing.isEnabledAt(...args: CellCoordinates): boolean">
+
+```ts
+isEnabledAt(...args: CellCoordinates): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.structures.processing.register :id=register
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/structures.d.ts#L515" target="_blank" rel="noopener">structures.d.ts:515</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/structures.d.ts#L545" target="_blank" rel="noopener">structures.d.ts:545</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.processing.register(id: string &amp; object, definition: StructureProcessingDefinitionV1): void">
 
@@ -57,7 +120,7 @@ api.structures.processing.register(
 
 ### sandkit.api.structures.processing.setEnabledAtCell :id=setenabledatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/structures.d.ts#L526" target="_blank" rel="noopener">structures.d.ts:526</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/structures.d.ts#L556" target="_blank" rel="noopener">structures.d.ts:556</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.processing.setEnabledAtCell(...args: [number, number, boolean]): boolean">
 
@@ -87,7 +150,7 @@ True when the enabled state changed.
 
 ### ~~sandkit.api.structures.processing.setEnabledAt~~ :id=setenabledat
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/structures.d.ts#L532" target="_blank" rel="noopener">structures.d.ts:532</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/structures.d.ts#L562" target="_blank" rel="noopener">structures.d.ts:562</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>

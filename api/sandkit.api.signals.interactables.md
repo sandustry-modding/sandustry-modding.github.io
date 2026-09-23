@@ -20,8 +20,8 @@ register(structureTypeOrId: StructureRef, handler: (structure: Structure) => voi
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structureTypeOrId | <code>[`StructureRef`](api/sandkit.api.structures.worker.md?id=structureref)</code> | Structure type id or enum value. |
-| handler | <code>(`structure`: [`Structure`](api/sandkit.api.structures.worker.md?id=structure)) =&gt; `void`</code> | Called with the structure instance. |
+| structureTypeOrId | <code>[`StructureRef`](api/sandkit.api.structures.md?id=structureref)</code> | Structure type id or enum value. |
+| handler | <code>(`structure`: [`Structure`](api/sandkit.api.structures.md?id=structure)) =&gt; `void`</code> | Called with the structure instance. |
 
 <div class="smt-member-anchors">
 

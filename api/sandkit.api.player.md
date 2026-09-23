@@ -4,9 +4,116 @@
 
 <div class="smt-member-card">
 
+### sandkit.api.player.getPositionAtWorld :id=getpositionatworld
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L17" target="_blank" rel="noopener">player.d.ts:17</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.player.getPositionAtWorld(): Vector2">
+
+```ts
+getPositionAtWorld(): Vector2
+```
+
+</div>
+
+Return the player center position in world pixels.
+
+[`Vector2`](api/shared.player.md?id=vector2) World position as `{ x, y }` in pixels.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.player.isCollidingWithCell :id=iscollidingwithcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L27" target="_blank" rel="noopener">player.d.ts:27</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.player.isCollidingWithCell(...args: CellCoordinates): boolean">
+
+```ts
+isCollidingWithCell(...args: CellCoordinates): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Return true when the player hitbox overlaps the cell.
+
+True when the player overlaps the cell.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.player.isWithinRadiusOfCell :id=iswithinradiusofcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L38" target="_blank" rel="noopener">player.d.ts:38</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.player.isWithinRadiusOfCell(...args: [number, number, number]): boolean">
+
+```ts
+isWithinRadiusOfCell(...args: [number, number, number]): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...\[`number`, `number`, `number`\]</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Return true when the player is within `radius` cells of the point.
+
+True when the player is inside the radius.
+
+</div>
+
+<div class="smt-member-card" data-deprecated="true">
+
+### ~~sandkit.api.player.getWorldPosition~~ :id=getworldposition
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L44" target="_blank" rel="noopener">player.d.ts:44</a></p>
+
+<div class="smt-member-deprecated">
+<span class="smt-member-deprecated-label">Deprecated</span>
+<div class="smt-member-deprecated-note" markdown="1">
+
+Use [getPositionAtWorld](api/sandkit.api.player.md?id=getpositionatworld) instead.
+
+</div>
+</div>
+
+<div class="smt-member-sig" data-sig="sandkit.api.player.getWorldPosition(): Vector2">
+
+```ts
+getWorldPosition(): Vector2
+```
+
+</div>
+
+[`Vector2`](api/shared.player.md?id=vector2)
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.player.setPositionAtWorld :id=setpositionatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L31" target="_blank" rel="noopener">player.d.ts:31</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L53" target="_blank" rel="noopener">player.d.ts:53</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.setPositionAtWorld(worldX: number, worldY: number): void">
 
@@ -37,7 +144,7 @@ Set the player world position.
 
 ### ~~sandkit.api.player.setWorldPosition~~ :id=setworldposition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L40" target="_blank" rel="noopener">player.d.ts:40</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L62" target="_blank" rel="noopener">player.d.ts:62</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -75,7 +182,7 @@ setWorldPosition(worldX: number, worldY: number): void
 
 ### sandkit.api.player.setVelocity :id=setvelocity
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L49" target="_blank" rel="noopener">player.d.ts:49</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L71" target="_blank" rel="noopener">player.d.ts:71</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.setVelocity(velocityX: number, velocityY: number): void">
 
@@ -106,7 +213,7 @@ Set the player velocity.
 
 ### sandkit.api.player.setMovementSpeedMultiplier :id=setmovementspeedmultiplier
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L58" target="_blank" rel="noopener">player.d.ts:58</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L80" target="_blank" rel="noopener">player.d.ts:80</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.setMovementSpeedMultiplier(multiplier: number): void">
 
@@ -134,7 +241,7 @@ Set the movement speed multiplier.
 
 ### sandkit.api.player.setMovementMode :id=setmovementmode
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L67" target="_blank" rel="noopener">player.d.ts:67</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L89" target="_blank" rel="noopener">player.d.ts:89</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.setMovementMode(mode: &quot;normal&quot; | &quot;hover&quot;): boolean">
 
@@ -164,7 +271,7 @@ True when the mode changes.
 
 ### sandkit.api.player.isOnGround :id=isonground
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L77" target="_blank" rel="noopener">player.d.ts:77</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L99" target="_blank" rel="noopener">player.d.ts:99</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.isOnGround(): boolean">
 
@@ -186,7 +293,7 @@ True when the player touches solid ground.
 
 ### sandkit.api.player.teleportToGround :id=teleporttoground
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L83" target="_blank" rel="noopener">player.d.ts:83</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L105" target="_blank" rel="noopener">player.d.ts:105</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.teleportToGround(): void">
 
@@ -204,7 +311,7 @@ Move the player down until ground is found.
 
 ### sandkit.api.player.isPositionClearAtWorld :id=ispositionclearatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L93" target="_blank" rel="noopener">player.d.ts:93</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L115" target="_blank" rel="noopener">player.d.ts:115</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.isPositionClearAtWorld(worldX: number, worldY: number): boolean">
 
@@ -237,7 +344,7 @@ True when the player hitbox fits at the position.
 
 ### ~~sandkit.api.player.isWorldPositionClear~~ :id=isworldpositionclear
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L99" target="_blank" rel="noopener">player.d.ts:99</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L121" target="_blank" rel="noopener">player.d.ts:121</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>

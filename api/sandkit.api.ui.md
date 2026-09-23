@@ -4,9 +4,129 @@
 
 <div class="smt-member-card">
 
+### sandkit.api.ui.LocalizedText :id=localizedtext
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L29" target="_blank" rel="noopener">ui.d.ts:29</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.LocalizedText = string | I18nTextKey | I18nTranslatable">
+
+```ts
+LocalizedText = string | I18nTextKey | I18nTranslatable
+```
+
+</div>
+
+Plain text, translation key object, or i18n translatable value.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.I18nTextKey :id=i18ntextkey
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L32" target="_blank" rel="noopener">ui.d.ts:32</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.I18nTextKey = object">
+
+```ts
+I18nTextKey = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| key | <code>string</code> | Namespaced translation key (for example `ui&#124;save&#124;save`). |
+| params? | <code>Record&lt;string, string &#124; number&gt;</code> | Values merged into the translated string. |
+
+<div class="smt-member-anchors">
+
+##### key <!-- {docsify-ignore} -->
+
+##### params? <!-- {docsify-ignore} -->
+
+</div>
+
+Translation key with optional parameter substitution.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.I18nTranslatable :id=i18ntranslatable
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L40" target="_blank" rel="noopener">ui.d.ts:40</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.I18nTranslatable = object">
+
+```ts
+I18nTranslatable = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| \_\_translatable | <code>true</code> |  |
+| key | <code>string</code> |  |
+| fallback | <code>string</code> |  |
+
+<div class="smt-member-anchors">
+
+##### \_\_translatable <!-- {docsify-ignore} -->
+
+##### key <!-- {docsify-ignore} -->
+
+##### fallback <!-- {docsify-ignore} -->
+
+</div>
+
+Value returned by `sandkit.api.i18n.translatable`.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.ui.ToastOptions :id=toastoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L47" target="_blank" rel="noopener">ui.d.ts:47</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.ToastOptions = object">
+
+```ts
+ToastOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| cooldown? | <code>number</code> | Minimum ms before the same toast can show again. |
+| cooldownKey? | <code>string</code> | Dedupe key paired with [ToastOptions.cooldown](?id=cooldown). Defaults to the message string or `message.key`. |
+| duration? | <code>number &#124; false</code> | Auto-dismiss delay in ms. Default `5000`. Set `false` to keep the toast until another toast replaces it. |
+| variant? | <code>&quot;danger&quot; &#124; &quot;hint&quot; &#124; &quot;hole&quot; &#124; string &amp; object</code> | Visual style applied to the toast body. |
+
+<div class="smt-member-anchors">
+
+##### cooldown? <!-- {docsify-ignore} -->
+
+##### cooldownKey? <!-- {docsify-ignore} -->
+
+##### duration? <!-- {docsify-ignore} -->
+
+##### variant? <!-- {docsify-ignore} -->
+
+</div>
+
+Cooldown, style, and auto-dismiss options for [toast](?id=toast).
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.ui.OverlaySlot :id=overlayslot
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L425" target="_blank" rel="noopener">ui.d.ts:425</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L459" target="_blank" rel="noopener">ui.d.ts:459</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.OverlaySlot = LooseString&lt;&quot;hotbar&quot; | &quot;global&quot;&gt;">
 
@@ -24,7 +144,7 @@ Overlay slot name. Known vanilla slots autocomplete; any string is allowed.
 
 ### sandkit.api.ui.ComponentId :id=componentid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L431" target="_blank" rel="noopener">ui.d.ts:431</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L465" target="_blank" rel="noopener">ui.d.ts:465</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.ComponentId = ComponentId | LooseString&lt;never&gt;">
 
@@ -43,7 +163,7 @@ Built-in [ComponentIdEnum](api/sandkit.enums.ComponentId.md) values autocomplete
 
 ### sandkit.api.ui.ComponentUpdateOptions :id=componentupdateoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L434" target="_blank" rel="noopener">ui.d.ts:434</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L468" target="_blank" rel="noopener">ui.d.ts:468</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.ComponentUpdateOptions = Record&lt;string, unknown&gt;">
 
@@ -61,7 +181,7 @@ Component-specific update payload passed to [update](?id=update).
 
 ### sandkit.api.ui.TooltipData :id=tooltipdata
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L437" target="_blank" rel="noopener">ui.d.ts:437</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L471" target="_blank" rel="noopener">ui.d.ts:471</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.TooltipData = TooltipMessageData">
 
@@ -79,7 +199,7 @@ Tooltip payload shown near the cursor or UI target.
 
 ### sandkit.api.ui.SelectChoice :id=selectchoice
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L440" target="_blank" rel="noopener">ui.d.ts:440</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L474" target="_blank" rel="noopener">ui.d.ts:474</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.SelectChoice&lt;T = string&gt; = object">
 
@@ -112,7 +232,7 @@ One choice in [select](?id=select).
 
 ### sandkit.api.ui.SelectDialogOptions :id=selectdialogoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L448" target="_blank" rel="noopener">ui.d.ts:448</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L482" target="_blank" rel="noopener">ui.d.ts:482</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.SelectDialogOptions&lt;T = string&gt; = object">
 
@@ -151,7 +271,7 @@ Dialog options for [select](?id=select).
 
 ### sandkit.api.ui.RegionMountOptions :id=regionmountoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L460" target="_blank" rel="noopener">ui.d.ts:460</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L494" target="_blank" rel="noopener">ui.d.ts:494</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.RegionMountOptions = object">
 
@@ -185,7 +305,7 @@ Options for [regions.mount](api/sandkit.api.ui.regions.md?id=mount).
 
 ### sandkit.api.ui.RegionMountUpdateOptions :id=regionmountupdateoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L473" target="_blank" rel="noopener">ui.d.ts:473</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L507" target="_blank" rel="noopener">ui.d.ts:507</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.RegionMountUpdateOptions = object">
 
@@ -219,7 +339,7 @@ Partial options for [RegionMountHandle](?id=regionmounthandle).
 
 ### sandkit.api.ui.RegionMountHandle :id=regionmounthandle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L486" target="_blank" rel="noopener">ui.d.ts:486</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L520" target="_blank" rel="noopener">ui.d.ts:520</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.RegionMountHandle = object">
 
@@ -250,7 +370,7 @@ Handle returned from [regions.mount](api/sandkit.api.ui.regions.md?id=mount).
 
 ### sandkit.api.ui.VisibilityHandle :id=visibilityhandle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L505" target="_blank" rel="noopener">ui.d.ts:505</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L539" target="_blank" rel="noopener">ui.d.ts:539</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.VisibilityHandle = object">
 
@@ -278,7 +398,7 @@ Handle returned from [regions.setVisible](api/sandkit.api.ui.regions.md?id=setvi
 
 ### sandkit.api.ui.OverrideHandle :id=overridehandle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L511" target="_blank" rel="noopener">ui.d.ts:511</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L545" target="_blank" rel="noopener">ui.d.ts:545</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.OverrideHandle = object">
 
@@ -306,7 +426,7 @@ Handle returned from [overrides.register](api/sandkit.api.ui.overrides.md?id=reg
 
 ### sandkit.api.ui.HotbarBankSourceOptions :id=hotbarbanksourceoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L517" target="_blank" rel="noopener">ui.d.ts:517</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L551" target="_blank" rel="noopener">ui.d.ts:551</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.HotbarBankSourceOptions = object">
 
@@ -337,7 +457,7 @@ Options for [hotbar.createBankSource](api/sandkit.api.ui.hotbar.md?id=createbank
 
 ### sandkit.api.ui.HotbarBankSource :id=hotbarbanksource
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L525" target="_blank" rel="noopener">ui.d.ts:525</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L559" target="_blank" rel="noopener">ui.d.ts:559</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.HotbarBankSource = object">
 
@@ -383,7 +503,7 @@ Hotbar bank source used by [components.ActionSlot](api/sandkit.api.ui.components
 
 ### sandkit.api.ui.HotbarState :id=hotbarstate
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L552" target="_blank" rel="noopener">ui.d.ts:552</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L586" target="_blank" rel="noopener">ui.d.ts:586</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.HotbarState = object">
 
@@ -417,7 +537,7 @@ State returned from [hotbar.useHotbar](api/sandkit.api.ui.hotbar.md?id=usehotbar
 
 ### sandkit.api.ui.ActionSlotProps :id=actionslotprops
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L562" target="_blank" rel="noopener">ui.d.ts:562</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L596" target="_blank" rel="noopener">ui.d.ts:596</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.ActionSlotProps = object">
 
@@ -463,7 +583,7 @@ Props for [components.ActionSlot](api/sandkit.api.ui.components.md?id=actionslot
 
 ### sandkit.api.ui.PanelProps :id=panelprops
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L580" target="_blank" rel="noopener">ui.d.ts:580</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L614" target="_blank" rel="noopener">ui.d.ts:614</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.PanelProps = object">
 
@@ -500,7 +620,7 @@ Props for [components.Panel](api/sandkit.api.ui.components.md?id=panel).
 
 ### sandkit.api.ui.ButtonProps :id=buttonprops
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L592" target="_blank" rel="noopener">ui.d.ts:592</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L626" target="_blank" rel="noopener">ui.d.ts:626</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.ButtonProps = object">
 
@@ -552,7 +672,7 @@ Props for [components.Button](api/sandkit.api.ui.components.md?id=button).
 
 ### sandkit.api.ui.TooltipMessageData :id=tooltipmessagedata
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L614" target="_blank" rel="noopener">ui.d.ts:614</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L648" target="_blank" rel="noopener">ui.d.ts:648</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.TooltipMessageData = object">
 
@@ -583,7 +703,7 @@ Message tooltip with localized body text.
 
 ### sandkit.api.ui.Focusable :id=focusable
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L622" target="_blank" rel="noopener">ui.d.ts:622</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L656" target="_blank" rel="noopener">ui.d.ts:656</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.Focusable&lt;T *extends* HTMLElement = HTMLDivElement&gt; = object">
 
@@ -619,7 +739,7 @@ Focusable element state from useFocusable.
 
 ### sandkit.api.ui.FocusOptions :id=focusoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L632" target="_blank" rel="noopener">ui.d.ts:632</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L666" target="_blank" rel="noopener">ui.d.ts:666</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.FocusOptions = object">
 
@@ -671,7 +791,7 @@ Options for useFocusable registration.
 
 ### sandkit.api.ui.FocusScopeOptions :id=focusscopeoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L654" target="_blank" rel="noopener">ui.d.ts:654</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L688" target="_blank" rel="noopener">ui.d.ts:688</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.FocusScopeOptions = object">
 
@@ -711,9 +831,46 @@ Options for [navigation.useFocusScope](api/sandkit.api.ui.navigation.md?id=usefo
 
 <div class="smt-member-card">
 
+### sandkit.api.ui.toast :id=toast
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L26" target="_blank" rel="noopener">ui.d.ts:26</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.ui.toast(message: LocalizedText, options?: ToastOptions): void">
+
+```ts
+toast(message: LocalizedText, options?: ToastOptions): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| message | <code>[`LocalizedText`](?id=localizedtext)</code> | Plain text, translation key, or translatable value. |
+| options? | <code>[`ToastOptions`](?id=toastoptions)</code> | Cooldown, style, and auto-dismiss options. |
+
+<div class="smt-member-anchors">
+
+##### message <!-- {docsify-ignore} -->
+
+##### options? <!-- {docsify-ignore} -->
+
+</div>
+
+Show a short on-screen toast message.
+
+#### Example
+
+```ts
+api.ui.toast({ key: "mods|example|saved" });
+```
+
+</div>
+
+<div class="smt-member-card">
+
 ### sandkit.api.ui.update :id=update
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L35" target="_blank" rel="noopener">ui.d.ts:35</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L69" target="_blank" rel="noopener">ui.d.ts:69</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.update(componentId: ComponentId, options?: ComponentUpdateOptions): void">
 
@@ -744,7 +901,7 @@ Update a registered UI component by id.
 
 ### sandkit.api.ui.openPauseMenu :id=openpausemenu
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L38" target="_blank" rel="noopener">ui.d.ts:38</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L72" target="_blank" rel="noopener">ui.d.ts:72</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.openPauseMenu(): void">
 
@@ -762,7 +919,7 @@ Open the pause menu.
 
 ### sandkit.api.ui.showTooltip :id=showtooltip
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L44" target="_blank" rel="noopener">ui.d.ts:44</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L78" target="_blank" rel="noopener">ui.d.ts:78</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.showTooltip(data: TooltipMessageData): void">
 
@@ -790,7 +947,7 @@ Show a tooltip with the given data.
 
 ### sandkit.api.ui.alert :id=alert
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L60" target="_blank" rel="noopener">ui.d.ts:60</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L94" target="_blank" rel="noopener">ui.d.ts:94</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.alert(message: LocalizedText, title?: LocalizedText): Promise&lt;void&gt;">
 
@@ -802,8 +959,8 @@ alert(message: LocalizedText, title?: LocalizedText): Promise<void>
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| message | <code>[`LocalizedText`](api/sandkit.api.ui.worker.md?id=localizedtext)</code> | Dialog body text. |
-| title? | <code>[`LocalizedText`](api/sandkit.api.ui.worker.md?id=localizedtext)</code> | Optional dialog title. |
+| message | <code>[`LocalizedText`](?id=localizedtext)</code> | Dialog body text. |
+| title? | <code>[`LocalizedText`](?id=localizedtext)</code> | Optional dialog title. |
 
 <div class="smt-member-anchors">
 
@@ -832,7 +989,7 @@ await api.ui.alert(
 
 ### sandkit.api.ui.confirm :id=confirm
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L75" target="_blank" rel="noopener">ui.d.ts:75</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L109" target="_blank" rel="noopener">ui.d.ts:109</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.confirm(message: LocalizedText, title?: LocalizedText): Promise&lt;boolean&gt;">
 
@@ -844,8 +1001,8 @@ confirm(message: LocalizedText, title?: LocalizedText): Promise<boolean>
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| message | <code>[`LocalizedText`](api/sandkit.api.ui.worker.md?id=localizedtext)</code> | Dialog body text. |
-| title? | <code>[`LocalizedText`](api/sandkit.api.ui.worker.md?id=localizedtext)</code> | Optional dialog title. |
+| message | <code>[`LocalizedText`](?id=localizedtext)</code> | Dialog body text. |
+| title? | <code>[`LocalizedText`](?id=localizedtext)</code> | Optional dialog title. |
 
 <div class="smt-member-anchors">
 
@@ -873,7 +1030,7 @@ const confirmed = await api.ui.confirm(
 
 ### sandkit.api.ui.prompt :id=prompt
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L94" target="_blank" rel="noopener">ui.d.ts:94</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L128" target="_blank" rel="noopener">ui.d.ts:128</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.prompt(message: LocalizedText, defaultValue?: string, placeholder?: LocalizedText, title?: LocalizedText, allowCopy?: boolean): Promise&lt;string | null&gt;">
 
@@ -885,10 +1042,10 @@ prompt(message: LocalizedText, defaultValue?: string, placeholder?: LocalizedTex
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| message | <code>[`LocalizedText`](api/sandkit.api.ui.worker.md?id=localizedtext)</code> | Dialog body text. |
+| message | <code>[`LocalizedText`](?id=localizedtext)</code> | Dialog body text. |
 | defaultValue? | `string` | Initial input value. |
-| placeholder? | <code>[`LocalizedText`](api/sandkit.api.ui.worker.md?id=localizedtext)</code> | Placeholder text in the input field. |
-| title? | <code>[`LocalizedText`](api/sandkit.api.ui.worker.md?id=localizedtext)</code> | Optional dialog title. |
+| placeholder? | <code>[`LocalizedText`](?id=localizedtext)</code> | Placeholder text in the input field. |
+| title? | <code>[`LocalizedText`](?id=localizedtext)</code> | Optional dialog title. |
 | allowCopy? | `boolean` | When true, allow copying the result from the dialog. |
 
 <div class="smt-member-anchors">
@@ -924,7 +1081,7 @@ const value = await api.ui.prompt(
 
 ### sandkit.api.ui.select :id=select
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L119" target="_blank" rel="noopener">ui.d.ts:119</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L153" target="_blank" rel="noopener">ui.d.ts:153</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.select&lt;T = string&gt;(options: readonly SelectChoice&lt;T&gt;[], opts?: SelectDialogOptions&lt;T&gt;): Promise&lt;T | null&gt;">
 
@@ -971,7 +1128,7 @@ const selected = await api.ui.select(
 
 ### sandkit.api.ui.useRefresh :id=userefresh
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L128" target="_blank" rel="noopener">ui.d.ts:128</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L162" target="_blank" rel="noopener">ui.d.ts:162</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.useRefresh(componentIds: readonly ComponentId[]): void">
 
@@ -999,7 +1156,7 @@ React hook that re-renders when the listed UI components update.
 
 ### sandkit.api.ui.useScale :id=usescale
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L134" target="_blank" rel="noopener">ui.d.ts:134</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L168" target="_blank" rel="noopener">ui.d.ts:168</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.useScale(): number">
 
@@ -1019,7 +1176,7 @@ UI scale factor.
 
 ### sandkit.api.ui.useGameEvent :id=usegameevent
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L148" target="_blank" rel="noopener">ui.d.ts:148</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L182" target="_blank" rel="noopener">ui.d.ts:182</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.useGameEvent&lt;K *extends* EventId&gt;(eventId: K, handler: (payload: EventPayload&lt;K&gt;) =&gt; void): void">
 
@@ -1060,7 +1217,7 @@ api.ui.useGameEvent("resource:collected", (payload) => {
 
 ### sandkit.api.ui.inject :id=inject
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L159" target="_blank" rel="noopener">ui.d.ts:159</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L193" target="_blank" rel="noopener">ui.d.ts:193</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.inject(componentId: ComponentId, component: ComponentType&lt;Record&lt;string, never&gt;&gt;): () =&gt; void">
 

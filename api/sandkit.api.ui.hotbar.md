@@ -8,7 +8,7 @@ Hotbar bank sources, selection, and slot queries.
 
 ### sandkit.api.ui.hotbar.createBankSource :id=createbanksource
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L248" target="_blank" rel="noopener">ui.d.ts:248</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L282" target="_blank" rel="noopener">ui.d.ts:282</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.hotbar.createBankSource(options: HotbarBankSourceOptions): HotbarBankSource">
 
@@ -47,7 +47,7 @@ const source = api.ui.hotbar.createBankSource({
 
 ### sandkit.api.ui.hotbar.selectAction :id=selectaction
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L254" target="_blank" rel="noopener">ui.d.ts:254</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L288" target="_blank" rel="noopener">ui.d.ts:288</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.hotbar.selectAction(action: AssetRef): void">
 
@@ -75,7 +75,7 @@ Select a hotbar action programmatically.
 
 ### sandkit.api.ui.hotbar.getBankCount :id=getbankcount
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L259" target="_blank" rel="noopener">ui.d.ts:259</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L293" target="_blank" rel="noopener">ui.d.ts:293</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.hotbar.getBankCount(): number">
 
@@ -93,7 +93,7 @@ Return the number of hotbar banks.
 
 ### sandkit.api.ui.hotbar.getActiveBankIndex :id=getactivebankindex
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L264" target="_blank" rel="noopener">ui.d.ts:264</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L298" target="_blank" rel="noopener">ui.d.ts:298</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.hotbar.getActiveBankIndex(): number">
 
@@ -111,7 +111,7 @@ Return the active hotbar bank index.
 
 ### sandkit.api.ui.hotbar.getActiveSlotIndex :id=getactiveslotindex
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L269" target="_blank" rel="noopener">ui.d.ts:269</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L303" target="_blank" rel="noopener">ui.d.ts:303</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.hotbar.getActiveSlotIndex(): number">
 
@@ -129,7 +129,7 @@ Return the active hotbar slot index.
 
 ### sandkit.api.ui.hotbar.getSlotKeyLabel :id=getslotkeylabel
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L275" target="_blank" rel="noopener">ui.d.ts:275</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L309" target="_blank" rel="noopener">ui.d.ts:309</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.hotbar.getSlotKeyLabel(bindingId: KeyBinding): string">
 
@@ -157,7 +157,7 @@ Return the key label for a hotbar slot binding.
 
 ### sandkit.api.ui.hotbar.useHotbar :id=usehotbar
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L291" target="_blank" rel="noopener">ui.d.ts:291</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L325" target="_blank" rel="noopener">ui.d.ts:325</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.hotbar.useHotbar(): HotbarState">
 

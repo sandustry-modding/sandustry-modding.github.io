@@ -91,7 +91,7 @@ registerSenderType(structureId: string, getOutput?: (structure: Structure) => bo
 | Argument | Type | Description |
 | --- | --- | --- |
 | structureId | `string` | Structure type id. |
-| getOutput? | <code>(`structure`: [`Structure`](api/sandkit.api.structures.worker.md?id=structure)) =&gt; `boolean`</code> | Optional getter; return true when the sender should be on. |
+| getOutput? | <code>(`structure`: [`Structure`](api/sandkit.api.structures.md?id=structure)) =&gt; `boolean`</code> | Optional getter; return true when the sender should be on. |
 
 <div class="smt-member-anchors">
 

@@ -8,7 +8,7 @@ Structure processing enablement checks.
 
 ### sandkit.api.structures.processing.isEnabledAtCell :id=isenabledatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L193" target="_blank" rel="noopener">structures.d.ts:193</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:204</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.processing.isEnabledAtCell(...args: CellCoordinates): boolean">
 
@@ -36,7 +36,7 @@ Return true when processing is enabled at the cell.
 
 ### ~~sandkit.api.structures.processing.isEnabledAt~~ :id=isenabledat
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L199" target="_blank" rel="noopener">structures.d.ts:199</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:210</p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>

@@ -8,7 +8,7 @@ Built-in React UI components.
 
 ### sandkit.api.ui.components.ActionSlot :id=actionslot
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L308" target="_blank" rel="noopener">ui.d.ts:308</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L342" target="_blank" rel="noopener">ui.d.ts:342</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.components.ActionSlot(props: ActionSlotProps): ReactNode">
 
@@ -45,7 +45,7 @@ const slot = sandkit.react.createElement(
 
 ### sandkit.api.ui.components.Panel :id=panel
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L323" target="_blank" rel="noopener">ui.d.ts:323</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L357" target="_blank" rel="noopener">ui.d.ts:357</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.components.Panel(props: PanelProps): ReactNode">
 
@@ -83,7 +83,7 @@ const panel = sandkit.react.createElement(
 
 ### sandkit.api.ui.components.Button :id=button
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L338" target="_blank" rel="noopener">ui.d.ts:338</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L372" target="_blank" rel="noopener">ui.d.ts:372</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.components.Button(props: ButtonProps): ReactNode">
 

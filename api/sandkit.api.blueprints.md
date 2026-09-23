@@ -61,7 +61,7 @@ serializeStructures(structures: readonly Structure[]): BlueprintStructure[]
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structures | <code>[`Structure`](api/sandkit.api.structures.worker.md?id=structure)[]</code> | Structure instances to encode. |
+| structures | <code>[`Structure`](api/sandkit.api.structures.md?id=structure)[]</code> | Structure instances to encode. |
 
 <div class="smt-member-anchors">
 

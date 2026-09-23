@@ -8,7 +8,7 @@ Shared buffer ensure and lookup.
 
 ### sandkit.api.shared.buffers.ensure :id=ensure
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/shared.d.ts#L29" target="_blank" rel="noopener">shared.d.ts:29</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/shared.d.ts#L26" target="_blank" rel="noopener">shared.d.ts:26</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.shared.buffers.ensure(key: string, config: object): SharedArray">
 
@@ -50,7 +50,7 @@ const counts = api.shared.buffers.ensure("counts", {
 
 ### ~~sandkit.api.shared.buffers.create~~ :id=create
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/shared.d.ts#L38" target="_blank" rel="noopener">shared.d.ts:38</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/shared.d.ts#L35" target="_blank" rel="noopener">shared.d.ts:35</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -90,7 +90,7 @@ create(key: string, config: object): SharedArray
 
 ### sandkit.api.shared.buffers.get :id=get
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/shared.d.ts#L19" target="_blank" rel="noopener">shared.d.ts:19</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/shared.d.ts#L47" target="_blank" rel="noopener">shared.d.ts:47</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.shared.buffers.get(key: string): SharedArray | undefined">
 

@@ -8,7 +8,7 @@ Mount React content in a named UI region.
 
 ### sandkit.api.ui.regions.mount :id=mount
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L188" target="_blank" rel="noopener">ui.d.ts:188</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L222" target="_blank" rel="noopener">ui.d.ts:222</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.regions.mount(regionId: OverlaySlot, mountId: string, options: RegionMountOptions): RegionMountHandle">
 
@@ -60,7 +60,7 @@ const mountHandle = api.ui.regions.mount(
 
 ### sandkit.api.ui.regions.setVisible :id=setvisible
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L200" target="_blank" rel="noopener">ui.d.ts:200</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L234" target="_blank" rel="noopener">ui.d.ts:234</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.regions.setVisible(regionId: OverlaySlot, visible: boolean): VisibilityHandle">
 

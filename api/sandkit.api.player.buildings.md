@@ -8,7 +8,7 @@ Player building unlock helpers.
 
 ### sandkit.api.player.buildings.unlockById :id=unlockbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L135" target="_blank" rel="noopener">player.d.ts:135</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L157" target="_blank" rel="noopener">player.d.ts:157</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.buildings.unlockById(structureId: string): void">
 
@@ -36,7 +36,7 @@ Unlock a structure type for building.
 
 ### ~~sandkit.api.player.buildings.unlockByType~~ :id=unlockbytype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L141" target="_blank" rel="noopener">player.d.ts:141</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L163" target="_blank" rel="noopener">player.d.ts:163</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -71,7 +71,7 @@ unlockByType(structureId: string): void
 
 ### sandkit.api.player.buildings.removeById :id=removebyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L149" target="_blank" rel="noopener">player.d.ts:149</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/player.d.ts#L171" target="_blank" rel="noopener">player.d.ts:171</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.player.buildings.removeById(structureId: string): void">
 

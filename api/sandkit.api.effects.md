@@ -7,114 +7,9 @@ Main thread only. Temporary lights live under [lights.temporary](api/sandkit.api
 
 <div class="smt-member-card">
 
-### sandkit.api.effects.LaserEffectOptions :id=lasereffectoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L115" target="_blank" rel="noopener">effects.d.ts:115</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.effects.LaserEffectOptions = object">
-
-```ts
-LaserEffectOptions = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| width? | <code>number</code> | Beam width in pixels. |
-| brightness? | <code>number</code> | Beam brightness multiplier. |
-| color? | <code>number</code> | Beam color as a packed integer. |
-| glow? | <code>boolean</code> | When true, draws a glow around the beam. |
-
-<div class="smt-member-anchors">
-
-##### width? <!-- {docsify-ignore} -->
-
-##### brightness? <!-- {docsify-ignore} -->
-
-##### color? <!-- {docsify-ignore} -->
-
-##### glow? <!-- {docsify-ignore} -->
-
-</div>
-
-Options for laser beam effects.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.effects.LaserEffectHandle :id=lasereffecthandle
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L127" target="_blank" rel="noopener">effects.d.ts:127</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.effects.LaserEffectHandle = object">
-
-```ts
-LaserEffectHandle = object
-```
-
-</div>
-
-| Method | Signature | Description |
-| --- | --- | --- |
-| destroy() | <code>(): void</code> | Removes the laser from the scene. |
-
-<div class="smt-member-anchors">
-
-##### destroy() <!-- {docsify-ignore} -->
-
-</div>
-
-Handle returned by createLaserAtWorld.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.effects.DistortionEffectOptions :id=distortioneffectoptions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L133" target="_blank" rel="noopener">effects.d.ts:133</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.effects.DistortionEffectOptions = object">
-
-```ts
-DistortionEffectOptions = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| style? | <code>&quot;implode&quot; &#124; &quot;explode&quot;</code> | Distortion style: implode or explode. |
-| duration? | <code>number</code> | Effect duration in seconds. |
-| maxRadius? | <code>number</code> | Maximum radius of the wave. |
-| intensity? | <code>number</code> | Visual intensity of the distortion. |
-| color? | <code>[number, number, number, number]</code> | RGBA color components for the effect. |
-
-<div class="smt-member-anchors">
-
-##### style? <!-- {docsify-ignore} -->
-
-##### duration? <!-- {docsify-ignore} -->
-
-##### maxRadius? <!-- {docsify-ignore} -->
-
-##### intensity? <!-- {docsify-ignore} -->
-
-##### color? <!-- {docsify-ignore} -->
-
-</div>
-
-Options for distortion wave effects.
-
-</div>
-
-<div class="smt-member-card">
-
 ### sandkit.api.effects.EffectOptions :id=effectoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/effects.d.ts#L48" target="_blank" rel="noopener">effects.d.ts:48</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L9" target="_blank" rel="noopener">effects.d.ts:9</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.effects.EffectOptions = object">
 
@@ -148,7 +43,7 @@ Generic duration and radius options for world effects.
 
 ### sandkit.api.effects.TemporaryLightOptions :id=temporarylightoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/effects.d.ts#L54" target="_blank" rel="noopener">effects.d.ts:54</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L16" target="_blank" rel="noopener">effects.d.ts:16</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.effects.TemporaryLightOptions = object">
 
@@ -201,7 +96,7 @@ TemporaryLightOptions = object
 
 </div>
 
-Options for [createLightAtWorld](?id=createlightatworld).
+Options for temporary lights.
 
 </div>
 
@@ -209,7 +104,7 @@ Options for [createLightAtWorld](?id=createlightatworld).
 
 ### sandkit.api.effects.ParticleEffectOptions :id=particleeffectoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/effects.d.ts#L71" target="_blank" rel="noopener">effects.d.ts:71</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L34" target="_blank" rel="noopener">effects.d.ts:34</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.effects.ParticleEffectOptions = object">
 
@@ -275,13 +170,118 @@ Options for [createParticlesAtWorld](?id=createparticlesatworld).
 
 </div>
 
+<div class="smt-member-card">
+
+### sandkit.api.effects.LaserEffectOptions :id=lasereffectoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L157" target="_blank" rel="noopener">effects.d.ts:157</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.LaserEffectOptions = object">
+
+```ts
+LaserEffectOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| width? | <code>number</code> | Beam width in pixels. |
+| brightness? | <code>number</code> | Beam brightness multiplier. |
+| color? | <code>number</code> | Beam color as a packed integer. |
+| glow? | <code>boolean</code> | When true, draws a glow around the beam. |
+
+<div class="smt-member-anchors">
+
+##### width? <!-- {docsify-ignore} -->
+
+##### brightness? <!-- {docsify-ignore} -->
+
+##### color? <!-- {docsify-ignore} -->
+
+##### glow? <!-- {docsify-ignore} -->
+
+</div>
+
+Options for laser beam effects.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.effects.LaserEffectHandle :id=lasereffecthandle
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L169" target="_blank" rel="noopener">effects.d.ts:169</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.LaserEffectHandle = object">
+
+```ts
+LaserEffectHandle = object
+```
+
+</div>
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| destroy() | <code>(): void</code> | Removes the laser from the scene. |
+
+<div class="smt-member-anchors">
+
+##### destroy() <!-- {docsify-ignore} -->
+
+</div>
+
+Handle returned by createLaserAtWorld.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.effects.DistortionEffectOptions :id=distortioneffectoptions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L175" target="_blank" rel="noopener">effects.d.ts:175</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.DistortionEffectOptions = object">
+
+```ts
+DistortionEffectOptions = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| style? | <code>&quot;implode&quot; &#124; &quot;explode&quot;</code> | Distortion style: implode or explode. |
+| duration? | <code>number</code> | Effect duration in seconds. |
+| maxRadius? | <code>number</code> | Maximum radius of the wave. |
+| intensity? | <code>number</code> | Visual intensity of the distortion. |
+| color? | <code>[number, number, number, number]</code> | RGBA color components for the effect. |
+
+<div class="smt-member-anchors">
+
+##### style? <!-- {docsify-ignore} -->
+
+##### duration? <!-- {docsify-ignore} -->
+
+##### maxRadius? <!-- {docsify-ignore} -->
+
+##### intensity? <!-- {docsify-ignore} -->
+
+##### color? <!-- {docsify-ignore} -->
+
+</div>
+
+Options for distortion wave effects.
+
+</div>
+
 ## Functions <!-- {docsify-ignore} -->
 
 <div class="smt-member-card">
 
 ### sandkit.api.effects.createAtWorld :id=createatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L24" target="_blank" rel="noopener">effects.d.ts:24</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L62" target="_blank" rel="noopener">effects.d.ts:62</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.effects.createAtWorld(effectId: string, worldX: number, worldY: number, options?: EffectOptions): void">
 
@@ -318,7 +318,7 @@ Creates a named screen effect at world coordinates.
 
 ### ~~sandkit.api.effects.createEffectAtWorld~~ :id=createeffectatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L35" target="_blank" rel="noopener">effects.d.ts:35</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L73" target="_blank" rel="noopener">effects.d.ts:73</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -358,11 +358,55 @@ createEffectAtWorld(effectId: string, worldX: number, worldY: number, options?: 
 
 </div>
 
+<div class="smt-member-card">
+
+### sandkit.api.effects.createParticlesAtWorld :id=createparticlesatworld
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L95" target="_blank" rel="noopener">effects.d.ts:95</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.effects.createParticlesAtWorld(worldX: number, worldY: number, options?: ParticleEffectOptions): void">
+
+```ts
+createParticlesAtWorld(worldX: number, worldY: number, options?: ParticleEffectOptions): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| worldX | `number` | World X coordinate in pixels. |
+| worldY | `number` | World Y coordinate in pixels. |
+| options? | <code>[`ParticleEffectOptions`](?id=particleeffectoptions)</code> | Count, velocity, colour, and lifetime settings. |
+
+<div class="smt-member-anchors">
+
+##### worldX <!-- {docsify-ignore} -->
+
+##### worldY <!-- {docsify-ignore} -->
+
+##### options? <!-- {docsify-ignore} -->
+
+</div>
+
+Spawns particles at world coordinates.
+
+#### Example
+
+**Main entry**
+
+```ts
+api.effects.createParticlesAtWorld(worldX, worldY, {
+  count: 12,
+});
+```
+
+</div>
+
 <div class="smt-member-card" data-deprecated="true">
 
 ### ~~sandkit.api.effects.createLightAtWorld~~ :id=createlightatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L63" target="_blank" rel="noopener">effects.d.ts:63</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L105" target="_blank" rel="noopener">effects.d.ts:105</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -405,7 +449,7 @@ lightId: number &#124; null optional index?: number &#124; null
 
 ### sandkit.api.effects.createDistortionWaveAtWorld :id=createdistortionwaveatworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L84" target="_blank" rel="noopener">effects.d.ts:84</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L126" target="_blank" rel="noopener">effects.d.ts:126</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.effects.createDistortionWaveAtWorld(worldX: number, worldY: number, options?: DistortionEffectOptions): void">
 
@@ -447,7 +491,7 @@ api.effects.createDistortionWaveAtWorld(worldX, worldY, {
 
 ### sandkit.api.effects.createLaserAtWorld :id=createlaseratworld
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L100" target="_blank" rel="noopener">effects.d.ts:100</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L142" target="_blank" rel="noopener">effects.d.ts:142</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.effects.createLaserAtWorld(startWorldX: number, startWorldY: number, endWorldX: number, endWorldY: number, options?: LaserEffectOptions): LaserEffectHandle">
 
@@ -489,7 +533,7 @@ Creates a laser beam between two world points. Returns a handle to destroy it.
 
 ### ~~sandkit.api.effects.removeLightById~~ :id=removelightbyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L112" target="_blank" rel="noopener">effects.d.ts:112</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/effects.d.ts#L154" target="_blank" rel="noopener">effects.d.ts:154</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -517,39 +561,5 @@ removeLightById(lightId: number): void
 ##### lightId <!-- {docsify-ignore} -->
 
 </div>
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.effects.createParticlesAtWorld :id=createparticlesatworld
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/effects.d.ts#L28" target="_blank" rel="noopener">effects.d.ts:28</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.effects.createParticlesAtWorld(worldX: number, worldY: number, options?: ParticleEffectOptions): void">
-
-```ts
-createParticlesAtWorld(worldX: number, worldY: number, options?: ParticleEffectOptions): void
-```
-
-</div>
-
-| Argument | Type | Description |
-| --- | --- | --- |
-| worldX | `number` | World x position in pixels. |
-| worldY | `number` | World y position in pixels. |
-| options? | <code>[`ParticleEffectOptions`](?id=particleeffectoptions)</code> | Count, velocity, colour, and lifetime settings. |
-
-<div class="smt-member-anchors">
-
-##### worldX <!-- {docsify-ignore} -->
-
-##### worldY <!-- {docsify-ignore} -->
-
-##### options? <!-- {docsify-ignore} -->
-
-</div>
-
-Emit particles at world coordinates.
 
 </div>

@@ -8,7 +8,7 @@ Controller focus and scope navigation hooks.
 
 ### sandkit.api.ui.navigation.useFocusable :id=usefocusable
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L387" target="_blank" rel="noopener">ui.d.ts:387</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L421" target="_blank" rel="noopener">ui.d.ts:421</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.navigation.useFocusable&lt;T *extends* HTMLElement = HTMLDivElement&gt;(options: FocusOptions): Focusable&lt;T&gt;">
 
@@ -50,7 +50,7 @@ const focusable = api.ui.navigation.useFocusable({
 
 ### sandkit.api.ui.navigation.useFocusScope :id=usefocusscope
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L404" target="_blank" rel="noopener">ui.d.ts:404</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L438" target="_blank" rel="noopener">ui.d.ts:438</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.navigation.useFocusScope(options: FocusScopeOptions): void">
 
@@ -88,7 +88,7 @@ api.ui.navigation.useFocusScope({
 
 ### sandkit.api.ui.navigation.getControllerFocusClass :id=getcontrollerfocusclass
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L411" target="_blank" rel="noopener">ui.d.ts:411</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L445" target="_blank" rel="noopener">ui.d.ts:445</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.navigation.getControllerFocusClass(focused: boolean): string">
 
@@ -118,7 +118,7 @@ Class name string for the focus ring.
 
 ### ~~sandkit.api.ui.navigation.controllerFocusClass~~ :id=controllerfocusclass
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L419" target="_blank" rel="noopener">ui.d.ts:419</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L453" target="_blank" rel="noopener">ui.d.ts:453</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>

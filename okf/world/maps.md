@@ -26,7 +26,7 @@ Custom map selection, artifact markers, and session start.
 Not the in-game simulation grid.
 
 Official: [sandkit.html — api.maps](https://sandustry.com/sandkit.html).
-Types: `@sandustry-modding/types` `src/sandkit/api/maps.d.ts`, `src/shared/api/maps.d.ts`.
+Types: `@sandustry-modding/types` `src/sandkit/api/maps.d.ts`, `src/worker/api/maps.d.ts`.
 
 `map.width` / `map.height` in `modinfo.json` are integers from **1** to **3840** (loader `MAX_MAP_DIMENSION`).
 Campaign / Void saves still allocate **3840 x 3840**.

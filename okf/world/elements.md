@@ -23,7 +23,7 @@ sources:
 # `api.elements`
 
 Official: [sandkit.html — api.elements](https://sandustry.com/sandkit.html).
-Types: `@sandustry-modding/types` `src/sandkit/api/elements.d.ts`, `src/shared/api/elements.d.ts`.
+Types: `@sandustry-modding/types` `src/sandkit/api/elements.d.ts`, `src/worker/api/elements.d.ts`.
 
 Main entry handles registration and deferred cell mutations.
 Worker entry applies immediate mutations plus extra move and swap helpers (see **Worker-only** below).

@@ -16,7 +16,7 @@ PatternExcavateOptions = ExcavateOptions
 
 </div>
 
-Options for pattern-based excavation. Same shape as [shared.api.world.ExcavateOptions](api/sandkit.api.grid.md?id=excavateoptions).
+Options for pattern-based excavation. Same shape as [grid.ExcavateOptions](api/sandkit.api.grid.md?id=excavateoptions).
 
 </div>
 

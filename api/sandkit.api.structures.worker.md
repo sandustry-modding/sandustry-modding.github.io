@@ -2,9 +2,13 @@
 
 **`Internal`**
 
-Shared `sandkit.api.structures` base — structure lookup and mutation.
+Worker-thread `sandkit.api.structures` — structure lookup and immediate updates.
 
- Base namespace reused by main and worker declarations.
+Worker-entry updates apply immediately. Main thread defers build and remove helpers in
+`sandkit.api.structures`.
+
+ Worker subset; not interchangeable with main-thread
+`sandkit.api.structures`.
 
 ## Type Aliases <!-- {docsify-ignore} -->
 
@@ -12,33 +16,15 @@ Shared `sandkit.api.structures` base — structure lookup and mutation.
 
 ### sandkit.api.structures.StructureDefinition :id=structuredefinition
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L206" target="_blank" rel="noopener">structures.d.ts:206</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:15</p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureDefinition = object">
+<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureDefinition = StructureDefinition">
 
 ```ts
-StructureDefinition = object
+StructureDefinition = StructureDefinition
 ```
 
 </div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| id | <code>StructureId</code> |  |
-
-<div class="smt-member-anchors">
-
-##### id <!-- {docsify-ignore} -->
-
-</div>
-
-Registered structure definition snapshot (built-in or mod).
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
 
 </div>
 
@@ -46,42 +32,15 @@ Registered structure definition snapshot (built-in or mod).
 
 ### sandkit.api.structures.StructureData :id=structuredata
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L212" target="_blank" rel="noopener">structures.d.ts:212</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:16</p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureData = object">
+<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureData = StructureData">
 
 ```ts
-StructureData = object
+StructureData = StructureData
 ```
 
 </div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| elementId? | <code>string &#124; null</code> |  |
-| elementType? | <code>TaggedNumber&lt;&quot;elementType&quot;&gt; &#124; null</code> |  |
-| storedEnergy? | <code>number</code> |  |
-| maxEnergy? | <code>number</code> |  |
-
-<div class="smt-member-anchors">
-
-##### elementId? <!-- {docsify-ignore} -->
-
-##### elementType? <!-- {docsify-ignore} -->
-
-##### storedEnergy? <!-- {docsify-ignore} -->
-
-##### maxEnergy? <!-- {docsify-ignore} -->
-
-</div>
-
-Per-structure custom data bag.
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
 
 </div>
 
@@ -89,57 +48,15 @@ Per-structure custom data bag.
 
 ### sandkit.api.structures.Structure :id=structure
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L221" target="_blank" rel="noopener">structures.d.ts:221</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:17</p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.structures.Structure = object">
+<div class="smt-member-sig" data-sig="sandkit.api.structures.Structure = Structure">
 
 ```ts
-Structure = object
+Structure = Structure
 ```
 
 </div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> |  |
-| y | <code>number</code> |  |
-| type? | <code>StructureRef</code> |  |
-| queued? | <code>boolean</code> |  |
-| filter? | <code>{ elementType: TaggedNumber&lt;&quot;elementType&quot;&gt;; mode: string }</code> |  |
-| trapped? | <code>boolean</code> |  |
-| data? | <code>StructureData</code> |  |
-| color? | <code>string</code> |  |
-| frame? | <code>boolean</code> |  |
-
-<div class="smt-member-anchors">
-
-##### x <!-- {docsify-ignore} -->
-
-##### y <!-- {docsify-ignore} -->
-
-##### type? <!-- {docsify-ignore} -->
-
-##### queued? <!-- {docsify-ignore} -->
-
-##### filter? <!-- {docsify-ignore} -->
-
-##### trapped? <!-- {docsify-ignore} -->
-
-##### data? <!-- {docsify-ignore} -->
-
-##### color? <!-- {docsify-ignore} -->
-
-##### frame? <!-- {docsify-ignore} -->
-
-</div>
-
-Live structure instance in the world grid.
-
-#### Indexable
-
-```ts
-[key: string]: unknown
-```
 
 </div>
 
@@ -147,17 +64,15 @@ Live structure instance in the world grid.
 
 ### sandkit.api.structures.StructureType :id=structuretype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L235" target="_blank" rel="noopener">structures.d.ts:235</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:18</p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureType = StructureType | TaggedNumber&lt;&quot;structureType&quot;&gt;">
+<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureType = StructureType">
 
 ```ts
-StructureType = StructureType | TaggedNumber<"structureType">
+StructureType = StructureType
 ```
 
 </div>
-
-Numeric structure type handle. Built-in enum values autocomplete.
 
 </div>
 
@@ -165,17 +80,15 @@ Numeric structure type handle. Built-in enum values autocomplete.
 
 ### sandkit.api.structures.StructureId :id=structureid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L237" target="_blank" rel="noopener">structures.d.ts:237</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:19</p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureId = LooseString&lt;never&gt;">
+<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureId = StructureId">
 
 ```ts
-StructureId = LooseString<never>
+StructureId = StructureId
 ```
 
 </div>
-
-Mod or built-in structure string id.
 
 </div>
 
@@ -183,17 +96,15 @@ Mod or built-in structure string id.
 
 ### sandkit.api.structures.StructureRef :id=structureref
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L239" target="_blank" rel="noopener">structures.d.ts:239</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:20</p>
 
-<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureRef = StructureType | StructureId">
+<div class="smt-member-sig" data-sig="sandkit.api.structures.StructureRef = StructureRef">
 
 ```ts
-StructureRef = StructureType | StructureId
+StructureRef = StructureRef
 ```
 
 </div>
-
-Type handle or string id accepted by lookup helpers.
 
 </div>
 
@@ -203,7 +114,7 @@ Type handle or string id accepted by lookup helpers.
 
 ### sandkit.api.structures.forEachOfType :id=foreachoftype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L25" target="_blank" rel="noopener">structures.d.ts:25</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:36</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.forEachOfType(structureTypeOrId: StructureRef, callback: (structure: Structure) =&gt; void): void">
 
@@ -215,8 +126,8 @@ forEachOfType(structureTypeOrId: StructureRef, callback: (structure: Structure) 
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structureTypeOrId | <code>[`StructureRef`](?id=structureref)</code> | Structure type value or string id. |
-| callback | <code>(`structure`: [`Structure`](?id=structure)) =&gt; `void`</code> | Called once per matching structure instance. |
+| structureTypeOrId | <code>[`StructureRef`](api/sandkit.api.structures.md?id=structureref)</code> | Structure type value or string id. |
+| callback | <code>(`structure`: [`Structure`](api/sandkit.api.structures.md?id=structure)) =&gt; `void`</code> | Called once per matching structure instance. |
 
 <div class="smt-member-anchors">
 
@@ -244,7 +155,7 @@ api.structures.forEachOfType("exampleStructure", (structure) => {
 
 ### sandkit.api.structures.getAtCell :id=getatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L37" target="_blank" rel="noopener">structures.d.ts:37</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:48</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.getAtCell(...args: CellCoordinates): Structure | null">
 
@@ -266,7 +177,7 @@ getAtCell(...args: CellCoordinates): Structure | null
 
 Return the structure at a cell, or null when none.
 
-[`Structure`](?id=structure) &#124; `null`
+[`Structure`](api/sandkit.api.structures.md?id=structure) &#124; `null`
 
 </div>
 
@@ -274,7 +185,7 @@ Return the structure at a cell, or null when none.
 
 ### sandkit.api.structures.getDefinitionByType :id=getdefinitionbytype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L45" target="_blank" rel="noopener">structures.d.ts:45</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:56</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.getDefinitionByType(structureType: StructureRef): StructureDefinition | undefined">
 
@@ -286,7 +197,7 @@ getDefinitionByType(structureType: StructureRef): StructureDefinition | undefine
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structureType | <code>[`StructureRef`](?id=structureref)</code> | Structure type value or string id. |
+| structureType | <code>[`StructureRef`](api/sandkit.api.structures.md?id=structureref)</code> | Structure type value or string id. |
 
 <div class="smt-member-anchors">
 
@@ -296,7 +207,7 @@ getDefinitionByType(structureType: StructureRef): StructureDefinition | undefine
 
 Return the mod-registered or built-in definition for a structure type.
 
-[`StructureDefinition`](?id=structuredefinition) &#124; `undefined`
+[`StructureDefinition`](api/sandkit.api.structures.md?id=structuredefinition) &#124; `undefined`
 
 </div>
 
@@ -304,7 +215,7 @@ Return the mod-registered or built-in definition for a structure type.
 
 ### sandkit.api.structures.getTypeById :id=gettypebyid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L55" target="_blank" rel="noopener">structures.d.ts:55</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:66</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.getTypeById(structureId: string &amp; object): StructureType">
 
@@ -326,7 +237,7 @@ getTypeById(structureId: string & object): StructureType
 
 Map a structure string id to its runtime type value.
 
-[`StructureType`](?id=structuretype-1)
+[`StructureType`](api/sandkit.api.structures.md?id=structuretype-1)
 
 </div>
 
@@ -334,7 +245,7 @@ Map a structure string id to its runtime type value.
 
 ### ~~sandkit.api.structures.getTypeFromId~~ :id=gettypefromid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L61" target="_blank" rel="noopener">structures.d.ts:61</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:72</p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -363,7 +274,7 @@ getTypeFromId(structureId: string & object): StructureType
 
 </div>
 
-[`StructureType`](?id=structuretype-1)
+[`StructureType`](api/sandkit.api.structures.md?id=structuretype-1)
 
 </div>
 
@@ -371,7 +282,7 @@ getTypeFromId(structureId: string & object): StructureType
 
 ### sandkit.api.structures.hasBuiltAtCell :id=hasbuiltatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L70" target="_blank" rel="noopener">structures.d.ts:70</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:81</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.hasBuiltAtCell(...args: CellCoordinates): boolean">
 
@@ -399,7 +310,7 @@ Return true when a completed structure occupies the cell.
 
 ### sandkit.api.structures.isType :id=istype
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L79" target="_blank" rel="noopener">structures.d.ts:79</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:90</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.isType(structure: Structure | null, structureId: string &amp; object): boolean">
 
@@ -411,7 +322,7 @@ isType(structure: Structure | null, structureId: string & object): boolean
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structure | <code>[`Structure`](?id=structure) &#124; `null`</code> | Structure instance, or null. |
+| structure | <code>[`Structure`](api/sandkit.api.structures.md?id=structure) &#124; `null`</code> | Structure instance, or null. |
 | structureId | `string` & `object` | Structure string id to compare. |
 
 <div class="smt-member-anchors">
@@ -430,7 +341,7 @@ Return true when the structure matches the given id.
 
 ### sandkit.api.structures.isTypeAtCell :id=istypeatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L89" target="_blank" rel="noopener">structures.d.ts:89</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:100</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.isTypeAtCell(...args: [number, number, string &amp; object]): boolean">
 
@@ -458,7 +369,7 @@ Return true when the cell structure matches the given id.
 
 ### sandkit.api.structures.setSpritesheetIndex :id=setspritesheetindex
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L98" target="_blank" rel="noopener">structures.d.ts:98</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:109</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.setSpritesheetIndex(structure: Structure, index: number): void">
 
@@ -470,7 +381,7 @@ setSpritesheetIndex(structure: Structure, index: number): void
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structure | <code>[`Structure`](?id=structure)</code> | Target structure instance. |
+| structure | <code>[`Structure`](api/sandkit.api.structures.md?id=structure)</code> | Target structure instance. |
 | index | `number` | Spritesheet frame index. |
 
 <div class="smt-member-anchors">
@@ -489,7 +400,7 @@ Set the spritesheet frame index on a structure instance.
 
 ### sandkit.api.structures.setSpritesheetIndexAtCell :id=setspritesheetindexatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L108" target="_blank" rel="noopener">structures.d.ts:108</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:119</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.setSpritesheetIndexAtCell(...args: [number, number, number]): void">
 
@@ -517,7 +428,7 @@ Set spritesheet frame index for the structure at a cell.
 
 ### sandkit.api.structures.setSpritesheetIndexByValue :id=setspritesheetindexbyvalue
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L118" target="_blank" rel="noopener">structures.d.ts:118</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:129</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.setSpritesheetIndexByValue(structure: Structure, value: number, thresholds: number[]): void">
 
@@ -529,7 +440,7 @@ setSpritesheetIndexByValue(structure: Structure, value: number, thresholds: numb
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structure | <code>[`Structure`](?id=structure)</code> | Target structure instance. |
+| structure | <code>[`Structure`](api/sandkit.api.structures.md?id=structure)</code> | Target structure instance. |
 | value | `number` | Numeric value mapped through thresholds. |
 | thresholds | `number`[] | Ascending threshold values. |
 
@@ -551,7 +462,7 @@ Pick spritesheet index from a value and threshold table on a structure.
 
 ### sandkit.api.structures.setSpritesheetIndexByValueAtCell :id=setspritesheetindexbyvalueatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L133" target="_blank" rel="noopener">structures.d.ts:133</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:144</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.setSpritesheetIndexByValueAtCell(...args: [number, number, number, number[]]): void">
 
@@ -579,7 +490,7 @@ Same as [setSpritesheetIndexByValue](?id=setspritesheetindexbyvalue) for the str
 
 ### sandkit.api.structures.update :id=update
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L149" target="_blank" rel="noopener">structures.d.ts:149</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:160</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.update(structure: Structure, options?: object): void">
 
@@ -591,7 +502,7 @@ update(structure: Structure, options?: object): void
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structure | <code>[`Structure`](?id=structure)</code> | Structure instance to update. |
+| structure | <code>[`Structure`](api/sandkit.api.structures.md?id=structure)</code> | Structure instance to update. |
 | options? | <code>When `propagateToWorkers` is true, sync to worker threads.</code> |  |
 
 <div class="smt-member-anchors">
@@ -618,7 +529,7 @@ api.structures.update(structure, { propagateToWorkers: true });
 
 ### sandkit.api.structures.updateData :id=updatedata
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L168" target="_blank" rel="noopener">structures.d.ts:168</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:179</p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.structures.updateData(structure: Structure, partial: Partial&lt;StructureData&gt;, options?: object): void">
 
@@ -630,7 +541,7 @@ updateData(structure: Structure, partial: Partial<StructureData>, options?: obje
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structure | <code>[`Structure`](?id=structure)</code> | Structure instance to update. |
+| structure | <code>[`Structure`](api/sandkit.api.structures.md?id=structure)</code> | Structure instance to update. |
 | partial | `Partial`<[`StructureData`](?id=structuredata)> | Fields to merge onto `structure.data`. |
 | options? | <code>When `propagateToWorkers` is true, sync to worker threads.</code> |  |
 
@@ -664,7 +575,7 @@ api.structures.updateData(
 
 ### ~~sandkit.api.structures.setData~~ :id=setdata
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/structures.d.ts#L178" target="_blank" rel="noopener">structures.d.ts:178</a></p>
+<p class="smt-member-defined">Defined in: worker/api/structures.d.ts:189</p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -685,7 +596,7 @@ setData(structure: Structure, partial: Partial<StructureData>, options?: object)
 
 | Argument | Type | Description |
 | --- | --- | --- |
-| structure | <code>[`Structure`](?id=structure)</code> |  |
+| structure | <code>[`Structure`](api/sandkit.api.structures.md?id=structure)</code> |  |
 | partial | `Partial`<[`StructureData`](?id=structuredata)> |  |
 | options? | <code>{ propagateToWorkers: boolean }</code> |  |
 

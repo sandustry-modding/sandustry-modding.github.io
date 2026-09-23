@@ -8,7 +8,7 @@ Wrap a built-in UI component.
 
 ### sandkit.api.ui.overrides.register :id=register
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L224" target="_blank" rel="noopener">ui.d.ts:224</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/ui.d.ts#L258" target="_blank" rel="noopener">ui.d.ts:258</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.ui.overrides.register(componentId: ComponentId, wrapper: (Original: ComponentType&lt;Record&lt;string, unknown&gt;&gt;, props: Record&lt;string, unknown&gt;) =&gt; ReactNode): OverrideHandle">
 

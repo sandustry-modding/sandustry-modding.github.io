@@ -8,108 +8,9 @@ Main thread only.
 
 <div class="smt-member-card">
 
-### sandkit.api.grid.GridMutationWriter :id=gridmutationwriter
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L150" target="_blank" rel="noopener">grid.d.ts:150</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriter = object">
-
-```ts
-GridMutationWriter = object
-```
-
-</div>
-
-| Property | Type | Description |
-| --- | --- | --- |
-| elements | <code>GridMutationWriterElements</code> | Element cell mutations inside a [mutate](?id=mutate) callback. |
-| terrains | <code>GridMutationWriterTerrains</code> | Terrain cell mutations inside a [mutate](?id=mutate) callback. |
-
-<div class="smt-member-anchors">
-
-##### elements <!-- {docsify-ignore} -->
-
-##### terrains <!-- {docsify-ignore} -->
-
-</div>
-
-Deferred element and terrain mutations passed to [mutate](?id=mutate).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.GridMutationWriterElements :id=gridmutationwriterelements
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L158" target="_blank" rel="noopener">grid.d.ts:158</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriterElements = object">
-
-```ts
-GridMutationWriterElements = object
-```
-
-</div>
-
-| Method | Signature | Description |
-| --- | --- | --- |
-| createAtCell() | <code>(...args: number, number, [ElementRef, ElementCreateOptions]): void</code> | Create an element at a cell inside a [mutate](?id=mutate) callback. |
-| replaceAtCell() | <code>(...args: number, number, [ElementRef, ElementCreateOptions]): void</code> | Replace the element at a cell inside a [mutate](?id=mutate) callback. |
-| removeAtCell() | <code>(...args: number, number, [ElementRemovalOptions]): void</code> | Remove the element at a cell inside a [mutate](?id=mutate) callback. |
-
-<div class="smt-member-anchors">
-
-##### createAtCell() <!-- {docsify-ignore} -->
-
-##### replaceAtCell() <!-- {docsify-ignore} -->
-
-##### removeAtCell() <!-- {docsify-ignore} -->
-
-</div>
-
-Element writers available on [GridMutationWriter.elements](?id=elements).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.GridMutationWriterTerrains :id=gridmutationwriterterrains
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L205" target="_blank" rel="noopener">grid.d.ts:205</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriterTerrains = object">
-
-```ts
-GridMutationWriterTerrains = object
-```
-
-</div>
-
-| Method | Signature | Description |
-| --- | --- | --- |
-| createAtCell() | <code>(...args: number, number, [TerrainRef, TerrainMutationOptions]): void</code> | Create terrain at a cell inside a [mutate](?id=mutate) callback. |
-| replaceAtCell() | <code>(...args: number, number, [TerrainRef, TerrainMutationOptions]): void</code> | Replace terrain at a cell inside a [mutate](?id=mutate) callback. |
-| removeAtCell() | <code>(...args: number, number, [TerrainMutationOptions]): void</code> | Remove terrain at a cell inside a [mutate](?id=mutate) callback. |
-
-<div class="smt-member-anchors">
-
-##### createAtCell() <!-- {docsify-ignore} -->
-
-##### replaceAtCell() <!-- {docsify-ignore} -->
-
-##### removeAtCell() <!-- {docsify-ignore} -->
-
-</div>
-
-Terrain writers available on [GridMutationWriter.terrains](?id=terrains).
-
-</div>
-
-<div class="smt-member-card">
-
 ### sandkit.api.grid.CellId :id=cellid
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L71" target="_blank" rel="noopener">grid.d.ts:71</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L86" target="_blank" rel="noopener">grid.d.ts:86</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.grid.CellId = CellId">
 
@@ -127,7 +28,7 @@ Packed cell id from [getCellIdAtCell](?id=getcellidatcell).
 
 ### sandkit.api.grid.GridDimensions :id=griddimensions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L74" target="_blank" rel="noopener">grid.d.ts:74</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L89" target="_blank" rel="noopener">grid.d.ts:89</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.grid.GridDimensions = object">
 
@@ -158,7 +59,7 @@ World grid width and height in cells.
 
 ### sandkit.api.grid.ExcavateOptions :id=excavateoptions
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L82" target="_blank" rel="noopener">grid.d.ts:82</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L97" target="_blank" rel="noopener">grid.d.ts:97</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.grid.ExcavateOptions = object">
 
@@ -200,13 +101,293 @@ Flags that control how [excavateAtCell](?id=excavateatcell) resolves damage and 
 
 </div>
 
+<div class="smt-member-card">
+
+### sandkit.api.grid.GridMutationWriter :id=gridmutationwriter
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L214" target="_blank" rel="noopener">grid.d.ts:214</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriter = object">
+
+```ts
+GridMutationWriter = object
+```
+
+</div>
+
+| Property | Type | Description |
+| --- | --- | --- |
+| elements | <code>GridMutationWriterElements</code> | Element cell mutations inside a [mutate](?id=mutate) callback. |
+| terrains | <code>GridMutationWriterTerrains</code> | Terrain cell mutations inside a [mutate](?id=mutate) callback. |
+
+<div class="smt-member-anchors">
+
+##### elements <!-- {docsify-ignore} -->
+
+##### terrains <!-- {docsify-ignore} -->
+
+</div>
+
+Deferred element and terrain mutations passed to [mutate](?id=mutate).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.grid.GridMutationWriterElements :id=gridmutationwriterelements
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L222" target="_blank" rel="noopener">grid.d.ts:222</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriterElements = object">
+
+```ts
+GridMutationWriterElements = object
+```
+
+</div>
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| createAtCell() | <code>(...args: number, number, [ElementRef, ElementCreateOptions]): void</code> | Create an element at a cell inside a [mutate](?id=mutate) callback. |
+| replaceAtCell() | <code>(...args: number, number, [ElementRef, ElementCreateOptions]): void</code> | Replace the element at a cell inside a [mutate](?id=mutate) callback. |
+| removeAtCell() | <code>(...args: number, number, [ElementRemovalOptions]): void</code> | Remove the element at a cell inside a [mutate](?id=mutate) callback. |
+
+<div class="smt-member-anchors">
+
+##### createAtCell() <!-- {docsify-ignore} -->
+
+##### replaceAtCell() <!-- {docsify-ignore} -->
+
+##### removeAtCell() <!-- {docsify-ignore} -->
+
+</div>
+
+Element writers available on [GridMutationWriter.elements](?id=elements).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.grid.GridMutationWriterTerrains :id=gridmutationwriterterrains
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L269" target="_blank" rel="noopener">grid.d.ts:269</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.GridMutationWriterTerrains = object">
+
+```ts
+GridMutationWriterTerrains = object
+```
+
+</div>
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| createAtCell() | <code>(...args: number, number, [TerrainRef, TerrainMutationOptions]): void</code> | Create terrain at a cell inside a [mutate](?id=mutate) callback. |
+| replaceAtCell() | <code>(...args: number, number, [TerrainRef, TerrainMutationOptions]): void</code> | Replace terrain at a cell inside a [mutate](?id=mutate) callback. |
+| removeAtCell() | <code>(...args: number, number, [TerrainMutationOptions]): void</code> | Remove terrain at a cell inside a [mutate](?id=mutate) callback. |
+
+<div class="smt-member-anchors">
+
+##### createAtCell() <!-- {docsify-ignore} -->
+
+##### replaceAtCell() <!-- {docsify-ignore} -->
+
+##### removeAtCell() <!-- {docsify-ignore} -->
+
+</div>
+
+Terrain writers available on [GridMutationWriter.terrains](?id=terrains).
+
+</div>
+
 ## Functions <!-- {docsify-ignore} -->
+
+<div class="smt-member-card">
+
+### sandkit.api.grid.getCellIdAtCell :id=getcellidatcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L21" target="_blank" rel="noopener">grid.d.ts:21</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.getCellIdAtCell(...args: CellCoordinates): CellId">
+
+```ts
+getCellIdAtCell(...args: CellCoordinates): CellId
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Return the packed cell id at grid coordinates.
+
+[`CellId`](api/shared.nominal.md?id=cellid) Packed cell id for the cell.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.grid.isCellEmptyAtCell :id=iscellemptyatcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L30" target="_blank" rel="noopener">grid.d.ts:30</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.isCellEmptyAtCell(...args: CellCoordinates): boolean">
+
+```ts
+isCellEmptyAtCell(...args: CellCoordinates): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Return true when the cell has no element or terrain content.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.grid.isTerrainAtCell :id=isterrainatcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L39" target="_blank" rel="noopener">grid.d.ts:39</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.isTerrainAtCell(...args: CellCoordinates): boolean">
+
+```ts
+isTerrainAtCell(...args: CellCoordinates): boolean
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Return true when the cell holds terrain (not an element).
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.grid.reportActivityAtCell :id=reportactivityatcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L48" target="_blank" rel="noopener">grid.d.ts:48</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.reportActivityAtCell(...args: CellCoordinates): void">
+
+```ts
+reportActivityAtCell(...args: CellCoordinates): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Mark the cell active for simulation this tick.
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.grid.excavateAtCell :id=excavateatcell
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L70" target="_blank" rel="noopener">grid.d.ts:70</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.excavateAtCell(...args: number, number, [Vector2, number, ExcavateOptions]): void">
+
+```ts
+excavateAtCell(...args: number, number, [Vector2, number, ExcavateOptions]): void
+```
+
+</div>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| args | <code>...\[`number`, `number`, [`Vector2`](api/shared.player.md?id=vector2), `number`, [`ExcavateOptions`](?id=excavateoptions)\]</code> |  |
+
+<div class="smt-member-anchors">
+
+##### args <!-- {docsify-ignore} -->
+
+</div>
+
+Apply excavation damage and eject velocity at a cell.
+
+#### Example
+
+```ts
+api.grid.excavateAtCell(
+  cellX,
+  cellY,
+  { x: 0, y: -120 },
+  25,
+);
+```
+
+</div>
+
+<div class="smt-member-card">
+
+### sandkit.api.grid.getDimensions :id=getdimensions
+
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L83" target="_blank" rel="noopener">grid.d.ts:83</a></p>
+
+<div class="smt-member-sig" data-sig="sandkit.api.grid.getDimensions(): GridDimensions">
+
+```ts
+getDimensions(): GridDimensions
+```
+
+</div>
+
+Return the world grid size in cells.
+
+[`GridDimensions`](?id=griddimensions)
+
+#### Example
+
+**Main entry**
+
+```ts
+const { widthCells, heightCells } = api.grid.getDimensions();
+```
+
+</div>
 
 <div class="smt-member-card">
 
 ### sandkit.api.grid.mutate :id=mutate
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L80" target="_blank" rel="noopener">grid.d.ts:80</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L144" target="_blank" rel="noopener">grid.d.ts:144</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.grid.mutate(callback: (writer: GridMutationWriter) =&gt; void): void">
 
@@ -260,7 +441,7 @@ api.events.on("item:used", ({ itemId, cellX, cellY }) => {
 
 ### sandkit.api.grid.revealFogAtCell :id=revealfogatcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L89" target="_blank" rel="noopener">grid.d.ts:89</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L153" target="_blank" rel="noopener">grid.d.ts:153</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.grid.revealFogAtCell(...args: CellCoordinates): void">
 
@@ -288,7 +469,7 @@ Reveal fog of war at a cell.
 
 ### sandkit.api.grid.redrawAroundCell :id=redrawaroundcell
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L99" target="_blank" rel="noopener">grid.d.ts:99</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L163" target="_blank" rel="noopener">grid.d.ts:163</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.grid.redrawAroundCell(...args: [number, number, number]): void">
 
@@ -316,7 +497,7 @@ Request redraw around a cell.
 
 ### sandkit.api.grid.forEachCellInCircle :id=foreachcellincircle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L110" target="_blank" rel="noopener">grid.d.ts:110</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L174" target="_blank" rel="noopener">grid.d.ts:174</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.grid.forEachCellInCircle(centerCellX: number, centerCellY: number, radiusCells: number, callback: (...args: CellCoordinates) =&gt; void): void">
 
@@ -353,7 +534,7 @@ Calls the callback for each cell inside a circle.
 
 ### sandkit.api.grid.forEachCellInRectangle :id=foreachcellinrectangle
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L127" target="_blank" rel="noopener">grid.d.ts:127</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L191" target="_blank" rel="noopener">grid.d.ts:191</a></p>
 
 <div class="smt-member-sig" data-sig="sandkit.api.grid.forEachCellInRectangle(...args: number, number, number, number, (...args: [CellCoordinates) =&gt; void]): void">
 
@@ -381,7 +562,7 @@ Calls the callback for each cell in a rectangle.
 
 ### ~~sandkit.api.grid.forEachCellInRect~~ :id=foreachcellinrect
 
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L140" target="_blank" rel="noopener">grid.d.ts:140</a></p>
+<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/sandkit/api/grid.d.ts#L204" target="_blank" rel="noopener">grid.d.ts:204</a></p>
 
 <div class="smt-member-deprecated">
 <span class="smt-member-deprecated-label">Deprecated</span>
@@ -409,167 +590,5 @@ forEachCellInRect(...args: number, number, number, number, (...args: [CellCoordi
 ##### args <!-- {docsify-ignore} -->
 
 </div>
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.getCellIdAtCell :id=getcellidatcell
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L21" target="_blank" rel="noopener">grid.d.ts:21</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.getCellIdAtCell(...args: CellCoordinates): CellId">
-
-```ts
-getCellIdAtCell(...args: CellCoordinates): CellId
-```
-
-</div>
-
-| Argument | Type | Description |
-| --- | --- | --- |
-| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
-
-<div class="smt-member-anchors">
-
-##### args <!-- {docsify-ignore} -->
-
-</div>
-
-Return the packed cell id at grid coordinates.
-
-[`CellId`](api/shared.nominal.md?id=cellid) Packed cell id for the cell.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.isCellEmptyAtCell :id=iscellemptyatcell
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L30" target="_blank" rel="noopener">grid.d.ts:30</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.isCellEmptyAtCell(...args: CellCoordinates): boolean">
-
-```ts
-isCellEmptyAtCell(...args: CellCoordinates): boolean
-```
-
-</div>
-
-| Argument | Type | Description |
-| --- | --- | --- |
-| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
-
-<div class="smt-member-anchors">
-
-##### args <!-- {docsify-ignore} -->
-
-</div>
-
-Return true when the cell has no element or terrain content.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.isTerrainAtCell :id=isterrainatcell
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L39" target="_blank" rel="noopener">grid.d.ts:39</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.isTerrainAtCell(...args: CellCoordinates): boolean">
-
-```ts
-isTerrainAtCell(...args: CellCoordinates): boolean
-```
-
-</div>
-
-| Argument | Type | Description |
-| --- | --- | --- |
-| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
-
-<div class="smt-member-anchors">
-
-##### args <!-- {docsify-ignore} -->
-
-</div>
-
-Return true when the cell holds terrain (not an element).
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.reportActivityAtCell :id=reportactivityatcell
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L48" target="_blank" rel="noopener">grid.d.ts:48</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.reportActivityAtCell(...args: CellCoordinates): void">
-
-```ts
-reportActivityAtCell(...args: CellCoordinates): void
-```
-
-</div>
-
-| Argument | Type | Description |
-| --- | --- | --- |
-| args | <code>...[`CellCoordinates`](api/shared.player.md?id=cellcoordinates)</code> |  |
-
-<div class="smt-member-anchors">
-
-##### args <!-- {docsify-ignore} -->
-
-</div>
-
-Mark the cell active for simulation this tick.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.excavateAtCell :id=excavateatcell
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L60" target="_blank" rel="noopener">grid.d.ts:60</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.excavateAtCell(...args: number, number, [Vector2, number, ExcavateOptions]): void">
-
-```ts
-excavateAtCell(...args: number, number, [Vector2, number, ExcavateOptions]): void
-```
-
-</div>
-
-| Argument | Type | Description |
-| --- | --- | --- |
-| args | <code>...\[`number`, `number`, [`Vector2`](api/shared.player.md?id=vector2), `number`, [`ExcavateOptions`](?id=excavateoptions)\]</code> |  |
-
-<div class="smt-member-anchors">
-
-##### args <!-- {docsify-ignore} -->
-
-</div>
-
-Apply excavation damage and eject velocity at a cell.
-
-</div>
-
-<div class="smt-member-card">
-
-### sandkit.api.grid.getDimensions :id=getdimensions
-
-<p class="smt-member-badge"><a href="https://github.com/sandustry-modding/SandustryTypes/blob/main/src/shared/api/grid.d.ts#L68" target="_blank" rel="noopener">grid.d.ts:68</a></p>
-
-<div class="smt-member-sig" data-sig="sandkit.api.grid.getDimensions(): GridDimensions">
-
-```ts
-getDimensions(): GridDimensions
-```
-
-</div>
-
-Return the world grid size in cells.
-
-[`GridDimensions`](?id=griddimensions)
 
 </div>
