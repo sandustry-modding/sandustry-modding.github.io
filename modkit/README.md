@@ -4,7 +4,7 @@ Shared kit for Sandustry mods.
 It includes:
 
 - **React runtime** — `sandkit.react` wired through `modkit/internal/esbuild/react.ts` and JSX runtimes
-- **Utils** — small helpers (`safe`, settings, scene checks, retro console, live config)
+- **Utils** — small helpers (`safe`, `t`, settings, scene checks, retro console, live config)
 - **Integration tests** — Node helpers that talk to the extracted game in Chromium (CDP `:9224`)
 - **UI** — shared React components under `modkit/ui/`.
   Live canvases and PNGs live under `docs/ui/canvas/`.

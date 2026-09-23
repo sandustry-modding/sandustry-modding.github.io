@@ -4,7 +4,7 @@ Small helpers under `modkit/utils/`.
 Import from `@modkit/utils`.
 
 ```ts
-import { safe, isEnabled, inGame } from "@modkit/utils";
+import { safe, isEnabled, inGame, t } from "@modkit/utils";
 ```
 
 ## `safe`
@@ -46,6 +46,25 @@ if (!isEnabled()) return;
 if (isEnabled() && otherFlag) {
   // ...
 }
+```
+
+## `t`
+
+```ts
+t(key: string, fallback?: string, params?: Record<string, string | number>): string
+```
+
+Reads a translation with `sandkit.api.i18n.t` inside `safe`.
+When the result is missing, empty, or equal to `key`, uses `fallback` or `key`.
+Interpolates `{name}` placeholders in the fallback string when `params` is set.
+
+Use it for mod UI copy when a key might be unregistered or when you need a local English fallback.
+
+```ts
+import { t } from "@modkit/utils";
+
+const label = t(def.nameKey, def.name);
+const message = t("mods|demo|count", "Count: {count}", { count: 3 });
 ```
 
 ## `inGame`
@@ -90,6 +109,7 @@ export const config = live.config;
 | ---------------- | ------------------------------------------- |
 | `index.ts`       | Re-exports all public API                   |
 | `safe.ts`        | `safe`                                      |
+| `i18n.ts`        | `t`                                         |
 | `settings.ts`    | `isEnabled`                                 |
 | `scene.ts`       | `inGame`                                    |
 | `live-config.ts` | `createLiveConfig` and live-config registry |
