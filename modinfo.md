@@ -37,4 +37,4 @@ The build writes `modinfo.json` into `dist/<modinfo.id>/` without `$schema`.
 The game folder name is `id`.
 
 Shapes: `@sandustry-modding/types/configs` (`ModInfo`), via [`modkit/modinfo.ts`](../modkit/modinfo.ts).
-Starter file: [`src/template/modinfo.json`](../src/template/modinfo.json).
+Starter file: [`src/template/modinfo.ts`](../src/template/modinfo.ts).
