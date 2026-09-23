@@ -35,7 +35,7 @@ It maps `api`, `apiVersion`, `engine`, `enums`, `react`, and `state` and when to
 It documents `sandkit.engine.api` as a state-first internal twin and lists engine-only namespaces.
 It describes top-level state bags under `environment`, `session`, `shared`, and `store`.
 It covers runtime enum bags and the separate `window.electron` host bridge.
-It notes TypeScript globals and casting `sandkit.api` to `WorkerSandkitApi` in workers.
+It notes that main and worker `sandkit.api` are different TypeScript ambients; worker typing is tsconfig-only (see the worker mods guide).
 
 The runtime guide covers cross-cutting main-thread services unless noted for workers.
 It documents `hooks.intercept` and `hooks.modify` with options and unsubscribe returns.

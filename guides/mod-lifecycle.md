@@ -47,7 +47,7 @@ In TypeScript or checked JavaScript:
 ```
 
 Use the free name `sandkit` in `main.js`.
-In `worker.js`, type `sandkit.api` as `WorkerSandkitApi` — see [Worker mods](guides/worker-mods.md).
+Worker typing uses a separate tsconfig project — see [Worker mods](guides/worker-mods.md).
 
 ## Hooks and events
 

@@ -18,11 +18,10 @@ Defined in: [worker/sandkit-api.d.ts:14](https://github.com/sandustry-modding/Sa
 
 Composed worker-thread `sandkit.api` object.
 
-Namespace members are documented under [worker](api/sandkit.api.worker.worker.md). Use this type in
-`worker.js` / `worker.ts`:
+Namespace members are documented under [worker](api/sandkit.api.worker.worker.md). In `worker.js` / `worker.ts`, typecheck with a worker-only tsconfig so the ambient `sandkit.api` is this type (no cast):
 
 ```ts
-const api = sandkit.api as unknown as WorkerSandkitApi;
+sandkit.api.hooks.intercept(/* ... */);
 ```
 
 Main and worker surfaces overlap but are not interchangeable. Do not use

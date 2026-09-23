@@ -110,13 +110,11 @@ Details: [Electron bridge](../electron-bridge.md).
 
 ## Typing in TypeScript
 
-Load ambient bindings with a triple-slash reference or your project `types` config.
+Main-thread mods load ambient bindings with a triple-slash reference or a main `tsconfig` / `jsconfig` include.
 Global types include `Sandkit`, `SandkitApi`, `SandkitEngine`, `SandkitState`, `SandkitEnums`, and `SandkitReact`.
-Worker scripts should cast `sandkit.api` to `WorkerSandkitApi`.
 
-```ts
-const api = sandkit.api as unknown as WorkerSandkitApi;
-```
+Worker entry files use a separate tsconfig project so `sandkit.api` is `WorkerSandkitApi` with no cast.
+See [Worker mods](guides/worker-mods.md).
 
 ## Related
 

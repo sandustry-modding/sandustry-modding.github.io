@@ -45,9 +45,9 @@ Runtime `sandkit.api.shared` (shared-memory buffers) is unrelated to the `src/sh
 npm install @sandustry-modding/types
 ```
 
-### Ambient types (preferred)
+### Ambient types (main thread)
 
-Pull the host `sandkit` ambient into your project with a triple-slash reference. Put it at the top of `main.js` / `worker.js`, or in a small ambient `.d.ts` that your `tsconfig` / `jsconfig` includes:
+Pull the host `sandkit` ambient into your main-thread program with a triple-slash reference at the top of `main.js`, or in a small ambient `.d.ts` that your main `tsconfig` / `jsconfig` includes:
 
 ```ts
 /// <reference types="@sandustry-modding/types" />
@@ -56,6 +56,21 @@ Pull the host `sandkit` ambient into your project with a triple-slash reference.
 That works in `.ts` and `.js` (including checked JS with `checkJs`).
 
 Do **not** list `@sandustry-modding/types` under `compilerOptions.types`. That list only loads packages from `node_modules/@types` (for example `"react"` or `"node"`).
+
+### Worker ambient (filename tsconfig)
+
+Typecheck `worker.ts` and `*.worker.ts` in a **second** TypeScript project.
+Do not load main and worker ambients in the same program.
+Never import worker entry files from main-thread source.
+Shared helpers used by both threads must not assume either ambient `sandkit.api` shape, or they belong on one thread only.
+
+The [Sandustry mod template](https://github.com/sandustry-modding/SandustryModTemplate) ships `tsconfig.worker.json` as the supported pattern:
+
+- Main `tsconfig.json` excludes `**/worker.ts` and `**/*.worker.ts`.
+- `tsconfig.worker.json` extends the main config, sets `exclude` to `[]`, includes only those worker globs, and lists `node_modules/@sandustry-modding/types/src/worker/global.d.ts` under `files`.
+- Run both projects in CI: `tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json`.
+
+Standalone consumers should copy that `tsconfig.worker.json` layout instead of triple-slash references on worker files or extra worker-only ambient `.d.ts` shims.
 
 Deep declaration modules are also available, for example:
 
@@ -68,7 +83,7 @@ import type { Vector2, CellCoordinates, CellXY, Size2 } from "@sandustry-modding
 ## Usage
 
 - **Main mod (`main.js`):** use the ambient free name `sandkit`. Type aliases such as `SandkitApi` are global; do not import a value binding.
-- **Worker mod (`worker.js`):** type `sandkit.api` as `WorkerSandkitApi`. Worker and main APIs overlap but are not interchangeable.
+- **Worker mod (`worker.ts` / `*.worker.ts`):** typecheck with a worker-only tsconfig (see **Worker ambient** above) so `sandkit.api` is `WorkerSandkitApi` with no cast.
 - **Shared folder:** not a runtime namespace. Import `Vector2`, `CellCoordinates`, and related primitives from `@sandustry-modding/types/shared` or `@sandustry-modding/types/shared/geometry`. API namespaces are declared under `src/sandkit/api/` (main) and `src/worker/api/` (worker).
 - **Configs folder:** `modinfo.json` and `patches.json` TypeScript types (`@sandustry-modding/types/configs`). Not part of the live `sandkit` object. JSON Schema: https://sandustry-modding.github.io/schemas/modinfo.json and https://sandustry-modding.github.io/schemas/patches.json
 - **Electron folder:** renderer preload bridge (`@sandustry-modding/types/electron`). Ambient `electron` on `@sandustry-modding/types`. Docs: [Electron bridge](https://sandustry-modding.github.io/#/electron-bridge).

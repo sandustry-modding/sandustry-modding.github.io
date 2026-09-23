@@ -28,10 +28,21 @@ See [modinfo.json reference](modinfo.json.md).
 The host injects `sandkit` into `workerEntry` the same way as `entry`.
 Worker and main `sandkit.api` surfaces overlap but are **not** interchangeable.
 
-```ts
-/// <reference types="@sandustry-modding/types" />
+Typecheck `worker.ts` and `*.worker.ts` in a **separate** TypeScript project from main-thread files.
+That project loads the worker ambient so `sandkit.api` is `WorkerSandkitApi` with no cast.
+See [Types package](../types/README.md) (**Worker ambient**) and the mod template `tsconfig.worker.json`.
 
-const api = sandkit.api as unknown as WorkerSandkitApi;
+Rules:
+
+- Never load main and worker ambients in the same TypeScript program.
+- Never import `worker.ts` / `*.worker.ts` from `main.ts` or other main-thread files.
+- Shared helpers used by both threads must not assume either ambient `sandkit.api` shape, or they belong on one thread only.
+
+```ts
+// worker.ts — checked with worker-only tsconfig only
+sandkit.api.hooks.intercept("element:update", handleUpdate, {
+  guard: { elementType: sandkit.api.elements.getTypeById("exampleMod.examplePowder") },
+});
 ```
 
 Prefer declarations under `worker/` in this package.

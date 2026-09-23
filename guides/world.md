@@ -120,12 +120,9 @@ Element updates and other sim-side logic run in worker threads.
 Mods that hook that behavior need `workerEntry` and worker-scoped APIs.
 
 ```ts
-/// <reference types="@sandustry-modding/types" />
-
-const api = sandkit.api as unknown as WorkerSandkitApi;
-
-api.hooks.intercept("element:update", handleUpdate, {
-  guard: { elementType: api.elements.getTypeById("exampleMod.examplePowder") },
+// worker.ts — worker-only tsconfig; sandkit.api is WorkerSandkitApi there
+sandkit.api.hooks.intercept("element:update", handleUpdate, {
+  guard: { elementType: sandkit.api.elements.getTypeById("exampleMod.examplePowder") },
 });
 ```
 

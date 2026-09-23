@@ -1,3 +1,7 @@
+## 2026-09-23 worker mod TypeScript (tsconfig-only)
+
+- Main-thread `sandkit.api` and worker-thread `WorkerSandkitApi` are separate ambients; worker mods typecheck in a worker-only tsconfig — [Engine and workers](/okf/internals/engine-and-workers.md), [Worker mods](/guides/worker-mods.md).
+
 ## 2026-09-23 SandustryTypes type paths (no src/shared/api)
 
 - World concept type lines now point at `src/worker/api/*.d.ts` instead of removed `src/shared/api/*.d.ts` — [Elements](/okf/world/elements.md), [Maps](/okf/world/maps.md), [Terrains](/okf/world/terrains.md).

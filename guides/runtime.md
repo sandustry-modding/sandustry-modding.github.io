@@ -37,7 +37,7 @@ API: [sandkit.api.events](../api/sandkit.api.events.md).
 ## Worker hooks and events
 
 Workers use the same method names with different ids and optional `guard` filters.
-Type `sandkit.api` as `WorkerSandkitApi` — see [Worker mods](guides/worker-mods.md).
+Type worker code with a worker-only tsconfig so `sandkit.api` is `WorkerSandkitApi` — see [Worker mods](guides/worker-mods.md).
 
 ## Storage
 

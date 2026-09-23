@@ -41480,7 +41480,8 @@ Namespace members are documented under [worker](api/sandkit.api.worker.worker.md
 `worker.js` / `worker.ts`:
 
 ```ts
-const api = sandkit.api as unknown as WorkerSandkitApi;
+// worker.ts — worker-only tsconfig; sandkit.api is WorkerSandkitApi
+sandkit.api.hooks.intercept(/* ... */);
 ```
 
 Main and worker surfaces overlap but are not interchangeable. Do not use
@@ -42821,7 +42822,7 @@ import type { Vector2, CellCoordinates, CellXY, Size2 } from "@sandustry-modding
 ### Usage
 
 - **Main mod (`main.js`):** use the ambient free name `sandkit`. Type aliases such as `SandkitApi` are global; do not import a value binding.
-- **Worker mod (`worker.js`):** type `sandkit.api` as `WorkerSandkitApi`. Worker and main APIs overlap but are not interchangeable.
+- **Worker mod (`worker.ts` / `*.worker.ts`):** typecheck with a worker-only tsconfig so `sandkit.api` is `WorkerSandkitApi` with no cast. Worker and main APIs overlap but are not interchangeable.
 - **Shared folder:** not a runtime namespace. Import `Vector2`, `CellCoordinates`, and related primitives from `@sandustry-modding/types/shared` or `@sandustry-modding/types/shared/geometry`. API namespaces are declared under `src/sandkit/api/` (main) and `src/worker/api/` (worker).
 - **Configs folder:** `modinfo.json` and `patches.json` TypeScript types (`@sandustry-modding/types/configs`). Not part of the live `sandkit` object. JSON Schema: https://sandustry-modding.github.io/schemas/modinfo.json and https://sandustry-modding.github.io/schemas/patches.json
 - **Electron folder:** renderer preload bridge (`@sandustry-modding/types/electron`). Ambient `electron` on `@sandustry-modding/types`. Docs: [Electron bridge](https://sandustry-modding.github.io/#/electron-bridge).
