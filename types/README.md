@@ -61,12 +61,12 @@ Do not load main and worker ambients in the same program.
 Never import worker entry files from main-thread source.
 Shared helpers used by both threads must not assume either ambient `sandkit.api` shape, or they belong on one thread only.
 
-The [Sandustry mod template](https://github.com/sandustry-modding/SandustryModTemplate) ships `tsconfig.json` plus `tsconfig.worker.json` as the supported pattern:
+The [Sandustry mod template](https://github.com/sandustry-modding/SandustryModTemplate) ships a solution `tsconfig.json` plus `tsconfig.main.json` and `tsconfig.worker.json`:
 
-- Main `tsconfig.json` excludes `**/worker.ts` and `**/*.worker.ts`.
+- `tsconfig.json` has an empty `files` list and `references` both projects, so the editor typechecks each file in the matching project.
+- `tsconfig.main.json` excludes `**/worker.ts` and `**/*.worker.ts`.
 - `tsconfig.worker.json` extends the main config, sets `exclude` to `[]`, includes only those worker globs, and lists `node_modules/@sandustry-modding/types/src/worker/global.d.ts` under `files`.
-- The template workspace enables `typescript.tsserver.experimental.enableProjectDiagnostics` so the editor loads the worker project for those files.
-- Run both projects in CI: `tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json`.
+- Run both projects in CI: `tsc --noEmit -p tsconfig.main.json && tsc --noEmit -p tsconfig.worker.json`.
 
 Standalone consumers should copy that `tsconfig.worker.json` layout instead of triple-slash references on worker files or extra worker-only ambient `.d.ts` shims.
 
