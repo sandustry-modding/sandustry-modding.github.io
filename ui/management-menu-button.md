@@ -4,7 +4,7 @@ Add a vanilla-style row under Upgrades (same look as Toolbox / Building / Resear
 The row mounts in the management column and follows expand / collapse.
 
 Prefer `registerManagementMenuButton` from `src/<name>/main.ts`.
-Live demo: [management-button](https://github.com/sandustry-modding/SandustryExamples/tree/main/ui/management-button/).
+Live demo: [src/examples/ui/management](https://github.com/sandustry-modding/SandustryModTemplate/tree/main/src/examples/ui/management).
 Use the React `ManagementMenuButton` only when the icon must be a React node or `active` must update every render.
 
 Hover plays `blip`; click plays `click` when those sounds exist. `hotkey` is badge text only — it does not bind a key.

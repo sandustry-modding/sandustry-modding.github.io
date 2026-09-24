@@ -59,4 +59,4 @@ export { patches } from "./patches";
 ```
 
 Types: `@sandustry-modding/types/configs` (`BundlePatch`).
-Example: [collector-element/patches.json](https://github.com/sandustry-modding/SandustryExamples/blob/main/content/collector-element/patches.json).
+Example: [src/examples/patches.ts](https://github.com/sandustry-modding/SandustryModTemplate/blob/main/src/examples/patches.ts).

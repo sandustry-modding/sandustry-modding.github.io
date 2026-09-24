@@ -28,7 +28,6 @@ It does not start Chromium.
 `npm run test:integration`:
 
 1. Builds `src/` with `--debug` into `dist/`.
-  Builds `examples/` too when that folder is present (or when you pass `--examples`, which clones [SandustryExamples](https://github.com/sandustry-modding/SandustryExamples)).
 2. Boots `sandustry/source/dist` in headless Chromium (CDP **:9224**).
 3. Waits for boot to finish (`game:ready`, `#loading` removed, Game scene).
 4. Runs every `*.integration.test.ts` with `--test-concurrency=1` (async spawn so
@@ -46,9 +45,8 @@ To reduce lag on your machine (and on Steam Sandustry):
 | Goal                        | Command                                      |
 | --------------------------- | -------------------------------------------- |
 | Run one mod only            | `nr test:integration template`               |
-| Run one mod with a window   | `nr test:integration:view collector-element` |
-| Run example samples only    | `nr test:integration --examples`             |
-| Skip the full example build | pass a mod folder (or `--mod`)               |
+| Run one mod with a window   | `nr test:integration:view examples`          |
+| Run the gallery mod         | `nr test:integration examples`               |
 
 Local runs:
 
@@ -61,14 +59,12 @@ Local runs:
 Pass a mod folder name (or `--mod <folder>`) to build that mod, load only that
 mod in the host, and run only its integration tests.
 Repeat folders / `--mod`
-to select several. Pass `--examples` to build every sample and run only
-`examples/**/*.integration.test.ts`.
+to select several.
 
 ```bash
-nr test:integration:view overlay-hotkey
+nr test:integration:view examples
 nr test:integration template
-nr test:integration overlay-hotkey i18n
-nr test:integration --examples
+nr test:integration examples
 ```
 
 If the host is not running, `setupGame()` throws.
@@ -242,4 +238,4 @@ Game rules:
 
 Kit smoke: `modkit/test/game.integration.test.ts`.
 Template: `src/template/template.integration.test.ts`.
-Samples: every `examples/**/*.integration.test.ts`.
+Gallery: `src/examples/examples.integration.test.ts`.

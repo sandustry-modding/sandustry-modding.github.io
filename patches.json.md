@@ -93,4 +93,4 @@ Declare compatibility in [modinfo.json](modinfo.json.md):
 
 - [The mod lifecycle](guides/mod-lifecycle.md)
 - [configs: patches](api/configs.md)
-- [Example patches.json](https://github.com/sandustry-modding/SandustryExamples/blob/main/content/collector-element/patches.json)
+- [Example patches.ts](https://github.com/sandustry-modding/SandustryModTemplate/blob/main/src/examples/patches.ts)

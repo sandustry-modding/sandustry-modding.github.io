@@ -77,7 +77,7 @@ Classes the HUD does not use (for example `w-[28rem]`, `underline`) do nothing u
 
 Import `@modkit/ui/tailwind.css` and insert the string into a `<style>` tag.
 The build compiles only class names from files esbuild packed into `main.js`.
-See [overlay-hotkey/main.ts](https://github.com/sandustry-modding/SandustryExamples/blob/main/ui/overlay-hotkey/main.ts).
+See [src/examples/ui/overlay/register.ts](https://github.com/sandustry-modding/SandustryModTemplate/blob/main/src/examples/ui/overlay/register.ts).
 
 Options rows, switches, fields, and buttons use the same Tailwind classes as the in-game Options dialog.
 Import the components from `@modkit/ui` (not `@modkit/ui/options` — that path is `options.css`).

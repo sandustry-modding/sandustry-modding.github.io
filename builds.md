@@ -15,8 +15,8 @@ Bundle with esbuild `format: "esm"` and do not export from the entry — the out
 
 `--no-debug` forces a release-style bundle even when watch or game flags are set (`npm run dev:release` uses this). `--mod <folder>` builds one mod folder (repeat `--mod` for several). `npm run dev` follows `.tmp/dev-mod-selection.json` from F5 / `dev:pick`, and merges companions from `.env` `DEV_ALWAYS_MODS` (see `.env.example`).
 Debug builds (`npm run dev`, `--game`, `--debug`) install to the OS mods folder (`dist/` links there). `npm run build` discovers every `src/*/modinfo.ts`.
-Use `npm run examples` or `npm run build -- --examples` for `examples/*/modinfo.ts`.
-Those commands clone [SandustryExamples](https://github.com/sandustry-modding/SandustryExamples) into `examples/` when that folder is missing.
+`npm run examples` clones [SandustryExamples](https://github.com/sandustry-modding/SandustryExamples) into `src/examples` when that folder is missing, then watches it.
+`npm run build -- --mod examples` builds that one gallery mod.
 
 Debug builds emit **inline** source maps on `main.js` (needed for `new Function` eval).
 Use `--sourcemap` to force maps on a release build, or `--no-sourcemap` to omit them from a debug build.
@@ -57,7 +57,7 @@ The compiled Tailwind sheet is **only the utilities this bundle uses**: esbuild 
 Unused `modkit/ui` components do not add CSS.
 Mods that never import those files skip the compile.
 
-The insert lives in [overlay-hotkey/main.ts](https://github.com/sandustry-modding/SandustryExamples/blob/main/ui/overlay-hotkey/main.ts) (`style#<mod-id>-tailwind`).
+The insert lives in [src/examples/ui/overlay/register.ts](https://github.com/sandustry-modding/SandustryModTemplate/blob/main/src/examples/ui/overlay/register.ts) (`style#<mod-id>-tailwind`).
 A renderer hot reload re-inserts the sheet when that code runs again.
 Restart the game if the overlay does not update.
 
@@ -95,19 +95,19 @@ npm run setup            # check install, extract sandustry/source/, link dist/,
 npm run dev              # watch all src/ mods (debug + sourcemaps)
 npm run dev:release      # watch without debugPatches or sourcemaps
 npm run dev:pick         # TTY picker; last choice pre-selected
-npm run dev -- --mod overlay-hotkey
-npm run dev -- --mod overlay-hotkey --mod template
+npm run dev -- --mod examples
+npm run dev -- --mod examples --mod template
 npm run build            # release all src/ mods to build/<modinfo.id>/
-npm run build -- --mod overlay-hotkey
-npm run build -- --examples
+npm run build -- --mod examples
+npm run examples
 npm run publish          # npm run build + SteamCMD Workshop upload
 npm run publish -- --mod <folder>
 npm run typecheck
 npm run test
 npm run test:integration  # headless Chromium on :9224, then *.integration.test.ts
 npm run test:integration:view  # visible window (Linux needs DISPLAY)
-nr test:integration:view overlay-hotkey  # one folder + its tests (visible)
-nr test:integration overlay-hotkey  # one folder + its tests (headless)
+nr test:integration:view examples  # one folder + its tests (visible)
+nr test:integration examples  # one folder + its tests (headless)
 npm run sandustry        # stop + launch (no build; keep npm run dev for the bundle)
 ```
 
@@ -173,7 +173,7 @@ The first publish prompts for your Steam password (and Steam Guard if needed), t
 Later publishes reuse that cache with short status lines.
 Full SteamCMD output goes to `.tmp/steamcmd-publish.log`.
 
-In a terminal, `npm run publish` shows an arrow-key list of **`src/` mods** (not `examples/`), then a confirm step (Upload / Cancel).
+In a terminal, `npm run publish` shows an arrow-key list of `src/` mods, then a confirm step (Upload / Cancel).
 
 ```bash
 npm run publish
@@ -204,7 +204,7 @@ The confirm step prints the full Steam change-notes text before Upload / Cancel.
 ## GitHub Actions
 
 Pushes, pull requests, and manual runs execute `.github/workflows/ci.yml` on **Ubuntu** and **Windows** (Node 24).
-Each job runs `npm ci`, `npm run build`, and a Tailwind example build (`--examples --mod overlay-hotkey`). `--examples` clones [SandustryExamples](https://github.com/sandustry-modding/SandustryExamples) into `examples/`.
+Each job runs `npm ci`, `npm run build`, and a Tailwind example build (`--mod examples`).
 
 On **Windows**, CI also builds a fake Sandustry install under `.tmp/ci-sandustry/` (`scripts/setup/prepare-ci-game.js`), sets `SANDUSTRY`, and runs `npm run setup`.
 That checks Node, links, asar extract, and junctions without Steam.
